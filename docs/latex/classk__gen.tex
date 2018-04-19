@@ -1,0 +1,76 @@
+\hypertarget{classk__gen}{}\section{k\+\_\+gen$<$ N $>$ Class Template Reference}
+\label{classk__gen}\index{k\+\_\+gen$<$ N $>$@{k\+\_\+gen$<$ N $>$}}
+
+
+A class that performs sampling with replacement (useful for the index sampler in an \hyperlink{classAPF}{A\+PF})  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for k\+\_\+gen$<$ N $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{classk__gen__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for k\+\_\+gen$<$ N $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{classk__gen__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classk__gen_ace54048feceb6965d7c3b51c5a4b7eea}{k\+\_\+gen} ()\hypertarget{classk__gen_ace54048feceb6965d7c3b51c5a4b7eea}{}\label{classk__gen_ace54048feceb6965d7c3b51c5a4b7eea}
+
+\begin{DoxyCompactList}\small\item\em default constructor. only one available. \end{DoxyCompactList}\item 
+std\+::array$<$ unsigned int, N $>$ \hyperlink{classk__gen_a9256cf954970f71dc1c5ce36081b2364}{sample} (const std\+::array$<$ double, N $>$ \&log\+Wts)
+\begin{DoxyCompactList}\small\item\em sample N times from (0,1,...N-\/1) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t N$>$\\*
+class k\+\_\+gen$<$ N $>$}
+
+A class that performs sampling with replacement (useful for the index sampler in an \hyperlink{classAPF}{A\+PF}) 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\index{k\+\_\+gen@{k\+\_\+gen}!sample@{sample}}
+\index{sample@{sample}!k\+\_\+gen@{k\+\_\+gen}}
+\subsubsection[{\texorpdfstring{sample(const std\+::array$<$ double, N $>$ \&log\+Wts)}{sample(const std::array< double, N > &logWts)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t N$>$ std\+::array$<$ unsigned int, N $>$ {\bf k\+\_\+gen}$<$ N $>$\+::sample (
+\begin{DoxyParamCaption}
+\item[{const std\+::array$<$ double, N $>$ \&}]{log\+Wts}
+\end{DoxyParamCaption}
+)}\hypertarget{classk__gen_a9256cf954970f71dc1c5ce36081b2364}{}\label{classk__gen_a9256cf954970f71dc1c5ce36081b2364}
+
+
+sample N times from (0,1,...N-\/1) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em log\+Wts} & possibly unnormalized type std\+::array$<$double, N$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the integers in a std\+::array$<$unsigned int, N$>$ 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

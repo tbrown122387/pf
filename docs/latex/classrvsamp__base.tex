@@ -1,0 +1,59 @@
+\hypertarget{classrvsamp__base}{}\section{rvsamp\+\_\+base$<$ dim $>$ Class Template Reference}
+\label{classrvsamp__base}\index{rvsamp\+\_\+base$<$ dim $>$@{rvsamp\+\_\+base$<$ dim $>$}}
+
+
+Base class for all random variable sampler types. Primary benefit is that it sets the seed for you.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for rvsamp\+\_\+base$<$ dim $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=189pt]{classrvsamp__base__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classrvsamp__base_a744275f57e806e6c787e331241b306eb}{ssv} = Eigen\+::\+Matrix$<$ double, dim, 1 $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classrvsamp__base_a57fd1e9639c741bf464555756840daf2}{rvsamp\+\_\+base} ()\hypertarget{classrvsamp__base_a57fd1e9639c741bf464555756840daf2}{}\label{classrvsamp__base_a57fd1e9639c741bf464555756840daf2}
+
+\begin{DoxyCompactList}\small\item\em The default constructor. This is the only option available. Sets the seed with the clock. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::mt19937 \hyperlink{classrvsamp__base_aa3df1440582518e6da779499728cac3c}{m\+\_\+rng}\hypertarget{classrvsamp__base_aa3df1440582518e6da779499728cac3c}{}\label{classrvsamp__base_aa3df1440582518e6da779499728cac3c}
+
+\begin{DoxyCompactList}\small\item\em prng \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dim = 1$>$\\*
+class rvsamp\+\_\+base$<$ dim $>$}
+
+Base class for all random variable sampler types. Primary benefit is that it sets the seed for you. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\index{rvsamp\+\_\+base@{rvsamp\+\_\+base}!ssv@{ssv}}
+\index{ssv@{ssv}!rvsamp\+\_\+base@{rvsamp\+\_\+base}}
+\subsubsection[{\texorpdfstring{ssv}{ssv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim = 1$>$ using {\bf rvsamp\+\_\+base}$<$ dim $>$\+::{\bf ssv} =  Eigen\+::\+Matrix$<$double,dim,1$>$}\hypertarget{classrvsamp__base_a744275f57e806e6c787e331241b306eb}{}\label{classrvsamp__base_a744275f57e806e6c787e331241b306eb}
+\char`\"{}state size vector\char`\"{} type alias for linear algebra stuff 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

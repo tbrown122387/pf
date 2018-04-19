@@ -1,0 +1,171 @@
+\hypertarget{classMVNSampler}{}\section{M\+V\+N\+Sampler$<$ dim $>$ Class Template Reference}
+\label{classMVNSampler}\index{M\+V\+N\+Sampler$<$ dim $>$@{M\+V\+N\+Sampler$<$ dim $>$}}
+
+
+A class that performs sampling from a multivariate normal distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for M\+V\+N\+Sampler$<$ dim $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=189pt]{classMVNSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for M\+V\+N\+Sampler$<$ dim $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=189pt]{classMVNSampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classMVNSampler_a409f73d7a66202b7ecff0f86e9afe3c1}{Vec} = Eigen\+::\+Matrix$<$ double, dim, 1 $>$
+\item 
+using \hyperlink{classMVNSampler_a008de968c985ee41633d53d25174701f}{Mat} = Eigen\+::\+Matrix$<$ double, dim, dim $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMVNSampler_a707349ecff1586c9477ffa399f014456}{M\+V\+N\+Sampler} ()
+\begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for multivariate standard Normal random variate generation. \end{DoxyCompactList}\item 
+\hyperlink{classMVNSampler_a5ff0c96fe23f68ae910c11d6636aacf4}{M\+V\+N\+Sampler} (const \hyperlink{classMVNSampler_a409f73d7a66202b7ecff0f86e9afe3c1}{Vec} \&mean\+Vec, const \hyperlink{classMVNSampler_a008de968c985ee41633d53d25174701f}{Mat} \&cov\+Mat)
+\begin{DoxyCompactList}\small\item\em The user must supply both mean and covariance matrix. \end{DoxyCompactList}\item 
+void \hyperlink{classMVNSampler_a048a0f48cfb72718faf140e74e9a3ccb}{set\+Covar} (const \hyperlink{classMVNSampler_a008de968c985ee41633d53d25174701f}{Mat} \&cov\+Mat)
+\begin{DoxyCompactList}\small\item\em sets the covariance matrix of the sampler. \end{DoxyCompactList}\item 
+void \hyperlink{classMVNSampler_a842ee5e6925f50881b6628821a5de717}{set\+Mean} (const \hyperlink{classMVNSampler_a409f73d7a66202b7ecff0f86e9afe3c1}{Vec} \&mean\+Vec)
+\begin{DoxyCompactList}\small\item\em sets the mean vector of the sampler. \end{DoxyCompactList}\item 
+auto \hyperlink{classMVNSampler_a9c4d69cdbe841255a6fc1ff8531c4f4e}{sample} () -\/$>$ \hyperlink{classMVNSampler_a409f73d7a66202b7ecff0f86e9afe3c1}{Vec}
+\begin{DoxyCompactList}\small\item\em Draws a random vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::normal\+\_\+distribution \hyperlink{classMVNSampler_a4b68c9586aa0b10f27437aebb370869f}{m\+\_\+z\+\_\+gen}\hypertarget{classMVNSampler_a4b68c9586aa0b10f27437aebb370869f}{}\label{classMVNSampler_a4b68c9586aa0b10f27437aebb370869f}
+
+\begin{DoxyCompactList}\small\item\em makes normal random variates \end{DoxyCompactList}\item 
+\hyperlink{classMVNSampler_a008de968c985ee41633d53d25174701f}{Mat} \hyperlink{classMVNSampler_a59c5a532bceb4156205d32d239458696}{m\+\_\+scale\+\_\+mat}\hypertarget{classMVNSampler_a59c5a532bceb4156205d32d239458696}{}\label{classMVNSampler_a59c5a532bceb4156205d32d239458696}
+
+\begin{DoxyCompactList}\small\item\em covariance matrix \end{DoxyCompactList}\item 
+\hyperlink{classMVNSampler_a409f73d7a66202b7ecff0f86e9afe3c1}{Vec} \hyperlink{classMVNSampler_abe79aa245de63b44eb25c1fa56cffb73}{m\+\_\+mean}\hypertarget{classMVNSampler_abe79aa245de63b44eb25c1fa56cffb73}{}\label{classMVNSampler_abe79aa245de63b44eb25c1fa56cffb73}
+
+\begin{DoxyCompactList}\small\item\em mean vector \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dim$>$\\*
+class M\+V\+N\+Sampler$<$ dim $>$}
+
+A class that performs sampling from a multivariate normal distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!Mat@{Mat}}
+\index{Mat@{Mat}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\subsubsection[{\texorpdfstring{Mat}{Mat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim$>$ using {\bf M\+V\+N\+Sampler}$<$ dim $>$\+::{\bf Mat} =  Eigen\+::\+Matrix$<$double,dim,dim$>$}\hypertarget{classMVNSampler_a008de968c985ee41633d53d25174701f}{}\label{classMVNSampler_a008de968c985ee41633d53d25174701f}
+type alias for linear algebra stuff \index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!Vec@{Vec}}
+\index{Vec@{Vec}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\subsubsection[{\texorpdfstring{Vec}{Vec}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim$>$ using {\bf M\+V\+N\+Sampler}$<$ dim $>$\+::{\bf Vec} =  Eigen\+::\+Matrix$<$double,dim,1$>$}\hypertarget{classMVNSampler_a409f73d7a66202b7ecff0f86e9afe3c1}{}\label{classMVNSampler_a409f73d7a66202b7ecff0f86e9afe3c1}
+type alias for linear algebra stuff 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\subsubsection[{\texorpdfstring{M\+V\+N\+Sampler()}{MVNSampler()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim$>$ {\bf M\+V\+N\+Sampler}$<$ dim $>$\+::{\bf M\+V\+N\+Sampler} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMVNSampler_a707349ecff1586c9477ffa399f014456}{}\label{classMVNSampler_a707349ecff1586c9477ffa399f014456}
+
+
+Default-\/constructor sets up for multivariate standard Normal random variate generation. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]\+: implement move semantics \end{DoxyRefDesc}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\subsubsection[{\texorpdfstring{M\+V\+N\+Sampler(const Vec \&mean\+Vec, const Mat \&cov\+Mat)}{MVNSampler(const Vec &meanVec, const Mat &covMat)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim$>$ {\bf M\+V\+N\+Sampler}$<$ dim $>$\+::{\bf M\+V\+N\+Sampler} (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vec} \&}]{mean\+Vec, }
+\item[{const {\bf Mat} \&}]{cov\+Mat}
+\end{DoxyParamCaption}
+)}\hypertarget{classMVNSampler_a5ff0c96fe23f68ae910c11d6636aacf4}{}\label{classMVNSampler_a5ff0c96fe23f68ae910c11d6636aacf4}
+
+
+The user must supply both mean and covariance matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mean\+Vec} & a Vec for the mean vector of the sampling distribution. \\
+\hline
+{\em cov\+Mat} & a Mat representing the covariance matrix of the samples. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!sample@{sample}}
+\index{sample@{sample}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\subsubsection[{\texorpdfstring{sample() -\/$>$ Vec}{sample() -> Vec}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim$>$ auto {\bf M\+V\+N\+Sampler}$<$ dim $>$\+::sample (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ {\bf Vec}}\hypertarget{classMVNSampler_a9c4d69cdbe841255a6fc1ff8531c4f4e}{}\label{classMVNSampler_a9c4d69cdbe841255a6fc1ff8531c4f4e}
+
+
+Draws a random vector. 
+
+\begin{DoxyReturn}{Returns}
+a Vec random sample. 
+\end{DoxyReturn}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!set\+Covar@{set\+Covar}}
+\index{set\+Covar@{set\+Covar}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\subsubsection[{\texorpdfstring{set\+Covar(const Mat \&cov\+Mat)}{setCovar(const Mat &covMat)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim$>$ void {\bf M\+V\+N\+Sampler}$<$ dim $>$\+::set\+Covar (
+\begin{DoxyParamCaption}
+\item[{const {\bf Mat} \&}]{cov\+Mat}
+\end{DoxyParamCaption}
+)}\hypertarget{classMVNSampler_a048a0f48cfb72718faf140e74e9a3ccb}{}\label{classMVNSampler_a048a0f48cfb72718faf140e74e9a3ccb}
+
+
+sets the covariance matrix of the sampler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cov\+Mat} & the desired covariance matrix. \\
+\hline
+\end{DoxyParams}
+\index{M\+V\+N\+Sampler@{M\+V\+N\+Sampler}!set\+Mean@{set\+Mean}}
+\index{set\+Mean@{set\+Mean}!M\+V\+N\+Sampler@{M\+V\+N\+Sampler}}
+\subsubsection[{\texorpdfstring{set\+Mean(const Vec \&mean\+Vec)}{setMean(const Vec &meanVec)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dim$>$ void {\bf M\+V\+N\+Sampler}$<$ dim $>$\+::set\+Mean (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vec} \&}]{mean\+Vec}
+\end{DoxyParamCaption}
+)}\hypertarget{classMVNSampler_a842ee5e6925f50881b6628821a5de717}{}\label{classMVNSampler_a842ee5e6925f50881b6628821a5de717}
+
+
+sets the mean vector of the sampler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mean\+Vec} & the desired mean vector. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}
