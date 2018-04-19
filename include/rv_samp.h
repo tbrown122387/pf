@@ -5,6 +5,8 @@
 #include <Eigen/Dense> //linear algebra stuff
 #include <random>
 
+namespace pf{
+
 
 //! Base class for all random variable sampler types. Primary benefit is that it sets the seed for you.
 /**
@@ -317,4 +319,10 @@ std::array<unsigned int, N> k_gen<N>::sample(const std::array<double, N> &logWts
     return ks;
 }
 
+
+
+} // namespace pf{
+    
+    
+    
 #endif // RV_SAMP_H

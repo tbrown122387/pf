@@ -12,6 +12,7 @@
     <File Name="src/rv_eval.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
+    <File Name="include/cf_filters.h"/>
     <File Name="include/sisr_filter.h"/>
     <File Name="include/auxiliary_pf.h"/>
     <File Name="include/utils.h"/>

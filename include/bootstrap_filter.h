@@ -4,6 +4,9 @@
 #include <array>
 #include <Eigen/Dense>
 
+namespace pf{
+    
+
 //! A base class for the boostrap particle filter.
 /**
  * @class BSFilter
@@ -127,6 +130,8 @@ protected:
     unsigned int     m_resampSched;
 };
 
+    
+    
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// implementations ///////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -261,5 +266,9 @@ auto BSFilter<nparts, dimx, dimy, resampT>::getExpectations() const -> std::vect
 {
     return m_expectations;
 }
+
+
+
+} // namespace pf
 
 #endif // BOOTSTRAP_FILTER_H

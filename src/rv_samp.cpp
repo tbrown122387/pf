@@ -2,6 +2,8 @@
 
 // only implements the non-templated classes from the header file
 
+using namespace pf;
+
 UnivNormSampler::UnivNormSampler()
     : rvsamp_base<1>::rvsamp_base()
     , m_z_gen(0.0, 1.0)

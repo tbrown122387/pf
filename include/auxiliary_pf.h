@@ -2,12 +2,15 @@
 #define AUXILIARY_PF_H
  
 #include <array> //array
+#include <vector> // vector
 #include <functional> // function
 #include <Eigen/Dense>
 #include <cmath>
 
 //#include "resamplers.h" 
 #include "rv_samp.h" // for k_generator
+
+namespace pf{
 
 
 //! A base-class for Auxiliary Particle Filtering. Filtering only, no smoothing.
@@ -149,6 +152,7 @@ protected:
 };
 
 
+
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
 APF<nparts, dimx, dimy, resampT>::APF(const unsigned int &rs) 
     : m_now(0)
@@ -158,7 +162,7 @@ APF<nparts, dimx, dimy, resampT>::APF(const unsigned int &rs)
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
-#include <iostream>
+
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
 void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
@@ -299,6 +303,11 @@ auto APF<nparts, dimx, dimy, resampT>::getExpectations() const -> std::vector<Ma
 {
     return m_expectations;
 }
+
+
+} //namespace pf
+
+
 
 
 #endif //APF_H

@@ -4,6 +4,8 @@
 #include <stdexcept> // std::invalid_argument
 #include <iostream> // std::cerr
 
+using namespace pf;
+
 double rveval::twiceFisher(const double &phi)
 {
     if ( (phi <= -1.0) || (phi >= 1.0) )

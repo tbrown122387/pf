@@ -5,6 +5,9 @@
 #include <fstream>
 #include <array>
 #include <iostream> // std::cerr
+#include <string> // string
+
+namespace pf{
 
 namespace utils{
 
@@ -41,11 +44,10 @@ namespace utils{
      */
     template<size_t nc>
     std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc);
-} // namespace utils
 
 
 template<typename Derived>
-void utils::logParams(const Eigen::MatrixBase<Derived> &vec, const std::string &outfile)
+void logParams(const Eigen::MatrixBase<Derived> &vec, const std::string &outfile)
 {
     /**
      * \todo test to make sure write worked (e.g. if( !f << "derp" ) ) 
@@ -79,7 +81,7 @@ void utils::logParams(const Eigen::MatrixBase<Derived> &vec, const std::string &
 
 
 template<size_t size>
-void utils::logParams(const std::array<double, size> &arr, const std::string &outfile)
+void logParams(const std::array<double, size> &arr, const std::string &outfile)
 {
     /**
      * \todo test to make sure write worked (e.g. if( !f << "derp" ) ) 
@@ -107,7 +109,7 @@ void utils::logParams(const std::array<double, size> &arr, const std::string &ou
 
 
 template<size_t nc>
-std::vector<Eigen::Matrix<double,nc,1> > utils::readInData(const std::string& fileLoc)
+std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc)
 {
     // returning this. gotta build it up
     std::vector<Eigen::Matrix<double,nc,1> > data;
@@ -144,6 +146,11 @@ std::vector<Eigen::Matrix<double,nc,1> > utils::readInData(const std::string& fi
     }
     
     return data;
-}
+    
+} 
+
+} // namespace utils
+
+} // namespace pf
 
 #endif // UTILIS_H

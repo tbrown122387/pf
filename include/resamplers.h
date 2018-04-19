@@ -6,6 +6,8 @@
 #include <random>
 #include <Eigen/Dense>
 
+namespace pf{
+    
 //! Base class for all resampler types.
 /**
  * @class rbase
@@ -59,6 +61,7 @@ rbase<nparts, dimx>::rbase()
 {
 }
 
+
 //! Performs multinomial resampling.
 /**
  * @class mn_resampler
@@ -103,6 +106,8 @@ private:
 };
 
 
+
+
 template<size_t nparts, size_t dimx>
 mn_resampler<nparts, dimx>::mn_resampler() : rbase<nparts, dimx>()
 {
@@ -140,5 +145,8 @@ void mn_resampler<nparts, dimx>::resampLogWts(arrayVec &oldParts, arrayDouble &o
     std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0); // change back    
 }
 
+
+} // namespace pf{
+    
 
 #endif // RESAMPLERS_H
