@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classrvsamp__base.html" title="Base class for all random variable sampler types. Primary benefit is that it sets the seed for you..." alt="" coords="5,5,151,32"/>
-<area shape="rect" id="node2" href="$classMVNSampler.html" title="A class that performs sampling from a multivariate normal distribution. " alt="" coords="199,5,344,32"/>
+<area shape="rect" id="node1" href="$classpf_1_1rbase.html" title="Base class for all resampler types. " alt="" coords="5,5,131,47"/>
+<area shape="rect" id="node2" href="$classpf_1_1mn__resampler.html" title="Performs multinomial resampling. " alt="" coords="179,5,353,47"/>
 </map>

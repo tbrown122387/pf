@@ -260,7 +260,8 @@ void kalman<dimstate,dimobs,diminput>::update(const osv &yt,
     
 
 template<size_t dimstate, size_t dimobs>
-class hmm{
+class hmm : public cf_filter<dimstate,dimobs>
+{
 
 public:
 
@@ -279,12 +280,12 @@ public:
       @param initStateDistr first time state prior distribution.
       @param transMat time homogeneous transition matrix.
     */
-    FSHMM(const Vec &initStateDistr, const Mat &transMat);
+    hmm(const ssv &initStateDistr, const ssMat &transMat);
     
 
     //! Get the latest conditional likelihood.
     /**
-     * \return the latest conditional likelihood.
+     * @return the latest conditional likelihood.
      */  
     double getLogCondLike() const;
     
@@ -324,8 +325,12 @@ private:
     
 
 template<size_t dimstate, size_t dimobs>
-hmm<dimstate,dimobs>::hmm(const Vec &initStateDistr, const Mat &transMat) :
-    m_filtVec(initStateDistr), m_transMatTranspose(transMat.transpose()), m_lastCondLike(0.0), m_fresh(false)
+hmm<dimstate,dimobs>::hmm(const Vec &initStateDistr, const Mat &transMat) 
+    : cf_filter<dimstate,dimobs>()
+    , m_filtVec(initStateDistr)
+    , m_transMatTranspose(transMat.transpose())
+    , m_lastCondLike(0.0)
+    , m_fresh(false)
 {
 }
 
@@ -341,13 +346,6 @@ template<size_t dimstate, size_t dimobs>
 auto hmm<dimstate,dimobs>::::getFilterVec() const -> ssv
 {
     return m_filtVec;
-}
-
-
-template<size_t dimstate, size_t dimobs>
-unsigned int hmm<dimstate,dimobs>::::dimState() const
-{
-    return m_filtVec.rows(); // this is a column vector
 }
 
 

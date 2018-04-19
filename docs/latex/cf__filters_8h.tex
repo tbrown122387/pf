@@ -1,0 +1,31 @@
+\hypertarget{cf__filters_8h}{}\section{include/cf\+\_\+filters.h File Reference}
+\label{cf__filters_8h}\index{include/cf\+\_\+filters.\+h@{include/cf\+\_\+filters.\+h}}
+
+
+forces structure on the closed-\/form filters.  
+
+
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+Include dependency graph for cf\+\_\+filters.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{cf__filters_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classpf_1_1cf__filter}{pf\+::cf\+\_\+filter$<$ dimstate, dimobs $>$}
+\begin{DoxyCompactList}\small\item\em Abstract Base Class for Kalman filter and H\+MM filter. \end{DoxyCompactList}\item 
+class \hyperlink{classpf_1_1kalman}{pf\+::kalman$<$ dimstate, dimobs, diminput $>$}
+\begin{DoxyCompactList}\small\item\em A class template for Kalman filtering. \end{DoxyCompactList}\item 
+class \hyperlink{classpf_1_1hmm}{pf\+::hmm$<$ dimstate, dimobs $>$}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+forces structure on the closed-\/form filters. 
+
+Inherit from this for a model that admits Kalman filtering.

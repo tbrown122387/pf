@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bsfilter',['BSFilter',['../classBSFilter.html#ab1bc3d87f60ca29379cc59399d322344',1,'BSFilter']]]
+  ['bsfilter',['BSFilter',['../classpf_1_1BSFilter.html#aca64b4c5d1bcc805aecb261b40203a04',1,'pf::BSFilter']]]
 ];

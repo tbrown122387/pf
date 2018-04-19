@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['rbase',['rbase',['../classrbase.html#ac50680d1f898da868a3a0cbc439522ea',1,'rbase']]],
-  ['resamplogwts',['resampLogWts',['../classrbase.html#ad14a177d1beb6fae9ee8370c29f46da9',1,'rbase::resampLogWts()'],['../classmn__resampler.html#af36489e85dc03eab972b692d860fc420',1,'mn_resampler::resampLogWts()']]],
-  ['rvsamp_5fbase',['rvsamp_base',['../classrvsamp__base.html#a57fd1e9639c741bf464555756840daf2',1,'rvsamp_base']]]
+  ['q1samp',['q1Samp',['../classpf_1_1APF.html#a253087b9333ad8cbcd8cb9f21277bc48',1,'pf::APF::q1Samp()'],['../classpf_1_1BSFilter.html#aa6079ca23980bd4dc98378a88297b4bd',1,'pf::BSFilter::q1Samp()'],['../classSISRFilter.html#ac545399710c311d09999ea0ed0cd9714',1,'SISRFilter::q1Samp()']]],
+  ['qsamp',['qSamp',['../classSISRFilter.html#ad9172bc73f2902ce2e987925bfb6c2b4',1,'SISRFilter']]]
 ];

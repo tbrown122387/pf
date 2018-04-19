@@ -122,70 +122,98 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>m_expectations
-: <a class="el" href="classAPF.html#a54c085c93b9398da910ff58a714d24de">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
-, <a class="el" href="classBSFilter.html#a2202df613fc7686daa58d347a3d434ee">BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#ae63b91d0561efab0731fc31ad1065eca">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+, <a class="el" href="classpf_1_1BSFilter.html#abdddf9da762b8b5454ddb98bbfba53d6">pf::BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 , <a class="el" href="classSISRFilter.html#a4345a9ab4d85a045dbdf4cbf025b5b6e">SISRFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
+<li>m_filtMean
+: <a class="el" href="classpf_1_1kalman.html#adda10a5a5cbe413a247f9125598fa95c">pf::kalman&lt; dimstate, dimobs, diminput &gt;</a>
+</li>
+<li>m_filtVar
+: <a class="el" href="classpf_1_1kalman.html#a7757b7c2ddf87bb063774ebce5210685">pf::kalman&lt; dimstate, dimobs, diminput &gt;</a>
+</li>
+<li>m_filtVec
+: <a class="el" href="classpf_1_1hmm.html#af3e6a0ffd2a9073d07b1b4bba3437d6a">pf::hmm&lt; dimstate, dimobs &gt;</a>
+</li>
+<li>m_fresh
+: <a class="el" href="classpf_1_1hmm.html#a2923531a766aa61f30078fba49caf6b7">pf::hmm&lt; dimstate, dimobs &gt;</a>
+, <a class="el" href="classpf_1_1kalman.html#a0eee8bb578016b1e9600ffd2c9f23aa9">pf::kalman&lt; dimstate, dimobs, diminput &gt;</a>
+</li>
 <li>m_gen
-: <a class="el" href="classmn__resampler.html#af3ce5420d54ac17492132d78056c06ea">mn_resampler&lt; nparts, dimx &gt;</a>
-, <a class="el" href="classrbase.html#a4083e9e008ffe12b62d53d71a8a78644">rbase&lt; nparts, dimx &gt;</a>
+: <a class="el" href="classpf_1_1mn__resampler.html#a463059a4eed72e18bc02034bfe4bb8f3">pf::mn_resampler&lt; nparts, dimx &gt;</a>
+, <a class="el" href="classpf_1_1rbase.html#ad526b252f1ee84fc24b6ace422c1b482">pf::rbase&lt; nparts, dimx &gt;</a>
 </li>
 <li>m_kGen
-: <a class="el" href="classAPF.html#acef5e67e9648d3b0d51b54f86d4c78e4">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#a796dc4e376891c5199af5fbea8e7d068">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+</li>
+<li>m_lastCondLike
+: <a class="el" href="classpf_1_1hmm.html#adb7281566c6e48ec1691a0b8b13b385a">pf::hmm&lt; dimstate, dimobs &gt;</a>
+</li>
+<li>m_lastLogCondLike
+: <a class="el" href="classpf_1_1kalman.html#ac8cfb255218900a3234be942b5ca903f">pf::kalman&lt; dimstate, dimobs, diminput &gt;</a>
 </li>
 <li>m_logLastCondLike
-: <a class="el" href="classAPF.html#a066b490852fd0c87ffbf371cc4d30303">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
-, <a class="el" href="classBSFilter.html#a7ac55d3ff3bd19d40a2150a388d97a09">BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#a056d43b5cfea970fb7da090e969e4fef">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+, <a class="el" href="classpf_1_1BSFilter.html#ac990cd2c5fd4f80211c8056440f1b10e">pf::BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 , <a class="el" href="classSISRFilter.html#af44e288a4041f26e6adf585f96b2a62d">SISRFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
 <li>m_logUnNormWeights
-: <a class="el" href="classAPF.html#a547d0cf72ee005ecb370c1aabd9d00d3">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
-, <a class="el" href="classBSFilter.html#a88bfba0c6e36d728cc2cb8dcdb4f1fe4">BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#a4253879203914c206ec1af6a02e6fcb5">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+, <a class="el" href="classpf_1_1BSFilter.html#a0baebf18dfe1ae125394836d60fda864">pf::BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 , <a class="el" href="classSISRFilter.html#a22bf284333a254dc1cd1a3b2d5e1695a">SISRFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
 <li>m_mean
-: <a class="el" href="classMVNSampler.html#abe79aa245de63b44eb25c1fa56cffb73">MVNSampler&lt; dim &gt;</a>
+: <a class="el" href="classpf_1_1MVNSampler.html#a55453f92155dbe5499669a9c86d146c3">pf::MVNSampler&lt; dim &gt;</a>
 </li>
 <li>m_mu
-: <a class="el" href="classUnivNormSampler.html#a67db5f199eeb098ed65d461989782d1f">UnivNormSampler</a>
+: <a class="el" href="classpf_1_1UnivNormSampler.html#ababec984e114e54477cbcb7ee2e87841">pf::UnivNormSampler</a>
 </li>
 <li>m_now
-: <a class="el" href="classAPF.html#a67f224951b324ceb5bc1bd96ccab36d7">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
-, <a class="el" href="classBSFilter.html#ae0d4ddc4ba5fd26b2dc205e2df146192">BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#af32e1254a52911cf1a890a3f64b30967">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+, <a class="el" href="classpf_1_1BSFilter.html#ab0b52326557233e6ed24015150b38e6f">pf::BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 , <a class="el" href="classSISRFilter.html#a84f75ff76f3fb59e9a9d6ec32c933894">SISRFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
 <li>m_particles
-: <a class="el" href="classAPF.html#adec547bd6568af3f5651da94a82f30ed">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
-, <a class="el" href="classBSFilter.html#aecc8e727eaa2c14d9b81443c242ea063">BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#a6e1188f48abcdc3baf7e3713e2748d7e">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+, <a class="el" href="classpf_1_1BSFilter.html#ad341fdcb4318d771a4678dbfcf991d93">pf::BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 , <a class="el" href="classSISRFilter.html#a95714b04f23311f34d0039aaaa3fe63f">SISRFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
+<li>m_predMean
+: <a class="el" href="classpf_1_1kalman.html#a3bdb45825b162f620e3ce10c5d2505fc">pf::kalman&lt; dimstate, dimobs, diminput &gt;</a>
+</li>
+<li>m_predVar
+: <a class="el" href="classpf_1_1kalman.html#aa7ff59d149e1946ea7efe9c0df7b5cea">pf::kalman&lt; dimstate, dimobs, diminput &gt;</a>
+</li>
 <li>m_resampler
-: <a class="el" href="classAPF.html#a28240f2cee9166dd043065947c6b8091">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
-, <a class="el" href="classBSFilter.html#acea8cf0b140d82c35d4261e7a4a77ec7">BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#ab758c906000a3be70a1636a91676bfcc">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+, <a class="el" href="classpf_1_1BSFilter.html#a3f63885229a23791df71aa43e81b5aae">pf::BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 , <a class="el" href="classSISRFilter.html#a4f17ee8584202ff44eacc7e6d200009e">SISRFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
 <li>m_resampSched
-: <a class="el" href="classBSFilter.html#a2cbe1f55460723478007b2bf01acf4ce">BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1BSFilter.html#a8bf45df72ff688f972ef77cf199bfda1">pf::BSFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 , <a class="el" href="classSISRFilter.html#ad2e239371d0b382a406fd51a7a7c49b4">SISRFilter&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
 <li>m_rng
-: <a class="el" href="classrvsamp__base.html#aa3df1440582518e6da779499728cac3c">rvsamp_base&lt; dim &gt;</a>
+: <a class="el" href="classpf_1_1rvsamp__base.html#ab24a599151b7ad0836ddee218b1941a1">pf::rvsamp_base&lt; dim &gt;</a>
 </li>
 <li>m_rs
-: <a class="el" href="classAPF.html#af7b5b31bf3661709337c0a1979342a10">APF&lt; nparts, dimx, dimy, resampT &gt;</a>
+: <a class="el" href="classpf_1_1APF.html#a81cf31027072208d3d7558c40adedeea">pf::APF&lt; nparts, dimx, dimy, resampT &gt;</a>
 </li>
 <li>m_scale_mat
-: <a class="el" href="classMVNSampler.html#a59c5a532bceb4156205d32d239458696">MVNSampler&lt; dim &gt;</a>
+: <a class="el" href="classpf_1_1MVNSampler.html#a6f12200aa3bb97e0e91fd6f69597015a">pf::MVNSampler&lt; dim &gt;</a>
 </li>
 <li>m_sigma
-: <a class="el" href="classUnivNormSampler.html#af1a2e711a4a5fded09136fd9cd161f90">UnivNormSampler</a>
+: <a class="el" href="classpf_1_1UnivNormSampler.html#a1d62e630ea2386b04495dec9dce2ed95">pf::UnivNormSampler</a>
+</li>
+<li>m_transMatTranspose
+: <a class="el" href="classpf_1_1hmm.html#a7f8d3cc9e3464a32e3e989a844a09012">pf::hmm&lt; dimstate, dimobs &gt;</a>
 </li>
 <li>m_unif_gen
-: <a class="el" href="classUniformSampler.html#a4af7981a2b4e34c4bbdc6ba411f42e6e">UniformSampler</a>
+: <a class="el" href="classpf_1_1UniformSampler.html#ab7b1466fc069e67f6b3ffa442d8dc02c">pf::UniformSampler</a>
 </li>
 <li>m_z_gen
-: <a class="el" href="classMVNSampler.html#a4b68c9586aa0b10f27437aebb370869f">MVNSampler&lt; dim &gt;</a>
-, <a class="el" href="classUnivNormSampler.html#aa1a83f0dfcd5eb682ff09fcb6c2918b3">UnivNormSampler</a>
+: <a class="el" href="classpf_1_1MVNSampler.html#aeceedd415d59b513914d29410488caa9">pf::MVNSampler&lt; dim &gt;</a>
+, <a class="el" href="classpf_1_1UnivNormSampler.html#a4a8afd473ade0394b9361734743ef055">pf::UnivNormSampler</a>
 </li>
 </ul>
 </div><!-- contents -->

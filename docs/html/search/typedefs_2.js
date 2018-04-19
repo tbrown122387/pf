@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['osv',['osv',['../classAPF.html#aa3975009cab0e9e8945862884f091620',1,'APF::osv()'],['../classBSFilter.html#aea27600dd7c5af20fa7a0fc57f18b0a2',1,'BSFilter::osv()'],['../classSISRFilter.html#ad3449fbd43f19dbda6b80459d729d9bf',1,'SISRFilter::osv()']]]
+  ['mat',['Mat',['../classpf_1_1APF.html#a771c0848fc35bf75e2d3f93bc4ee42ab',1,'pf::APF::Mat()'],['../classpf_1_1BSFilter.html#a0fea63439948d095468ec14792abb396',1,'pf::BSFilter::Mat()'],['../classpf_1_1MVNSampler.html#a5bd837d18f475be7d0495470b6198a46',1,'pf::MVNSampler::Mat()'],['../classSISRFilter.html#a6563da123e66df0b1140140a5b40d535',1,'SISRFilter::Mat()']]]
 ];
