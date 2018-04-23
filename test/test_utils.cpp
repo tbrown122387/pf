@@ -1,4 +1,5 @@
-#include "UnitTest++.h"
+//#include "UnitTest++.h"
+#include <UnitTest++/UnitTest++.h>
 #include "utils.h"
 
 #define vecsize 3

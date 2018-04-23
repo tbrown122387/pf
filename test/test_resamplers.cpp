@@ -1,4 +1,5 @@
-#include "UnitTest++.h"
+//#include "UnitTest++.h"
+#include <UnitTest++/UnitTest++.h>
 #include "resamplers.h"
 
 #define NUMPARTICLES 2
