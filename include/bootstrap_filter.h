@@ -3,8 +3,6 @@
 
 #include <array>
 #include <Eigen/Dense>
-
-namespace pf{
     
 
 //! A base class for the boostrap particle filter.
@@ -268,7 +266,5 @@ auto BSFilter<nparts, dimx, dimy, resampT>::getExpectations() const -> std::vect
 }
 
 
-
-} // namespace pf
 
 #endif // BOOTSTRAP_FILTER_H

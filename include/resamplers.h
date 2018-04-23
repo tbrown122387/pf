@@ -6,7 +6,6 @@
 #include <random>
 #include <Eigen/Dense>
 
-namespace pf{
     
 //! Base class for all resampler types.
 /**
@@ -146,7 +145,5 @@ void mn_resampler<nparts, dimx>::resampLogWts(arrayVec &oldParts, arrayDouble &o
 }
 
 
-} // namespace pf{
-    
 
 #endif // RESAMPLERS_H

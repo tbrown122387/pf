@@ -10,8 +10,6 @@
 //#include "resamplers.h" 
 #include "rv_samp.h" // for k_generator
 
-namespace pf{
-
 
 //! A base-class for Auxiliary Particle Filtering. Filtering only, no smoothing.
  /**
@@ -144,7 +142,7 @@ protected:
     resampT m_resampler;
     
     /** @brief k generator object (default ctor'd)*/
-    k_gen<nparts> m_kGen;
+    rvsamp::k_gen<nparts> m_kGen;
     
     /** @brief expectations E[h(x_t) | y_{1:t}] for user defined "h"s */
     std::vector<Mat> m_expectations;
@@ -304,8 +302,6 @@ auto APF<nparts, dimx, dimy, resampT>::getExpectations() const -> std::vector<Ma
     return m_expectations;
 }
 
-
-} //namespace pf
 
 
 

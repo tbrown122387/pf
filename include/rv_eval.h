@@ -5,8 +5,6 @@
 #include <Eigen/Dense>
 
 
-namespace pf{
-
 namespace rveval{
     
 ////////////////////////////////////////////////
@@ -288,7 +286,5 @@ double evalMultivNormWBDA(const Eigen::Matrix<double,bigd,1> &x,
 
 } //namespace rveval
 
-
-} // namespace pf{
 
 #endif //RV_EVAL_H

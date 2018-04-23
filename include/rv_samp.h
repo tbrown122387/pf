@@ -5,7 +5,7 @@
 #include <Eigen/Dense> //linear algebra stuff
 #include <random>
 
-namespace pf{
+namespace rvsamp{
 
 
 //! Base class for all random variable sampler types. Primary benefit is that it sets the seed for you.
@@ -35,6 +35,7 @@ protected:
     std::mt19937 m_rng;
 
 };
+
 
 template<size_t dim>
 rvsamp_base<dim>::rvsamp_base() 
@@ -101,7 +102,6 @@ private:
     
     /** @brief the standard deviation */
     double m_sigma;
-
 
 };
 

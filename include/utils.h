@@ -7,7 +7,6 @@
 #include <iostream> // std::cerr
 #include <string> // string
 
-namespace pf{
 
 namespace utils{
 
@@ -151,6 +150,5 @@ std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc)
 
 } // namespace utils
 
-} // namespace pf
 
 #endif // UTILIS_H

@@ -4,7 +4,6 @@
 #include <Eigen/Dense> //linear algebra stuff
 #include <math.h>       /* log */
 
-namespace pf{
 
 //! Abstract Base Class for Kalman filter and HMM filter.
 /**
@@ -367,6 +366,5 @@ void hmm<dimstate,dimobs>::::update(const osv &yt, const ssv &condDensVec)
     }
 }
     
-} // namespace pf
 
 #endif CF_FILTERS_H
