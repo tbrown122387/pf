@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=t
-Date                   :=22/04/18
+Date                   :=23/04/18
 CodeLitePath           :=/home/t/.codelite
 LinkerName             :=/usr/bin/x86_64-linux-gnu-g++
 SharedObjectLinkerName :=/usr/bin/x86_64-linux-gnu-g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/x86_64-linux-gnu-as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/test_utils.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_rv_samp.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_resamplers.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_rv_eval.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/test_cf_filters.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_utils.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_rv_samp.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_resamplers.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_rv_eval.cpp$(ObjectSuffix) 
 
 
 
@@ -91,6 +91,14 @@ PreBuild:
 ##
 ## Objects
 ##
+$(IntermediateDirectory)/test_cf_filters.cpp$(ObjectSuffix): test_cf_filters.cpp $(IntermediateDirectory)/test_cf_filters.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/t/pf/test/test_cf_filters.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/test_cf_filters.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/test_cf_filters.cpp$(DependSuffix): test_cf_filters.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/test_cf_filters.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/test_cf_filters.cpp$(DependSuffix) -MM test_cf_filters.cpp
+
+$(IntermediateDirectory)/test_cf_filters.cpp$(PreprocessSuffix): test_cf_filters.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/test_cf_filters.cpp$(PreprocessSuffix) test_cf_filters.cpp
+
 $(IntermediateDirectory)/test_utils.cpp$(ObjectSuffix): test_utils.cpp $(IntermediateDirectory)/test_utils.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/t/pf/test/test_utils.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/test_utils.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/test_utils.cpp$(DependSuffix): test_utils.cpp

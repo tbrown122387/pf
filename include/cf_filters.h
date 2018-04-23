@@ -349,7 +349,7 @@ auto hmm<dimstate,dimobs>::::getFilterVec() const -> ssv
 
 
 template<size_t dimstate, size_t dimobs>
-void hmm<dimstate,dimobs>::::update(const osv &yt, const ssv &condDensVec)
+void hmm<dimstate,dimobs>::::update(const ssv &condDensVec)
 {
     if (!m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
     {

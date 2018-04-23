@@ -8,6 +8,7 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="test_cf_filters.cpp"/>
     <File Name="test_utils.cpp"/>
     <File Name="test_rv_samp.cpp"/>
     <File Name="test_rv_eval.cpp"/>

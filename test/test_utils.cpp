@@ -8,9 +8,9 @@ class UtilFixture
 {
 public:
 
-
-    // data members    
-    // TODO all of this
+    /**
+     * @todo do all of this test 
+     */
     
     
     UtilFixture() 

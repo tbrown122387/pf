@@ -146,4 +146,88 @@ void mn_resampler<nparts, dimx>::resampLogWts(arrayVec &oldParts, arrayDouble &o
 
 
 
+//! Performs multinomial resampling for a Rao-Blackwellized pf.
+/**
+ * @class mn_resampler_rbpf
+ * @author taylor
+ * @file resamplers.h
+ * @brief Class that performs multinomial resampling for RBPFs.
+ * @tparam nparts the number of particles.
+ * @tparam dimsampledx the dimension of each state sample.
+ */
+template<size_t nparts, size_t dimsampledx, typename cfModT>
+class mn_resampler_rbpf
+{
+public:
+    /** type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<double,dimsampledx,1>;
+    /** type alias for linear algebra stuff */
+    using arrayVec = std::array<ssv, nparts>;
+    /** type alias for array of doubles */
+    using arrayDouble = std::array<double,nparts>;
+    /** type alias for array of closed-form models */
+    using arrayMod = std::array<cfModT,nparts>;
+
+    /**
+     * @brief Default constructor. Only option available.
+     */
+    mn_resampler_rbpf();
+    
+    
+    /**
+     * @brief resamples particles.
+     * @param oldMods the old closed-form models
+     * @param oldParts the old particles
+     * @param oldLogUnNormWts the old log unnormalized weights
+     */
+    void resampLogWts(arrayMod &oldMods, arrayVec &oldParts, arrayDouble &oldLogUnNormWts);
+    
+private:
+
+    /** @brief prng */
+    std::mt19937 m_gen;
+
+};
+
+
+template<size_t nparts, size_t dimsampledx, typename cfModT>
+mn_resampler_rbpf<nparts, dimsampledx, cfModT>::mn_resampler_rbpf() 
+    : m_gen{static_cast<std::uint32_t>(
+                    std::chrono::high_resolution_clock::now().time_since_epoch().count()
+                                           )}
+{
+}
+
+
+template<size_t nparts, size_t dimsampledx, typename cfModT>
+mn_resampler_rbpf<nparts, dimsampledx, cfModT>::resampLogWts(arrayMod &oldMods, arrayVec &oldParts, arrayDouble &oldLogUnNormWts) 
+{
+    // Create the distribution with exponentiated log-weights
+    arrayDouble w;
+    double m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), w.begin(), 
+                    [&m](double& d) -> double { return std::exp( d - m ); } );
+    std::discrete_distribution<> idxSampler(w.begin(), w.end());
+    
+    // create temporary vectors for samps and mods
+    arrayVec tmpSamps;
+    arrayMod tmpMods;
+    
+    // sample from the original parts and store in temporary
+    unsigned int whichPart;
+    for(size_t part = 0; part < nparts; ++part)
+    {
+        whichPart = idxSampler(m_gen);
+        tmpSamps[part] = oldSamps[whichPart];
+        tmpMods[part] = oldMods[whichPart];
+    }
+    
+    //overwrite olds with news
+    oldMods = std::move(tmpMods);
+    oldSamps = std::move(tmpSamps);
+    std::fill (oldLogWts.begin(), oldLogWts.end(), 0.0);
+
+}
+
+
 #endif // RESAMPLERS_H

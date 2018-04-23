@@ -40,6 +40,7 @@ Thumbs.db
 ###############
 Debug/
 Release/
+docs/
 
 # codelite stuff
 *.project
