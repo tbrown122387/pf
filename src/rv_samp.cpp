@@ -1,8 +1,7 @@
 #include "rv_samp.h"
 
 // only implements the non-templated classes from the header file
-
-using namespace pf;
+using namespace rvsamp;
 
 UnivNormSampler::UnivNormSampler()
     : rvsamp_base<1>::rvsamp_base()

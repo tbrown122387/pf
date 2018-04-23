@@ -5,16 +5,16 @@
 ## Release
 ProjectName            :=pf
 ConfigurationName      :=Release
-WorkspacePath          :=/home/taylor/Documents/ssmworkspace
-ProjectPath            :=/home/taylor/pf
+WorkspacePath          :=/home/t/Documents
+ProjectPath            :=/home/t/pf
 IntermediateDirectory  :=./Release
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=taylor
-Date                   :=19/04/18
-CodeLitePath           :=/home/taylor/.codelite
+User                   :=t
+Date                   :=22/04/18
+CodeLitePath           :=/home/t/.codelite
 LinkerName             :=/usr/bin/x86_64-linux-gnu-g++
 SharedObjectLinkerName :=/usr/bin/x86_64-linux-gnu-g++ -shared -fPIC
 ObjectSuffix           :=.o
@@ -36,7 +36,7 @@ ObjectsFileList        :="pf.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=mkdir -p
 LinkOptions            :=  
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch)/usr/include/eigen3 $(IncludeSwitch)./include 
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch)./include $(IncludeSwitch)/usr/include/eigen3 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := 
@@ -76,9 +76,9 @@ $(OutputFile): $(Objects)
 	@$(MakeDirCommand) $(@D)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
-	$(AR) $(ArchiveOutputSwitch)$(OutputFile) $(Objects) $(ArLibs)
-	@$(MakeDirCommand) "/home/taylor/Documents/ssmworkspace/.build-release"
-	@echo rebuilt > "/home/taylor/Documents/ssmworkspace/.build-release/pf"
+	$(AR) $(ArchiveOutputSwitch)$(OutputFile) @$(ObjectsFileList) $(ArLibs)
+	@$(MakeDirCommand) "/home/t/Documents/.build-release"
+	@echo rebuilt > "/home/t/Documents/.build-release/pf"
 
 MakeIntermediateDirs:
 	@test -d ./Release || $(MakeDirCommand) ./Release
@@ -94,7 +94,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/src_rv_samp.cpp$(ObjectSuffix): src/rv_samp.cpp $(IntermediateDirectory)/src_rv_samp.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/taylor/pf/src/rv_samp.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_rv_samp.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/t/pf/src/rv_samp.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_rv_samp.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/src_rv_samp.cpp$(DependSuffix): src/rv_samp.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_rv_samp.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_rv_samp.cpp$(DependSuffix) -MM src/rv_samp.cpp
 
@@ -102,7 +102,7 @@ $(IntermediateDirectory)/src_rv_samp.cpp$(PreprocessSuffix): src/rv_samp.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_rv_samp.cpp$(PreprocessSuffix) src/rv_samp.cpp
 
 $(IntermediateDirectory)/src_rv_eval.cpp$(ObjectSuffix): src/rv_eval.cpp $(IntermediateDirectory)/src_rv_eval.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/taylor/pf/src/rv_eval.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_rv_eval.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/t/pf/src/rv_eval.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_rv_eval.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/src_rv_eval.cpp$(DependSuffix): src/rv_eval.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_rv_eval.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_rv_eval.cpp$(DependSuffix) -MM src/rv_eval.cpp
 

@@ -8,7 +8,6 @@
 #include "rv_samp.h" // for sampling random numbers
 #include "rv_eval.h" // for evaluating densities and pmfs
 
-using namespace pf;
 
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
 class svol_bs : public BSFilter<nparts, dimx, dimy, resampT>
@@ -23,7 +22,7 @@ public:
     double m_sigma;
 
     // use this for samplign
-    UnivNormSampler m_stdNormSampler; // for sampling 
+    rvsamp::UnivNormSampler m_stdNormSampler; // for sampling 
 
     // ctor
     svol_bs(const double &phi, const double &beta, const double &sigma);

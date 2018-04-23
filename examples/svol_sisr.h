@@ -18,7 +18,7 @@ public:
     double m_sigma;
 
     // use this for samplign
-    UnivNormSampler m_stdNormSampler; // for sampling 
+    rvsamp::UnivNormSampler m_stdNormSampler; // for sampling 
 
     // ctor
     svol_sisr(const double &phi, const double &beta, const double &sigma);

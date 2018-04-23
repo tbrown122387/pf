@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
     
-    run_svol_comparison("/home/t/ssm_examples/data/some_csvs/svol_y_data.csv");
+    run_svol_comparison("/home/taylor/ssm_examples/data/some_csvs/svol_y_data.csv");
 
 	printf("hello world\n");
 	return 0;
