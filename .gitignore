@@ -42,3 +42,6 @@ Debug/
 Release/
 
 # codelite stuff
+*.project
+*.txt
+*.mk
