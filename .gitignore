@@ -38,13 +38,13 @@ Thumbs.db
 
 # other stuff #
 ###############
-./Debug/*
-./Release/*
-./docs/*
-./examples/Release/*
-./examples/Debug/*
-./test/Release/*
-./test/Debug/*
+Debug/*
+Release/*
+docs/*
+examples/Release/*
+examples/Debug/*
+test/Release/*
+test/Debug/*
 
 # codelite stuff
 *.project
