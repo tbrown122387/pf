@@ -1,5 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpf_1_1rvsamp__base.html" title="pf::rvsamp_base\&lt; 1 \&gt;" alt="" coords="5,31,156,57"/>
-<area shape="rect" id="node2" href="$classpf_1_1UniformSampler.html" title="A class that performs sampling from a continuous uniform distribution. " alt="" coords="211,5,345,32"/>
-<area shape="rect" id="node3" href="$classpf_1_1UnivNormSampler.html" title="A class that performs sampling from a univariate Normal distribution. " alt="" coords="204,56,352,83"/>
-</map>

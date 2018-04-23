@@ -1,7 +1,0 @@
-<map id="svol_apf&lt; nparts, dimx, dimy, resampT &gt;" name="svol_apf&lt; nparts, dimx, dimy, resampT &gt;">
-<area shape="rect" id="node2" href="$classAPF.html" title="A base&#45;class for Auxiliary Particle Filtering. Filtering only, no smoothing. " alt="" coords="5,171,141,212"/>
-<area shape="rect" id="node3" href="$classk__gen.html" title="k_gen\&lt; nparts \&gt;" alt="" coords="15,81,132,108"/>
-<area shape="rect" id="node4" href="$classrvsamp__base.html" title="rvsamp_base\&lt; N \&gt;" alt="" coords="6,5,141,32"/>
-<area shape="rect" id="node5" href="$classUnivNormSampler.html" title="A class that performs sampling from a univariate Normal distribution. " alt="" coords="165,178,294,205"/>
-<area shape="rect" id="node6" href="$classrvsamp__base.html" title="rvsamp_base\&lt; 1 \&gt;" alt="" coords="164,81,295,108"/>
-</map>
