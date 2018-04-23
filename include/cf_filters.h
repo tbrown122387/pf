@@ -57,18 +57,23 @@ class kalman{
     
     /** "state dim by input dimension matrix" */
     using siMat = Eigen::Matrix<double,dimstate,diminput>;
-    
-    /** "observation dim by state dimension matrix" */
-    using osMat = Eigen::Matrix<double,dimobs,dimstate>;
-    
-    /** "input dim by observation dimension matrix" */
-    using ioMat = Eigen::Matrix<double,dimobs,diminput>;
+        
+    /** "observation dimension by input dim matrix" */
+    using oiMat = Eigen::Matrix<double,dimobs,diminput>;
     
 
+    //! Default constructor. 
+    /**
+     * @brief Need ths fir constructing default std::array<>s. Fills all vectors and matrices with zeros.
+     */
+    kalman();
+
+
+    //! Non-default constructor.
     /**
      * @brief Non-default constructor.
      */
-    kalman(const ssv &initStateMean, const Mat &initStateVar)
+    kalman(const ssv &initStateMean, const ssMat &initStateVar);
 
 
     /**
@@ -89,7 +94,7 @@ class kalman{
      * @brief Get the current filter variance-covariance matrix.
      * @return V[x_t | y_{1:t}]
      */
-    Mat getFiltVar() const;
+    ssMat getFiltVar() const;
     
     
     //! Perform a Kalman filter predict-and-update.
@@ -109,7 +114,7 @@ class kalman{
                 const siMat &stateInptAffector, 
                 const isv &inputData,
                 const osMat &obsMat,
-                const ioMat &obsInptAffector, 
+                const oiMat &obsInptAffector, 
                 const osMat &cholObsVar);
                 
 private: 
@@ -132,6 +137,8 @@ private:
     /** @brief has data been observed? */
     bool m_fresh;
     
+    /** @brief pi */
+    const double m_pi;
     
     /**
      * @todo handle diagonal variance matrices, and ensure symmetricness in other ways
@@ -164,6 +171,17 @@ private:
                          const isv &inputData, 
                          const osMat &cholObsVar);
 };
+
+
+template<size_t dimstate, size_t dimobs, size_t diminput>  
+kalman<dimstate,dimobs,diminput>::kalman() 
+        : cf_filter<dimstate,dimobs>()
+        , m_fresh(true)
+        , m_predMean(ssv::Zero())
+        , m_predVar(ssMat::Zero()) 
+        , m_pi(3.14159265358979)
+{
+}
     
 
 template<size_t dimstate, size_t dimobs, size_t diminput>  
@@ -172,6 +190,7 @@ kalman<dimstate,dimobs,diminput>::kalman(const ssv &initStateMean, const ssMat &
         , m_fresh(true)
         , m_predMean(initStateMean)
         , m_predVar(initStateVar) 
+        , m_pi(3.14159265358979)
 {
 }
 
@@ -200,7 +219,7 @@ void kalman<dimstate,dimobs,diminput>::updatePosterior(const osv &yt,
     osMat symSigma = (sigma.transpose() + sigma )/2.0; // ensure symmetric
     osMat siginv = symSigma.inverse();
     ssMat K = m_predVar * obsMat.transpose() * siginv;
-    osVec obsPred = obsMat * m_predMean + obsInptAffector * inputData;
+    osv obsPred = obsMat * m_predMean + obsInptAffector * inputData;
     osv innov = yt - obsPred;
     m_filtMean = m_predMean + K*innov;
     m_filtVar  = m_predVar - K * obsMat * m_predVar;
@@ -209,7 +228,7 @@ void kalman<dimstate,dimobs,diminput>::updatePosterior(const osv &yt,
     osMat quadForm = innov.transpose() * siginv * innov;
     osMat cholSig ( sigma.llt().matrixL() );
     double logDet = 2.0*cholSig.diagonal().array().log().sum();
-    m_lastLogCondLike = -.5*innov.rows()*log(2*pi) - .5*logDet - .5*quadForm(0,0);
+    m_lastLogCondLike = -.5*innov.rows()*log(2*m_pi) - .5*logDet - .5*quadForm(0,0);
 }
 
 
@@ -274,10 +293,18 @@ public:
     using ssMat = Eigen::Matrix<double,dimstate,dimstate>;
 
 
+    //! Default constructor. 
+    /**
+     * @brief Need ths fir constructing default std::array<>s. Fills all vectors and matrices with zeros.
+     */
+    hmm();
+
+
     //! Constructor
-    /*!
-      @param initStateDistr first time state prior distribution.
-      @param transMat time homogeneous transition matrix.
+    /**
+     * @brief allows specification of initstate distn and transition matrix.
+     * @param initStateDistr first time state prior distribution.
+     * @param transMat time homogeneous transition matrix.
     */
     hmm(const ssv &initStateDistr, const ssMat &transMat);
     
@@ -303,7 +330,7 @@ public:
      * @param yt the current datum.
      * @param condDensVec the vector (in x_t) of p(y_t|x_t)
      */
-    void update(const osv &yt, const ssv &condDensVec);
+    void update(const ssv &condDensVec);
 
 
 private:
@@ -321,10 +348,21 @@ private:
     bool m_fresh;
 
 };
+
+
+template<size_t dimstate, size_t dimobs>
+hmm<dimstate,dimobs>::hmm() 
+    : cf_filter<dimstate,dimobs>()
+    , m_filtVec(ssv::Zero())
+    , m_transMatTranspose(ssMat::Zero())
+    , m_lastCondLike(0.0)
+    , m_fresh(false)
+{
+}
     
 
 template<size_t dimstate, size_t dimobs>
-hmm<dimstate,dimobs>::hmm(const Vec &initStateDistr, const Mat &transMat) 
+hmm<dimstate,dimobs>::hmm(const ssv &initStateDistr, const ssMat &transMat) 
     : cf_filter<dimstate,dimobs>()
     , m_filtVec(initStateDistr)
     , m_transMatTranspose(transMat.transpose())
@@ -335,21 +373,21 @@ hmm<dimstate,dimobs>::hmm(const Vec &initStateDistr, const Mat &transMat)
 
 
 template<size_t dimstate, size_t dimobs>
-double hmm<dimstate,dimobs>::::getLogCondLike() const
+double hmm<dimstate,dimobs>::getLogCondLike() const
 {
     return std::log(m_lastCondLike);
 }
 
 
 template<size_t dimstate, size_t dimobs>
-auto hmm<dimstate,dimobs>::::getFilterVec() const -> ssv
+auto hmm<dimstate,dimobs>::getFilterVec() const -> ssv
 {
     return m_filtVec;
 }
 
 
 template<size_t dimstate, size_t dimobs>
-void hmm<dimstate,dimobs>::::update(const ssv &condDensVec)
+void hmm<dimstate,dimobs>::update(const ssv &condDensVec)
 {
     if (!m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
     {
@@ -367,4 +405,4 @@ void hmm<dimstate,dimobs>::::update(const ssv &condDensVec)
 }
     
 
-#endif CF_FILTERS_H
+#endif //CF_FILTERS_H

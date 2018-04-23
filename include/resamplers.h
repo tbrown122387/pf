@@ -200,7 +200,7 @@ mn_resampler_rbpf<nparts, dimsampledx, cfModT>::mn_resampler_rbpf()
 
 
 template<size_t nparts, size_t dimsampledx, typename cfModT>
-mn_resampler_rbpf<nparts, dimsampledx, cfModT>::resampLogWts(arrayMod &oldMods, arrayVec &oldParts, arrayDouble &oldLogUnNormWts) 
+void mn_resampler_rbpf<nparts, dimsampledx, cfModT>::resampLogWts(arrayMod &oldMods, arrayVec &oldSamps, arrayDouble &oldLogUnNormWts) 
 {
     // Create the distribution with exponentiated log-weights
     arrayDouble w;
@@ -225,7 +225,7 @@ mn_resampler_rbpf<nparts, dimsampledx, cfModT>::resampLogWts(arrayMod &oldMods, 
     //overwrite olds with news
     oldMods = std::move(tmpMods);
     oldSamps = std::move(tmpSamps);
-    std::fill (oldLogWts.begin(), oldLogWts.end(), 0.0);
+    std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0);
 
 }
 
