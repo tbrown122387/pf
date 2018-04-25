@@ -47,6 +47,7 @@ examples/Release/*
 examples/Debug/*
 test/Release/*
 test/Debug/*
+test/main.cpp
 
 # codelite stuff
 *.project
