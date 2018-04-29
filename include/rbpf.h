@@ -180,8 +180,7 @@ private:
     /** the resampler object */
     resampT m_resampler;
     /** the vector of expectations */
-    std::vector<Mat> m_expectations; /// TODO: wrong output size (needs to be dynamic)
-
+    std::vector<Mat> m_expectations; 
 
 };
 
@@ -197,7 +196,7 @@ rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::rbpf_hmm(const unsigned int &resamp_
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const std::vector<std::function<const sssMat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
+void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
 {
 
     if( m_now == 0){ // first data point coming
@@ -205,34 +204,40 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         // initialize and update the closed-form mods        
         nsssv tmpProbs;
         nsssMat tmpTransMat;
-        double logWeightAdj;
-        double tmpForFirstLike(0.0);
+        double m(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
             
             m_p_samps[ii] = q1Samp(data); 
             tmpProbs = initHMMProbVec(m_p_samps[ii]);
             tmpTransMat = initHMMTransMat(m_p_samps[ii]);
-            //m_p_innerMods.emplace_back(tmpProbs, tmpTransMat); 
             m_p_innerMods[ii] = hmm<dimnss,dimy>(tmpProbs, tmpTransMat);
             this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
-            logWeightAdj = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data); 
+            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
 
-            m_logUnNormWeights[ii] += logWeightAdj;
-            tmpForFirstLike += std::exp(logWeightAdj);
+            // maximum to be used in likelihood calc
+            if(m_logUnNormWeights[ii] > m)
+                m = m_logUnNormWeights[ii];
         }
-        m_lastLogCondLike = std::log(tmpForFirstLike) - std::log(m_numParts); // store likelihood
+
+        // calc log p(y1)
+        double sumexp(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexp += std::exp(m_logUnNormWeights[p] - m);
+        m_lastLogCondLike = m + std::log(sumexp) - std::log(static_cast<double>(nparts));
 
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
-        
-        std::fill(m_expectations.begin(), m_expectations.end(), sssMat::Zero()); 
-        int fId(0);
+        unsigned int fId(0);
+        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
-            sssMat numer = sssMat::Zero();
-            sssMat ones = sssMat::Ones();
+
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
+            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
+            Eigen::Mat<double,dimOut,dimOut> tmp;
             double denom(0.0);
-            nsssMat tmp;
+                        
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
                 tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
@@ -242,7 +247,6 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
             m_expectations[fId] = numer/denom;
             fId++;
         }
-
         
         // resample (unnormalized weights ok)
         if( (m_now+1) % m_rs == 0)
@@ -255,33 +259,43 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         
         // update
         sssv newX2Samp;
-        double logUnNormWeightUpdate;
-        double tmpLikeNumer(0.0);
-        double tmpLikeDenom(0.0);
+        double sumexpdenom(0.0);
+        double m1(-1.0/0.0); // for revised log weights
+        double m2 = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(unsigned ii = 0; ii < nparts; ++ii){
             
             newX2Samp = qSamp(m_p_samps[ii], data);
             updateFSHMM(m_p_innerMods[ii], data, newX2Samp);
+            sumexpdenom += std::exp(m_logUnNormWeights[ii] - m2);
             logUnNormWeightUpdate = m_p_innerMods[ii].getLogCondLike()
                                     + logFEv(newX2Samp, m_p_samps[ii]) 
                                     - logQEv(newX2Samp, m_p_samps[ii], data);
             
-            tmpLikeDenom += std::exp(m_logUnNormWeights[ii]);
-            m_logUnNormWeights[ii] += logUnNormWeightUpdate;
-            tmpLikeNumer += std::exp(m_logUnNormWeights[ii]); 
+            // update a max
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
+            
             m_p_samps[ii] = newX2Samp;
         }
-        m_lastLogCondLike = std::log(tmpLikeNumer) - std::log( tmpLikeDenom );
+        
+        // calculate log p(y_t | y_{1:t-1})
+        double sumexpnumer(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexpnumer += std::exp(m_logUnNormWeights - m1);
+        m_lastLogCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
         
         // calculate expectations before you resample
-        std::fill(m_expectations.begin(), m_expectations.end(), sssMat::Zero()); 
         unsigned int fId(0);
+        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
-            sssMat numer = nsssMat::Zero();
-            sssMat ones = nsssMat::Ones();
-            sssMat tmp;
+            
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
+            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
+            Eigen::Mat<double,dimOut,dimOut> tmp;
             double denom(0.0);
+
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
                 tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
@@ -495,35 +509,45 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
     
     if( m_now == 0){ // first data point coming
     
-        // initialize and update the closed-form mods        
+        // initialize and update the closed-form mods      
         nsssv tmpMean;
         nsssMat tmpVar;
-        double logWeightAdj;
-        double tmpForFirstLike(0.0);
+//        double logWeightAdj;
+//        double tmpForFirstLike(0.0);
+        double m1(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
             m_p_samps[ii] = q1Samp(data); 
             tmpMean = initKalmanMean(m_p_samps[ii]);
             tmpVar  = initKalmanVar(m_p_samps[ii]);
-            //m_p_innerMods.emplace_back(tmpMean, tmpVar); // time 1 prior
             m_p_innerMods[ii] = kalman<dimnss,dimobs,1>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
             this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
-            logWeightAdj = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
-            m_logUnNormWeights[ii] += logWeightAdj;
-            tmpForFirstLike += std::exp(logWeightAdj);
-     
+
+            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
+
+            // update a max
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
         }
-        m_logLastCondLike = std::log(tmpForFirstLike) -std::log(m_numParts);  
+
+        // calculate log p(y1)
+        double sumexp(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexp += std::exp(m_logUnNormWeights[p] - m1);
+        m_logLastCondLike = m1 + std::log(sumexp) - std::log(static_cast<double>(nparts));  
 
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
-        std::fill(m_expectations.begin(), m_expectations.end(), sssMat::Zero()); 
-        int fId(0);
+        unsigned int fId(0);
+        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
-            sssMat numer = sssMat::Zero();
-            sssMat ones = sssMat::Ones();
+
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
+            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
+            Eigen::Mat<double,dimOut,dimOut> tmp;
             double denom(0.0);
-            nsssMat tmp;
+
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
                 tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
@@ -533,8 +557,6 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
             m_expectations[fId] = numer/denom;
             fId++;
         }
-
-        
         
         // resample (unnormalized weights ok)
         if( (m_now+1)%m_rs == 0)
@@ -547,23 +569,54 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
         
         // update
         sssv newX2Samp;
-        double tmpInnerCondLike;
-        double unNormWeightUpdate;
-        double tmpLikeNumer(0.0);
-        double tmpLikeDenom(0.0);
+        double m1(-1.0/0.0); // for updated weights
+        double m2 = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        double sumexpdenom(0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
             newX2Samp = qSamp(m_p_samps[ii], data);
             this->updateKalman(m_p_innerMods[ii], data, newX2Samp);
-            tmpInnerCondLike = exp( m_p_innerMods[ii].getLogCondLike() );
-            unNormWeightUpdate = (tmpInnerCondLike * fEv(newX2Samp, m_p_samps[ii])) / qEv(newX2Samp, m_p_samps[ii], data);
-                        
-            tmpLikeDenom += m_unNormWeights[ii];
-            m_unNormWeights[ii] *= unNormWeightUpdate;
-            tmpLikeNumer += m_unNormWeights[ii]; 
+
+            // before you update the weights
+            sumexpdenom += std::exp(m_logUnNormWeights[ii] - m2);
+            
+            // update the weights
+            m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike() * logFEv(newX2Samp, m_p_samps[ii]) - logQEv(newX2Samp, m_p_samps[ii], data);
+            
+            // update a max
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
+                
             m_p_samps[ii] = newX2Samp;
         }
-        m_lastCondLike = tmpLikeNumer / tmpLikeDenom;
         
+        // calc log p(y_t | y_{1:t-1})
+        double sumexpnumer(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexpnumer += std::exp(m_logUnNormWeights[p] - m1);
+        m_lastCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
+        
+        // calculate expectations before you resample
+        unsigned int fId(0);
+        unsigned int dimOut;
+        double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        for(auto & h : fs){
+
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
+            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
+            Eigen::Mat<double,dimOut,dimOut> tmp;
+            double denom(0.0);
+
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
+                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
+                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
+                numer = numer + tmp.array().exp().matrix();
+                denom += std::exp( m_logUnNormWeights[prtcl] - m );
+            }
+            m_expectations[fId] = numer/denom;
+            fId++;
+        }
+
         // resample (unnormalized weights ok)
         if( (m_now+1)%m_rs == 0)
             m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights)
