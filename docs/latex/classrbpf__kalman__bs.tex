@@ -1,0 +1,302 @@
+\hypertarget{classrbpf__kalman__bs}{}\section{rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resampT $>$ Class Template Reference}
+\label{classrbpf__kalman__bs}\index{rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$@{rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}}
+
+
+Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner Kalman Filter objectss.  
+
+
+
+
+{\ttfamily \#include $<$rbpf.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} = Eigen\+::\+Matrix$<$ double, dimss, 1 $>$
+\item 
+using \hyperlink{classrbpf__kalman__bs_a8ce938ee1e02c5766ad15c1aca4e7796}{nsssv} = Eigen\+::\+Matrix$<$ double, dimss, 1 $>$
+\item 
+using \hyperlink{classrbpf__kalman__bs_a87690d6ffb54ffb4b76dc2de7fd415d5}{osv} = Eigen\+::\+Matrix$<$ double, dimy, 1 $>$
+\item 
+using \hyperlink{classrbpf__kalman__bs_a070b7a6225d1eae7595454fb523fd182}{Mat} = Eigen\+::\+Matrix$<$ double, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+using \hyperlink{classrbpf__kalman__bs_ad20086b480fa12e9179a573c4b47818f}{nsss\+Mat} = Eigen\+::\+Matrix$<$ double, dimnss, dimnss $>$
+\item 
+using \hyperlink{classrbpf__kalman__bs_aa7f8e240e96a4272142f3d60fbd0d007}{array\+Mod} = std\+::array$<$ \hyperlink{classkalman}{kalman}$<$ dimnss, dimobs $>$, nparts $>$
+\item 
+using \hyperlink{classrbpf__kalman__bs_aad6c02f9c5db3937db418d3fc80deb4d}{array\+Vec} = std\+::array$<$ \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv}, nparts $>$
+\item 
+using \hyperlink{classrbpf__kalman__bs_a4f03888e8fc3a8c9402bde23823561de}{array\+Double} = std\+::array$<$ double, nparts $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classrbpf__kalman__bs_a83e8c7899853882f8012321166699de0}{rbpf\+\_\+kalman\+\_\+bs} (const unsigned int \&resamp\+\_\+sched)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classrbpf__kalman__bs_ad60b5c636ab9e894dd8c3781709f0e4c}{filter} (const \hyperlink{classrbpf__kalman__bs_a87690d6ffb54ffb4b76dc2de7fd415d5}{osv} \&data, const std\+::vector$<$ std\+::function$<$ const \hyperlink{classrbpf__kalman__bs_a070b7a6225d1eae7595454fb523fd182}{Mat}(const \hyperlink{classrbpf__kalman__bs_a8ce938ee1e02c5766ad15c1aca4e7796}{nsssv} \&x1t, const \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \&x2t)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const \hyperlink{classrbpf__kalman__bs_a070b7a6225d1eae7595454fb523fd182}{Mat}(const \hyperlink{classrbpf__kalman__bs_a8ce938ee1e02c5766ad15c1aca4e7796}{nsssv} \&x1t, const \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \&x2t)$>$ $>$())
+\begin{DoxyCompactList}\small\item\em Filter! \end{DoxyCompactList}\item 
+double \hyperlink{classrbpf__kalman__bs_a8000690df708e71a0f07765594d9f125}{get\+Log\+Cond\+Like} () const 
+\begin{DoxyCompactList}\small\item\em Get the latest log conditional likelihood. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classrbpf__kalman__bs_a070b7a6225d1eae7595454fb523fd182}{Mat} $>$ \hyperlink{classrbpf__kalman__bs_a2e283936d3e8996574398a68efb4988e}{get\+Expectations} () const 
+\begin{DoxyCompactList}\small\item\em Get the latest filtered expectation E\mbox{[}h(x\+\_\+1t, x\+\_\+2t) $\vert$ y\+\_\+\{1\+:t\}\mbox{]}. \end{DoxyCompactList}\item 
+virtual \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \hyperlink{classrbpf__kalman__bs_ada4710f03a58c5d461a2141d9dbd49f1}{mu\+Samp} ()=0
+\begin{DoxyCompactList}\small\item\em Sample from the first time\textquotesingle{}s proposal distribution. \end{DoxyCompactList}\item 
+virtual nssv \hyperlink{classrbpf__kalman__bs_a566420e8b13c912d06c898b79023ab94}{init\+Kalman\+Mean} (const \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \&x21)=0
+\begin{DoxyCompactList}\small\item\em Provides the initial mean vector for each Kalman filter object. \end{DoxyCompactList}\item 
+virtual \hyperlink{classrbpf__kalman__bs_ad20086b480fa12e9179a573c4b47818f}{nsss\+Mat} \hyperlink{classrbpf__kalman__bs_af89c8909360ea2bd2eccdb02e65b1cf4}{init\+Kalman\+Var} (const \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \&x21)=0
+\begin{DoxyCompactList}\small\item\em Provides the initial covariance matrix for each Kalman filter object. \end{DoxyCompactList}\item 
+virtual \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \hyperlink{classrbpf__kalman__bs_af55528bb974502bc88ba2a72b479d675}{f\+Samp} (const \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \&x2tm1)=0
+\begin{DoxyCompactList}\small\item\em Samples the time t second component. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classrbpf__kalman__bs_a43b6528f464bad8366027667f0301024}{update\+Kalman} (\hyperlink{classkalman}{kalman}$<$ dimnss, dimobs $>$ \&k\+Mod, const \hyperlink{classrbpf__kalman__bs_a87690d6ffb54ffb4b76dc2de7fd415d5}{osv} \&yt, const \hyperlink{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{sssv} \&x2t)=0
+\begin{DoxyCompactList}\small\item\em How to update your inner Kalman filter object at each time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{classrbpf__kalman__bs_a6d86ffa1e023e3cdcd429fe035c08cfd}{m\+\_\+rs}
+\item 
+\hyperlink{classrbpf__kalman__bs_aa7f8e240e96a4272142f3d60fbd0d007}{array\+Mod} \hyperlink{classrbpf__kalman__bs_a5476616a6294961cacb9aa82bcf5cfd6}{m\+\_\+p\+\_\+inner\+Mods}
+\item 
+\hyperlink{classrbpf__kalman__bs_aad6c02f9c5db3937db418d3fc80deb4d}{array\+Vec} \hyperlink{classrbpf__kalman__bs_a763eb2ce41bc321803f89b78b732573f}{m\+\_\+p\+\_\+samps}
+\item 
+\hyperlink{classrbpf__kalman__bs_a4f03888e8fc3a8c9402bde23823561de}{array\+Double} \hyperlink{classrbpf__kalman__bs_ab5cfe5ba161d08d86946f783ade20883}{m\+\_\+log\+Un\+Norm\+Weights}
+\item 
+unsigned int \hyperlink{classrbpf__kalman__bs_abbb78e54b0077e126cb5816ede57b9a0}{m\+\_\+now}
+\item 
+double \hyperlink{classrbpf__kalman__bs_a1a4253dd9ee0f096e7ca65ca98529301}{m\+\_\+last\+Log\+Cond\+Like}
+\item 
+resampT \hyperlink{classrbpf__kalman__bs_aaadb68075e736f9eca8925623020aaba}{m\+\_\+resampler}
+\item 
+std\+::vector$<$ \hyperlink{classrbpf__kalman__bs_a070b7a6225d1eae7595454fb523fd182}{Mat} $>$ \hyperlink{classrbpf__kalman__bs_aec5b9e4300e3549007c5a4285557b013}{m\+\_\+expectations}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT$>$\\*
+class rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+
+Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner Kalman Filter objectss. 
+
+\begin{DoxyAuthor}{Author}
+t 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!array\+Double@{array\+Double}}
+\index{array\+Double@{array\+Double}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{array\+Double}{arrayDouble}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf array\+Double} =  std\+::array$<$double,nparts$>$}\hypertarget{classrbpf__kalman__bs_a4f03888e8fc3a8c9402bde23823561de}{}\label{classrbpf__kalman__bs_a4f03888e8fc3a8c9402bde23823561de}
+array of weights \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!array\+Mod@{array\+Mod}}
+\index{array\+Mod@{array\+Mod}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{array\+Mod}{arrayMod}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf array\+Mod} =  std\+::array$<${\bf kalman}$<$dimnss,dimobs$>$,nparts$>$}\hypertarget{classrbpf__kalman__bs_aa7f8e240e96a4272142f3d60fbd0d007}{}\label{classrbpf__kalman__bs_aa7f8e240e96a4272142f3d60fbd0d007}
+array of model objects \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!array\+Vec@{array\+Vec}}
+\index{array\+Vec@{array\+Vec}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{array\+Vec}{arrayVec}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf array\+Vec} =  std\+::array$<${\bf sssv},nparts$>$}\hypertarget{classrbpf__kalman__bs_aad6c02f9c5db3937db418d3fc80deb4d}{}\label{classrbpf__kalman__bs_aad6c02f9c5db3937db418d3fc80deb4d}
+array of samples \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!Mat@{Mat}}
+\index{Mat@{Mat}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{Mat}{Mat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf Mat} =  Eigen\+::\+Matrix$<$double,Eigen\+::\+Dynamic,Eigen\+::\+Dynamic$>$}\hypertarget{classrbpf__kalman__bs_a070b7a6225d1eae7595454fb523fd182}{}\label{classrbpf__kalman__bs_a070b7a6225d1eae7595454fb523fd182}
+dynamic size matrices \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!nsss\+Mat@{nsss\+Mat}}
+\index{nsss\+Mat@{nsss\+Mat}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{nsss\+Mat}{nsssMat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf nsss\+Mat} =  Eigen\+::\+Matrix$<$double,dimnss,dimnss$>$}\hypertarget{classrbpf__kalman__bs_ad20086b480fa12e9179a573c4b47818f}{}\label{classrbpf__kalman__bs_ad20086b480fa12e9179a573c4b47818f}
+\char`\"{}not sampled state size matrix\char`\"{} \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!nsssv@{nsssv}}
+\index{nsssv@{nsssv}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{nsssv}{nsssv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf nsssv} =  Eigen\+::\+Matrix$<$double,dimss,1$>$}\hypertarget{classrbpf__kalman__bs_a8ce938ee1e02c5766ad15c1aca4e7796}{}\label{classrbpf__kalman__bs_a8ce938ee1e02c5766ad15c1aca4e7796}
+\char`\"{}not sampled state size vector\char`\"{} \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!osv@{osv}}
+\index{osv@{osv}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{osv}{osv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf osv} =  Eigen\+::\+Matrix$<$double,dimy,1$>$}\hypertarget{classrbpf__kalman__bs_a87690d6ffb54ffb4b76dc2de7fd415d5}{}\label{classrbpf__kalman__bs_a87690d6ffb54ffb4b76dc2de7fd415d5}
+\char`\"{}observation size vector\char`\"{} \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!sssv@{sssv}}
+\index{sssv@{sssv}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{sssv}{sssv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf sssv} =  Eigen\+::\+Matrix$<$double,dimss,1$>$}\hypertarget{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}{}\label{classrbpf__kalman__bs_a803b67ae284377c11e727bb47601045a}
+\char`\"{}sampled state size vector\char`\"{} 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{rbpf\+\_\+kalman\+\_\+bs(const unsigned int \&resamp\+\_\+sched)}{rbpf_kalman_bs(const unsigned int &resamp_sched)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf rbpf\+\_\+kalman\+\_\+bs} (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{resamp\+\_\+sched}
+\end{DoxyParamCaption}
+)}\hypertarget{classrbpf__kalman__bs_a83e8c7899853882f8012321166699de0}{}\label{classrbpf__kalman__bs_a83e8c7899853882f8012321166699de0}
+
+
+The constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em resamp\+\_\+sched} & how often you want to resample (e.\+g once every resamp\+\_\+sched time points) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!filter@{filter}}
+\index{filter@{filter}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{filter(const osv \&data, const std\+::vector$<$ std\+::function$<$ const Mat(const nsssv \&x1t, const sssv \&x2t)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const Mat(const nsssv \&x1t, const sssv \&x2t)$>$ $>$())}{filter(const osv &data, const std::vector< std::function< const Mat(const nsssv &x1t, const sssv &x2t)> > &fs=std::vector< std::function< const Mat(const nsssv &x1t, const sssv &x2t)> >())}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ void {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::filter (
+\begin{DoxyParamCaption}
+\item[{const {\bf osv} \&}]{data, }
+\item[{const std\+::vector$<$ std\+::function$<$ const {\bf Mat}(const {\bf nsssv} \&x1t, const {\bf sssv} \&x2t)$>$ $>$ \&}]{fs = {\ttfamily std\+:\+:vector$<$std\+:\+:function$<$const~{\bf Mat}(const~{\bf nsssv}~\&x1t,~const~{\bf sssv}~\&x2t)$>$~$>$()}}
+\end{DoxyParamCaption}
+)}\hypertarget{classrbpf__kalman__bs_ad60b5c636ab9e894dd8c3781709f0e4c}{}\label{classrbpf__kalman__bs_ad60b5c636ab9e894dd8c3781709f0e4c}
+
+
+Filter! 
+
+The workhorse function 
+\begin{DoxyParams}{Parameters}
+{\em data} & the most recent observable portion of the time series. \\
+\hline
+{\em fs} & a vector of functions computing E\mbox{[}h(x\+\_\+1t, x\+\_\+2t$^\wedge$i)$\vert$ x\+\_\+2t$^\wedge$i,y\+\_\+1\+:t\mbox{]}. to be averaged to yield E\mbox{[}h(x\+\_\+1t, x\+\_\+2t)$\vert$,y\+\_\+1\+:t\mbox{]} \\
+\hline
+\end{DoxyParams}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!f\+Samp@{f\+Samp}}
+\index{f\+Samp@{f\+Samp}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{f\+Samp(const sssv \&x2tm1)=0}{fSamp(const sssv &x2tm1)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual {\bf sssv} {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::f\+Samp (
+\begin{DoxyParamCaption}
+\item[{const {\bf sssv} \&}]{x2tm1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__kalman__bs_af55528bb974502bc88ba2a72b479d675}{}\label{classrbpf__kalman__bs_af55528bb974502bc88ba2a72b479d675}
+
+
+Samples the time t second component. 
+
+Samples the time t second component. 
+\begin{DoxyParams}{Parameters}
+{\em x2tm1} & the previous time\textquotesingle{}s second state component. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a sssv sample of the second state component at the current time. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!get\+Expectations@{get\+Expectations}}
+\index{get\+Expectations@{get\+Expectations}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{get\+Expectations() const }{getExpectations() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ auto {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::get\+Expectations (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classrbpf__kalman__bs_a2e283936d3e8996574398a68efb4988e}{}\label{classrbpf__kalman__bs_a2e283936d3e8996574398a68efb4988e}
+
+
+Get the latest filtered expectation E\mbox{[}h(x\+\_\+1t, x\+\_\+2t) $\vert$ y\+\_\+\{1\+:t\}\mbox{]}. 
+
+Get the expectations you\textquotesingle{}re keeping track of. \begin{DoxyReturn}{Returns}
+a vector of Mats 
+\end{DoxyReturn}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}}
+\index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{get\+Log\+Cond\+Like() const }{getLogCondLike() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ double {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::get\+Log\+Cond\+Like (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classrbpf__kalman__bs_a8000690df708e71a0f07765594d9f125}{}\label{classrbpf__kalman__bs_a8000690df708e71a0f07765594d9f125}
+
+
+Get the latest log conditional likelihood. 
+
+\begin{DoxyReturn}{Returns}
+the latest log conditional likelihood. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!init\+Kalman\+Mean@{init\+Kalman\+Mean}}
+\index{init\+Kalman\+Mean@{init\+Kalman\+Mean}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{init\+Kalman\+Mean(const sssv \&x21)=0}{initKalmanMean(const sssv &x21)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual nssv {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::init\+Kalman\+Mean (
+\begin{DoxyParamCaption}
+\item[{const {\bf sssv} \&}]{x21}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__kalman__bs_a566420e8b13c912d06c898b79023ab94}{}\label{classrbpf__kalman__bs_a566420e8b13c912d06c898b79023ab94}
+
+
+Provides the initial mean vector for each Kalman filter object. 
+
+provides the initial mean vector for each Kalman filter object. 
+\begin{DoxyParams}{Parameters}
+{\em x21} & the second state componenent at time 1. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a nsssv representing the unconditional mean. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!init\+Kalman\+Var@{init\+Kalman\+Var}}
+\index{init\+Kalman\+Var@{init\+Kalman\+Var}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{init\+Kalman\+Var(const sssv \&x21)=0}{initKalmanVar(const sssv &x21)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual {\bf nsss\+Mat} {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::init\+Kalman\+Var (
+\begin{DoxyParamCaption}
+\item[{const {\bf sssv} \&}]{x21}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__kalman__bs_af89c8909360ea2bd2eccdb02e65b1cf4}{}\label{classrbpf__kalman__bs_af89c8909360ea2bd2eccdb02e65b1cf4}
+
+
+Provides the initial covariance matrix for each Kalman filter object. 
+
+provides the initial covariance matrix for each Kalman filter object. 
+\begin{DoxyParams}{Parameters}
+{\em x21} & the second state component at time 1. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a covariance matrix. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!mu\+Samp@{mu\+Samp}}
+\index{mu\+Samp@{mu\+Samp}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{mu\+Samp()=0}{muSamp()=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual {\bf sssv} {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::mu\+Samp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__kalman__bs_ada4710f03a58c5d461a2141d9dbd49f1}{}\label{classrbpf__kalman__bs_ada4710f03a58c5d461a2141d9dbd49f1}
+
+
+Sample from the first time\textquotesingle{}s proposal distribution. 
+
+samples the second component of the state at time 1. \begin{DoxyReturn}{Returns}
+a sssv sample for x21. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!update\+Kalman@{update\+Kalman}}
+\index{update\+Kalman@{update\+Kalman}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{update\+Kalman(kalman$<$ dimnss, dimobs $>$ \&k\+Mod, const osv \&yt, const sssv \&x2t)=0}{updateKalman(kalman< dimnss, dimobs > &kMod, const osv &yt, const sssv &x2t)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual void {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::update\+Kalman (
+\begin{DoxyParamCaption}
+\item[{{\bf kalman}$<$ dimnss, dimobs $>$ \&}]{k\+Mod, }
+\item[{const {\bf osv} \&}]{yt, }
+\item[{const {\bf sssv} \&}]{x2t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__kalman__bs_a43b6528f464bad8366027667f0301024}{}\label{classrbpf__kalman__bs_a43b6528f464bad8366027667f0301024}
+
+
+How to update your inner Kalman filter object at each time. 
+
+How to update your inner Kalman filter object at each time. 
+\begin{DoxyParams}{Parameters}
+{\em k\+Mod} & a Kalman filter object describing the conditional closed-\/form model. \\
+\hline
+{\em yt} & the current time series observation. \\
+\hline
+{\em x2t} & the current second state component. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+expectations@{m\+\_\+expectations}}
+\index{m\+\_\+expectations@{m\+\_\+expectations}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+expectations}{m_expectations}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ std\+::vector$<${\bf Mat}$>$ {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+expectations\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_aec5b9e4300e3549007c5a4285557b013}{}\label{classrbpf__kalman__bs_aec5b9e4300e3549007c5a4285557b013}
+expectations \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+last\+Log\+Cond\+Like@{m\+\_\+last\+Log\+Cond\+Like}}
+\index{m\+\_\+last\+Log\+Cond\+Like@{m\+\_\+last\+Log\+Cond\+Like}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+last\+Log\+Cond\+Like}{m_lastLogCondLike}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ double {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+last\+Log\+Cond\+Like\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_a1a4253dd9ee0f096e7ca65ca98529301}{}\label{classrbpf__kalman__bs_a1a4253dd9ee0f096e7ca65ca98529301}
+log p(y\+\_\+t$\vert$y\+\_\+\{1\+:t-\/1\}) or log p(y1) \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+log\+Un\+Norm\+Weights@{m\+\_\+log\+Un\+Norm\+Weights}}
+\index{m\+\_\+log\+Un\+Norm\+Weights@{m\+\_\+log\+Un\+Norm\+Weights}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+log\+Un\+Norm\+Weights}{m_logUnNormWeights}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf array\+Double} {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+log\+Un\+Norm\+Weights\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_ab5cfe5ba161d08d86946f783ade20883}{}\label{classrbpf__kalman__bs_ab5cfe5ba161d08d86946f783ade20883}
+the array of the (log of) unnormalized weights \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+now@{m\+\_\+now}}
+\index{m\+\_\+now@{m\+\_\+now}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+now}{m_now}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ unsigned int {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+now\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_abbb78e54b0077e126cb5816ede57b9a0}{}\label{classrbpf__kalman__bs_abbb78e54b0077e126cb5816ede57b9a0}
+the current time period \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+p\+\_\+inner\+Mods@{m\+\_\+p\+\_\+inner\+Mods}}
+\index{m\+\_\+p\+\_\+inner\+Mods@{m\+\_\+p\+\_\+inner\+Mods}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+p\+\_\+inner\+Mods}{m_p_innerMods}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf array\+Mod} {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+p\+\_\+inner\+Mods\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_a5476616a6294961cacb9aa82bcf5cfd6}{}\label{classrbpf__kalman__bs_a5476616a6294961cacb9aa82bcf5cfd6}
+the array of inner Kalman filter objects \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+p\+\_\+samps@{m\+\_\+p\+\_\+samps}}
+\index{m\+\_\+p\+\_\+samps@{m\+\_\+p\+\_\+samps}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+p\+\_\+samps}{m_p_samps}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf array\+Vec} {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+p\+\_\+samps\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_a763eb2ce41bc321803f89b78b732573f}{}\label{classrbpf__kalman__bs_a763eb2ce41bc321803f89b78b732573f}
+the array of particle samples \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+resampler@{m\+\_\+resampler}}
+\index{m\+\_\+resampler@{m\+\_\+resampler}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+resampler}{m_resampler}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ resampT {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+resampler\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_aaadb68075e736f9eca8925623020aaba}{}\label{classrbpf__kalman__bs_aaadb68075e736f9eca8925623020aaba}
+resampler object \index{rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}!m\+\_\+rs@{m\+\_\+rs}}
+\index{m\+\_\+rs@{m\+\_\+rs}!rbpf\+\_\+kalman\+\_\+bs@{rbpf\+\_\+kalman\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+rs}{m_rs}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ unsigned int {\bf rbpf\+\_\+kalman\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+rs\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__kalman__bs_a6d86ffa1e023e3cdcd429fe035c08cfd}{}\label{classrbpf__kalman__bs_a6d86ffa1e023e3cdcd429fe035c08cfd}
+the resamplign schedule 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rbpf_8h}{rbpf.\+h}\end{DoxyCompactItemize}

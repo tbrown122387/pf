@@ -1,0 +1,302 @@
+\hypertarget{classrbpf__hmm__bs}{}\section{rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resampT $>$ Class Template Reference}
+\label{classrbpf__hmm__bs}\index{rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$@{rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}}
+
+
+Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner H\+M\+Ms.  
+
+
+
+
+{\ttfamily \#include $<$rbpf.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} = Eigen\+::\+Matrix$<$ double, dimss, 1 $>$
+\item 
+using \hyperlink{classrbpf__hmm__bs_ad348eec8ba6e192775ff7a7b4a288809}{nsssv} = Eigen\+::\+Matrix$<$ double, dimss, 1 $>$
+\item 
+using \hyperlink{classrbpf__hmm__bs_a9a830ec4bbd37d4922011165aa5a8037}{osv} = Eigen\+::\+Matrix$<$ double, dimy, 1 $>$
+\item 
+using \hyperlink{classrbpf__hmm__bs_a1bd1ebb6af375d962ba266b4ed5434a1}{nsss\+Mat} = Eigen\+::\+Matrix$<$ double, dimnss, dimnss $>$
+\item 
+using \hyperlink{classrbpf__hmm__bs_a8f6996a1394c31ac65859de96f195f3a}{Mat} = Eigen\+::\+Matrix$<$ double, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+using \hyperlink{classrbpf__hmm__bs_a9772cd625f6a416ccd54558108b1d7a3}{array\+Mod} = std\+::array$<$ \hyperlink{classhmm}{hmm}$<$ dimnss, dimy $>$, nparts $>$
+\item 
+using \hyperlink{classrbpf__hmm__bs_a18441e40d4353bf4b91e6cbac001a28b}{array\+Vec} = std\+::array$<$ \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv}, nparts $>$
+\item 
+using \hyperlink{classrbpf__hmm__bs_a97b5eab2c1fc8acffbdb8941432e8c00}{array\+Double} = std\+::array$<$ double, nparts $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classrbpf__hmm__bs_aee5c10d320f7c4d2cf2a3f230fca4f18}{rbpf\+\_\+hmm\+\_\+bs} (const unsigned int \&resamp\+\_\+sched)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classrbpf__hmm__bs_ab04815be8324ccd196427ca95ddf2476}{filter} (const \hyperlink{classrbpf__hmm__bs_a9a830ec4bbd37d4922011165aa5a8037}{osv} \&data, const std\+::vector$<$ std\+::function$<$ const \hyperlink{classrbpf__hmm__bs_a8f6996a1394c31ac65859de96f195f3a}{Mat}(const \hyperlink{classrbpf__hmm__bs_ad348eec8ba6e192775ff7a7b4a288809}{nsssv} \&x1t\+Probs, const \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \&x2t)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const \hyperlink{classrbpf__hmm__bs_a8f6996a1394c31ac65859de96f195f3a}{Mat}(const \hyperlink{classrbpf__hmm__bs_ad348eec8ba6e192775ff7a7b4a288809}{nsssv} \&, const \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \&)$>$ $>$())
+\begin{DoxyCompactList}\small\item\em Filter. \end{DoxyCompactList}\item 
+double \hyperlink{classrbpf__hmm__bs_a0c66c15cb50c5fcd35e68f05092a66f0}{get\+Log\+Cond\+Like} () const 
+\begin{DoxyCompactList}\small\item\em Get the latest conditional likelihood. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classrbpf__hmm__bs_a8f6996a1394c31ac65859de96f195f3a}{Mat} $>$ \hyperlink{classrbpf__hmm__bs_a4ce1bdcfdebab7410594b8d556444e00}{get\+Expectations} () const 
+\begin{DoxyCompactList}\small\item\em Get vector of expectations. \end{DoxyCompactList}\item 
+virtual \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \hyperlink{classrbpf__hmm__bs_a355305cfff93ccaaccf795481721ab6f}{mu\+Samp} ()=0
+\begin{DoxyCompactList}\small\item\em Sample from the first sampler. \end{DoxyCompactList}\item 
+virtual nssv \hyperlink{classrbpf__hmm__bs_a01e930554f9a7d847dbe2be4c49db4db}{init\+H\+M\+M\+Prob\+Vec} (const \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \&x21)=0
+\begin{DoxyCompactList}\small\item\em Provides the initial mean vector for each H\+MM filter object. \end{DoxyCompactList}\item 
+virtual \hyperlink{classrbpf__hmm__bs_a1bd1ebb6af375d962ba266b4ed5434a1}{nsss\+Mat} \hyperlink{classrbpf__hmm__bs_a74f41ca3dae17f4dc1962fb61b489038}{init\+H\+M\+M\+Trans\+Mat} (const \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \&x21)=0
+\begin{DoxyCompactList}\small\item\em Provides the transition matrix for each H\+MM filter object. \end{DoxyCompactList}\item 
+virtual \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \hyperlink{classrbpf__hmm__bs_a2edca3ded3bbb34f67303f5cc9e40170}{f\+Samp} (const \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \&x2tm1)=0
+\begin{DoxyCompactList}\small\item\em Samples the time t second component. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classrbpf__hmm__bs_ae183b5747ec63cd61031e8bbbfe5fb82}{update\+H\+MM} (\hyperlink{classhmm}{hmm}$<$ dimnss, dimy $>$ \&a\+Model, const \hyperlink{classrbpf__hmm__bs_a9a830ec4bbd37d4922011165aa5a8037}{osv} \&yt, const \hyperlink{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{sssv} \&x2t)=0
+\begin{DoxyCompactList}\small\item\em How to update your inner H\+MM filter object at each time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{classrbpf__hmm__bs_ae0102fba0fb6873f0d01ef873fe8dbb1}{m\+\_\+now}
+\item 
+double \hyperlink{classrbpf__hmm__bs_a84b69c77970140adb2affbdc800e76cc}{m\+\_\+last\+Log\+Cond\+Like}
+\item 
+unsigned int \hyperlink{classrbpf__hmm__bs_a0b81a949e21d9c1f3c1dcb5c6c4840e2}{m\+\_\+rs}
+\item 
+\hyperlink{classrbpf__hmm__bs_a9772cd625f6a416ccd54558108b1d7a3}{array\+Mod} \hyperlink{classrbpf__hmm__bs_a66e06e277278568dd484b36065ad38ee}{m\+\_\+p\+\_\+inner\+Mods}
+\item 
+\hyperlink{classrbpf__hmm__bs_a18441e40d4353bf4b91e6cbac001a28b}{array\+Vec} \hyperlink{classrbpf__hmm__bs_a51c48b58b2be3a82a61fed0f1a44f06d}{m\+\_\+p\+\_\+samps}
+\item 
+\hyperlink{classrbpf__hmm__bs_a97b5eab2c1fc8acffbdb8941432e8c00}{array\+Double} \hyperlink{classrbpf__hmm__bs_a6a4c6cd6a2ac836dd74d475560aa4048}{m\+\_\+log\+Un\+Norm\+Weights}
+\item 
+resampT \hyperlink{classrbpf__hmm__bs_a164a9d81ede5be6a9ca0dd33cdffb3c0}{m\+\_\+resampler}
+\item 
+std\+::vector$<$ \hyperlink{classrbpf__hmm__bs_a8f6996a1394c31ac65859de96f195f3a}{Mat} $>$ \hyperlink{classrbpf__hmm__bs_ac6ab8e527331e321da58501e4a4da14e}{m\+\_\+expectations}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT$>$\\*
+class rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+
+Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner H\+M\+Ms. 
+
+\begin{DoxyAuthor}{Author}
+t 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!array\+Double@{array\+Double}}
+\index{array\+Double@{array\+Double}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{array\+Double}{arrayDouble}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf array\+Double} =  std\+::array$<$double,nparts$>$}\hypertarget{classrbpf__hmm__bs_a97b5eab2c1fc8acffbdb8941432e8c00}{}\label{classrbpf__hmm__bs_a97b5eab2c1fc8acffbdb8941432e8c00}
+array of weights \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!array\+Mod@{array\+Mod}}
+\index{array\+Mod@{array\+Mod}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{array\+Mod}{arrayMod}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf array\+Mod} =  std\+::array$<${\bf hmm}$<$dimnss,dimy$>$,nparts$>$}\hypertarget{classrbpf__hmm__bs_a9772cd625f6a416ccd54558108b1d7a3}{}\label{classrbpf__hmm__bs_a9772cd625f6a416ccd54558108b1d7a3}
+array of model objects \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!array\+Vec@{array\+Vec}}
+\index{array\+Vec@{array\+Vec}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{array\+Vec}{arrayVec}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf array\+Vec} =  std\+::array$<${\bf sssv},nparts$>$}\hypertarget{classrbpf__hmm__bs_a18441e40d4353bf4b91e6cbac001a28b}{}\label{classrbpf__hmm__bs_a18441e40d4353bf4b91e6cbac001a28b}
+array of samples \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!Mat@{Mat}}
+\index{Mat@{Mat}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{Mat}{Mat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf Mat} =  Eigen\+::\+Matrix$<$double,Eigen\+::\+Dynamic,Eigen\+::\+Dynamic$>$}\hypertarget{classrbpf__hmm__bs_a8f6996a1394c31ac65859de96f195f3a}{}\label{classrbpf__hmm__bs_a8f6996a1394c31ac65859de96f195f3a}
+Dynamic size matrix \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!nsss\+Mat@{nsss\+Mat}}
+\index{nsss\+Mat@{nsss\+Mat}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{nsss\+Mat}{nsssMat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf nsss\+Mat} =  Eigen\+::\+Matrix$<$double,dimnss,dimnss$>$}\hypertarget{classrbpf__hmm__bs_a1bd1ebb6af375d962ba266b4ed5434a1}{}\label{classrbpf__hmm__bs_a1bd1ebb6af375d962ba266b4ed5434a1}
+\char`\"{}not sampled state size matrix\char`\"{} \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!nsssv@{nsssv}}
+\index{nsssv@{nsssv}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{nsssv}{nsssv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf nsssv} =  Eigen\+::\+Matrix$<$double,dimss,1$>$}\hypertarget{classrbpf__hmm__bs_ad348eec8ba6e192775ff7a7b4a288809}{}\label{classrbpf__hmm__bs_ad348eec8ba6e192775ff7a7b4a288809}
+\char`\"{}not sampled state size vector\char`\"{} \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!osv@{osv}}
+\index{osv@{osv}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{osv}{osv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf osv} =  Eigen\+::\+Matrix$<$double,dimy,1$>$}\hypertarget{classrbpf__hmm__bs_a9a830ec4bbd37d4922011165aa5a8037}{}\label{classrbpf__hmm__bs_a9a830ec4bbd37d4922011165aa5a8037}
+\char`\"{}observation size vector\char`\"{} \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!sssv@{sssv}}
+\index{sssv@{sssv}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{sssv}{sssv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ using {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf sssv} =  Eigen\+::\+Matrix$<$double,dimss,1$>$}\hypertarget{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}{}\label{classrbpf__hmm__bs_aba47e4a45bf4ac6913f4419f9512f97f}
+\char`\"{}sampled state size vector\char`\"{} 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{rbpf\+\_\+hmm\+\_\+bs(const unsigned int \&resamp\+\_\+sched)}{rbpf_hmm_bs(const unsigned int &resamp_sched)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::{\bf rbpf\+\_\+hmm\+\_\+bs} (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{resamp\+\_\+sched}
+\end{DoxyParamCaption}
+)}\hypertarget{classrbpf__hmm__bs_aee5c10d320f7c4d2cf2a3f230fca4f18}{}\label{classrbpf__hmm__bs_aee5c10d320f7c4d2cf2a3f230fca4f18}
+
+
+The constructor. 
+
+constructor. 
+\begin{DoxyParams}{Parameters}
+{\em resamp\+\_\+sched} & how often to resample (e.\+g. once every resamp\+\_\+sched time periods) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!filter@{filter}}
+\index{filter@{filter}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{filter(const osv \&data, const std\+::vector$<$ std\+::function$<$ const Mat(const nsssv \&x1t\+Probs, const sssv \&x2t)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const Mat(const nsssv \&, const sssv \&)$>$ $>$())}{filter(const osv &data, const std::vector< std::function< const Mat(const nsssv &x1tProbs, const sssv &x2t)> > &fs=std::vector< std::function< const Mat(const nsssv &, const sssv &)> >())}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ void {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::filter (
+\begin{DoxyParamCaption}
+\item[{const {\bf osv} \&}]{data, }
+\item[{const std\+::vector$<$ std\+::function$<$ const {\bf Mat}(const {\bf nsssv} \&x1t\+Probs, const {\bf sssv} \&x2t)$>$ $>$ \&}]{fs = {\ttfamily std\+:\+:vector$<$std\+:\+:function$<$const~{\bf Mat}(const~{\bf nsssv}\&,~const~{\bf sssv}\&)$>$~$>$()}}
+\end{DoxyParamCaption}
+)}\hypertarget{classrbpf__hmm__bs_ab04815be8324ccd196427ca95ddf2476}{}\label{classrbpf__hmm__bs_ab04815be8324ccd196427ca95ddf2476}
+
+
+Filter. 
+
+filters everything based on a new data point. 
+\begin{DoxyParams}{Parameters}
+{\em data} & the most recent time series observation. \\
+\hline
+{\em fs} & a vector of functions computing E\mbox{[}h(x\+\_\+1t, x\+\_\+2t$^\wedge$i)$\vert$ x\+\_\+2t$^\wedge$i,y\+\_\+1\+:t\mbox{]} to be averaged to yield E\mbox{[}h(x\+\_\+1t, x\+\_\+2t)$\vert$,y\+\_\+1\+:t\mbox{]}. Will access the probability vector of x\+\_\+1t \\
+\hline
+\end{DoxyParams}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!f\+Samp@{f\+Samp}}
+\index{f\+Samp@{f\+Samp}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{f\+Samp(const sssv \&x2tm1)=0}{fSamp(const sssv &x2tm1)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual {\bf sssv} {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::f\+Samp (
+\begin{DoxyParamCaption}
+\item[{const {\bf sssv} \&}]{x2tm1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__hmm__bs_a2edca3ded3bbb34f67303f5cc9e40170}{}\label{classrbpf__hmm__bs_a2edca3ded3bbb34f67303f5cc9e40170}
+
+
+Samples the time t second component. 
+
+Samples the time t second component. 
+\begin{DoxyParams}{Parameters}
+{\em x2tm1} & the previous time\textquotesingle{}s second state component. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a sssv sample of the second state component at the current time. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!get\+Expectations@{get\+Expectations}}
+\index{get\+Expectations@{get\+Expectations}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{get\+Expectations() const }{getExpectations() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ auto {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::get\+Expectations (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classrbpf__hmm__bs_a4ce1bdcfdebab7410594b8d556444e00}{}\label{classrbpf__hmm__bs_a4ce1bdcfdebab7410594b8d556444e00}
+
+
+Get vector of expectations. 
+
+\begin{DoxyReturn}{Returns}
+vector of expectations 
+\end{DoxyReturn}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}}
+\index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{get\+Log\+Cond\+Like() const }{getLogCondLike() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ double {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::get\+Log\+Cond\+Like (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classrbpf__hmm__bs_a0c66c15cb50c5fcd35e68f05092a66f0}{}\label{classrbpf__hmm__bs_a0c66c15cb50c5fcd35e68f05092a66f0}
+
+
+Get the latest conditional likelihood. 
+
+Get the latest conditional likelihood. \begin{DoxyReturn}{Returns}
+the latest conditional likelihood. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!init\+H\+M\+M\+Prob\+Vec@{init\+H\+M\+M\+Prob\+Vec}}
+\index{init\+H\+M\+M\+Prob\+Vec@{init\+H\+M\+M\+Prob\+Vec}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{init\+H\+M\+M\+Prob\+Vec(const sssv \&x21)=0}{initHMMProbVec(const sssv &x21)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual nssv {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::init\+H\+M\+M\+Prob\+Vec (
+\begin{DoxyParamCaption}
+\item[{const {\bf sssv} \&}]{x21}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__hmm__bs_a01e930554f9a7d847dbe2be4c49db4db}{}\label{classrbpf__hmm__bs_a01e930554f9a7d847dbe2be4c49db4db}
+
+
+Provides the initial mean vector for each H\+MM filter object. 
+
+provides the initial probability vector for each H\+MM filter object. 
+\begin{DoxyParams}{Parameters}
+{\em x21} & the second state componenent at time 1. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Vec representing the probability of each state element. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!init\+H\+M\+M\+Trans\+Mat@{init\+H\+M\+M\+Trans\+Mat}}
+\index{init\+H\+M\+M\+Trans\+Mat@{init\+H\+M\+M\+Trans\+Mat}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{init\+H\+M\+M\+Trans\+Mat(const sssv \&x21)=0}{initHMMTransMat(const sssv &x21)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual {\bf nsss\+Mat} {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::init\+H\+M\+M\+Trans\+Mat (
+\begin{DoxyParamCaption}
+\item[{const {\bf sssv} \&}]{x21}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__hmm__bs_a74f41ca3dae17f4dc1962fb61b489038}{}\label{classrbpf__hmm__bs_a74f41ca3dae17f4dc1962fb61b489038}
+
+
+Provides the transition matrix for each H\+MM filter object. 
+
+provides the transition matrix for each H\+MM filter object. 
+\begin{DoxyParams}{Parameters}
+{\em x21} & the second state component at time 1. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a transition matrix where element (ij) is the probability of transitioning from state i to state j. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!mu\+Samp@{mu\+Samp}}
+\index{mu\+Samp@{mu\+Samp}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{mu\+Samp()=0}{muSamp()=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual {\bf sssv} {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::mu\+Samp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__hmm__bs_a355305cfff93ccaaccf795481721ab6f}{}\label{classrbpf__hmm__bs_a355305cfff93ccaaccf795481721ab6f}
+
+
+Sample from the first sampler. 
+
+samples the second component of the state at time 1. \begin{DoxyReturn}{Returns}
+a sssv sample for x21. 
+\end{DoxyReturn}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!update\+H\+MM@{update\+H\+MM}}
+\index{update\+H\+MM@{update\+H\+MM}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{update\+H\+M\+M(hmm$<$ dimnss, dimy $>$ \&a\+Model, const osv \&yt, const sssv \&x2t)=0}{updateHMM(hmm< dimnss, dimy > &aModel, const osv &yt, const sssv &x2t)=0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ virtual void {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::update\+H\+MM (
+\begin{DoxyParamCaption}
+\item[{{\bf hmm}$<$ dimnss, dimy $>$ \&}]{a\+Model, }
+\item[{const {\bf osv} \&}]{yt, }
+\item[{const {\bf sssv} \&}]{x2t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classrbpf__hmm__bs_ae183b5747ec63cd61031e8bbbfe5fb82}{}\label{classrbpf__hmm__bs_ae183b5747ec63cd61031e8bbbfe5fb82}
+
+
+How to update your inner H\+MM filter object at each time. 
+
+How to update your inner H\+MM filter object at each time. 
+\begin{DoxyParams}{Parameters}
+{\em a\+Model} & a H\+MM filter object describing the conditional closed-\/form model. \\
+\hline
+{\em yt} & the current time series observation. \\
+\hline
+{\em x2t} & the current second state component. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+expectations@{m\+\_\+expectations}}
+\index{m\+\_\+expectations@{m\+\_\+expectations}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+expectations}{m_expectations}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ std\+::vector$<${\bf Mat}$>$ {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+expectations\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_ac6ab8e527331e321da58501e4a4da14e}{}\label{classrbpf__hmm__bs_ac6ab8e527331e321da58501e4a4da14e}
+the vector of expectations \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+last\+Log\+Cond\+Like@{m\+\_\+last\+Log\+Cond\+Like}}
+\index{m\+\_\+last\+Log\+Cond\+Like@{m\+\_\+last\+Log\+Cond\+Like}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+last\+Log\+Cond\+Like}{m_lastLogCondLike}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ double {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+last\+Log\+Cond\+Like\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_a84b69c77970140adb2affbdc800e76cc}{}\label{classrbpf__hmm__bs_a84b69c77970140adb2affbdc800e76cc}
+last conditional likelihood \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+log\+Un\+Norm\+Weights@{m\+\_\+log\+Un\+Norm\+Weights}}
+\index{m\+\_\+log\+Un\+Norm\+Weights@{m\+\_\+log\+Un\+Norm\+Weights}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+log\+Un\+Norm\+Weights}{m_logUnNormWeights}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf array\+Double} {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+log\+Un\+Norm\+Weights\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_a6a4c6cd6a2ac836dd74d475560aa4048}{}\label{classrbpf__hmm__bs_a6a4c6cd6a2ac836dd74d475560aa4048}
+the array of unnormalized log-\/weights \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+now@{m\+\_\+now}}
+\index{m\+\_\+now@{m\+\_\+now}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+now}{m_now}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ unsigned int {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+now\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_ae0102fba0fb6873f0d01ef873fe8dbb1}{}\label{classrbpf__hmm__bs_ae0102fba0fb6873f0d01ef873fe8dbb1}
+the current time period \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+p\+\_\+inner\+Mods@{m\+\_\+p\+\_\+inner\+Mods}}
+\index{m\+\_\+p\+\_\+inner\+Mods@{m\+\_\+p\+\_\+inner\+Mods}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+p\+\_\+inner\+Mods}{m_p_innerMods}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf array\+Mod} {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+p\+\_\+inner\+Mods\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_a66e06e277278568dd484b36065ad38ee}{}\label{classrbpf__hmm__bs_a66e06e277278568dd484b36065ad38ee}
+the array of inner closed-\/form models \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+p\+\_\+samps@{m\+\_\+p\+\_\+samps}}
+\index{m\+\_\+p\+\_\+samps@{m\+\_\+p\+\_\+samps}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+p\+\_\+samps}{m_p_samps}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ {\bf array\+Vec} {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+p\+\_\+samps\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_a51c48b58b2be3a82a61fed0f1a44f06d}{}\label{classrbpf__hmm__bs_a51c48b58b2be3a82a61fed0f1a44f06d}
+the array of samples for the second state portion \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+resampler@{m\+\_\+resampler}}
+\index{m\+\_\+resampler@{m\+\_\+resampler}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+resampler}{m_resampler}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ resampT {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+resampler\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_a164a9d81ede5be6a9ca0dd33cdffb3c0}{}\label{classrbpf__hmm__bs_a164a9d81ede5be6a9ca0dd33cdffb3c0}
+the resampler object \index{rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}!m\+\_\+rs@{m\+\_\+rs}}
+\index{m\+\_\+rs@{m\+\_\+rs}!rbpf\+\_\+hmm\+\_\+bs@{rbpf\+\_\+hmm\+\_\+bs}}
+\subsubsection[{\texorpdfstring{m\+\_\+rs}{m_rs}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimnss, size\+\_\+t dimss, size\+\_\+t dimy, typename resampT $>$ unsigned int {\bf rbpf\+\_\+hmm\+\_\+bs}$<$ nparts, dimnss, dimss, dimy, resampT $>$\+::m\+\_\+rs\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classrbpf__hmm__bs_a0b81a949e21d9c1f3c1dcb5c6c4840e2}{}\label{classrbpf__hmm__bs_a0b81a949e21d9c1f3c1dcb5c6c4840e2}
+resampling schedue 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rbpf_8h}{rbpf.\+h}\end{DoxyCompactItemize}

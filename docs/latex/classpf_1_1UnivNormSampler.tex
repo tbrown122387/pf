@@ -1,0 +1,140 @@
+\hypertarget{classpf_1_1UnivNormSampler}{}\section{pf\+:\+:Univ\+Norm\+Sampler Class Reference}
+\label{classpf_1_1UnivNormSampler}\index{pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}}
+
+
+A class that performs sampling from a univariate Normal distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+:\+:Univ\+Norm\+Sampler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classpf_1_1UnivNormSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+:\+:Univ\+Norm\+Sampler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classpf_1_1UnivNormSampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classpf_1_1UnivNormSampler_ae357a6e2e9a58cd408ffabec0e253ea1}{Univ\+Norm\+Sampler} ()\hypertarget{classpf_1_1UnivNormSampler_ae357a6e2e9a58cd408ffabec0e253ea1}{}\label{classpf_1_1UnivNormSampler_ae357a6e2e9a58cd408ffabec0e253ea1}
+
+\begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for standard Normal random variate generation. \end{DoxyCompactList}\item 
+\hyperlink{classpf_1_1UnivNormSampler_a134163f5d2282415f5336f42c8f7a506}{Univ\+Norm\+Sampler} (const double \&mu, const double \&sigma)
+\begin{DoxyCompactList}\small\item\em The user must supply both mean and std. dev. \end{DoxyCompactList}\item 
+void \hyperlink{classpf_1_1UnivNormSampler_a62547b01925d625dfbb73fe6b37f2635}{set\+Std\+Dev} (const double \&sigma)
+\begin{DoxyCompactList}\small\item\em sets the standard deviation of the sampler. \end{DoxyCompactList}\item 
+void \hyperlink{classpf_1_1UnivNormSampler_a9ccf5ce6dcd9edbf51b799f3b29fff96}{set\+Mean} (const double \&mu)
+\begin{DoxyCompactList}\small\item\em sets the mean of the sampler. \end{DoxyCompactList}\item 
+double \hyperlink{classpf_1_1UnivNormSampler_abc3e8612cb6847516370aa4a9a5d1258}{sample} ()
+\begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::normal\+\_\+distribution \hyperlink{classpf_1_1UnivNormSampler_a4a8afd473ade0394b9361734743ef055}{m\+\_\+z\+\_\+gen}\hypertarget{classpf_1_1UnivNormSampler_a4a8afd473ade0394b9361734743ef055}{}\label{classpf_1_1UnivNormSampler_a4a8afd473ade0394b9361734743ef055}
+
+\begin{DoxyCompactList}\small\item\em makes normal random variates \end{DoxyCompactList}\item 
+double \hyperlink{classpf_1_1UnivNormSampler_ababec984e114e54477cbcb7ee2e87841}{m\+\_\+mu}\hypertarget{classpf_1_1UnivNormSampler_ababec984e114e54477cbcb7ee2e87841}{}\label{classpf_1_1UnivNormSampler_ababec984e114e54477cbcb7ee2e87841}
+
+\begin{DoxyCompactList}\small\item\em the mean \end{DoxyCompactList}\item 
+double \hyperlink{classpf_1_1UnivNormSampler_a1d62e630ea2386b04495dec9dce2ed95}{m\+\_\+sigma}\hypertarget{classpf_1_1UnivNormSampler_a1d62e630ea2386b04495dec9dce2ed95}{}\label{classpf_1_1UnivNormSampler_a1d62e630ea2386b04495dec9dce2ed95}
+
+\begin{DoxyCompactList}\small\item\em the standard deviation \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A class that performs sampling from a univariate Normal distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}!Univ\+Norm\+Sampler@{Univ\+Norm\+Sampler}}
+\index{Univ\+Norm\+Sampler@{Univ\+Norm\+Sampler}!pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}}
+\subsubsection[{\texorpdfstring{Univ\+Norm\+Sampler(const double \&mu, const double \&sigma)}{UnivNormSampler(const double &mu, const double &sigma)}}]{\setlength{\rightskip}{0pt plus 5cm}pf\+::\+Univ\+Norm\+Sampler\+::\+Univ\+Norm\+Sampler (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{mu, }
+\item[{const double \&}]{sigma}
+\end{DoxyParamCaption}
+)}\hypertarget{classpf_1_1UnivNormSampler_a134163f5d2282415f5336f42c8f7a506}{}\label{classpf_1_1UnivNormSampler_a134163f5d2282415f5336f42c8f7a506}
+
+
+The user must supply both mean and std. dev. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & a double for the mean of the sampling distribution. \\
+\hline
+{\em sigma} & a double ($>$ 0) representing the standard deviation of the samples. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}!sample@{sample}}
+\index{sample@{sample}!pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}}
+\subsubsection[{\texorpdfstring{sample()}{sample()}}]{\setlength{\rightskip}{0pt plus 5cm}double pf\+::\+Univ\+Norm\+Sampler\+::sample (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classpf_1_1UnivNormSampler_abc3e8612cb6847516370aa4a9a5d1258}{}\label{classpf_1_1UnivNormSampler_abc3e8612cb6847516370aa4a9a5d1258}
+
+
+Draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type double. 
+\end{DoxyReturn}
+\index{pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}!set\+Mean@{set\+Mean}}
+\index{set\+Mean@{set\+Mean}!pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}}
+\subsubsection[{\texorpdfstring{set\+Mean(const double \&mu)}{setMean(const double &mu)}}]{\setlength{\rightskip}{0pt plus 5cm}void pf\+::\+Univ\+Norm\+Sampler\+::set\+Mean (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{mu}
+\end{DoxyParamCaption}
+)}\hypertarget{classpf_1_1UnivNormSampler_a9ccf5ce6dcd9edbf51b799f3b29fff96}{}\label{classpf_1_1UnivNormSampler_a9ccf5ce6dcd9edbf51b799f3b29fff96}
+
+
+sets the mean of the sampler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & the desired mean. \\
+\hline
+\end{DoxyParams}
+\index{pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}!set\+Std\+Dev@{set\+Std\+Dev}}
+\index{set\+Std\+Dev@{set\+Std\+Dev}!pf\+::\+Univ\+Norm\+Sampler@{pf\+::\+Univ\+Norm\+Sampler}}
+\subsubsection[{\texorpdfstring{set\+Std\+Dev(const double \&sigma)}{setStdDev(const double &sigma)}}]{\setlength{\rightskip}{0pt plus 5cm}void pf\+::\+Univ\+Norm\+Sampler\+::set\+Std\+Dev (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{sigma}
+\end{DoxyParamCaption}
+)}\hypertarget{classpf_1_1UnivNormSampler_a62547b01925d625dfbb73fe6b37f2635}{}\label{classpf_1_1UnivNormSampler_a62547b01925d625dfbb73fe6b37f2635}
+
+
+sets the standard deviation of the sampler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sigma} & the desired standard deviation. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

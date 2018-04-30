@@ -276,7 +276,14 @@ void kalman<dimstate,dimobs,diminput>::update(const osv &yt,
     }
 }
     
-
+    
+//! A class template for HMM filtering.
+/**
+ * @class hmm
+ * @author taylor
+ * @file cf_filters.h
+ * @brief Inherit from this for a model that admits HMM filtering.
+ */
 template<size_t dimstate, size_t dimobs>
 class hmm : public cf_filter<dimstate,dimobs>
 {
@@ -327,7 +334,6 @@ public:
     //! Perform a HMM filter update.
     /**
      * @brief Perform a HMM filter update.
-     * @param yt the current datum.
      * @param condDensVec the vector (in x_t) of p(y_t|x_t)
      */
     void update(const ssv &condDensVec);

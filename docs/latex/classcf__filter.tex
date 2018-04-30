@@ -1,0 +1,78 @@
+\hypertarget{classcf__filter}{}\section{cf\+\_\+filter$<$ dimstate, dimobs $>$ Class Template Reference}
+\label{classcf__filter}\index{cf\+\_\+filter$<$ dimstate, dimobs $>$@{cf\+\_\+filter$<$ dimstate, dimobs $>$}}
+
+
+Abstract Base Class for Kalman filter and H\+MM filter.  
+
+
+
+
+{\ttfamily \#include $<$cf\+\_\+filters.\+h$>$}
+
+
+
+Inheritance diagram for cf\+\_\+filter$<$ dimstate, dimobs $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classcf__filter__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classcf__filter_a5562e379d385df4d81c949e32d84ee19}{ssv} = Eigen\+::\+Matrix$<$ double, dimstate, 1 $>$
+\item 
+using \hyperlink{classcf__filter_acd43942497b773a71465cc5e1ff8fa29}{osv} = Eigen\+::\+Matrix$<$ double, dimstate, 1 $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual double \hyperlink{classcf__filter_a561b2979440ad273807f2ec16bc6f3ae}{get\+Log\+Cond\+Like} () const =0
+\begin{DoxyCompactList}\small\item\em returns the log of the most recent conditional likelihood \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$\\*
+class cf\+\_\+filter$<$ dimstate, dimobs $>$}
+
+Abstract Base Class for Kalman filter and H\+MM filter. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\index{cf\+\_\+filter@{cf\+\_\+filter}!osv@{osv}}
+\index{osv@{osv}!cf\+\_\+filter@{cf\+\_\+filter}}
+\subsubsection[{\texorpdfstring{osv}{osv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ using {\bf cf\+\_\+filter}$<$ dimstate, dimobs $>$\+::{\bf osv} =  Eigen\+::\+Matrix$<$double,dimstate,1$>$}\hypertarget{classcf__filter_acd43942497b773a71465cc5e1ff8fa29}{}\label{classcf__filter_acd43942497b773a71465cc5e1ff8fa29}
+\char`\"{}observation size vector\char`\"{} type alias for linear algebra stuff \index{cf\+\_\+filter@{cf\+\_\+filter}!ssv@{ssv}}
+\index{ssv@{ssv}!cf\+\_\+filter@{cf\+\_\+filter}}
+\subsubsection[{\texorpdfstring{ssv}{ssv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ using {\bf cf\+\_\+filter}$<$ dimstate, dimobs $>$\+::{\bf ssv} =  Eigen\+::\+Matrix$<$double,dimstate,1$>$}\hypertarget{classcf__filter_a5562e379d385df4d81c949e32d84ee19}{}\label{classcf__filter_a5562e379d385df4d81c949e32d84ee19}
+\char`\"{}state size vector\char`\"{} type alias for linear algebra stuff 
+
+\subsection{Member Function Documentation}
+\index{cf\+\_\+filter@{cf\+\_\+filter}!get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}}
+\index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!cf\+\_\+filter@{cf\+\_\+filter}}
+\subsubsection[{\texorpdfstring{get\+Log\+Cond\+Like() const =0}{getLogCondLike() const =0}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ virtual double {\bf cf\+\_\+filter}$<$ dimstate, dimobs $>$\+::get\+Log\+Cond\+Like (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classcf__filter_a561b2979440ad273807f2ec16bc6f3ae}{}\label{classcf__filter_a561b2979440ad273807f2ec16bc6f3ae}
+
+
+returns the log of the most recent conditional likelihood 
+
+\begin{DoxyReturn}{Returns}
+log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) or log p(y\+\_\+1) 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classhmm_ab961ea54f4573a1b1c257162fb264cf7}{hmm$<$ dimstate, dimobs $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{cf__filters_8h}{cf\+\_\+filters.\+h}\end{DoxyCompactItemize}

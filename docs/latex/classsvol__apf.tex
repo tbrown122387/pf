@@ -1,0 +1,217 @@
+\hypertarget{classsvol__apf}{}\section{svol\+\_\+apf$<$ nparts, dimx, dimy, resampT $>$ Class Template Reference}
+\label{classsvol__apf}\index{svol\+\_\+apf$<$ nparts, dimx, dimy, resamp\+T $>$@{svol\+\_\+apf$<$ nparts, dimx, dimy, resamp\+T $>$}}
+
+
+Inheritance diagram for svol\+\_\+apf$<$ nparts, dimx, dimy, resampT $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{classsvol__apf__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for svol\+\_\+apf$<$ nparts, dimx, dimy, resampT $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{classsvol__apf__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries ssv} = Eigen\+::\+Matrix$<$ double, dimx, 1 $>$\hypertarget{classsvol__apf_a67f877a96c5c9db4ee642055af035247}{}\label{classsvol__apf_a67f877a96c5c9db4ee642055af035247}
+
+\item 
+using {\bfseries osv} = Eigen\+::\+Matrix$<$ double, dimy, 1 $>$\hypertarget{classsvol__apf_a78110f077d21b8e463c7cdea66354bc3}{}\label{classsvol__apf_a78110f077d21b8e463c7cdea66354bc3}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries svol\+\_\+apf} (const double \&phi, const double \&beta, const double \&sigma)\hypertarget{classsvol__apf_a28d5a4ff45ad0a032f0e4cea6e965f9f}{}\label{classsvol__apf_a28d5a4ff45ad0a032f0e4cea6e965f9f}
+
+\item 
+double \hyperlink{classsvol__apf_a9dbbcbc106bb368c0745a9a3c59b8a40}{log\+Mu\+Ev} (const ssv \&x1)
+\begin{DoxyCompactList}\small\item\em Evaluates the log of mu. \end{DoxyCompactList}\item 
+ssv \hyperlink{classsvol__apf_aa64250b9714e0a75a99ad009ce953062}{prop\+Mu} (const ssv \&xtm1)
+\begin{DoxyCompactList}\small\item\em Evaluates the proposal distribution taking a Eigen\+::\+Matrix$<$double,dimx,1$>$ from the previous time\textquotesingle{}s state, and returning a state for the current time. \end{DoxyCompactList}\item 
+ssv \hyperlink{classsvol__apf_a949bda5a3a8bb5d92f30491a23f6b479}{q1\+Samp} (const osv \&y1)
+\begin{DoxyCompactList}\small\item\em Samples from q1. \end{DoxyCompactList}\item 
+ssv \hyperlink{classsvol__apf_ada8a6974fbbc065bd338864aa2b164c0}{f\+Samp} (const ssv \&xtm1)
+\begin{DoxyCompactList}\small\item\em Samples from f. \end{DoxyCompactList}\item 
+double \hyperlink{classsvol__apf_a54cf3230fd24f48871bd4dc408f2fc88}{log\+Q1\+Ev} (const ssv \&x1, const osv \&y1)
+\begin{DoxyCompactList}\small\item\em Evaluates the log of q1. \end{DoxyCompactList}\item 
+double \hyperlink{classsvol__apf_a982049d7bcd15d7677f4b4c31d197b00}{log\+G\+Ev} (const osv \&yt, const ssv \&xt)
+\begin{DoxyCompactList}\small\item\em Evaluates the log of g. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double {\bfseries m\+\_\+phi}\hypertarget{classsvol__apf_ad3863da3e1062d28cb9fc9d86b6ef849}{}\label{classsvol__apf_ad3863da3e1062d28cb9fc9d86b6ef849}
+
+\item 
+double {\bfseries m\+\_\+beta}\hypertarget{classsvol__apf_a241565320fedd2bca81a615100763e6a}{}\label{classsvol__apf_a241565320fedd2bca81a615100763e6a}
+
+\item 
+double {\bfseries m\+\_\+sigma}\hypertarget{classsvol__apf_af33da24be14047bc62fba1f1977b0013}{}\label{classsvol__apf_af33da24be14047bc62fba1f1977b0013}
+
+\item 
+\hyperlink{classUnivNormSampler}{Univ\+Norm\+Sampler} {\bfseries m\+\_\+std\+Norm\+Sampler}\hypertarget{classsvol__apf_ab3546f0fc762350ccbc96f25e2f19d75}{}\label{classsvol__apf_ab3546f0fc762350ccbc96f25e2f19d75}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\index{svol\+\_\+apf@{svol\+\_\+apf}!f\+Samp@{f\+Samp}}
+\index{f\+Samp@{f\+Samp}!svol\+\_\+apf@{svol\+\_\+apf}}
+\subsubsection[{\texorpdfstring{f\+Samp(const ssv \&xtm1)}{fSamp(const ssv &xtm1)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resampT $>$ auto {\bf svol\+\_\+apf}$<$ nparts, dimx, dimy, resampT $>$\+::f\+Samp (
+\begin{DoxyParamCaption}
+\item[{const ssv \&}]{xtm1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classsvol__apf_ada8a6974fbbc065bd338864aa2b164c0}{}\label{classsvol__apf_ada8a6974fbbc065bd338864aa2b164c0}
+
+
+Samples from f. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xtm1} & a Eigen\+::\+Matrix$<$double,dimx,1$>$ representing the previous time\textquotesingle{}s state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Eigen\+::\+Matrix$<$double,dimx,1$>$ state sample for the current time. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classAPF_a2f60ac8c10bbf2813f5a5986a39a592b}{A\+P\+F$<$ nparts, dimx, dimy, resamp\+T $>$}.
+
+\index{svol\+\_\+apf@{svol\+\_\+apf}!log\+G\+Ev@{log\+G\+Ev}}
+\index{log\+G\+Ev@{log\+G\+Ev}!svol\+\_\+apf@{svol\+\_\+apf}}
+\subsubsection[{\texorpdfstring{log\+G\+Ev(const osv \&yt, const ssv \&xt)}{logGEv(const osv &yt, const ssv &xt)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resampT $>$ double {\bf svol\+\_\+apf}$<$ nparts, dimx, dimy, resampT $>$\+::log\+G\+Ev (
+\begin{DoxyParamCaption}
+\item[{const osv \&}]{yt, }
+\item[{const ssv \&}]{xt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classsvol__apf_a982049d7bcd15d7677f4b4c31d197b00}{}\label{classsvol__apf_a982049d7bcd15d7677f4b4c31d197b00}
+
+
+Evaluates the log of g. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yt} & a Eigen\+::\+Matrix$<$double,dimy,1$>$ representing time t\textquotesingle{}s data observation. \\
+\hline
+{\em xt} & a Eigen\+::\+Matrix$<$double,dimx,1$>$ representing time t\textquotesingle{}s state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a double evaluation. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classAPF_ac49b5d5c09ff8cf7411d1284f8e0ba85}{A\+P\+F$<$ nparts, dimx, dimy, resamp\+T $>$}.
+
+\index{svol\+\_\+apf@{svol\+\_\+apf}!log\+Mu\+Ev@{log\+Mu\+Ev}}
+\index{log\+Mu\+Ev@{log\+Mu\+Ev}!svol\+\_\+apf@{svol\+\_\+apf}}
+\subsubsection[{\texorpdfstring{log\+Mu\+Ev(const ssv \&x1)}{logMuEv(const ssv &x1)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resampT $>$ double {\bf svol\+\_\+apf}$<$ nparts, dimx, dimy, resampT $>$\+::log\+Mu\+Ev (
+\begin{DoxyParamCaption}
+\item[{const ssv \&}]{x1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classsvol__apf_a9dbbcbc106bb368c0745a9a3c59b8a40}{}\label{classsvol__apf_a9dbbcbc106bb368c0745a9a3c59b8a40}
+
+
+Evaluates the log of mu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & a Eigen\+::\+Matrix$<$double,dimx,1$>$ representing time 1\textquotesingle{}s state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a double evaluation. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classAPF_a6f58504e542c8153140750b7d1df0bd2}{A\+P\+F$<$ nparts, dimx, dimy, resamp\+T $>$}.
+
+\index{svol\+\_\+apf@{svol\+\_\+apf}!log\+Q1\+Ev@{log\+Q1\+Ev}}
+\index{log\+Q1\+Ev@{log\+Q1\+Ev}!svol\+\_\+apf@{svol\+\_\+apf}}
+\subsubsection[{\texorpdfstring{log\+Q1\+Ev(const ssv \&x1, const osv \&y1)}{logQ1Ev(const ssv &x1, const osv &y1)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resampT $>$ double {\bf svol\+\_\+apf}$<$ nparts, dimx, dimy, resampT $>$\+::log\+Q1\+Ev (
+\begin{DoxyParamCaption}
+\item[{const ssv \&}]{x1, }
+\item[{const osv \&}]{y1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classsvol__apf_a54cf3230fd24f48871bd4dc408f2fc88}{}\label{classsvol__apf_a54cf3230fd24f48871bd4dc408f2fc88}
+
+
+Evaluates the log of q1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & a Eigen\+::\+Matrix$<$double,dimx,1$>$ representing time 1\textquotesingle{}s state. \\
+\hline
+{\em y1} & a Eigen\+::\+Matrix$<$double,dimy,1$>$ representing time 1\textquotesingle{}s data observation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a double evaluation. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classAPF_a006a4302077efcdc10a03c8a1551864d}{A\+P\+F$<$ nparts, dimx, dimy, resamp\+T $>$}.
+
+\index{svol\+\_\+apf@{svol\+\_\+apf}!prop\+Mu@{prop\+Mu}}
+\index{prop\+Mu@{prop\+Mu}!svol\+\_\+apf@{svol\+\_\+apf}}
+\subsubsection[{\texorpdfstring{prop\+Mu(const ssv \&xtm1)}{propMu(const ssv &xtm1)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resampT $>$ auto {\bf svol\+\_\+apf}$<$ nparts, dimx, dimy, resampT $>$\+::prop\+Mu (
+\begin{DoxyParamCaption}
+\item[{const ssv \&}]{xtm1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classsvol__apf_aa64250b9714e0a75a99ad009ce953062}{}\label{classsvol__apf_aa64250b9714e0a75a99ad009ce953062}
+
+
+Evaluates the proposal distribution taking a Eigen\+::\+Matrix$<$double,dimx,1$>$ from the previous time\textquotesingle{}s state, and returning a state for the current time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xtm1} & a Eigen\+::\+Matrix$<$double,dimx,1$>$ representing the previous time\textquotesingle{}s state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Eigen\+::\+Matrix$<$double,dimx,1$>$ representing a likely current time state, to be used by the observation density. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classAPF_a79fb2d229f1f98f7224dee8d745c22e9}{A\+P\+F$<$ nparts, dimx, dimy, resamp\+T $>$}.
+
+\index{svol\+\_\+apf@{svol\+\_\+apf}!q1\+Samp@{q1\+Samp}}
+\index{q1\+Samp@{q1\+Samp}!svol\+\_\+apf@{svol\+\_\+apf}}
+\subsubsection[{\texorpdfstring{q1\+Samp(const osv \&y1)}{q1Samp(const osv &y1)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resampT $>$ auto {\bf svol\+\_\+apf}$<$ nparts, dimx, dimy, resampT $>$\+::q1\+Samp (
+\begin{DoxyParamCaption}
+\item[{const osv \&}]{y1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classsvol__apf_a949bda5a3a8bb5d92f30491a23f6b479}{}\label{classsvol__apf_a949bda5a3a8bb5d92f30491a23f6b479}
+
+
+Samples from q1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em y1} & a Eigen\+::\+Matrix$<$double,dimy,1$>$ representing time 1\textquotesingle{}s data point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Eigen\+::\+Matrix$<$double,dimx,1$>$ sample for time 1\textquotesingle{}s state. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classAPF_a220f48020dedabcc11c6340e5a3da9b3}{A\+P\+F$<$ nparts, dimx, dimy, resamp\+T $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+examples/svol\+\_\+apf.\+h\end{DoxyCompactItemize}

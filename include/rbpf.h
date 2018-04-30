@@ -753,7 +753,7 @@ public:
     //! How to update your inner Kalman filter object at each time.
     /**
      * @brief How to update your inner Kalman filter object at each time.
-     * @param aModel a Kalman filter object describing the conditional closed-form model.
+     * @param kMod a Kalman filter object describing the conditional closed-form model.
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */
@@ -1031,7 +1031,7 @@ public:
     //! How to update your inner Kalman filter object at each time.
     /**
      * @brief How to update your inner Kalman filter object at each time.
-     * @param aModel a Kalman filter object describing the conditional closed-form model.
+     * @param kMod a Kalman filter object describing the conditional closed-form model.
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */

@@ -1,0 +1,98 @@
+\hypertarget{classrvsamp_1_1UniformSampler}{}\section{rvsamp\+:\+:Uniform\+Sampler Class Reference}
+\label{classrvsamp_1_1UniformSampler}\index{rvsamp\+::\+Uniform\+Sampler@{rvsamp\+::\+Uniform\+Sampler}}
+
+
+A class that performs sampling from a continuous uniform distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for rvsamp\+:\+:Uniform\+Sampler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classrvsamp_1_1UniformSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for rvsamp\+:\+:Uniform\+Sampler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classrvsamp_1_1UniformSampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classrvsamp_1_1UniformSampler_aef1c224edec92ccd5a8e595942a6d4a2}{Uniform\+Sampler} ()\hypertarget{classrvsamp_1_1UniformSampler_aef1c224edec92ccd5a8e595942a6d4a2}{}\label{classrvsamp_1_1UniformSampler_aef1c224edec92ccd5a8e595942a6d4a2}
+
+\begin{DoxyCompactList}\small\item\em The default constructor. Gives a lower bound of 0 and upper bound of 1. \end{DoxyCompactList}\item 
+\hyperlink{classrvsamp_1_1UniformSampler_a412caff54675cfe27fa596581ea50349}{Uniform\+Sampler} (const double \&lower, const double \&upper)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+double \hyperlink{classrvsamp_1_1UniformSampler_a228bc3b9db9c49b29484d041249be6b7}{sample} ()
+\begin{DoxyCompactList}\small\item\em Draws a sample. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::uniform\+\_\+real\+\_\+distribution \hyperlink{classrvsamp_1_1UniformSampler_af36df10a6272eaa8d6451a1f4ae19a5c}{m\+\_\+unif\+\_\+gen}\hypertarget{classrvsamp_1_1UniformSampler_af36df10a6272eaa8d6451a1f4ae19a5c}{}\label{classrvsamp_1_1UniformSampler_af36df10a6272eaa8d6451a1f4ae19a5c}
+
+\begin{DoxyCompactList}\small\item\em makes uniform random variates \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A class that performs sampling from a continuous uniform distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{rvsamp\+::\+Uniform\+Sampler@{rvsamp\+::\+Uniform\+Sampler}!Uniform\+Sampler@{Uniform\+Sampler}}
+\index{Uniform\+Sampler@{Uniform\+Sampler}!rvsamp\+::\+Uniform\+Sampler@{rvsamp\+::\+Uniform\+Sampler}}
+\subsubsection[{\texorpdfstring{Uniform\+Sampler(const double \&lower, const double \&upper)}{UniformSampler(const double &lower, const double &upper)}}]{\setlength{\rightskip}{0pt plus 5cm}rvsamp\+::\+Uniform\+Sampler\+::\+Uniform\+Sampler (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{lower, }
+\item[{const double \&}]{upper}
+\end{DoxyParamCaption}
+)}\hypertarget{classrvsamp_1_1UniformSampler_a412caff54675cfe27fa596581ea50349}{}\label{classrvsamp_1_1UniformSampler_a412caff54675cfe27fa596581ea50349}
+
+
+The constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & the lower bound of the P\+R\+NG. \\
+\hline
+{\em upper} & the upper bound of the P\+R\+NG. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{rvsamp\+::\+Uniform\+Sampler@{rvsamp\+::\+Uniform\+Sampler}!sample@{sample}}
+\index{sample@{sample}!rvsamp\+::\+Uniform\+Sampler@{rvsamp\+::\+Uniform\+Sampler}}
+\subsubsection[{\texorpdfstring{sample()}{sample()}}]{\setlength{\rightskip}{0pt plus 5cm}double rvsamp\+::\+Uniform\+Sampler\+::sample (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classrvsamp_1_1UniformSampler_a228bc3b9db9c49b29484d041249be6b7}{}\label{classrvsamp_1_1UniformSampler_a228bc3b9db9c49b29484d041249be6b7}
+
+
+Draws a sample. 
+
+\begin{DoxyReturn}{Returns}
+a sample of type double. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

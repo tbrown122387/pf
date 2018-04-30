@@ -1,0 +1,274 @@
+\hypertarget{classkalman}{}\section{kalman$<$ dimstate, dimobs, diminput $>$ Class Template Reference}
+\label{classkalman}\index{kalman$<$ dimstate, dimobs, diminput $>$@{kalman$<$ dimstate, dimobs, diminput $>$}}
+
+
+A class template for Kalman filtering.  
+
+
+
+
+{\ttfamily \#include $<$cf\+\_\+filters.\+h$>$}
+
+\subsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classkalman_a12e789b80f9b1e17cecdf93c32cc35ed}{ssv} = Eigen\+::\+Matrix$<$ double, dimstate, 1 $>$
+\item 
+using \hyperlink{classkalman_a59427bc89132911a2afb9f42ebff0b28}{osv} = Eigen\+::\+Matrix$<$ double, dimobs, 1 $>$
+\item 
+using \hyperlink{classkalman_ab085cc62231ff087133f8b24e052a36e}{isv} = Eigen\+::\+Matrix$<$ double, diminput, 1 $>$
+\item 
+using \hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} = Eigen\+::\+Matrix$<$ double, dimstate, dimstate $>$
+\item 
+using \hyperlink{classkalman_a092ff444bcb70f49972e645bc993fd79}{os\+Mat} = Eigen\+::\+Matrix$<$ double, dimobs, dimobs $>$
+\item 
+using \hyperlink{classkalman_a8311e2213ec968dc595add5f6933d091}{si\+Mat} = Eigen\+::\+Matrix$<$ double, dimstate, diminput $>$
+\item 
+using \hyperlink{classkalman_a2a9c411927e8ae35144b2c40dac2f3d1}{oi\+Mat} = Eigen\+::\+Matrix$<$ double, dimobs, diminput $>$
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkalman_a49b1033618a41c0c426f9d177863e255}{kalman} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classkalman_a454f7ee7eff470d1e61d1deb3f10aff4}{kalman} (const \hyperlink{classkalman_a12e789b80f9b1e17cecdf93c32cc35ed}{ssv} \&init\+State\+Mean, const \hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \&init\+State\+Var)
+\begin{DoxyCompactList}\small\item\em Non-\/default constructor. \end{DoxyCompactList}\item 
+double \hyperlink{classkalman_a1dc89cc6ecba5d4b881cabb830b12140}{get\+Log\+Cond\+Like} () const 
+\begin{DoxyCompactList}\small\item\em returns the log of the latest conditional likelihood. \end{DoxyCompactList}\item 
+\hyperlink{classkalman_a12e789b80f9b1e17cecdf93c32cc35ed}{ssv} \hyperlink{classkalman_a810da7b094b44bb8a83b5a567950cef3}{get\+Filt\+Mean} () const 
+\begin{DoxyCompactList}\small\item\em Get the current filter mean. \end{DoxyCompactList}\item 
+\hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \hyperlink{classkalman_ae4d1c49849998372c87a3a9565c49d44}{get\+Filt\+Var} () const 
+\begin{DoxyCompactList}\small\item\em Get the current filter variance-\/covariance matrix. \end{DoxyCompactList}\item 
+void \hyperlink{classkalman_a551a248f9e836da3dd1ed2ae6d987ad3}{update} (const \hyperlink{classkalman_a59427bc89132911a2afb9f42ebff0b28}{osv} \&yt, const \hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \&state\+Trans, const \hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \&chol\+State\+Var, const \hyperlink{classkalman_a8311e2213ec968dc595add5f6933d091}{si\+Mat} \&state\+Inpt\+Affector, const \hyperlink{classkalman_ab085cc62231ff087133f8b24e052a36e}{isv} \&input\+Data, const \hyperlink{classkalman_a092ff444bcb70f49972e645bc993fd79}{os\+Mat} \&obs\+Mat, const \hyperlink{classkalman_a2a9c411927e8ae35144b2c40dac2f3d1}{oi\+Mat} \&obs\+Inpt\+Affector, const \hyperlink{classkalman_a092ff444bcb70f49972e645bc993fd79}{os\+Mat} \&chol\+Obs\+Var)
+\begin{DoxyCompactList}\small\item\em Perform a Kalman filter predict-\/and-\/update. \end{DoxyCompactList}\item 
+void \hyperlink{classkalman_abcc37953cff8f05d73895f95c37b9892}{update\+Prior} (const \hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \&state\+Trans\+Mat, const \hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \&chol\+State\+Var, const \hyperlink{classkalman_a8311e2213ec968dc595add5f6933d091}{si\+Mat} \&state\+Inpt\+Affector, const \hyperlink{classkalman_ab085cc62231ff087133f8b24e052a36e}{isv} \&input\+Data)
+\begin{DoxyCompactList}\small\item\em Predicts the next state. \end{DoxyCompactList}\item 
+void \hyperlink{classkalman_a604946f8f1a7d5b3cdf82087f7b34c05}{update\+Posterior} (const \hyperlink{classkalman_a59427bc89132911a2afb9f42ebff0b28}{osv} \&yt, const \hyperlink{classkalman_a092ff444bcb70f49972e645bc993fd79}{os\+Mat} \&obs\+Mat, const \hyperlink{classkalman_a2a9c411927e8ae35144b2c40dac2f3d1}{oi\+Mat} \&obs\+Inpt\+Affector, const \hyperlink{classkalman_ab085cc62231ff087133f8b24e052a36e}{isv} \&input\+Data, const \hyperlink{classkalman_a092ff444bcb70f49972e645bc993fd79}{os\+Mat} \&chol\+Obs\+Var)
+\begin{DoxyCompactList}\small\item\em Turns prediction into new filtering distribution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkalman_a12e789b80f9b1e17cecdf93c32cc35ed}{ssv} \hyperlink{classkalman_a21bfe093db0664e9b24e6a7d5a9b55b6}{m\+\_\+pred\+Mean}\hypertarget{classkalman_a21bfe093db0664e9b24e6a7d5a9b55b6}{}\label{classkalman_a21bfe093db0664e9b24e6a7d5a9b55b6}
+
+\begin{DoxyCompactList}\small\item\em predictive state mean \end{DoxyCompactList}\item 
+\hyperlink{classkalman_a12e789b80f9b1e17cecdf93c32cc35ed}{ssv} \hyperlink{classkalman_a13a4f426da460bf821e43df43dba6753}{m\+\_\+filt\+Mean}\hypertarget{classkalman_a13a4f426da460bf821e43df43dba6753}{}\label{classkalman_a13a4f426da460bf821e43df43dba6753}
+
+\begin{DoxyCompactList}\small\item\em filter mean \end{DoxyCompactList}\item 
+\hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \hyperlink{classkalman_a88547a1c664bda3bd5bdb99ecc729c06}{m\+\_\+pred\+Var}\hypertarget{classkalman_a88547a1c664bda3bd5bdb99ecc729c06}{}\label{classkalman_a88547a1c664bda3bd5bdb99ecc729c06}
+
+\begin{DoxyCompactList}\small\item\em predictive var matrix \end{DoxyCompactList}\item 
+\hyperlink{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{ss\+Mat} \hyperlink{classkalman_aec8be340425c2cc8e1507187e7f1d6e6}{m\+\_\+filt\+Var}\hypertarget{classkalman_aec8be340425c2cc8e1507187e7f1d6e6}{}\label{classkalman_aec8be340425c2cc8e1507187e7f1d6e6}
+
+\begin{DoxyCompactList}\small\item\em filter var matrix \end{DoxyCompactList}\item 
+double \hyperlink{classkalman_a6f086b1043fd5c12ed32f65ca6728e1a}{m\+\_\+last\+Log\+Cond\+Like}\hypertarget{classkalman_a6f086b1043fd5c12ed32f65ca6728e1a}{}\label{classkalman_a6f086b1043fd5c12ed32f65ca6728e1a}
+
+\begin{DoxyCompactList}\small\item\em latest log conditional likelihood \end{DoxyCompactList}\item 
+bool \hyperlink{classkalman_a6fda9bc3f49c27cd6525cb9eb37918cf}{m\+\_\+fresh}\hypertarget{classkalman_a6fda9bc3f49c27cd6525cb9eb37918cf}{}\label{classkalman_a6fda9bc3f49c27cd6525cb9eb37918cf}
+
+\begin{DoxyCompactList}\small\item\em has data been observed? \end{DoxyCompactList}\item 
+const double \hyperlink{classkalman_af6b90cbcc1d02cef1c1b436e989c5e25}{m\+\_\+pi}\hypertarget{classkalman_af6b90cbcc1d02cef1c1b436e989c5e25}{}\label{classkalman_af6b90cbcc1d02cef1c1b436e989c5e25}
+
+\begin{DoxyCompactList}\small\item\em pi \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$\\*
+class kalman$<$ dimstate, dimobs, diminput $>$}
+
+A class template for Kalman filtering. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\index{kalman@{kalman}!isv@{isv}}
+\index{isv@{isv}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{isv}{isv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ using {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf isv} =  Eigen\+::\+Matrix$<$double,diminput,1$>$\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_ab085cc62231ff087133f8b24e052a36e}{}\label{classkalman_ab085cc62231ff087133f8b24e052a36e}
+\char`\"{}input size vector\char`\"{} type alias for linear algebra stuff \index{kalman@{kalman}!oi\+Mat@{oi\+Mat}}
+\index{oi\+Mat@{oi\+Mat}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{oi\+Mat}{oiMat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ using {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf oi\+Mat} =  Eigen\+::\+Matrix$<$double,dimobs,diminput$>$\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a2a9c411927e8ae35144b2c40dac2f3d1}{}\label{classkalman_a2a9c411927e8ae35144b2c40dac2f3d1}
+\char`\"{}observation dimension by input dim matrix\char`\"{} \index{kalman@{kalman}!os\+Mat@{os\+Mat}}
+\index{os\+Mat@{os\+Mat}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{os\+Mat}{osMat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ using {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf os\+Mat} =  Eigen\+::\+Matrix$<$double,dimobs,dimobs$>$\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a092ff444bcb70f49972e645bc993fd79}{}\label{classkalman_a092ff444bcb70f49972e645bc993fd79}
+\char`\"{}observation size matrix\char`\"{} type alias for linear algebra stuff \index{kalman@{kalman}!osv@{osv}}
+\index{osv@{osv}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{osv}{osv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ using {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf osv} =  Eigen\+::\+Matrix$<$double,dimobs,1$>$\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a59427bc89132911a2afb9f42ebff0b28}{}\label{classkalman_a59427bc89132911a2afb9f42ebff0b28}
+\char`\"{}observation size vector\char`\"{} type alias for linear algebra stuff \index{kalman@{kalman}!si\+Mat@{si\+Mat}}
+\index{si\+Mat@{si\+Mat}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{si\+Mat}{siMat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ using {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf si\+Mat} =  Eigen\+::\+Matrix$<$double,dimstate,diminput$>$\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a8311e2213ec968dc595add5f6933d091}{}\label{classkalman_a8311e2213ec968dc595add5f6933d091}
+\char`\"{}state dim by input dimension matrix\char`\"{} \index{kalman@{kalman}!ss\+Mat@{ss\+Mat}}
+\index{ss\+Mat@{ss\+Mat}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{ss\+Mat}{ssMat}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ using {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf ss\+Mat} =  Eigen\+::\+Matrix$<$double,dimstate,dimstate$>$\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a9d46100ff92b06fad10f14d722a5ce94}{}\label{classkalman_a9d46100ff92b06fad10f14d722a5ce94}
+\char`\"{}state size matrix\char`\"{} type alias for linear algebra stuff \index{kalman@{kalman}!ssv@{ssv}}
+\index{ssv@{ssv}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{ssv}{ssv}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ using {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf ssv} =  Eigen\+::\+Matrix$<$double,dimstate,1$>$\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a12e789b80f9b1e17cecdf93c32cc35ed}{}\label{classkalman_a12e789b80f9b1e17cecdf93c32cc35ed}
+\char`\"{}state size vector\char`\"{} type alias for linear algebra stuff 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{kalman@{kalman}!kalman@{kalman}}
+\index{kalman@{kalman}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{kalman()}{kalman()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf kalman} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a49b1033618a41c0c426f9d177863e255}{}\label{classkalman_a49b1033618a41c0c426f9d177863e255}
+
+
+Default constructor. 
+
+Need ths fir constructing default std\+::array$<$$>$s. Fills all vectors and matrices with zeros. \index{kalman@{kalman}!kalman@{kalman}}
+\index{kalman@{kalman}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{kalman(const ssv \&init\+State\+Mean, const ss\+Mat \&init\+State\+Var)}{kalman(const ssv &initStateMean, const ssMat &initStateVar)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::{\bf kalman} (
+\begin{DoxyParamCaption}
+\item[{const {\bf ssv} \&}]{init\+State\+Mean, }
+\item[{const {\bf ss\+Mat} \&}]{init\+State\+Var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a454f7ee7eff470d1e61d1deb3f10aff4}{}\label{classkalman_a454f7ee7eff470d1e61d1deb3f10aff4}
+
+
+Non-\/default constructor. 
+
+Non-\/default constructor. 
+
+\subsection{Member Function Documentation}
+\index{kalman@{kalman}!get\+Filt\+Mean@{get\+Filt\+Mean}}
+\index{get\+Filt\+Mean@{get\+Filt\+Mean}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{get\+Filt\+Mean() const }{getFiltMean() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ auto {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::get\+Filt\+Mean (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a810da7b094b44bb8a83b5a567950cef3}{}\label{classkalman_a810da7b094b44bb8a83b5a567950cef3}
+
+
+Get the current filter mean. 
+
+\begin{DoxyReturn}{Returns}
+E\mbox{[}x\+\_\+t $\vert$ y\+\_\+\{1\+:t\}\mbox{]} 
+\end{DoxyReturn}
+\index{kalman@{kalman}!get\+Filt\+Var@{get\+Filt\+Var}}
+\index{get\+Filt\+Var@{get\+Filt\+Var}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{get\+Filt\+Var() const }{getFiltVar() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ auto {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::get\+Filt\+Var (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_ae4d1c49849998372c87a3a9565c49d44}{}\label{classkalman_ae4d1c49849998372c87a3a9565c49d44}
+
+
+Get the current filter variance-\/covariance matrix. 
+
+\begin{DoxyReturn}{Returns}
+V\mbox{[}x\+\_\+t $\vert$ y\+\_\+\{1\+:t\}\mbox{]} 
+\end{DoxyReturn}
+\index{kalman@{kalman}!get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}}
+\index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{get\+Log\+Cond\+Like() const }{getLogCondLike() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ double {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::get\+Log\+Cond\+Like (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a1dc89cc6ecba5d4b881cabb830b12140}{}\label{classkalman_a1dc89cc6ecba5d4b881cabb830b12140}
+
+
+returns the log of the latest conditional likelihood. 
+
+\begin{DoxyReturn}{Returns}
+log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) or log p(y\+\_\+1) 
+\end{DoxyReturn}
+\index{kalman@{kalman}!update@{update}}
+\index{update@{update}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{update(const osv \&yt, const ss\+Mat \&state\+Trans, const ss\+Mat \&chol\+State\+Var, const si\+Mat \&state\+Inpt\+Affector, const isv \&input\+Data, const os\+Mat \&obs\+Mat, const oi\+Mat \&obs\+Inpt\+Affector, const os\+Mat \&chol\+Obs\+Var)}{update(const osv &yt, const ssMat &stateTrans, const ssMat &cholStateVar, const siMat &stateInptAffector, const isv &inputData, const osMat &obsMat, const oiMat &obsInptAffector, const osMat &cholObsVar)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ void {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::update (
+\begin{DoxyParamCaption}
+\item[{const {\bf osv} \&}]{yt, }
+\item[{const {\bf ss\+Mat} \&}]{state\+Trans, }
+\item[{const {\bf ss\+Mat} \&}]{chol\+State\+Var, }
+\item[{const {\bf si\+Mat} \&}]{state\+Inpt\+Affector, }
+\item[{const {\bf isv} \&}]{input\+Data, }
+\item[{const {\bf os\+Mat} \&}]{obs\+Mat, }
+\item[{const {\bf oi\+Mat} \&}]{obs\+Inpt\+Affector, }
+\item[{const {\bf os\+Mat} \&}]{chol\+Obs\+Var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a551a248f9e836da3dd1ed2ae6d987ad3}{}\label{classkalman_a551a248f9e836da3dd1ed2ae6d987ad3}
+
+
+Perform a Kalman filter predict-\/and-\/update. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yt} & the new data point. \\
+\hline
+{\em state\+Trans} & the transition matrix of the state \\
+\hline
+{\em chol\+State\+Var} & the Cholesky Decomposition of the state noise covariance matrix. \\
+\hline
+{\em state\+Inpt\+Affector} & the matrix affecting how input data affects state transition. \\
+\hline
+{\em input\+Data} & exogenous input data \\
+\hline
+{\em obs\+Mat} & the observation/emission matrix of the observation\textquotesingle{}s conditional (on the state) distn. \\
+\hline
+{\em obs\+Inpt\+Affector} & the matrix affecting how input data affects the observational distribution. \\
+\hline
+{\em chol\+Obs\+Var} & the Cholesky Decomposition of the observatio noise covariance matrix. \\
+\hline
+\end{DoxyParams}
+\index{kalman@{kalman}!update\+Posterior@{update\+Posterior}}
+\index{update\+Posterior@{update\+Posterior}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{update\+Posterior(const osv \&yt, const os\+Mat \&obs\+Mat, const oi\+Mat \&obs\+Inpt\+Affector, const isv \&input\+Data, const os\+Mat \&chol\+Obs\+Var)}{updatePosterior(const osv &yt, const osMat &obsMat, const oiMat &obsInptAffector, const isv &inputData, const osMat &cholObsVar)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ void {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::update\+Posterior (
+\begin{DoxyParamCaption}
+\item[{const {\bf osv} \&}]{yt, }
+\item[{const {\bf os\+Mat} \&}]{obs\+Mat, }
+\item[{const {\bf oi\+Mat} \&}]{obs\+Inpt\+Affector, }
+\item[{const {\bf isv} \&}]{input\+Data, }
+\item[{const {\bf os\+Mat} \&}]{chol\+Obs\+Var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_a604946f8f1a7d5b3cdf82087f7b34c05}{}\label{classkalman_a604946f8f1a7d5b3cdf82087f7b34c05}
+
+
+Turns prediction into new filtering distribution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yt} & \\
+\hline
+{\em obs\+Mat} & \\
+\hline
+{\em obs\+Inpt\+Affector} & \\
+\hline
+{\em input\+Data} & \\
+\hline
+{\em chol\+Obs\+Var} & \\
+\hline
+\end{DoxyParams}
+\index{kalman@{kalman}!update\+Prior@{update\+Prior}}
+\index{update\+Prior@{update\+Prior}!kalman@{kalman}}
+\subsubsection[{\texorpdfstring{update\+Prior(const ss\+Mat \&state\+Trans\+Mat, const ss\+Mat \&chol\+State\+Var, const si\+Mat \&state\+Inpt\+Affector, const isv \&input\+Data)}{updatePrior(const ssMat &stateTransMat, const ssMat &cholStateVar, const siMat &stateInptAffector, const isv &inputData)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput$>$ void {\bf kalman}$<$ dimstate, dimobs, diminput $>$\+::update\+Prior (
+\begin{DoxyParamCaption}
+\item[{const {\bf ss\+Mat} \&}]{state\+Trans\+Mat, }
+\item[{const {\bf ss\+Mat} \&}]{chol\+State\+Var, }
+\item[{const {\bf si\+Mat} \&}]{state\+Inpt\+Affector, }
+\item[{const {\bf isv} \&}]{input\+Data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classkalman_abcc37953cff8f05d73895f95c37b9892}{}\label{classkalman_abcc37953cff8f05d73895f95c37b9892}
+
+
+Predicts the next state. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]handle diagonal variance matrices, and ensure symmetricness in other ways \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em state\+Trans\+Mat} & \\
+\hline
+{\em chol\+State\+Var} & \\
+\hline
+{\em state\+Inpt\+Affector} & \\
+\hline
+{\em input\+Data} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{cf__filters_8h}{cf\+\_\+filters.\+h}\end{DoxyCompactItemize}

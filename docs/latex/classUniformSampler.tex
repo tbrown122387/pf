@@ -1,0 +1,98 @@
+\hypertarget{classUniformSampler}{}\section{Uniform\+Sampler Class Reference}
+\label{classUniformSampler}\index{Uniform\+Sampler@{Uniform\+Sampler}}
+
+
+A class that performs sampling from a continuous uniform distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for Uniform\+Sampler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classUniformSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Uniform\+Sampler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classUniformSampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classUniformSampler_a401d133d71a0001877c3286b935fc713}{Uniform\+Sampler} ()\hypertarget{classUniformSampler_a401d133d71a0001877c3286b935fc713}{}\label{classUniformSampler_a401d133d71a0001877c3286b935fc713}
+
+\begin{DoxyCompactList}\small\item\em The default constructor. Gives a lower bound of 0 and upper bound of 1. \end{DoxyCompactList}\item 
+\hyperlink{classUniformSampler_ac2397c0d1e984c9ff4f88f25e54bb1df}{Uniform\+Sampler} (const double \&lower, const double \&upper)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+double \hyperlink{classUniformSampler_a68012b943407926ea503f73daf750fe4}{sample} ()
+\begin{DoxyCompactList}\small\item\em Draws a sample. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::uniform\+\_\+real\+\_\+distribution \hyperlink{classUniformSampler_a4af7981a2b4e34c4bbdc6ba411f42e6e}{m\+\_\+unif\+\_\+gen}\hypertarget{classUniformSampler_a4af7981a2b4e34c4bbdc6ba411f42e6e}{}\label{classUniformSampler_a4af7981a2b4e34c4bbdc6ba411f42e6e}
+
+\begin{DoxyCompactList}\small\item\em makes uniform random variates \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A class that performs sampling from a continuous uniform distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Uniform\+Sampler@{Uniform\+Sampler}!Uniform\+Sampler@{Uniform\+Sampler}}
+\index{Uniform\+Sampler@{Uniform\+Sampler}!Uniform\+Sampler@{Uniform\+Sampler}}
+\subsubsection[{\texorpdfstring{Uniform\+Sampler(const double \&lower, const double \&upper)}{UniformSampler(const double &lower, const double &upper)}}]{\setlength{\rightskip}{0pt plus 5cm}Uniform\+Sampler\+::\+Uniform\+Sampler (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{lower, }
+\item[{const double \&}]{upper}
+\end{DoxyParamCaption}
+)}\hypertarget{classUniformSampler_ac2397c0d1e984c9ff4f88f25e54bb1df}{}\label{classUniformSampler_ac2397c0d1e984c9ff4f88f25e54bb1df}
+
+
+The constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & the lower bound of the P\+R\+NG. \\
+\hline
+{\em upper} & the upper bound of the P\+R\+NG. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Uniform\+Sampler@{Uniform\+Sampler}!sample@{sample}}
+\index{sample@{sample}!Uniform\+Sampler@{Uniform\+Sampler}}
+\subsubsection[{\texorpdfstring{sample()}{sample()}}]{\setlength{\rightskip}{0pt plus 5cm}double Uniform\+Sampler\+::sample (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classUniformSampler_a68012b943407926ea503f73daf750fe4}{}\label{classUniformSampler_a68012b943407926ea503f73daf750fe4}
+
+
+Draws a sample. 
+
+\begin{DoxyReturn}{Returns}
+a sample of type double. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

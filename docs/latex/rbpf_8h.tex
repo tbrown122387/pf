@@ -1,0 +1,64 @@
+\hypertarget{rbpf_8h}{}\section{include/rbpf.h File Reference}
+\label{rbpf_8h}\index{include/rbpf.\+h@{include/rbpf.\+h}}
+
+
+Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner H\+M\+Ms.  
+
+
+{\ttfamily \#include $<$functional$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$array$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
+{\ttfamily \#include \char`\"{}cf\+\_\+filters.\+h\char`\"{}}\\*
+Include dependency graph for rbpf.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rbpf_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classrbpf__hmm}{rbpf\+\_\+hmm$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+\begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner H\+M\+Ms. \end{DoxyCompactList}\item 
+class \hyperlink{classrbpf__hmm__bs}{rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+\begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner H\+M\+Ms. \end{DoxyCompactList}\item 
+class \hyperlink{classrbpf__kalman}{rbpf\+\_\+kalman$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+\begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner Kalman Filter objectss. \end{DoxyCompactList}\item 
+class \hyperlink{classrbpf__kalman__bs}{rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+\begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner Kalman Filter objectss. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner H\+M\+Ms. 
+
+Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner Kalman Filter objectss.
+
+Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner Kalman Filter objectss.
+
+Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner H\+M\+Ms.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em nparts} & the number of particles \\
+\hline
+{\em dimnss} & dimension of \char`\"{}not sampled state\char`\"{} \\
+\hline
+{\em dimss} & dimension of \char`\"{}sampled state\char`\"{} \\
+\hline
+{\em dimy} & the dimension of the observations \\
+\hline
+{\em resampT} & the resampler type (e.\+g. multinomial, etc.)\\
+\hline
+{\em nparts} & the number of particles \\
+\hline
+{\em dimnss} & dimension of not-\/sampled-\/state vector \\
+\hline
+{\em dimss} & dimension of sampled-\/state vector \\
+\hline
+{\em dimy} & the dimension of the observations \\
+\hline
+{\em resampT} & the resampler type \\
+\hline
+\end{DoxyTemplParams}
