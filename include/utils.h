@@ -5,6 +5,7 @@
 #include <fstream>
 #include <array>
 #include <iostream> // std::cerr
+#include <fstream> // std::ofstream
 #include <string> // string
 
 
@@ -14,22 +15,32 @@ namespace utils{
      * @todo fully understand the MatrixBase thing. More info
      * here: https://eigen.tuxfamily.org/dox/TopicFunctionTakingEigenTypes.html
      */
-    
+     
     /**
-     * @brief Writes to a row of file. Only appends.
-     * @tparam size the size of the Eigen::Vector.
+     * @brief Writes to a row of file. Only appends. Doesn't close file stream.
+     * @tparam dim the size of the Eigen::Vector.
      * @param vec the Eigen::Vector.
      * @param ofs the target ofstream.
      */
-    template<typename Derived>
-    void logParams(const Eigen::MatrixBase<Derived> &vec, const std::string &outfile);//std::ofstream &ofs);
+    template<size_t dim>
+    void logParams(const Eigen::Matrix<double,dim,1> &vec, std::ofstream &ofs);
+     
+    
+    /**
+     * @brief Writes to a row of file. Only appends. Opens and closes file stream.
+     * @tparam size the size of the Eigen::Vector.
+     * @param vec the Eigen::Vector.
+     * @param outfile the target file path.
+     */
+    template<size_t dim>
+    void logParams(const Eigen::Matrix<double,dim,1> &vec, const std::string &outfile);//std::ofstream &ofs);
 
 
     /**
      * @brief Writes to a row of an ofstream. Only appends.
      * @tparam size the number of doubles in the array.
-     * @param arr the array itself.
-     * @param ofs the target ofstream.
+     * @param arr the array to be written.
+     * @param outfile the target file path.
      */
     template<size_t size>
     void logParams(const std::array<double, size> &arr, const std::string &outfile);//std::ofstream &ofs);
@@ -45,16 +56,33 @@ namespace utils{
     std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc);
 
 
-template<typename Derived>
-void logParams(const Eigen::MatrixBase<Derived> &vec, const std::string &outfile)
+template<size_t dim>
+void logParams(const Eigen::Matrix<double,dim,1> &vec, std::ofstream &ofs)
 {
-    /**
-     * \todo test to make sure write worked (e.g. if( !f << "derp" ) ) 
-     */
-    /**
-     * \todo have this work for non-vectors (columns > 1)
-     */
-    
+    // make sure open and doesn't close
+    if(ofs.is_open()){
+        
+        // write stuff
+        for(size_t i = 0; i < dim; ++i){
+            if( i == 0){
+                ofs << vec(i,0);
+            } else {
+                ofs << "," << vec(i,0);                                        
+            }
+         }
+        ofs << "\n";
+        
+        
+    }else{
+        std::cerr << "tried to write to a closed ofstream! " << "\n";
+    }
+}
+
+
+template<size_t dim>
+void logParams(const Eigen::Matrix<double,dim,1> &vec, const std::string &outfile)
+{
+
     // open the file in append mode
     std::ofstream f(outfile, std::ios::app);
     
@@ -62,7 +90,7 @@ void logParams(const Eigen::MatrixBase<Derived> &vec, const std::string &outfile
     if(f.is_open()){
         
         // write stuff
-        for(unsigned int i = 0; i < vec.size(); ++i){
+        for(size_t i = 0; i < dim; ++i){
             if( i == 0){
                 f << vec(i,0);
             } else {
