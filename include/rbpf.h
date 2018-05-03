@@ -100,7 +100,7 @@ public:
      * @param x21 the second state componenent at time 1.
      * @return a Vec representing the probability of each state element.
      */
-    virtual nssv initHMMProbVec(const sssv &x21) = 0;
+    virtual nsssv initHMMProbVec(const sssv &x21) = 0;
     
     
     //! Provides the transition matrix for each HMM filter object.
@@ -202,7 +202,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         // initialize and update the closed-form mods        
         nsssv tmpProbs;
         nsssMat tmpTransMat;
-        double m(-1.0/0.0);
+        double m1(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
             
             m_p_samps[ii] = q1Samp(data); 
@@ -213,15 +213,15 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
 
             // maximum to be used in likelihood calc
-            if(m_logUnNormWeights[ii] > m)
-                m = m_logUnNormWeights[ii];
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
         }
 
         // calc log p(y1)
         double sumexp(0.0);
         for(size_t p = 0; p < nparts; ++p)
-            sumexp += std::exp(m_logUnNormWeights[p] - m);
-        m_lastLogCondLike = m + std::log(sumexp) - std::log(static_cast<double>(nparts));
+            sumexp += std::exp(m_logUnNormWeights[p] - m1);
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<double>(nparts));
 
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
@@ -231,11 +231,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         for(auto & h : fs){
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
-                        
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
                 tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
@@ -290,11 +289,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         for(auto & h : fs){
             
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
-
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
                 tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
@@ -412,7 +410,7 @@ public:
      * @param x21 the second state componenent at time 1.
      * @return a Vec representing the probability of each state element.
      */
-    virtual nssv initHMMProbVec(const sssv &x21) = 0;
+    virtual nsssv initHMMProbVec(const sssv &x21) = 0;
     
     
     //! Provides the transition matrix for each HMM filter object.
@@ -482,7 +480,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         // initialize and update the closed-form mods        
         nsssv tmpProbs;
         nsssMat tmpTransMat;
-        double m(-1.0/0.0);
+        double m1(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
             
             m_p_samps[ii] = muSamp(data); 
@@ -493,29 +491,28 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
 
             // maximum to be used in likelihood calc
-            if(m_logUnNormWeights[ii] > m)
-                m = m_logUnNormWeights[ii];
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
         }
 
         // calc log p(y1)
         double sumexp(0.0);
         for(size_t p = 0; p < nparts; ++p)
-            sumexp += std::exp(m_logUnNormWeights[p] - m);
-        m_lastLogCondLike = m + std::log(sumexp) - std::log(static_cast<double>(nparts));
+            sumexp += std::exp(m_logUnNormWeights[p] - m1);
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<double>(nparts));
 
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
         unsigned int fId(0);
         unsigned int dimOut;
-        double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); /// TODO: can we just use m1?
         for(auto & h : fs){
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
-                        
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
                 tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
@@ -568,11 +565,10 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         for(auto & h : fs){
             
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
-
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
                 tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
@@ -636,7 +632,7 @@ public:
     /** "not sampled state size matrix" */
     using nsssMat = Eigen::Matrix<double,dimnss,dimnss>;
     /** array of model objects */
-    using arrayMod = std::array<kalman<dimnss,dimobs>,nparts>;
+    using arrayMod = std::array<kalman<dimnss,dimy,0>,nparts>;
     /** array of samples */
     using arrayVec = std::array<sssv,nparts>;
     /** array of weights */
@@ -697,7 +693,7 @@ public:
      * @param x21 the second state componenent at time 1.
      * @return a nsssv representing the unconditional mean.
      */
-    virtual nssv initKalmanMean(const sssv &x21) = 0;
+    virtual nsssv initKalmanMean(const sssv &x21) = 0;
     
     
     //! Provides the initial covariance matrix for each Kalman filter object.
@@ -757,7 +753,7 @@ public:
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */
-    virtual void updateKalman(kalman<dimnss, dimobs> &kMod, const osv &yt, const sssv &x2t) = 0;
+    virtual void updateKalman(kalman<dimnss,dimy,0> &kMod, const osv &yt, const sssv &x2t) = 0;
     
 private:
 
@@ -781,7 +777,7 @@ private:
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::rbpf_kalman(const unsigned int &resamp_sched)
+rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::rbpf_kalman(const unsigned int &resamp_sched)
     : m_now(0)
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
@@ -791,7 +787,7 @@ rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::rbpf_kalman(const unsigned int &re
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
+void rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
 {
     
     if( m_now == 0){ // first data point coming
@@ -804,7 +800,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
             m_p_samps[ii] = q1Samp(data); 
             tmpMean = initKalmanMean(m_p_samps[ii]);
             tmpVar  = initKalmanVar(m_p_samps[ii]);
-            m_p_innerMods[ii] = kalman<dimnss,dimobs,1>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
+            m_p_innerMods[ii] = kalman<dimnss,dimy,1>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
             this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
@@ -818,7 +814,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
         double sumexp(0.0);
         for(size_t p = 0; p < nparts; ++p)
             sumexp += std::exp(m_logUnNormWeights[p] - m1);
-        m_logLastCondLike = m1 + std::log(sumexp) - std::log(static_cast<double>(nparts));  
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<double>(nparts));  
 
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
@@ -828,9 +824,9 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
         for(auto & h : fs){
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
@@ -845,7 +841,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
         
         // resample (unnormalized weights ok)
         if( (m_now+1)%m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
             
         // advance time step
         m_now ++;
@@ -878,7 +874,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
         double sumexpnumer(0.0);
         for(size_t p = 0; p < nparts; ++p)
             sumexpnumer += std::exp(m_logUnNormWeights[p] - m1);
-        m_lastCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
+        m_lastLogCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
         
         // calculate expectations before you resample
         unsigned int fId(0);
@@ -887,9 +883,9 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
         for(auto & h : fs){
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
@@ -904,7 +900,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
 
         // resample (unnormalized weights ok)
         if( (m_now+1)%m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
         
         // update time step
         m_now ++;
@@ -914,14 +910,14 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-double rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::getLogCondLike() const
+double rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-auto rbpf_kalman<nparts,dimnss,dimss,dimy,reampT>::getExpectations() const -> std::vector<Mat>
+auto rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
@@ -956,7 +952,7 @@ public:
     /** "not sampled state size matrix" */
     using nsssMat = Eigen::Matrix<double,dimnss,dimnss>;
     /** array of model objects */
-    using arrayMod = std::array<kalman<dimnss,dimobs>,nparts>;
+    using arrayMod = std::array<kalman<dimnss,dimy,0>,nparts>;
     /** array of samples */
     using arrayVec = std::array<sssv,nparts>;
     /** array of weights */
@@ -1007,7 +1003,7 @@ public:
      * @param x21 the second state componenent at time 1.
      * @return a nsssv representing the unconditional mean.
      */
-    virtual nssv initKalmanMean(const sssv &x21) = 0;
+    virtual nsssv initKalmanMean(const sssv &x21) = 0;
     
     
     //! Provides the initial covariance matrix for each Kalman filter object.
@@ -1035,7 +1031,7 @@ public:
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */
-    virtual void updateKalman(kalman<dimnss, dimobs> &kMod, const osv &yt, const sssv &x2t) = 0;
+    virtual void updateKalman(kalman<dimnss, dimy,0> &kMod, const osv &yt, const sssv &x2t) = 0;
     
 private:
 
@@ -1059,7 +1055,7 @@ private:
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::rbpf_kalman_bs(const unsigned int &resamp_sched)
+rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::rbpf_kalman_bs(const unsigned int &resamp_sched)
     : m_now(0)
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
@@ -1069,7 +1065,7 @@ rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::rbpf_kalman_bs(const unsigned i
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
+void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
 {
     
     if( m_now == 0){ // first data point coming
@@ -1082,7 +1078,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
             m_p_samps[ii] = muSamp(data); 
             tmpMean = initKalmanMean(m_p_samps[ii]);
             tmpVar  = initKalmanVar(m_p_samps[ii]);
-            m_p_innerMods[ii] = kalman<dimnss,dimobs,1>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
+            m_p_innerMods[ii] = kalman<dimnss,dimy,1>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
             this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
@@ -1096,7 +1092,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
         double sumexp(0.0);
         for(size_t p = 0; p < nparts; ++p)
             sumexp += std::exp(m_logUnNormWeights[p] - m1);
-        m_logLastCondLike = m1 + std::log(sumexp) - std::log(static_cast<double>(nparts));  
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<double>(nparts));  
 
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
@@ -1106,9 +1102,9 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
         for(auto & h : fs){
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
@@ -1123,7 +1119,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
         
         // resample (unnormalized weights ok)
         if( (m_now+1)%m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
             
         // advance time step
         m_now ++;
@@ -1157,7 +1153,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
         double sumexpnumer(0.0);
         for(size_t p = 0; p < nparts; ++p)
             sumexpnumer += std::exp(m_logUnNormWeights[p] - m1);
-        m_lastCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
+        m_lastLogCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
         
         // calculate expectations before you resample
         unsigned int fId(0);
@@ -1166,9 +1162,9 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
         for(auto & h : fs){
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            Eigen::Mat<double,dimOut,dimOut> numer = Eigen::Mat<double,dimOut,dimOut>::Zero();
-            Eigen::Mat<double,dimOut,dimOut> ones  = Eigen::Mat<double,dimOut,dimOut>::Ones();
-            Eigen::Mat<double,dimOut,dimOut> tmp;
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
+            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
+            Eigen::MatrixXd tmp;
             double denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
@@ -1183,7 +1179,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
 
         // resample (unnormalized weights ok)
         if( (m_now+1)%m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
         
         // update time step
         m_now ++;
@@ -1193,14 +1189,14 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::filter(const osv &data, co
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-double rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::getLogCondLike() const
+double rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-auto rbpf_kalman_bs<nparts,dimnss,dimss,dimy,reampT>::getExpectations() const -> std::vector<Mat>
+auto rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
