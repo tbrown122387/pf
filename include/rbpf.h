@@ -5,6 +5,7 @@
 #include <vector>
 #include <array>
 #include <Eigen/Dense>
+#include <algorithm> // std::fill
 
 #include "cf_filters.h" // for closed form filter objects
 
@@ -28,7 +29,7 @@ public:
     /** "sampled state size vector" */
     using sssv = Eigen::Matrix<double,dimss,1>;
     /** "not sampled state size vector" */
-    using nsssv = Eigen::Matrix<double,dimss,1>;
+    using nsssv = Eigen::Matrix<double,dimnss,1>;
     /** "observation size vector" */
     using osv = Eigen::Matrix<double,dimy,1>;
     /** "not sampled state size matrix" */
@@ -48,7 +49,7 @@ public:
      * @brief constructor.
      * @param resamp_sched how often to resample (e.g. once every resamp_sched time periods)
      */
-    rbpf_hmm(const unsigned int &resamp_sched);
+    rbpf_hmm(const unsigned int &resamp_sched=1);
     
 
     //! Filter.
@@ -230,7 +231,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
@@ -279,7 +280,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         // calculate log p(y_t | y_{1:t-1})
         double sumexpnumer(0.0);
         for(size_t p = 0; p < nparts; ++p)
-            sumexpnumer += std::exp(m_logUnNormWeights - m1);
+            sumexpnumer += std::exp(m_logUnNormWeights[p] - m1);
         m_lastLogCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
         
         // calculate expectations before you resample
@@ -288,7 +289,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
             
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
@@ -347,7 +348,7 @@ public:
     /** "sampled state size vector" */
     using sssv = Eigen::Matrix<double,dimss,1>;
     /** "not sampled state size vector" */
-    using nsssv = Eigen::Matrix<double,dimss,1>;
+    using nsssv = Eigen::Matrix<double,dimnss,1>;
     /** "observation size vector" */
     using osv = Eigen::Matrix<double,dimy,1>;
     /** "not sampled state size matrix" */
@@ -467,7 +468,7 @@ rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::rbpf_hmm_bs(const unsigned int &r
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
 {
-    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
 
@@ -483,7 +484,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         double m1(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
             
-            m_p_samps[ii] = muSamp(data); 
+            m_p_samps[ii] = muSamp(); 
             tmpProbs = initHMMProbVec(m_p_samps[ii]);
             tmpTransMat = initHMMTransMat(m_p_samps[ii]);
             m_p_innerMods[ii] = hmm<dimnss,dimy>(tmpProbs, tmpTransMat);
@@ -508,7 +509,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); /// TODO: can we just use m1?
         for(auto & h : fs){
 
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
@@ -539,8 +540,8 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         double m2 = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(size_t ii = 0; ii < nparts; ++ii){
             
-            newX2Samp = fSamp(m_p_samps[ii], data);
-            updateFSHMM(m_p_innerMods[ii], data, newX2Samp);
+            newX2Samp = fSamp(m_p_samps[ii]);
+            updateHMM(m_p_innerMods[ii], data, newX2Samp);
             sumexpdenom += std::exp(m_logUnNormWeights[ii] - m2);
             
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike();
@@ -555,7 +556,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         // calculate log p(y_t | y_{1:t-1})
         double sumexpnumer(0.0);
         for(size_t p = 0; p < nparts; ++p)
-            sumexpnumer += std::exp(m_logUnNormWeights - m1);
+            sumexpnumer += std::exp(m_logUnNormWeights[p] - m1);
         m_lastLogCondLike = m1 + std::log(sumexpnumer) - m2 - std::log(sumexpdenom);
         
         // calculate expectations before you resample
@@ -564,7 +565,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
             
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
@@ -624,7 +625,7 @@ public:
     /** "sampled state size vector" */
     using sssv = Eigen::Matrix<double,dimss,1>;
     /** "not sampled state size vector" */
-    using nsssv = Eigen::Matrix<double,dimss,1>;
+    using nsssv = Eigen::Matrix<double,dimnss,1>;
     /** "observation size vector" */
     using osv = Eigen::Matrix<double,dimy,1>;
     /** dynamic size matrices */
@@ -642,7 +643,7 @@ public:
     /**
      \param resamp_sched how often you want to resample (e.g once every resamp_sched time points)
      */
-    rbpf_kalman(const unsigned int &resamp_sched);
+    rbpf_kalman(const unsigned int &resamp_sched=1);
     
     
     //! Filter! 
@@ -823,7 +824,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
@@ -882,7 +883,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
@@ -944,7 +945,7 @@ public:
     /** "sampled state size vector" */
     using sssv = Eigen::Matrix<double,dimss,1>;
     /** "not sampled state size vector" */
-    using nsssv = Eigen::Matrix<double,dimss,1>;
+    using nsssv = Eigen::Matrix<double,dimnss,1>;
     /** "observation size vector" */
     using osv = Eigen::Matrix<double,dimy,1>;
     /** dynamic size matrices */
@@ -962,7 +963,7 @@ public:
     /**
      \param resamp_sched how often you want to resample (e.g once every resamp_sched time points)
      */
-    rbpf_kalman_bs(const unsigned int &resamp_sched);
+    rbpf_kalman_bs(const unsigned int &resamp_sched=1);
     
     
     //! Filter! 
@@ -1101,7 +1102,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, c
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
@@ -1161,7 +1162,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, c
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
-            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
             Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
             Eigen::MatrixXd tmp;
