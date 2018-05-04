@@ -367,7 +367,7 @@ public:
      * @brief constructor.
      * @param resamp_sched how often to resample (e.g. once every resamp_sched time periods)
      */
-    rbpf_hmm_bs(const unsigned int &resamp_sched);
+    rbpf_hmm_bs(const unsigned int &resamp_sched=1);
     
 
     //! Filter.
