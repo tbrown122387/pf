@@ -190,7 +190,7 @@ rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::rbpf_hmm(const unsigned int &resamp_
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
 {
-    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
 
@@ -263,7 +263,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         for(size_t ii = 0; ii < nparts; ++ii){
             
             newX2Samp = qSamp(m_p_samps[ii], data);
-            updateFSHMM(m_p_innerMods[ii], data, newX2Samp);
+            updateHMM(m_p_innerMods[ii], data, newX2Samp);
             sumexpdenom += std::exp(m_logUnNormWeights[ii] - m2);
             
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike()
@@ -783,7 +783,7 @@ rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::rbpf_kalman(const unsigned int &r
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
 {
-    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
 
@@ -1061,7 +1061,7 @@ rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::rbpf_kalman_bs(const unsigned 
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
 {
-    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
 
