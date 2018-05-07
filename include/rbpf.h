@@ -233,14 +233,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
-                denom += std::exp( m_logUnNormWeights[prtcl] - m );
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m);
+                denom += std::exp(m_logUnNormWeights[prtcl] - m);
             }
             m_expectations[fId] = numer/denom;
             fId++;
@@ -291,13 +287,9 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
             
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m );
             }
             m_expectations[fId] = numer/denom;
@@ -511,13 +503,9 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m );
             }
             m_expectations[fId] = numer/denom;
@@ -567,13 +555,9 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
             
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl])*std::exp(m_logUnNormWeights[prtcl] - m);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m );
             }
             m_expectations[fId] = numer/denom;
@@ -826,14 +810,9 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
-
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m );
             }
             m_expectations[fId] = numer/denom;
@@ -885,14 +864,9 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
-
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m );
             }
             m_expectations[fId] = numer/denom;
@@ -1104,14 +1078,9 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, c
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
-
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl])*std::exp(m_logUnNormWeights[prtcl] - m);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m );
             }
             m_expectations[fId] = numer/denom;
@@ -1164,14 +1133,9 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, c
 
             dimOut = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]).rows();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(dimOut,dimOut);
-            Eigen::MatrixXd ones  = Eigen::MatrixXd::Ones(dimOut,dimOut);
-            Eigen::MatrixXd tmp;
             double denom(0.0);
-
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                tmp = h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]);
-                tmp = tmp.array().log().matrix() + (m_logUnNormWeights[prtcl] - m)*ones;
-                numer = numer + tmp.array().exp().matrix();
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m );
             }
             m_expectations[fId] = numer/denom;
