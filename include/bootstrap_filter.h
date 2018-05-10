@@ -176,7 +176,6 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
         // paying mind to underflow
         m_expectations.resize(fs.size());
         unsigned int fId(0);
-        double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
             Mat testOutput = h(m_particles[0]);
@@ -234,7 +233,6 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
         // calculate expectations before you resample
 //        m_expectations.resize(fs.size());
         int fId(0);
-        double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){ // iterate over all functions
         
             Mat testOutput = h(m_particles[0]);
