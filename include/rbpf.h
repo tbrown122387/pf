@@ -227,7 +227,6 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
@@ -283,7 +282,6 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, const s
         
         // calculate expectations before you resample
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
             
@@ -501,7 +499,6 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); /// TODO: can we just use m1?
         for(auto & h : fs){
 
@@ -555,7 +552,6 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         
         // calculate expectations before you resample
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
             
@@ -812,7 +808,6 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
@@ -868,7 +863,6 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
         
         // calculate expectations before you resample
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
@@ -1084,7 +1078,6 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, c
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
@@ -1141,7 +1134,6 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, c
         
         // calculate expectations before you resample
         unsigned int fId(0);
-        unsigned int dimOut;
         double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 

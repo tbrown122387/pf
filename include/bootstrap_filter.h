@@ -25,8 +25,8 @@ public:
     using ssv         = Eigen::Matrix<double, dimx, 1>; 
     /** "obs size vector" type alias for linear algebra stuff */
     using osv         = Eigen::Matrix<double, dimy, 1>; // obs size vec
-    /** type alias for linear algebra stuff */
-    using Mat         = Eigen::Matrix<double, dimx, dimx>;
+    /** type alias for dynamically sized matrix */
+    using Mat         = Eigen::MatrixXd;
     /** type alias for linear algebra stuff */
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of doubles */
@@ -175,9 +175,14 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
         // calculate expectations before you resample
         // paying mind to underflow
         m_expectations.resize(fs.size());
-        std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
-        int fId(0);
+        unsigned int fId(0);
+        double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
+
+            Mat testOutput = h(m_particles[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(rows,cols);
             double weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 m_expectations[fId] += h(m_particles[prtcl]) * std::exp( m_logUnNormWeights[prtcl] - (max) );
@@ -227,13 +232,16 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
         m_logLastCondLike = maxNumer + std::log(sumExp1) - maxOldLogUnNormWts - std::log(sumExp2);
 
         // calculate expectations before you resample
-        // paying mind to underflow
-        m_expectations.resize(fs.size());
-        std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
+//        m_expectations.resize(fs.size());
         int fId(0);
-        double weightNormConst;
+        double m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){ // iterate over all functions
-            weightNormConst = 0.0;
+        
+            Mat testOutput = h(m_particles[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(rows,cols);
+            double weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 m_expectations[fId] += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);
                 weightNormConst += std::exp(m_logUnNormWeights[prtcl] - maxNumer);
