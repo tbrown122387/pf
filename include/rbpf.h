@@ -50,7 +50,13 @@ public:
      * @param resamp_sched how often to resample (e.g. once every resamp_sched time periods)
      */
     rbpf_hmm(const unsigned int &resamp_sched=1);
-    
+
+
+    /**
+     * @brief The (virtual) destructor.
+     */
+    virtual ~rbpf_hmm();
+
 
     //! Filter.
     /**
@@ -192,6 +198,10 @@ rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::rbpf_hmm(const unsigned int &resamp_
 {
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
+
+
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
+rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::~rbpf_hmm() {}
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
@@ -364,6 +374,12 @@ public:
      */
     rbpf_hmm_bs(const unsigned int &resamp_sched=1);
     
+    
+    /**
+     * @brief The (virtual) destructor.
+     */
+    virtual ~rbpf_hmm_bs();
+    
 
     //! Filter.
     /**
@@ -464,6 +480,10 @@ rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::rbpf_hmm_bs(const unsigned int &r
 {
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
+
+
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
+rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::~rbpf_hmm_bs() {}
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
@@ -634,6 +654,12 @@ public:
     rbpf_kalman(const unsigned int &resamp_sched=1);
     
     
+    /**
+     * @brief 
+     */
+    virtual ~rbpf_kalman();
+    
+    
     //! Filter! 
     /**
      * \brief The workhorse function
@@ -773,6 +799,10 @@ rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::rbpf_kalman(const unsigned int &r
 {
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
+
+
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
+rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::~rbpf_kalman() {}
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
@@ -946,6 +976,12 @@ public:
     rbpf_kalman_bs(const unsigned int &resamp_sched=1);
     
     
+    /**
+     * @brief The (virtual) destructor. 
+     */
+    virtual ~rbpf_kalman_bs();
+    
+    
     //! Filter! 
     /**
      * \brief The workhorse function
@@ -1043,6 +1079,10 @@ rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::rbpf_kalman_bs(const unsigned 
 {
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
+
+
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
+rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resampT>::~rbpf_kalman_bs() {}
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>

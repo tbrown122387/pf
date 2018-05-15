@@ -41,6 +41,12 @@ public:
     
     
     /**
+     * @brief The (virtual) destructor.
+     */
+    virtual ~SISRFilter();
+    
+    
+    /**
      * @brief Returns the most recent (log-) conditiona likelihood.
      * @return log p(y_t | y_{1:t-1}) or log p(y_1)
      */
@@ -164,6 +170,10 @@ SISRFilter<nparts,dimx,dimy,resampT>::SISRFilter(const unsigned int &rs)
 {
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0); // log(1) = 0
 }
+
+
+template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
+SISRFilter<nparts,dimx,dimy,resampT>::~SISRFilter() {}
 
     
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>

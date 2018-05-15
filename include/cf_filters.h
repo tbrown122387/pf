@@ -23,11 +23,21 @@ public:
     using osv = Eigen::Matrix<double,dimstate,1>;
     
     /**
+     * @brief The (virtual) destructor.
+     */
+    virtual ~cf_filter();
+    
+    
+    /**
      * @brief returns the log of the most recent conditional likelihood
      * @return log p(y_t | y_{1:t-1}) or log p(y_1)
      */
     virtual double getLogCondLike() const = 0;
 };
+
+
+template<size_t dimstate, size_t dimobs>
+cf_filter<dimstate,dimobs>::~cf_filter() {}
 
 
 //! A class template for Kalman filtering.
@@ -74,7 +84,13 @@ class kalman{
      * @brief Non-default constructor.
      */
     kalman(const ssv &initStateMean, const ssMat &initStateVar);
-
+    
+    
+    /**
+     * @brief The (virtual) destructor
+     */
+    virtual ~kalman();
+    
 
     /**
      * @brief returns the log of the latest conditional likelihood.
@@ -193,6 +209,10 @@ kalman<dimstate,dimobs,diminput>::kalman(const ssv &initStateMean, const ssMat &
         , m_pi(3.14159265358979)
 {
 }
+
+
+template<size_t dimstate, size_t dimobs, size_t diminput>
+kalman<dimstate,dimobs,diminput>::~kalman() {}
 
 
 template<size_t dimstate, size_t dimobs, size_t diminput>
@@ -315,6 +335,12 @@ public:
     */
     hmm(const ssv &initStateDistr, const ssMat &transMat);
     
+    
+    /**
+     * @brief The (virtual) desuctor.
+     */
+    virtual ~hmm();
+    
 
     //! Get the latest conditional likelihood.
     /**
@@ -376,6 +402,10 @@ hmm<dimstate,dimobs>::hmm(const ssv &initStateDistr, const ssMat &transMat)
     , m_fresh(false)
 {
 }
+
+
+template<size_t dimstate, size_t dimobs>
+hmm<dimstate,dimobs>::~hmm() {}
 
 
 template<size_t dimstate, size_t dimobs>

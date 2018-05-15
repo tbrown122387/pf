@@ -7,7 +7,6 @@
 #include <Eigen/Dense>
 #include <cmath>
 
-//#include "resamplers.h" 
 #include "rv_samp.h" // for k_generator
 
 
@@ -49,6 +48,11 @@ public:
       */
     APF(const unsigned int &rs=1);
     
+    
+    /**
+     * @brief The (virtual) destructor
+     */
+    virtual ~APF();
     
      /**
       * @brief Get the latest log conditional likelihood.
@@ -159,6 +163,10 @@ APF<nparts, dimx, dimy, resampT>::APF(const unsigned int &rs)
 {
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
+
+
+template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
+APF<nparts, dimx, dimy, resampT>::~APF() { }
 
 
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>

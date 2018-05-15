@@ -41,6 +41,12 @@ public:
     
     
     /**
+     * @brief The (virtual) destructor
+     */
+    virtual ~BSFilter();
+    
+    
+    /**
      * @brief Returns the most recent (log-) conditiona likelihood.
      * @return log p(y_t | y_{1:t-1})
      */
@@ -143,6 +149,10 @@ BSFilter<nparts, dimx, dimy, resampT>::BSFilter(const unsigned int &rs)
 {
     std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0); // log(1) = 0
 }
+
+
+template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
+BSFilter<nparts, dimx, dimy, resampT>::~BSFilter() {}
 
 
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
