@@ -28,13 +28,23 @@ void run_svol_comparison(const std::string &csv)
     // read in some data
     std::vector<Eigen::Matrix<double,dimobs,1>> data = utils::readInData<dimobs>(csv);
 
+    // optional lambda
+    using ssv = Eigen::Matrix<double,dimstate,1>;
+    auto idtyLambda = [](const ssv& xt) -> const Eigen::MatrixXd
+    {
+        return xt;
+    };
+    std::vector<std::function<const Eigen::MatrixXd(const ssv&)>> v;
+    v.push_back(idtyLambda);
+
     // iterate over the data
     for(size_t row = 0; row < data.size(); ++row){
-        bssvol.filter(data[row]);
-        apfsvol.filter(data[row]);
-        sisrsvol.filter(data[row]);
+        bssvol.filter(data[row], v);
+        apfsvol.filter(data[row], v);
+        sisrsvol.filter(data[row], v);
         
-        std::cout << bssvol.getLogCondLike() << ", " << apfsvol.getLogCondLike() <<", " << sisrsvol.getLogCondLike() << "\n";
+        std::cout << bssvol.getExpectations()[0] << ", " << apfsvol.getExpectations()[0] << ", " << sisrsvol.getExpectations()[0] << "\n";
+        //std::cout << bssvol.getLogCondLike() << ", " << apfsvol.getLogCondLike() <<", " << sisrsvol.getLogCondLike() << "\n";
     }
     
 }
