@@ -26,7 +26,7 @@ public:
     /** "obs size vector" type alias for linear algebra stuff */
     using osv         = Eigen::Matrix<double, dimy, 1>; // obs size vec
     /** type alias for linear algebra stuff */
-    using Mat         = Eigen::Matrix<double, dimx, dimx>;
+    using Mat         = Eigen::MatrixXd;
     /** type alias for linear algebra stuff */
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of doubles */
@@ -218,16 +218,21 @@ void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::ve
    
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
-        std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
-        int fId(0);
-        double weightNormConst;
+        //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
+        unsigned int fId(0);
         for(auto & h : fs){
-            weightNormConst = 0.0;
+            
+            Mat testOut = h(m_particles[0]);
+            unsigned int rows = testOut.rows();
+            unsigned int cols = testOut.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            double denom(0.0);
+
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                m_expectations[fId] += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
-                weightNormConst += std::exp(m_logUnNormWeights[prtcl]);
+                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
+                denom += std::exp(m_logUnNormWeights[prtcl]);
             }
-            m_expectations[fId] /= weightNormConst;
+            m_expectations[fId] = numer/denom;
             fId++;
         }
    
@@ -273,17 +278,23 @@ void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::ve
         m_logLastCondLike = maxNumer + std::log(sumExp1) - maxOldLogUnNormWts - std::log(sumExp2);
 
         // calculate expectations before you resample
-        m_expectations.resize(fs.size());
-        std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); // TODO: should this be Mat::Zero(m_dimState, m_dimState)?
-        int fId(0);
-        double weightNormConst;
+        //m_expectations.resize(fs.size());
+        //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); // TODO: should this be Mat::Zero(m_dimState, m_dimState)?
+        unsigned int fId(0);
+        double weightNormConst(0.0);
         for(auto & h : fs){ // iterate over all functions
-            weightNormConst = 0.0;
+
+            Mat testOut = h(m_particles[0]);
+            unsigned int rows = testOut.rows();
+            unsigned int cols = testOut.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            double denom(0.0);
+
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                m_expectations[fId] += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
-                weightNormConst += std::exp(m_logUnNormWeights[prtcl]);
+                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
+                denom += std::exp(m_logUnNormWeights[prtcl]);
             }
-            m_expectations[fId] /= weightNormConst;
+            m_expectations[fId] = numer/denom;
             fId++;
         }
  
