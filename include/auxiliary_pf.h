@@ -7,6 +7,7 @@
 #include <Eigen/Dense>
 #include <cmath>
 
+#include "pf_base.h"
 #include "rv_samp.h" // for k_generator
 
 
@@ -24,7 +25,7 @@
   * @tparam resampT the resampler type
   */
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-class APF
+class APF : public pf_base
 {
 public:
     /** "state size vector" type alias for linear algebra stuff */

@@ -4,6 +4,7 @@
 #include <array>
 #include <Eigen/Dense>
 
+#include "pf_base.h"
 
 //! A base class for the Sequential Important Sampling with Resampling (SISR).
 /**
@@ -17,7 +18,7 @@
  * @tparam resampT the type of resampler
  */
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-class SISRFilter
+class SISRFilter : public pf_base
 {
 public:
 

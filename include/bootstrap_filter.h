@@ -3,6 +3,8 @@
 
 #include <array>
 #include <Eigen/Dense>
+
+#include "pf_base.h"
     
 
 //! A base class for the boostrap particle filter.
@@ -17,7 +19,7 @@
  * @tparam resampT the type of resampler
  */
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-class BSFilter
+class BSFilter : public pf_base
 {
 public:
     

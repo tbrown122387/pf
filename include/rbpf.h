@@ -7,6 +7,7 @@
 #include <Eigen/Dense>
 #include <algorithm> // std::fill
 
+#include "pf_base.h"
 #include "cf_filters.h" // for closed form filter objects
 
 
@@ -23,7 +24,8 @@
  * @tparam resampT the resampler type (e.g. multinomial, etc.)
  */
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-class rbpf_hmm{
+class rbpf_hmm : public pf_base
+{
 public:
 
     /** "sampled state size vector" */
@@ -346,7 +348,8 @@ auto rbpf_hmm<nparts,dimnss,dimss,dimy,resampT>::getExpectations() const -> std:
  * @tparam resampT the resampler type (e.g. multinomial, etc.)
  */
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-class rbpf_hmm_bs{
+class rbpf_hmm_bs : public pf_base
+{
 public:
 
     /** "sampled state size vector" */
@@ -626,7 +629,8 @@ auto rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::getExpectations() const -> s
  * @tparam resampT the resampler type
  */
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-class rbpf_kalman{
+class rbpf_kalman : public pf_base
+{
 
 public:
 
@@ -948,7 +952,8 @@ auto rbpf_kalman<nparts,dimnss,dimss,dimy,resampT>::getExpectations() const -> s
  * @tparam resampT the resampler type
  */
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resampT>
-class rbpf_kalman_bs{
+class rbpf_kalman_bs : public pf_base
+{
 
 public:
 
