@@ -11,6 +11,10 @@
 
 namespace utils{
 
+    // return string that has str plus the current date/time, format is YYYY-MM-DD.HH:mm:ss
+    std::string genStringWithTime(const std::string& str); 
+
+    
     /**
      * @todo fully understand the MatrixBase thing. More info
      * here: https://eigen.tuxfamily.org/dox/TopicFunctionTakingEigenTypes.html

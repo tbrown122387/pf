@@ -531,8 +531,8 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resampT>::filter(const osv &data, cons
             Mat numer = Mat::Zero(rows,cols);
             double denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m);
-                denom += std::exp( m_logUnNormWeights[prtcl] - m );
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
+                denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
             fId++;
