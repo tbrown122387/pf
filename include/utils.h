@@ -5,8 +5,9 @@
 #include <fstream>
 #include <array>
 #include <iostream> // std::cerr
-#include <fstream> // std::ofstream
-#include <string> // string
+#include <fstream>  // std::ofstream
+#include <string>   // string
+#include <vector>   // vector
 
 
 namespace utils{
