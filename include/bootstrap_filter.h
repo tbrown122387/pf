@@ -2,6 +2,7 @@
 #define BOOTSTRAP_FILTER_H
 
 #include <array>
+#include <vector>
 #include <Eigen/Dense>
 
 #include "pf_base.h"
