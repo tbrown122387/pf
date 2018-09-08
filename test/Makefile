@@ -12,6 +12,7 @@ DEPDIR := .d
 
 # object files, auto generated from source files
 OBJS := $(patsubst %,$(OBJDIR)/%.o,$(basename $(SRCS)))
+
 # compilers (at least gcc and clang) don't create the subdirectories automatically
 $(shell mkdir -p $(DEPDIR))
 $(shell mkdir -p $(dir $(OBJS)) >/dev/null)
