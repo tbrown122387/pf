@@ -25,7 +25,6 @@ LD := g++
 CXXFLAGS := -std=c++11
 # C/C++ flags
 CPPFLAGS := -g -Wall -Wextra -pedantic -I/usr/local/include/UnitTest++ -I/usr/include/eigen3 -I../include
-####CPPFLAGS := -I/usr/local/include/UnitTest++ -I/usr/include/eigen3 -I../include
 # linker flags
 LDFLAGS := -no-pie "-L../bin" "-L/usr/local/lib"
 # flags required for dependency generation; passed to compilers
@@ -36,8 +35,6 @@ LDLIBS := -lpf -lUnitTest++
 # compile C++ source files
 COMPILE.cc = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -c -o $@
 # link object files to binary
-##############LINK.o = $(LD) $(LDFLAGS) $(LDLIBS) -o $@
-############ LINK.o = $(LD) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 LINK.o = $(LD) $(LDFLAGS) -o $@ 
 # precompile step
 PRECOMPILE =
