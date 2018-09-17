@@ -60,6 +60,15 @@ double logit(const double &p);
 double inv_logit(const double &r);
 
 
+/**
+ * @brief Maps the reals to the reals
+ * @param r
+ * @return log(invlogit(p))
+ */
+double log_inv_logit(const double &r);
+
+
+
 ////////////////////////////////////////////////
 /////////       double evals           /////////
 ////////////////////////////////////////////////
@@ -183,6 +192,12 @@ double evalUniform(const double &x, const double &lower, const double &upper, bo
 double evalDiscreteUnif(const int &x, const int &k, bool log = false);
 
 
+/**
+ * @brief Evaluates the Bernoulli pmf
+ * @param x the hypothetical value of a rv
+ * @param p the probability that the rv equals 1
+ */
+double evalBernoulli(const int& x, const double& p, bool log = false);
 
 ////////////////////////////////////////////////
 /////////      Eigen Evals             /////////

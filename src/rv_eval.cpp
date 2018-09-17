@@ -45,6 +45,13 @@ double rveval::inv_logit(const double &r)
 }
 
 
+double rveval::log_inv_logit(const double& r)
+{
+    if(r < -750.00 || r > 750.00) std::cerr << "warning: log_inv_logit might be under/over-flowing\n";
+    return -std::log(1.0 + std::exp(-r));
+}
+
+
 double rveval::evalUnivNorm(const double &x, const double &mu, const double &sigma, bool log)
 {
     double exponent = -.5*(x - mu)*(x-mu)/(sigma*sigma);
@@ -264,4 +271,19 @@ double rveval::evalDiscreteUnif(const int &x, const int &k, bool log)
 }
 
 
-
+double rveval::evalBernoulli(const int& x, const double& p, bool log)
+{
+    if( ((x == 0) || (x == 1)) && ( (0.0 <= p) && (p <= 1.0)  ) ){ // if valid x and valid p
+        if(log){
+            return (x==1) ? std::log(p) : std::log(1.0-p);
+        }else{
+            return (x==1) ? p : (1.0-p);
+        }    
+    }else{ // either invalid x or invalid p
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}

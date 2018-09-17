@@ -40,6 +40,32 @@ double UnivNormSampler::sample()
 
 ///////////////////////////////////////////////
 
+BernSampler::BernSampler() : rvsamp_base<1>::rvsamp_base()
+                           , m_B_gen(.5)
+{
+}
+
+
+BernSampler::BernSampler(const double& p) : rvsamp_base<1>::rvsamp_base()
+                                          , m_B_gen(p)
+{
+}
+
+
+void BernSampler::setP(const double& p)
+{
+    m_p = p;
+}
+
+
+int BernSampler::sample()
+{
+    return (m_B_gen(m_rng)) ? 1 : 0;
+}
+
+
+///////////////////////////////////////////////
+
 UniformSampler::UniformSampler() 
         : rvsamp_base<1>()
         , m_unif_gen(0.0, 1.0)

@@ -106,6 +106,57 @@ private:
 };
 
 
+//! A class that performs sampling from a univariate Bernoulli distribution.
+/**
+* @class BernSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from univariate Bernoulli distribution.
+*/
+class BernSampler : public rvsamp_base<1>
+{
+    
+public:
+
+
+    /**
+     * @brief Default-constructor sets up for Bernoulli random variate generation with p = .5.
+     */
+    BernSampler();
+
+
+     /**
+      * @brief Constructs Bernoulli sampler with user-specified p.
+      * @param p a double for the probability that the rv equals 1.
+      */
+    BernSampler(const double &p);
+
+
+    /**
+     * @brief sets the parameter p.
+     * @param p the p(X=1) = 1-p(X=0).
+     */
+    void setP(const double &p);
+    
+    /** 
+      * @brief Draws a random number.
+      * @return a random sample of type double.
+      */
+    int sample();    
+    
+
+private:
+
+    /** @brief makes normal random variates */
+    std::bernoulli_distribution m_B_gen;
+    
+    /** @brief the mean */
+    double m_p;
+};
+
+
+
+
 //! A class that performs sampling from a multivariate normal distribution.
 /**
 * @class MVNSampler
