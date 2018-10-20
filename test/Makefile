@@ -1,9 +1,9 @@
 # output binary
-BIN := main
+BIN := run_tests
 
 # source files
 SRCS := \
-    main.cpp test_resamplers.cpp test_rv_eval.cpp test_rv_samp.cpp
+    run_tests.cpp test_resamplers.cpp test_rv_eval.cpp test_rv_samp.cpp test_utils.cpp
 
 # intermediate directory for generated object files
 OBJDIR := .o

@@ -140,6 +140,11 @@ void logParams(const std::array<double, size> &arr, const std::string &outfile)
 }
 
 
+/**
+ * @brief reads in comma separated data
+ * NB: you need to know the number of columns beforehand, and pass this number in as a template parameter
+ * NB: the data cannot have a header
+ */
 template<size_t nc>
 std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc)
 {
