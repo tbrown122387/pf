@@ -49,6 +49,8 @@ cf_filter<dimstate,dimobs>::~cf_filter() {}
  */
 template<size_t dimstate, size_t dimobs, size_t diminput>
 class kalman{
+
+public:    
     
     /** "state size vector" type alias for linear algebra stuff */
     using ssv = Eigen::Matrix<double,dimstate,1>;
