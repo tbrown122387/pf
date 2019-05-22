@@ -1,5 +1,7 @@
 # PF: a library for fast particle filtering!
 
+[![DOI](https://zenodo.org/badge/130237492.svg)](https://zenodo.org/badge/latestdoi/130237492)
+
 This is a static library for fast particle filtering. Abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-Blackwellized particle filter, etc.), as well as non-abstract base classes for closed form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.). Most (all?) of these classes are templated for speed. Once you have a certain model in mind, make it into a class and inherit from an appropriate particle filter. 
 
 ## Installation
