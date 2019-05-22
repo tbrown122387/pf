@@ -17,23 +17,23 @@
  * @tparam nparts the number of particles
  * @tparam dimx the dimension of the state
  * @tparam dimy the dimension of the observations
- * @tparam resampT the type of resampler
+ * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t = double>
 class BSFilter : public pf_base
 {
 public:
     
     /** "state size vector" type alias for linear algebra stuff */
-    using ssv         = Eigen::Matrix<double, dimx, 1>; 
+    using ssv         = Eigen::Matrix<float_t, dimx, 1>; 
     /** "obs size vector" type alias for linear algebra stuff */
-    using osv         = Eigen::Matrix<double, dimy, 1>; // obs size vec
+    using osv         = Eigen::Matrix<float_t, dimy, 1>; // obs size vec
     /** type alias for dynamically sized matrix */
-    using Mat         = Eigen::MatrixXd;
+    using Mat         = Eigen::Matrix<float_t, Eigen::Dynamic, Eigen::Dynamic>;
     /** type alias for linear algebra stuff */
     using arrayStates = std::array<ssv, nparts>;
-    /** type alias for array of doubles */
-    using arrayDouble = std::array<double, nparts>;
+    /** type alias for array of floating points */
+    using arrayFloat = std::array<float_t, nparts>;
 
 
     /**
@@ -53,7 +53,7 @@ public:
      * @brief Returns the most recent (log-) conditiona likelihood.
      * @return log p(y_t | y_{1:t-1})
      */
-    double getLogCondLike() const; 
+    float_t getLogCondLike() const; 
     
     
     /**
@@ -75,9 +75,9 @@ public:
     /**
      * @brief  Calculate muEv or logmuEv
      * @param x1 is a const Vec& describing the state sample
-     * @return the density or log-density evaluation as a double
+     * @return the density or log-density evaluation
      */
-    virtual double logMuEv (const ssv &x1) = 0;
+    virtual float_t logMuEv (const ssv &x1) = 0;
 
 
     /**
@@ -92,18 +92,18 @@ public:
      * @brief Calculate q1Ev or log q1Ev
      * @param x1 is a const Vec& describing the time 1 state sample
      * @param y1 is a const Vec& describing the time 1 datum
-     * @return the density or log-density evaluation as a double
+     * @return the density or log-density evaluation
      */
-    virtual double logQ1Ev (const ssv &x1, const osv &y1 ) = 0;
+    virtual float_t logQ1Ev (const ssv &x1, const osv &y1 ) = 0;
     
 
     /**
      * @brief Calculate gEv or logGEv
      * @param yt is a const Vec& describing the time t datum
      * @param xt is a const Vec& describing the time t state
-     * @return the density or log-density evaluation as a double
+     * @return the density or log-density evaluation 
      */
-    virtual double logGEv (const osv &yt, const ssv &xt ) = 0;
+    virtual float_t logGEv (const osv &yt, const ssv &xt ) = 0;
     
     
     //!
@@ -119,16 +119,16 @@ protected:
     arrayStates      m_particles;
     
     /** @brief particle unnormalized weights */
-    arrayDouble      m_logUnNormWeights;
+    arrayFloat       m_logUnNormWeights;
     
     /** @brief time point */
     unsigned int     m_now;         
     
     /** @brief log p(y_t|y_{1:t-1}) or log p(y1)  */
-    double           m_logLastCondLike;
+    float_t       m_logLastCondLike;
 
     /** @brief resampler object */
-    resampT          m_resampler;
+    resamp_t          m_resampler;
     
     /** @brief expectations E[h(x_t) | y_{1:t}] for user defined "h"s */
     std::vector<Mat> m_expectations; 
@@ -143,8 +143,8 @@ protected:
 ///////////////////////////////////////// implementations ///////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-BSFilter<nparts, dimx, dimy, resampT>::BSFilter(const unsigned int &rs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+BSFilter<nparts, dimx, dimy, resamp_t, float_t>::BSFilter(const unsigned int &rs)
                 : m_now(0)
                 , m_logLastCondLike(0.0)
                 , m_resampSched(rs)
@@ -154,12 +154,12 @@ BSFilter<nparts, dimx, dimy, resampT>::BSFilter(const unsigned int &rs)
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-BSFilter<nparts, dimx, dimy, resampT>::~BSFilter() {}
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+BSFilter<nparts, dimx, dimy, resamp_t, float_t>::~BSFilter() {}
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::vector<std::function<const Mat(const ssv&)> >& fs) 
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, const std::vector<std::function<const Mat(const ssv&)> >& fs) 
 {
 
     /**
@@ -178,8 +178,8 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
         }
        
         // calculate log cond likelihood with log-exp-sum trick
-        double max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
-        double sumExp(0.0);
+        float_t max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        float_t sumExp(0.0);
         for(size_t i = 0; i < nparts; ++i){
             sumExp += std::exp(m_logUnNormWeights[i] - max);
         }
@@ -195,7 +195,7 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
-            double weightNormConst (0.0);
+            float_t weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp( m_logUnNormWeights[prtcl] - (max) );
                 weightNormConst += std::exp( m_logUnNormWeights[prtcl] - (max) );
@@ -217,8 +217,8 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
        
         // try to iterate over particles all at once
         ssv newSamp;
-        double maxOldLogUnNormWts(-1.0/0.0);
-        arrayDouble oldLogUnNormWts = m_logUnNormWeights;
+        float_t maxOldLogUnNormWts(-1.0/0.0);
+        arrayFloat oldLogUnNormWts = m_logUnNormWeights;
         for(size_t ii = 0; ii < nparts; ++ii)
         {
             // update max of old logUnNormWts
@@ -234,9 +234,9 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
         }
         
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
-        double maxNumer = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); //because you added log adjustments
-        double sumExp1(0.0);
-        double sumExp2(0.0);
+        float_t maxNumer = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); //because you added log adjustments
+        float_t sumExp1(0.0);
+        float_t sumExp2(0.0);
         for(size_t i = 0; i < nparts; ++i){
             sumExp1 += std::exp(m_logUnNormWeights[i] - maxNumer);
             sumExp2 += std::exp(oldLogUnNormWts[i] - maxOldLogUnNormWts);  //1
@@ -252,7 +252,7 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(rows,cols);
-            double weightNormConst (0.0);
+            float_t weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);
                 weightNormConst += std::exp(m_logUnNormWeights[prtcl] - maxNumer);
@@ -271,15 +271,15 @@ void BSFilter<nparts, dimx, dimy, resampT>::filter(const osv &dat, const std::ve
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-double BSFilter<nparts, dimx, dimy, resampT>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+float_t BSFilter<nparts, dimx, dimy, resamp_t, float_t>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-auto BSFilter<nparts, dimx, dimy, resampT>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+auto BSFilter<nparts, dimx, dimy, resamp_t, float_t>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }

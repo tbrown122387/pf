@@ -22,20 +22,20 @@
   * @tparam nparts the number of particles
   * @tparam dimx the dimension of the state
   * @tparam dimy the dimension of the observations
-  * @tparam resampT the resampler type
+  * @tparam resamp_t the resampler type
   */
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t = double>
 class APF : public pf_base
 {
 public:
     /** "state size vector" type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<double,dimx,1>;
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
     /** "observation size vector" type alias for linear algebra stuff */
-    using osv = Eigen::Matrix<double,dimy,1>;
+    using osv = Eigen::Matrix<float_t,dimy,1>;
     /** type alias for linear algebra stuff (dimension of the state ^2) */
     using Mat = Eigen::MatrixXd;
-    /** type alias for array of doubles */
-    using arrayDouble = std::array<double, nparts>;
+    /** type alias for array of float_ts */
+    using arrayfloat_t = std::array<float_t, nparts>;
     /** type alias for array of state vectors */
     using arrayVec = std::array<ssv, nparts>;
     /** type alias for array of unsigned ints */
@@ -57,9 +57,9 @@ public:
     
      /**
       * @brief Get the latest log conditional likelihood.
-      * @return a double of the most recent conditional likelihood.
+      * @return a float_t of the most recent conditional likelihood.
       */
-    double getLogCondLike () const; 
+    float_t getLogCondLike () const; 
     
     
     /**
@@ -71,7 +71,7 @@ public:
 
      /**
       * @brief Use a new datapoint to update the filtering distribution (or smoothing if pathLength > 0).
-      * @param data a Eigen::Matrix<double,dimy,1> representing the data
+      * @param data a Eigen::Matrix<float_t,dimy,1> representing the data
       * @param fs a std::vector of callback functions that are used to calculate expectations with respect to the filtering distribution.
       */
     void filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs = std::vector<std::function<const Mat(const ssv&)> >());
@@ -79,52 +79,52 @@ public:
 
     /**
      * @brief Evaluates the log of mu.
-     * @param x1 a Eigen::Matrix<double,dimx,1> representing time 1's state.
-     * @return a double evaluation.
+     * @param x1 a Eigen::Matrix<float_t,dimx,1> representing time 1's state.
+     * @return a float_t evaluation.
      */
-    virtual double logMuEv (const ssv &x1 ) = 0;
+    virtual float_t logMuEv (const ssv &x1 ) = 0;
     
     
     /**
-     * @brief Evaluates the proposal distribution taking a Eigen::Matrix<double,dimx,1> from the previous time's state, and returning a state for the current time.
-     * @param xtm1 a Eigen::Matrix<double,dimx,1> representing the previous time's state.
-     * @return a Eigen::Matrix<double,dimx,1> representing a likely current time state, to be used by the observation density.
+     * @brief Evaluates the proposal distribution taking a Eigen::Matrix<float_t,dimx,1> from the previous time's state, and returning a state for the current time.
+     * @param xtm1 a Eigen::Matrix<float_t,dimx,1> representing the previous time's state.
+     * @return a Eigen::Matrix<float_t,dimx,1> representing a likely current time state, to be used by the observation density.
      */
     virtual ssv propMu (const ssv &xtm1 ) = 0;
     
     
     /**
      * @brief Samples from q1.
-     * @param y1 a Eigen::Matrix<double,dimy,1> representing time 1's data point.
-     * @return a Eigen::Matrix<double,dimx,1> sample for time 1's state.
+     * @param y1 a Eigen::Matrix<float_t,dimy,1> representing time 1's data point.
+     * @return a Eigen::Matrix<float_t,dimx,1> sample for time 1's state.
      */
     virtual ssv q1Samp (const osv &y1) = 0;
     
     
     /**
      * @brief Samples from f.
-     * @param xtm1 a Eigen::Matrix<double,dimx,1> representing the previous time's state.
-     * @return a Eigen::Matrix<double,dimx,1> state sample for the current time.
+     * @param xtm1 a Eigen::Matrix<float_t,dimx,1> representing the previous time's state.
+     * @return a Eigen::Matrix<float_t,dimx,1> state sample for the current time.
      */
     virtual ssv fSamp (const ssv &xtm1) = 0;
     
     
     /**
      * @brief Evaluates the log of q1.
-     * @param x1 a Eigen::Matrix<double,dimx,1> representing time 1's state.
-     * @param y1 a Eigen::Matrix<double,dimy,1> representing time 1's data observation.
-     * @return a double evaluation.
+     * @param x1 a Eigen::Matrix<float_t,dimx,1> representing time 1's state.
+     * @param y1 a Eigen::Matrix<float_t,dimy,1> representing time 1's data observation.
+     * @return a float_t evaluation.
      */
-    virtual double logQ1Ev (const ssv &x1, const osv &y1) = 0;
+    virtual float_t logQ1Ev (const ssv &x1, const osv &y1) = 0;
     
     
     /**
      * @brief Evaluates the log of g.
-     * @param yt a Eigen::Matrix<double,dimy,1> representing time t's data observation.
-     * @param xt a Eigen::Matrix<double,dimx,1> representing time t's state.
-     * @return a double evaluation.
+     * @param yt a Eigen::Matrix<float_t,dimy,1> representing time t's data observation.
+     * @param xt a Eigen::Matrix<float_t,dimx,1> representing time t's state.
+     * @return a float_t evaluation.
      */
-    virtual double logGEv (const osv &yt, const ssv &xt) = 0;
+    virtual float_t logGEv (const osv &yt, const ssv &xt) = 0;
 
 
 protected:
@@ -132,19 +132,19 @@ protected:
     std::array<ssv,nparts>  m_particles;
     
     /** @brief particle unnormalized weights */
-    std::array<double,nparts> m_logUnNormWeights;
+    std::array<float_t,nparts> m_logUnNormWeights;
     
     /** @brief curren time */
     unsigned int m_now; 
     
     /** @brief log p(y_t|y_{1:t-1}) or log p(y1) */
-    double m_logLastCondLike; 
+    float_t m_logLastCondLike; 
     
     /** @brief the resampling schedule */
     unsigned int m_rs;
     
     /** @brief resampler object (default ctor'd)*/
-    resampT m_resampler;
+    resamp_t m_resampler;
     
     /** @brief k generator object (default ctor'd)*/
     rvsamp::k_gen<nparts> m_kGen;
@@ -156,8 +156,8 @@ protected:
 
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-APF<nparts, dimx, dimy, resampT>::APF(const unsigned int &rs) 
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+APF<nparts, dimx, dimy, resamp_t, float_t>::APF(const unsigned int &rs) 
     : m_now(0)
     , m_logLastCondLike(0.0)
     , m_rs(rs)
@@ -166,17 +166,17 @@ APF<nparts, dimx, dimy, resampT>::APF(const unsigned int &rs)
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-APF<nparts, dimx, dimy, resampT>::~APF() { }
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+APF<nparts, dimx, dimy, resamp_t, float_t>::~APF() { }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
     
     if(m_now == 0) 
     {
-        double max(-1.0/0.0);
+        float_t max(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii)
         {
             // sample particles
@@ -191,11 +191,11 @@ void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector
         }
         
         // calculate log-likelihood with log-exp-sum trick
-        double sumExp(0.0);
+        float_t sumExp(0.0);
         for( size_t i = 0; i < nparts; ++i){
             sumExp += std::exp( m_logUnNormWeights[i] - max );
         }
-        m_logLastCondLike = - std::log( static_cast<double>(nparts) ) + max + std::log(sumExp);
+        m_logLastCondLike = - std::log( static_cast<float_t>(nparts) ) + max + std::log(sumExp);
         
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
@@ -206,7 +206,7 @@ void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
-            double denom(0.0);
+            float_t denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - max);
                 denom += std::exp(m_logUnNormWeights[prtcl] - max);
@@ -225,10 +225,10 @@ void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector
     else{ //m_now > 0
         
         // set up "first stage weights" to make k index sampler 
-        arrayDouble logFirstStageUnNormWeights = m_logUnNormWeights;
+        arrayfloat_t logFirstStageUnNormWeights = m_logUnNormWeights;
         arrayVec oldPartics = m_particles;
-        double m3(-1.0/0.0);
-        double m2(-1.0/0.0);
+        float_t m3(-1.0/0.0);
+        float_t m2(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii)  
         {
             // update m3
@@ -249,10 +249,10 @@ void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector
         arrayUInt myKs = m_kGen.sample(logFirstStageUnNormWeights); 
                 
         // now draw xts
-        double m1(-1.0/0.0);
-        double first_cll_sum(0.0);
-        double second_cll_sum(0.0);
-        double third_cll_sum(0.0);
+        float_t m1(-1.0/0.0);
+        float_t first_cll_sum(0.0);
+        float_t second_cll_sum(0.0);
+        float_t third_cll_sum(0.0);
         ssv xtm1k;
         ssv muT;
         for(size_t ii = 0; ii < nparts; ++ii)   
@@ -286,7 +286,7 @@ void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
-            double denom(0.0);
+            float_t denom(0.0);
             
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
@@ -306,15 +306,15 @@ void APF<nparts, dimx, dimy, resampT>::filter(const osv &data, const std::vector
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-double APF<nparts, dimx, dimy, resampT>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+float_t APF<nparts, dimx, dimy, resamp_t, float_t>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-auto APF<nparts, dimx, dimy, resampT>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+auto APF<nparts, dimx, dimy, resamp_t, float_t>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
@@ -324,3 +324,4 @@ auto APF<nparts, dimx, dimy, resampT>::getExpectations() const -> std::vector<Ma
 
 
 #endif //APF_H
+

@@ -15,23 +15,23 @@
  * @tparam nparts the number of particles
  * @tparam dimx the size of the state
  * @tparam the size of the observation
- * @tparam resampT the type of resampler
+ * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t = double>
 class SISRFilter : public pf_base
 {
 public:
 
     /** "state size vector" type alias for linear algebra stuff */
-    using ssv         = Eigen::Matrix<double, dimx, 1>; 
+    using ssv         = Eigen::Matrix<float_t, dimx, 1>; 
     /** "obs size vector" type alias for linear algebra stuff */
-    using osv         = Eigen::Matrix<double, dimy, 1>; // obs size vec
+    using osv         = Eigen::Matrix<float_t, dimy, 1>; // obs size vec
     /** type alias for linear algebra stuff */
     using Mat         = Eigen::MatrixXd;
     /** type alias for linear algebra stuff */
     using arrayStates = std::array<ssv, nparts>;
-    /** type alias for array of doubles */
-    using arrayDouble = std::array<double, nparts>;
+    /** type alias for array of float_ts */
+    using arrayfloat_t = std::array<float_t, nparts>;
     
 
     /**
@@ -51,7 +51,7 @@ public:
      * @brief Returns the most recent (log-) conditiona likelihood.
      * @return log p(y_t | y_{1:t-1}) or log p(y_1)
      */
-    double getLogCondLike() const; 
+    float_t getLogCondLike() const; 
     
     
     /**
@@ -73,9 +73,9 @@ public:
     /**
      * @brief  Calculate muEv or logmuEv
      * @param x1 is a const Vec& describing the state sample
-     * @return the density or log-density evaluation as a double
+     * @return the density or log-density evaluation as a float_t
      */
-    virtual double logMuEv (const ssv &x1) = 0;
+    virtual float_t logMuEv (const ssv &x1) = 0;
     
     
     /**
@@ -90,27 +90,27 @@ public:
      * @brief Calculate q1Ev or log q1Ev
      * @param x1 is a const Vec& describing the time 1 state sample
      * @param y1 is a const Vec& describing the time 1 datum
-     * @return the density or log-density evaluation as a double
+     * @return the density or log-density evaluation as a float_t
      */
-    virtual double logQ1Ev (const ssv &x1, const osv &y1 ) = 0;
+    virtual float_t logQ1Ev (const ssv &x1, const osv &y1 ) = 0;
     
     
     /**
      * @brief Calculate gEv or logGEv
      * @param yt is a const Vec& describing the time t datum
      * @param xt is a const Vec& describing the time t state
-     * @return the density or log-density evaluation as a double
+     * @return the density or log-density evaluation as a float_t
      */
-    virtual double logGEv (const osv &yt, const ssv &xt ) = 0;
+    virtual float_t logGEv (const osv &yt, const ssv &xt ) = 0;
     
     
     /**
      * @brief Evaluates the state transition density.
      * @param xt the current state
      * @param xtm1 the previous state
-     * @return a double evaluaton of the log density/pmf
+     * @return a float_t evaluaton of the log density/pmf
      */
-    virtual double logFEv (const ssv &xt, const ssv &xtm1 ) = 0;
+    virtual float_t logFEv (const ssv &xt, const ssv &xtm1 ) = 0;
     
     
     /**
@@ -127,9 +127,9 @@ public:
      * @param xt current state
      * @param xtm1 previous state
      * @param yt current observation
-     * @return a double evaluation of the log density/pmf
+     * @return a float_t evaluation of the log density/pmf
      */
-    virtual double logQEv (const ssv &xt, const ssv &xtm1, const osv &yt ) = 0;    
+    virtual float_t logQEv (const ssv &xt, const ssv &xtm1, const osv &yt ) = 0;    
     
 private:
 
@@ -137,16 +137,16 @@ private:
     arrayStates m_particles;
 
     /** @brief particle weights */
-    arrayDouble m_logUnNormWeights;
+    arrayfloat_t m_logUnNormWeights;
     
     /** @brief current time point */
     unsigned int m_now; 
 
     /** @brief log p(y_t|y_{1:t-1}) or log p(y1) */
-    double m_logLastCondLike;  
+    float_t m_logLastCondLike;  
     
     /** @brief resampling object */
-    resampT m_resampler;
+    resamp_t m_resampler;
     
     /** @brief expectations E[h(x_t) | y_{1:t}] for user defined "h"s */
     std::vector<Mat> m_expectations; // stores any sample averages the user wants
@@ -163,8 +163,8 @@ private:
 
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-SISRFilter<nparts,dimx,dimy,resampT>::SISRFilter(const unsigned int &rs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::SISRFilter(const unsigned int &rs)
                 : m_now(0)
                 , m_logLastCondLike(0.0)
                 , m_resampSched(rs) 
@@ -173,33 +173,33 @@ SISRFilter<nparts,dimx,dimy,resampT>::SISRFilter(const unsigned int &rs)
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-SISRFilter<nparts,dimx,dimy,resampT>::~SISRFilter() {}
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::~SISRFilter() {}
 
     
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-double SISRFilter<nparts,dimx,dimy,resampT>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+float_t SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
     
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>    
-auto SISRFilter<nparts,dimx,dimy,resampT>::getExpectations() const -> std::vector<Mat> 
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>    
+auto SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::getExpectations() const -> std::vector<Mat> 
 {
     return m_expectations;
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resampT>
-void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
 
     if (m_now == 0) //time 1
     {
        
         // only need to iterate over particles once
-        double sumWts(0.0);
+        float_t sumWts(0.0);
         for(size_t ii = 0; ii < nparts; ++ii)
         {
             // sample particles
@@ -210,8 +210,8 @@ void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::ve
         }
        
         // calculate log cond likelihood with log-exp-sum trick
-        double max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
-        double sumExp(0.0);
+        float_t max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        float_t sumExp(0.0);
         for(size_t i = 0; i < nparts; ++i){
             sumExp += std::exp(m_logUnNormWeights[i] - max);
         }
@@ -227,7 +227,7 @@ void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::ve
             unsigned int rows = testOut.rows();
             unsigned int cols = testOut.cols();
             Mat numer = Mat::Zero(rows,cols);
-            double denom(0.0);
+            float_t denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
@@ -249,8 +249,8 @@ void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::ve
 
         // try to iterate over particles all at once
         ssv newSamp;
-        arrayDouble oldLogUnNormWts = m_logUnNormWeights;
-        double maxOldLogUnNormWts(-1.0/0.0);
+        arrayfloat_t oldLogUnNormWts = m_logUnNormWeights;
+        float_t maxOldLogUnNormWts(-1.0/0.0);
         for(size_t ii = 0; ii < nparts; ++ii)
         {
 
@@ -269,9 +269,9 @@ void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::ve
         }
        
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
-        double maxNumer = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); //because you added log adjustments
-        double sumExp1(0.0);
-        double sumExp2(0.0);
+        float_t maxNumer = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); //because you added log adjustments
+        float_t sumExp1(0.0);
+        float_t sumExp2(0.0);
         for(size_t i = 0; i < nparts; ++i){
             sumExp1 += std::exp(m_logUnNormWeights[i] - maxNumer);
             sumExp2 += std::exp(oldLogUnNormWts[i] - maxOldLogUnNormWts);
@@ -282,14 +282,14 @@ void SISRFilter<nparts,dimx,dimy,resampT>::filter(const osv &data, const std::ve
         //m_expectations.resize(fs.size());
         //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); // TODO: should this be Mat::Zero(m_dimState, m_dimState)?
         unsigned int fId(0);
-        double weightNormConst(0.0);
+        float_t weightNormConst(0.0);
         for(auto & h : fs){ // iterate over all functions
 
             Mat testOut = h(m_particles[0]);
             unsigned int rows = testOut.rows();
             unsigned int cols = testOut.cols();
             Mat numer = Mat::Zero(rows,cols);
-            double denom(0.0);
+            float_t denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
