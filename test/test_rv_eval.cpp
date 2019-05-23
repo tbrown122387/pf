@@ -80,46 +80,49 @@ public:
 TEST_FIXTURE(DensFixture, univNormalTest)
 {
     // via R dnorm(.5, 2, 1.5, T)
-    CHECK_CLOSE(rveval::evalUnivNorm(.5, 2.0, 1.5, true), -1.824404, PREC);
-    CHECK_CLOSE(rveval::evalUnivNorm(.5, 2.0, 1.5, false), 0.1613138, PREC);
+    CHECK_CLOSE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, true), -1.824404, PREC);
+    CHECK_CLOSE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, false), 0.1613138, PREC);
 }
 
 
 TEST_FIXTURE(DensFixture, univNormCDFTest)
 {
     // via R pnorm(.1)
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF(.1), 0.5398278, PREC);
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF(0.0), .5, PREC);
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF(1.0/0.0), 1.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF(-1.0/0.0), 0.0, PREC);
+    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(.1), 0.5398278, PREC);
+    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(0.0), .5, PREC);
+    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(1.0/0.0), 1.0, PREC);
+    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(-1.0/0.0), 0.0, PREC);
 }
 
 
 TEST_FIXTURE(DensFixture, truncNormTest)
 {
     // check bounds can be infinite
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, true),
-                rveval::evalUnivNorm(0.0, 0.0, 1.0, true), PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, false),
-                rveval::evalUnivNorm(0.0, 0.0, 1.0, false), PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, true),
+                rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, true), PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, false),
+                rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, false), PREC);
     // check support is good
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 1.0, .1, 20.0, false), 0.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 1.0, .1, 20.0, true), -1.0/0.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 1.0, -20.0, -.1, false), 0.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 1.0, -20.0, -.1, true), -1.0/0.0, PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, .1, 20.0, false), 0.0, PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, .1, 20.0, true), -1.0/0.0, PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -20.0, -.1, false), 0.0, PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -20.0, -.1, true), -1.0/0.0, PREC);
     // check a real evaluation comparing it to R's truncnorm::dtruncnorm(0, -5, 5, 0, 2)
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 2.0, -5.0, 5.0, false), 0.2019796, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm(0.0, 0.0, 2.0, -5.0, 5.0, true), -1.599589, PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 2.0, -5.0, 5.0, false), 0.2019796, PREC);
+    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 2.0, -5.0, 5.0, true), -1.599589, PREC);
 }
 
 
 TEST_FIXTURE(DensFixture, multivariateGaussianTest)
 {
     // via R dmvnorm(c(.02, -.01),sigma=matrix(c(3,1,1,3),nrow=2))
-    CHECK_CLOSE(rveval::evalMultivNorm<bigdim>(x, mu, covMat, true),
+    double num = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, true);    
+    CHECK_CLOSE(num,
                 -2.877717,
                 PREC);
-    CHECK_CLOSE(rveval::evalMultivNorm<bigdim>(x, mu, covMat, false), 
+
+    double num2 = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, false);
+    CHECK_CLOSE(num2, 
                 0.05626309,
                 PREC);
 }
@@ -127,12 +130,12 @@ TEST_FIXTURE(DensFixture, multivariateGaussianTest)
 
 TEST_FIXTURE(DensFixture, multivNormWoodburyTest)
 {
-    double normeval = rveval::evalMultivNorm<bigdim>(x, mu, covMat, true);
-    double wbdanormeval = rveval::evalMultivNormWBDA<bigdim,smalldim>(x, mu, A, U, C, true);
+    double normeval = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, true);
+    double wbdanormeval = rveval::evalMultivNormWBDA<bigdim,smalldim,double>(x, mu, A, U, C, true);
     CHECK_CLOSE(normeval, wbdanormeval, PREC);
                 
-    double normeval2 = rveval::evalMultivNorm<bigdim>(x, mu, covMat, false);
-    double wbdanormeval2 = rveval::evalMultivNormWBDA<bigdim,smalldim>(x, mu, A, U, C, false);
+    double normeval2 = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, false);
+    double wbdanormeval2 = rveval::evalMultivNormWBDA<bigdim,smalldim,double>(x, mu, A, U, C, false);
     CHECK_CLOSE(normeval2, wbdanormeval2, PREC);
 }
 
@@ -140,67 +143,67 @@ TEST_FIXTURE(DensFixture, multivNormWoodburyTest)
 TEST_FIXTURE(DensFixture, univBeta)
 {
     // via R dbeta(.5, .2, .3, F)
-    CHECK_CLOSE(rveval::evalUnivBeta(.5, beta1p, beta2p, true),
+    CHECK_CLOSE(rveval::evalUnivBeta<double>(.5, beta1p, beta2p, true),
                 -1.007776,
                 PREC);
 
-    CHECK_CLOSE(rveval::evalUnivBeta(.5, beta1p, beta2p, false),
+    CHECK_CLOSE(rveval::evalUnivBeta<double>(.5, beta1p, beta2p, false),
                 0.3650299,
                 PREC);
 
-    CHECK_EQUAL(rveval::evalUnivBeta(-.5, beta1p, beta2p, true), -1.0/0.0);
+    CHECK_EQUAL(rveval::evalUnivBeta<double>(-.5, beta1p, beta2p, true), -1.0/0.0);
 
-    CHECK_EQUAL(rveval::evalUnivBeta(-.5, beta1p, beta2p, false), 0.0);
+    CHECK_EQUAL(rveval::evalUnivBeta<double>(-.5, beta1p, beta2p, false), 0.0);
 }
 
 
 TEST_FIXTURE(DensFixture, invGammaTest)
 {
-    CHECK_CLOSE(rveval::evalUnivInvGamma(3.2, invgamma1p, invgamma2p, true),
+    CHECK_CLOSE(rveval::evalUnivInvGamma<double>(3.2, invgamma1p, invgamma2p, true),
                 -4.215113,
                 PREC);
                 
-    CHECK_CLOSE(rveval::evalUnivInvGamma(3.2, invgamma1p, invgamma2p, false),
+    CHECK_CLOSE(rveval::evalUnivInvGamma<double>(3.2, invgamma1p, invgamma2p, false),
                 0.01477065,
                 PREC);
                 
-    CHECK_EQUAL(rveval::evalUnivInvGamma(-3.2, invgamma1p, invgamma2p, true), -1.0/0.0); 
+    CHECK_EQUAL(rveval::evalUnivInvGamma<double>(-3.2, invgamma1p, invgamma2p, true), -1.0/0.0); 
    
-    CHECK_EQUAL(rveval::evalUnivInvGamma(-3.2, invgamma1p, invgamma2p, false), 0.0);
+    CHECK_EQUAL(rveval::evalUnivInvGamma<double>(-3.2, invgamma1p, invgamma2p, false), 0.0);
 }
 
 
 TEST_FIXTURE(DensFixture, halfNormalTest)
 {
     // fdrtool::dhalfnorm(.2, sqrt(pi/(2*1.5)))
-    CHECK_CLOSE(rveval::evalUnivHalfNorm(.2, sigmaSquaredHN, true), -0.4418572400321429, PREC);
-    CHECK_CLOSE(rveval::evalUnivHalfNorm(.2, sigmaSquaredHN, false), 0.6428414009228908, PREC);
-    CHECK_EQUAL(rveval::evalUnivHalfNorm(-.2, sigmaSquaredHN, false), 0.0);
-    CHECK_EQUAL(rveval::evalUnivHalfNorm(-.2, sigmaSquaredHN, true), -1.0/0.0);
+    CHECK_CLOSE(rveval::evalUnivHalfNorm<double>(.2, sigmaSquaredHN, true), -0.4418572400321429, PREC);
+    CHECK_CLOSE(rveval::evalUnivHalfNorm<double>(.2, sigmaSquaredHN, false), 0.6428414009228908, PREC);
+    CHECK_EQUAL(rveval::evalUnivHalfNorm<double>(-.2, sigmaSquaredHN, false), 0.0);
+    CHECK_EQUAL(rveval::evalUnivHalfNorm<double>(-.2, sigmaSquaredHN, true), -1.0/0.0);
 }
 
 
 TEST_FIXTURE(DensFixture, ctsUniformTest)
 {
-    CHECK_CLOSE(rveval::evalUniform((lower+upper)/2.0, lower, upper, false), 1.0/(upper - lower), PREC);
-    CHECK_CLOSE(rveval::evalUniform((lower+upper)/2.0, lower, upper, true), -std::log(upper-lower), PREC);
-    CHECK_EQUAL(rveval::evalUniform(lower-.01, lower, upper, false), 0.0);
-    CHECK_EQUAL(rveval::evalUniform(lower-.01, lower, upper, true), -1.0/0.0);
+    CHECK_CLOSE(rveval::evalUniform<double>((lower+upper)/2.0, lower, upper, false), 1.0/(upper - lower), PREC);
+    CHECK_CLOSE(rveval::evalUniform<double>((lower+upper)/2.0, lower, upper, true), -std::log(upper-lower), PREC);
+    CHECK_EQUAL(rveval::evalUniform<double>(lower-.01, lower, upper, false), 0.0);
+    CHECK_EQUAL(rveval::evalUniform<double>(lower-.01, lower, upper, true), -1.0/0.0);
 }
 
 
 TEST_FIXTURE(DensFixture, evalLogNormalTest)
 {
     // dlnorm(.2, .5, 5.3, T)
-    CHECK_CLOSE(rveval::evalLogNormal(.2, lnMu, lnSigma, true), 
+    CHECK_CLOSE(rveval::evalLogNormal<double>(.2, lnMu, lnSigma, true), 
                 -1.056412288363436,
                 PREC);
-    CHECK_CLOSE(rveval::evalLogNormal(.2, lnMu, lnSigma, false), 
+    CHECK_CLOSE(rveval::evalLogNormal<double>(.2, lnMu, lnSigma, false), 
                 0.3477010262745334,
                 PREC);
-    CHECK_EQUAL(rveval::evalLogNormal(-2, lnMu, lnSigma, true),
+    CHECK_EQUAL(rveval::evalLogNormal<double>(-2, lnMu, lnSigma, true),
                 -1.0/0.0);
-    CHECK_EQUAL(rveval::evalLogNormal(-2, lnMu, lnSigma, false), 0.0);
+    CHECK_EQUAL(rveval::evalLogNormal<double>(-2, lnMu, lnSigma, false), 0.0);
                 
 }
 

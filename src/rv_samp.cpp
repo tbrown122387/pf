@@ -1,58 +1,44 @@
 #include "rv_samp.h"
 
+
+///////////////////////////////////////////////
 // only implements the non-templated classes from the header file
 using namespace rvsamp;
 
-UnivNormSampler::UnivNormSampler()
-    : rvsamp_base<1>::rvsamp_base()
-    , m_z_gen(0.0, 1.0)
+
+rvsamp_base::rvsamp_base() 
+    : m_rng{static_cast<std::uint32_t>(std::chrono::high_resolution_clock::now().time_since_epoch().count())} 
 {
-    setMean(0.0);
-    setStdDev(1.0);
 }
 
-
-UnivNormSampler::UnivNormSampler(const double &mu, const double &sigma)
-    : rvsamp_base<1>::rvsamp_base()
-    , m_z_gen(0.0, 1.0)
-{
-    setMean(mu); 
-    setStdDev(sigma);
-}
-
-
-void UnivNormSampler::setMean(const double &mu)
-{
-    m_mu = mu;
-}
-
-
-void UnivNormSampler::setStdDev(const double &sigma)
-{
-    m_sigma = sigma;
-}
-
-
-double UnivNormSampler::sample()
-{
-    return m_mu + m_sigma * m_z_gen(m_rng);
-}
 
 ///////////////////////////////////////////////
 
-BernSampler::BernSampler() : rvsamp_base<1>::rvsamp_base()
+BernSampler::BernSampler() : rvsamp_base()
                            , m_B_gen(.5)
 {
 }
 
 
-BernSampler::BernSampler(const double& p) : rvsamp_base<1>::rvsamp_base()
+BernSampler::BernSampler(const double& p) : rvsamp_base()
+                                          , m_B_gen(p)
+{
+}
+
+
+BernSampler::BernSampler(const float& p) : rvsamp_base()
                                           , m_B_gen(p)
 {
 }
 
 
 void BernSampler::setP(const double& p)
+{
+    m_p = p;
+}
+
+
+void BernSampler::setP(const float_t& p)
 {
     m_p = p;
 }
@@ -66,23 +52,6 @@ int BernSampler::sample()
 
 ///////////////////////////////////////////////
 
-UniformSampler::UniformSampler() 
-        : rvsamp_base<1>()
-        , m_unif_gen(0.0, 1.0)
-{
-}
 
-
-UniformSampler::UniformSampler(const double &lower, const double &upper) 
-        : rvsamp_base<1>()
-        , m_unif_gen(lower, upper)
-{    
-}
-
-
-double UniformSampler::sample()
-{
-    return m_unif_gen(m_rng);
-}
 
 

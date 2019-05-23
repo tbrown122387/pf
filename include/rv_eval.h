@@ -3,7 +3,7 @@
 
 #include <cstddef> // std::size_t
 #include <Eigen/Dense>
-
+#include <iostream>
 
 namespace rveval{
     
@@ -33,7 +33,15 @@ const double log_two_over_pi (-0.451582705289455);
  * @param phi
  * @return psi
  */
-double twiceFisher(const double &phi);
+template<typename float_t>
+float_t twiceFisher(const float_t &phi)
+{
+    if ( (phi <= -1.0) || (phi >= 1.0) )
+        throw std::invalid_argument( "error: phi was not between -1 and 1" );
+    else
+        return std::log(1.0 + phi) - std::log(1.0 - phi);
+}
+
 
 
 /**
@@ -41,7 +49,16 @@ double twiceFisher(const double &phi);
  * @param psi
  * @return phi
  */
-double invTwiceFisher(const double &psi);
+template<typename float_t>
+float_t invTwiceFisher(const float_t &psi)
+{
+    float_t ans = (1.0 - std::exp(psi)) / ( -1.0 - std::exp(psi) );
+    
+    if ( (ans <= -1.0) || (ans >= 1.0) )
+        std::cerr << "error: there was probably overflow for exp(psi) \n";
+    
+    return ans;    
+}
     
     
 /**
@@ -49,7 +66,14 @@ double invTwiceFisher(const double &psi);
  * @param p
  * @return logit(p)
  */
-double logit(const double &p);
+template<typename float_t>
+float_t logit(const float_t &p)
+{
+    if ( (p <= 0.0) || (p >= 1.0))
+        std::cerr << "error: p was not between 0 and 1 \n";
+    
+    return std::log(p) - std::log(1.0 - p);
+}
     
     
 /**
@@ -57,7 +81,16 @@ double logit(const double &p);
  * @param r
  * @return p = invlogit(p)
  */
-double inv_logit(const double &r);
+template<typename float_t>
+float_t inv_logit(const float_t &r)
+{
+    float_t ans = 1.0/( 1.0 + std::exp(-r) );
+    
+    if ( (ans <= 0.0) || (ans >= 1.0))
+        std::cerr << "error: there was probably underflow for exp(-r) \n";
+    
+    return ans;
+}
 
 
 /**
@@ -65,7 +98,12 @@ double inv_logit(const double &r);
  * @param r
  * @return log(invlogit(p))
  */
-double log_inv_logit(const double &r);
+template<typename float_t>
+float_t log_inv_logit(const float_t& r)
+{
+    if(r < -750.00 || r > 750.00) std::cerr << "warning: log_inv_logit might be under/over-flowing\n";
+    return -std::log(1.0 + std::exp(-r));
+}
 
 
 ////////////////////////////////////////////////
@@ -77,7 +115,7 @@ unsigned int nChooseK(unsigned int n, unsigned int k);
 
 
 ////////////////////////////////////////////////
-/////////       double evals           /////////
+/////////       float_t evals           /////////
 ////////////////////////////////////////////////
     
 /**
@@ -86,9 +124,26 @@ unsigned int nChooseK(unsigned int n, unsigned int k);
  * @param mu the mean.
  * @param sigma the standard deviation.
  * @param log true if you want the log-density. False otherwise.
- * @return a double evaluation.
+ * @return a float_t evaluation.
  */
-double evalUnivNorm(const double &x, const double &mu, const double &sigma, bool log = false);
+template<typename float_t>
+float_t evalUnivNorm(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+{
+    float_t exponent = -.5*(x - mu)*(x-mu)/(sigma*sigma);
+    if( sigma > 0.0){
+        if(log){
+            return -std::log(sigma) - .5*log_two_pi + exponent;
+        }else{
+            return inv_sqrt_2pi * std::exp(exponent) / sigma;
+        }
+    }else{
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 
 /**
@@ -96,7 +151,29 @@ double evalUnivNorm(const double &x, const double &mu, const double &sigma, bool
  * @param x the quantile.
  * @return the probability Z < x
  */
-double evalUnivStdNormCDF(const double &x); 
+template<typename float_t>
+float_t evalUnivStdNormCDF(const float_t &x) // john cook code
+{
+    // constants
+    float_t a1 =  0.254829592;
+    float_t a2 = -0.284496736;
+    float_t a3 =  1.421413741;
+    float_t a4 = -1.453152027;
+    float_t a5 =  1.061405429;
+    float_t p  =  0.3275911;
+
+    // Save the sign of x
+    int sign = 1;
+    if (x < 0)
+        sign = -1;
+    float_t xt = std::fabs(x)/std::sqrt(2.0);
+
+    // A&S formula 7.1.26
+    float_t t = 1.0/(1.0 + p*xt);
+    float_t y = 1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t*std::exp(-xt*xt);
+
+    return 0.5*(1.0 + sign*y);
+} 
 
 
 /**
@@ -105,9 +182,26 @@ double evalUnivStdNormCDF(const double &x);
  * @param alpha parameter 1 
  * @param beta parameter 2
  * @param log true if you want log density
- * @return double evaluation.
-*/       
-double evalUnivBeta(const double &x, const double &alpha, const double &beta, bool log = false);
+ * @return float_t evaluation.
+*/  
+template<typename float_t>
+float_t evalUnivBeta(const float_t &x, const float_t &alpha, const float_t &beta, bool log)
+{
+    if( (x > 0.0) && (x < 1.0) && (alpha > 0.0) && (beta > 0.0) ){ // x in support and parameters acceptable
+        if(log){
+            return std::lgamma(alpha + beta) - std::lgamma(alpha) - std::lgamma(beta) + (alpha - 1.0)*std::log(x) + (beta - 1.0) * std::log(1.0 - x);
+        }else{
+            return pow(x, alpha-1.0) * pow(1.0-x, beta-1.0) * std::tgamma(alpha + beta) / ( std::tgamma(alpha) * std::tgamma(beta) );
+        }
+
+    }else{ //not ( x in support and parameters acceptable )
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 
 /**
@@ -116,9 +210,25 @@ double evalUnivBeta(const double &x, const double &alpha, const double &beta, bo
  * @param alpha shape parameter  
  * @param beta rate parameter 
  * @param log true if you want log density.
- * @return double evaluation.
-*/       
-double evalUnivInvGamma(const double &x, const double &alpha, const double &beta, bool log = false);
+ * @return float_t evaluation.
+*/    
+template<typename float_t>
+float_t evalUnivInvGamma(const float_t &x, const float_t &alpha, const float_t &beta, bool log)
+{
+    if ( (x > 0.0) && (alpha > 0.0) && (beta > 0.0) ){ // x in support and acceptable parameters
+        if (log){
+            return alpha * std::log(beta) - std::lgamma(alpha) - (alpha + 1.0)*std::log(x) - beta/x;
+        }else{
+            return pow(x, -alpha-1.0) * exp(-beta/x) * pow(beta, alpha) / std::tgamma(alpha);
+        }
+    }else{ // not ( x in support and acceptable parameters )
+        if (log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 
 /**
@@ -126,10 +236,25 @@ double evalUnivInvGamma(const double &x, const double &alpha, const double &beta
  * @param x the point you're evaluating at
  * @param sigmaSqd the scale parameter
  * @param log true if you want log density.
- * @return double evaluation.
+ * @return float_t evaluation.
  */
-double evalUnivHalfNorm(const double &x, const double &sigmaSqd, bool log = false);
-
+template<typename float_t>
+float_t evalUnivHalfNorm(const float_t &x, const float_t &sigmaSqd, bool log)
+{
+    if( (x >= 0.0) && (sigmaSqd > 0.0)){
+        if (log){
+            return .5*log_two_over_pi - .5*std::log(sigmaSqd) - .5*x*x / sigmaSqd;
+        }else{
+            return std::exp(-.5*x*x/sigmaSqd) * sqrt_two_over_pi / std::sqrt(sigmaSqd);
+        }
+    }else{
+        if (log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 /**
  * @brief Evaluates a truncated Normal density.
@@ -141,7 +266,27 @@ double evalUnivHalfNorm(const double &x, const double &sigmaSqd, bool log = fals
  * @param log true if you want the log density.
  * @return 
  */
-double evalUnivTruncNorm(const double &x, const double &mu, const double &sigma, const double &lower, const double &upper, bool log = false);
+template<typename float_t>
+float_t evalUnivTruncNorm(const float_t &x, const float_t &mu, const float_t &sigma, const float_t &lower, const float_t &upper, bool log)
+{
+    if( (sigma > 0.0) && (lower <= x) & (x <= upper) ){
+        if(log){
+            return evalUnivNorm(x, mu, sigma, true) 
+                - std::log( evalUnivStdNormCDF((upper-mu)/sigma) - evalUnivStdNormCDF((lower-mu)/sigma));
+        }else{
+            return evalUnivNorm(x,mu,sigma,false)
+                / ( evalUnivStdNormCDF((upper-mu)/sigma) - evalUnivStdNormCDF((lower-mu)/sigma) );
+        }
+        
+    }else{
+        if (log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
+
 
 
 /**
@@ -150,9 +295,27 @@ double evalUnivTruncNorm(const double &x, const double &mu, const double &sigma,
  * @param mu location parameter that can take any real number
  * @param sigma scale parameter that needs to be positive
  * @param log true if you want to evalute the log-density. False otherwise.
- * @return a double evaluation
+ * @return a float_t evaluation
  */
-double evalLogitNormal(const double &x, const double &mu, const double &sigma, bool log = false);
+template<typename float_t>
+float_t evalLogitNormal(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+{
+    if( (x >= 0.0) && (x <= 1.0) && (sigma > 0.0)){
+        
+        float_t exponent = -.5*(logit(x) - mu)*(logit(x) - mu) / (sigma*sigma);
+        if(log){
+            return -std::log(sigma) - .5*log_two_pi - std::log(x) - std::log(1.0-x) + exponent;
+        }else{
+            return inv_sqrt_2pi * std::exp(exponent) / (x * (1.0-x) * sigma);   
+        }
+    }else{
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 
 /**
@@ -162,9 +325,27 @@ double evalLogitNormal(const double &x, const double &mu, const double &sigma, b
  * @param mu the location parameter (all real numbers)
  * @param sigma the scale parameter (positive)
  * @param log true if you want to evaluate the log-density. False otherwise.
- * @return a double evaluation
+ * @return a float_t evaluation
  */
-double evalTwiceFisherNormal(const double &x, const double &mu, const double &sigma, bool log = false);
+template<typename float_t>
+float_t evalTwiceFisherNormal(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+{
+    if( (x >= -1.0) && (x <= 1.0) && (sigma > 0.0)){
+        
+        float_t exponent = -.5*(std::log((1.0+x)/(1.0-x)) - mu)*(std::log((1.0+x)/(1.0-x)) - mu)/(sigma* sigma);
+        if(log){
+            return -std::log(sigma) - .5*log_two_pi + std::log(2.0) - std::log(1.0+x) - std::log(1.0-x) + exponent;
+        }else{
+            return inv_sqrt_2pi * 2.0 * std::exp(exponent)/( (1.0-x)*(1.0+x)*sigma );
+        }
+    }else{
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 
 /**
@@ -173,9 +354,27 @@ double evalTwiceFisherNormal(const double &x, const double &mu, const double &si
  * @param mu the location parameter
  * @param sigma in (0, infty) the scale parameter
  * @param log true if you want to evaluate the log-density. False otherwise.
- * @return a double evaluation
+ * @return a float_t evaluation
  */
-double evalLogNormal(const double &x, const double &mu, const double &sigma, bool log = false);
+template<typename float_t>
+float_t evalLogNormal(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+{
+    if( (x > 0.0) && (sigma > 0.0)){
+        
+        float_t exponent = -.5*(std::log(x)-mu)*(std::log(x)-mu)/(sigma*sigma);
+        if(log){
+            return -std::log(x) - std::log(sigma) - .5*log_two_pi + exponent;
+        }else{
+            return inv_sqrt_2pi*std::exp(exponent)/(sigma*x);
+        }
+    }else{
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 
 /**
@@ -184,9 +383,29 @@ double evalLogNormal(const double &x, const double &mu, const double &sigma, boo
  * @param lower the lower bound of the support for x.
  * @param upper the upper bound for the support of x.
  * @param log true if you want to evaluate the log-density. False otherwise.
- * @return a double evaluation.
+ * @return a float_t evaluation.
  */
-double evalUniform(const double &x, const double &lower, const double &upper, bool log = false);
+template<typename float_t>
+float_t evalUniform(const float_t &x, const float_t &lower, const float_t &upper, bool log)
+{
+
+    if( (x > lower) && (x <= upper)){
+        
+        float_t width = upper-lower;
+        if(log){
+            return -std::log(width);
+        }else{
+            return 1.0/width;
+        }
+    }else{
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+    
+}
 
 
 /**
@@ -196,7 +415,23 @@ double evalUniform(const double &x, const double &lower, const double &upper, bo
  * @param log true if you want log pmf
  * @return P(X=x) probability that X equals x
  */
-double evalDiscreteUnif(const int &x, const int &k, bool log = false);
+template<typename float_t>
+float_t evalDiscreteUnif(const int &x, const int &k, bool log)
+{
+    if( (1 <= x) && (x <= k) ){
+        if(log){
+            return -std::log(static_cast<float_t>(k));
+        }else{
+            return 1.0 / static_cast<float_t>(k);
+        }
+    }else{ // x not in support
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
 
 
 /**
@@ -204,7 +439,24 @@ double evalDiscreteUnif(const int &x, const int &k, bool log = false);
  * @param x the hypothetical value of a rv
  * @param p the probability that the rv equals 1
  */
-double evalBernoulli(const int& x, const double& p, bool log = false);
+template<typename float_t>
+float_t evalBernoulli(const int& x, const float_t& p, bool log)
+{
+    if( ((x == 0) || (x == 1)) && ( (0.0 <= p) && (p <= 1.0)  ) ){ // if valid x and valid p
+        if(log){
+            return (x==1) ? std::log(p) : std::log(1.0-p);
+        }else{
+            return (x==1) ? p : (1.0-p);
+        }    
+    }else{ // either invalid x or invalid p
+        if(log){
+            return -1.0/0.0;
+        }else{
+            return 0.0;
+        }
+    }
+}
+
 
 ////////////////////////////////////////////////
 /////////      Eigen Evals             /////////
@@ -218,26 +470,26 @@ double evalBernoulli(const int& x, const double& p, bool log = false);
  * @param meanVec the mean vector.
  * @param covMat the positive definite, symmetric covariance matrix.
  * @param log true if you want to return the log density. False otherwise.
- * @return a double evaluation.
+ * @return a float_t evaluation.
  */
-template<std::size_t dim>
-double evalMultivNorm(const Eigen::Matrix<double,dim,1> &x, 
-                      const Eigen::Matrix<double,dim,1> &meanVec, 
-                      const Eigen::Matrix<double,dim,dim> &covMat, 
+template<std::size_t dim, typename float_t>
+float_t evalMultivNorm(const Eigen::Matrix<float_t,dim,1> &x, 
+                      const Eigen::Matrix<float_t,dim,1> &meanVec, 
+                      const Eigen::Matrix<float_t,dim,dim> &covMat, 
                       bool log = false)
 {
-    using Mat = Eigen::Matrix<double,dim,dim>;
+    using Mat = Eigen::Matrix<float_t,dim,dim>;
     
     // from Eigen: Remember that Cholesky decompositions are not rank-revealing. 
     /// This LLT decomposition is only stable on positive definite matrices, 
     // use LDLT instead for the semidefinite case. Also, do not use a Cholesky 
     // decomposition to determine whether a system of equations has a solution.
     Eigen::LLT<Mat> lltM(covMat);
-    double quadform = (lltM.matrixL().solve(x-meanVec)).squaredNorm();
+    float_t quadform = (lltM.matrixL().solve(x-meanVec)).squaredNorm();
     if (log){
 
         // calculate log-determinant using cholesky decomposition too
-        double ld (0.0);
+        float_t ld (0.0);
         Mat L = lltM.matrixL(); // the lower diagonal L such that M = LL^T
 
         // add up log of diagnols of Cholesky L
@@ -250,7 +502,7 @@ double evalMultivNorm(const Eigen::Matrix<double,dim,1> &x,
 
 
     }else{  // not the log density
-        double normConst = std::pow(inv_sqrt_2pi, dim) / lltM.matrixL().determinant();
+        float_t normConst = std::pow(inv_sqrt_2pi, dim) / lltM.matrixL().determinant();
         return normConst * std::exp(-.5* quadform);
     }
 }
@@ -265,19 +517,19 @@ double evalMultivNorm(const Eigen::Matrix<double,dim,1> &x,
  * @param U of A + UCU'
  * @param C of A + UCU'
  * @param log true if you want to return the log density. False otherwise.
- * @return a double evaluation.
+ * @return a float_t evaluation.
  */
-template<std::size_t bigd, std::size_t smalld>
-double evalMultivNormWBDA(const Eigen::Matrix<double,bigd,1> &x, 
-                          const Eigen::Matrix<double,bigd,1> &meanVec, 
-                          const Eigen::Matrix<double,bigd,1> &A, 
-                          const Eigen::Matrix<double,bigd,smalld> &U, 
-                          const Eigen::Matrix<double,smalld,smalld> &C, 
+template<std::size_t bigd, std::size_t smalld, typename float_t>
+float_t evalMultivNormWBDA(const Eigen::Matrix<float_t,bigd,1> &x, 
+                          const Eigen::Matrix<float_t,bigd,1> &meanVec, 
+                          const Eigen::Matrix<float_t,bigd,1> &A, 
+                          const Eigen::Matrix<float_t,bigd,smalld> &U, 
+                          const Eigen::Matrix<float_t,smalld,smalld> &C, 
                           bool log = false)
 {
     
-    using bigmat = Eigen::Matrix<double,bigd,bigd>;
-    using smallmat = Eigen::Matrix<double,smalld,smalld>;
+    using bigmat = Eigen::Matrix<float_t,bigd,bigd>;
+    using smallmat = Eigen::Matrix<float_t,smalld,smalld>;
 
     bigmat Ainv = A.asDiagonal().inverse();
     smallmat Cinv = C.inverse();
@@ -285,11 +537,11 @@ double evalMultivNormWBDA(const Eigen::Matrix<double,bigd,1> &x,
     bigmat SigInv = Ainv - Ainv * U * I.ldlt().solve(U.transpose() * Ainv);
     Eigen::LLT<bigmat> lltSigInv(SigInv);
     bigmat L = lltSigInv.matrixL(); // LL' = Sig^{-1}
-    double quadform = (L * (x-meanVec)).squaredNorm();    
+    float_t quadform = (L * (x-meanVec)).squaredNorm();    
     if (log){
 
         // calculate log-determinant using cholesky decomposition (assumes symmetric and positive definite)
-        double halfld (0.0);
+        float_t halfld (0.0);
         // add up log of diagnols of Cholesky L
         for(size_t i = 0; i < bigd; ++i){
             halfld += std::log(L(i,i));
@@ -299,7 +551,7 @@ double evalMultivNormWBDA(const Eigen::Matrix<double,bigd,1> &x,
 
 
     }else{  // not the log density
-        double normConst = std::pow(inv_sqrt_2pi, bigd) * L.determinant();
+        float_t normConst = std::pow(inv_sqrt_2pi, bigd) * L.determinant();
         return normConst * std::exp(-.5* quadform);
     }
                               

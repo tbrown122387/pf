@@ -13,12 +13,12 @@ public:
     using Mat = Eigen::Matrix<double,bigdim,bigdim>;
 
     // data members    
-    rvsamp::UnivNormSampler m_ns;
+    rvsamp::UnivNormSampler<double> m_ns;
 //    UnivNormSampler m_ns2; // nondefault construction TODO add
-    rvsamp::MVNSampler<bigdim> m_mns;
+    rvsamp::MVNSampler<bigdim,double> m_mns;
 //    MVNSampler<bigdim> m_mns2; // nondefault construction  TODO add
-    rvsamp::UniformSampler m_us;
-    rvsamp::UniformSampler m_us2; // nondefault construction
+    rvsamp::UniformSampler<double> m_us;
+    rvsamp::UniformSampler<double> m_us2; // nondefault construction
     
     SampFixture() : m_us2(-2.0, -1.0) // weirder upper and lower bounds
     {

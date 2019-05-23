@@ -12,15 +12,15 @@
  * @file cf_filters.h
  * @brief forces structure on the closed-form filters.
  */
-template<size_t dimstate, size_t dimobs>
+template<size_t dimstate, size_t dimobs, typename float_t>
 class cf_filter{
 
 public:
     
     /** "state size vector" type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<double,dimstate,1>;
+    using ssv = Eigen::Matrix<float_t,dimstate,1>;
     /** "observation size vector" type alias for linear algebra stuff */
-    using osv = Eigen::Matrix<double,dimstate,1>;
+    using osv = Eigen::Matrix<float_t,dimstate,1>;
     
     /**
      * @brief The (virtual) destructor.
@@ -32,12 +32,12 @@ public:
      * @brief returns the log of the most recent conditional likelihood
      * @return log p(y_t | y_{1:t-1}) or log p(y_1)
      */
-    virtual double getLogCondLike() const = 0;
+    virtual float_t getLogCondLike() const = 0;
 };
 
 
-template<size_t dimstate, size_t dimobs>
-cf_filter<dimstate,dimobs>::~cf_filter() {}
+template<size_t dimstate, size_t dimobs, typename float_t>
+cf_filter<dimstate,dimobs,float_t>::~cf_filter() {}
 
 
 //! A class template for Kalman filtering.
@@ -47,31 +47,31 @@ cf_filter<dimstate,dimobs>::~cf_filter() {}
  * @file cf_filters.h
  * @brief Inherit from this for a model that admits Kalman filtering.
  */
-template<size_t dimstate, size_t dimobs, size_t diminput>
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
 class kalman{
 
 public:    
     
     /** "state size vector" type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<double,dimstate,1>;
+    using ssv = Eigen::Matrix<float_t,dimstate,1>;
     
     /** "observation size vector" type alias for linear algebra stuff */
-    using osv = Eigen::Matrix<double,dimobs,1>;
+    using osv = Eigen::Matrix<float_t,dimobs,1>;
     
     /** "input size vector" type alias for linear algebra stuff */
-    using isv = Eigen::Matrix<double,diminput,1>;
+    using isv = Eigen::Matrix<float_t,diminput,1>;
     
     /** "state size matrix" type alias for linear algebra stuff */
-    using ssMat = Eigen::Matrix<double,dimstate,dimstate>;
+    using ssMat = Eigen::Matrix<float_t,dimstate,dimstate>;
     
     /** "observation size matrix" type alias for linear algebra stuff */
-    using osMat = Eigen::Matrix<double,dimobs,dimobs>;
+    using osMat = Eigen::Matrix<float_t,dimobs,dimobs>;
     
     /** "state dim by input dimension matrix" */
-    using siMat = Eigen::Matrix<double,dimstate,diminput>;
+    using siMat = Eigen::Matrix<float_t,dimstate,diminput>;
         
     /** "observation dimension by input dim matrix" */
-    using oiMat = Eigen::Matrix<double,dimobs,diminput>;
+    using oiMat = Eigen::Matrix<float_t,dimobs,diminput>;
     
 
     //! Default constructor. 
@@ -98,7 +98,7 @@ public:
      * @brief returns the log of the latest conditional likelihood.
      * @return log p(y_t | y_{1:t-1}) or log p(y_1)
      */
-    double getLogCondLike() const;
+    float_t getLogCondLike() const;
     
     
     /**
@@ -150,13 +150,13 @@ private:
     ssMat m_filtVar;
     
     /** @brief latest log conditional likelihood */
-    double m_lastLogCondLike; 
+    float_t m_lastLogCondLike; 
     
     /** @brief has data been observed? */
     bool m_fresh;
     
     /** @brief pi */
-    const double m_pi;
+    const float_t m_pi;
     
     /**
      * @todo handle diagonal variance matrices, and ensure symmetricness in other ways
@@ -191,9 +191,9 @@ private:
 };
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>  
-kalman<dimstate,dimobs,diminput>::kalman() 
-        : cf_filter<dimstate,dimobs>()
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
+kalman<dimstate,dimobs,diminput,float_t>::kalman() 
+        : cf_filter<dimstate,dimobs,float_t>()
         , m_fresh(true)
         , m_predMean(ssv::Zero())
         , m_predVar(ssMat::Zero()) 
@@ -202,9 +202,9 @@ kalman<dimstate,dimobs,diminput>::kalman()
 }
     
 
-template<size_t dimstate, size_t dimobs, size_t diminput>  
-kalman<dimstate,dimobs,diminput>::kalman(const ssv &initStateMean, const ssMat &initStateVar) 
-        : cf_filter<dimstate,dimobs>()
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
+kalman<dimstate,dimobs,diminput,float_t>::kalman(const ssv &initStateMean, const ssMat &initStateVar) 
+        : cf_filter<dimstate,dimobs,float_t>()
         , m_fresh(true)
         , m_predMean(initStateMean)
         , m_predVar(initStateVar) 
@@ -213,12 +213,12 @@ kalman<dimstate,dimobs,diminput>::kalman(const ssv &initStateMean, const ssMat &
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>
-kalman<dimstate,dimobs,diminput>::~kalman() {}
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+kalman<dimstate,dimobs,diminput,float_t>::~kalman() {}
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>
-void kalman<dimstate,dimobs,diminput>::updatePrior(const ssMat &stateTransMat, 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+void kalman<dimstate,dimobs,diminput,float_t>::updatePrior(const ssMat &stateTransMat, 
                         const ssMat &cholStateVar, 
                         const siMat &stateInptAffector, 
                         const isv &inputData)
@@ -229,8 +229,8 @@ void kalman<dimstate,dimobs,diminput>::updatePrior(const ssMat &stateTransMat,
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>
-void kalman<dimstate,dimobs,diminput>::updatePosterior(const osv &yt, 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+void kalman<dimstate,dimobs,diminput,float_t>::updatePosterior(const osv &yt, 
                              const osMat &obsMat, 
                              const oiMat &obsInptAffector, 
                              const isv &inputData, 
@@ -249,34 +249,34 @@ void kalman<dimstate,dimobs,diminput>::updatePosterior(const osv &yt,
     // conditional likelihood stuff
     osMat quadForm = innov.transpose() * siginv * innov;
     osMat cholSig ( sigma.llt().matrixL() );
-    double logDet = 2.0*cholSig.diagonal().array().log().sum();
+    float_t logDet = 2.0*cholSig.diagonal().array().log().sum();
     m_lastLogCondLike = -.5*innov.rows()*log(2*m_pi) - .5*logDet - .5*quadForm(0,0);
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>
-double kalman<dimstate,dimobs,diminput>::getLogCondLike() const
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+float_t kalman<dimstate,dimobs,diminput,float_t>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>
-auto kalman<dimstate,dimobs,diminput>::getFiltMean() const -> ssv
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+auto kalman<dimstate,dimobs,diminput,float_t>::getFiltMean() const -> ssv
 {
     return m_filtMean;
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>
-auto kalman<dimstate,dimobs,diminput>::getFiltVar() const -> ssMat
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+auto kalman<dimstate,dimobs,diminput,float_t>::getFiltVar() const -> ssMat
 {
     return m_filtVar;
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput>
-void kalman<dimstate,dimobs,diminput>::update(const osv &yt, 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+void kalman<dimstate,dimobs,diminput,float_t>::update(const osv &yt, 
                                               const ssMat &stateTrans, 
                                               const ssMat &cholStateVar, 
                                               const siMat &stateInptAffector, 
@@ -306,20 +306,20 @@ void kalman<dimstate,dimobs,diminput>::update(const osv &yt,
  * @file cf_filters.h
  * @brief Inherit from this for a model that admits HMM filtering.
  */
-template<size_t dimstate, size_t dimobs>
-class hmm : public cf_filter<dimstate,dimobs>
+template<size_t dimstate, size_t dimobs, typename float_t>
+class hmm : public cf_filter<dimstate,dimobs,float_t>
 {
 
 public:
 
     /** @brief "state size vector" */
-    using ssv = Eigen::Matrix<double,dimstate,1>;
+    using ssv = Eigen::Matrix<float_t,dimstate,1>;
     
     /** @brief "observation size vector" */
-    using osv = Eigen::Matrix<double,dimobs,1>;
+    using osv = Eigen::Matrix<float_t,dimobs,1>;
     
     /** @brief "state size matrix" */
-    using ssMat = Eigen::Matrix<double,dimstate,dimstate>;
+    using ssMat = Eigen::Matrix<float_t,dimstate,dimstate>;
 
 
     //! Default constructor. 
@@ -348,7 +348,7 @@ public:
     /**
      * @return the latest conditional likelihood.
      */  
-    double getLogCondLike() const;
+    float_t getLogCondLike() const;
     
     
     //! Get the current filter vector.
@@ -376,7 +376,7 @@ private:
     ssMat m_transMatTranspose;
     
     /** @brief last conditional likelihood */
-    double m_lastCondLike; 
+    float_t m_lastCondLike; 
     
     /** @brief has data been observed? */
     bool m_fresh;
@@ -384,9 +384,9 @@ private:
 };
 
 
-template<size_t dimstate, size_t dimobs>
-hmm<dimstate,dimobs>::hmm() 
-    : cf_filter<dimstate,dimobs>()
+template<size_t dimstate, size_t dimobs, typename float_t>
+hmm<dimstate,dimobs,float_t>::hmm() 
+    : cf_filter<dimstate,dimobs,float_t>::cf_filter()
     , m_filtVec(ssv::Zero())
     , m_transMatTranspose(ssMat::Zero())
     , m_lastCondLike(0.0)
@@ -395,9 +395,9 @@ hmm<dimstate,dimobs>::hmm()
 }
     
 
-template<size_t dimstate, size_t dimobs>
-hmm<dimstate,dimobs>::hmm(const ssv &initStateDistr, const ssMat &transMat) 
-    : cf_filter<dimstate,dimobs>()
+template<size_t dimstate, size_t dimobs, typename float_t>
+hmm<dimstate,dimobs,float_t>::hmm(const ssv &initStateDistr, const ssMat &transMat) 
+    : cf_filter<dimstate,dimobs,float_t>()
     , m_filtVec(initStateDistr)
     , m_transMatTranspose(transMat.transpose())
     , m_lastCondLike(0.0)
@@ -406,26 +406,26 @@ hmm<dimstate,dimobs>::hmm(const ssv &initStateDistr, const ssMat &transMat)
 }
 
 
-template<size_t dimstate, size_t dimobs>
-hmm<dimstate,dimobs>::~hmm() {}
+template<size_t dimstate, size_t dimobs, typename float_t>
+hmm<dimstate,dimobs,float_t>::~hmm() {}
 
 
-template<size_t dimstate, size_t dimobs>
-double hmm<dimstate,dimobs>::getLogCondLike() const
+template<size_t dimstate, size_t dimobs, typename float_t>
+auto hmm<dimstate,dimobs,float_t>::getLogCondLike() const -> float_t
 {
     return std::log(m_lastCondLike);
 }
 
 
-template<size_t dimstate, size_t dimobs>
-auto hmm<dimstate,dimobs>::getFilterVec() const -> ssv
+template<size_t dimstate, size_t dimobs, typename float_t>
+auto hmm<dimstate,dimobs,float_t>::getFilterVec() const -> ssv
 {
     return m_filtVec;
 }
 
 
-template<size_t dimstate, size_t dimobs>
-void hmm<dimstate,dimobs>::update(const ssv &condDensVec)
+template<size_t dimstate, size_t dimobs, typename float_t>
+void hmm<dimstate,dimobs,float_t>::update(const ssv &condDensVec)
 {
     if (!m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
     {

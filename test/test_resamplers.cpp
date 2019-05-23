@@ -19,13 +19,13 @@ public:
     using transMat = Eigen::Matrix<double,DIMINNERMOD,DIMINNERMOD>;
     using arrayVec = std::array<ssv,NUMPARTICLES>;
     using arrayDouble = std::array<double,NUMPARTICLES>;
-    using arrayHMMMods = std::array<hmm<DIMINNERMOD,DIMOBS>,NUMPARTICLES>;
+    using arrayHMMMods = std::array<hmm<DIMINNERMOD,DIMOBS,double>,NUMPARTICLES>;
     using arrayInnerVec = std::array<innerVec,NUMPARTICLES>;
     
     
     // make the resampling object(s)
     mn_resampler<NUMPARTICLES, DIMSTATE> m_mr;
-    mn_resampler_rbpf<NUMPARTICLES,DIMSTATE,hmm<DIMINNERMOD,DIMOBS> > m_mr_rbpf_hmm;
+    mn_resampler_rbpf<NUMPARTICLES,DIMSTATE,hmm<DIMINNERMOD,DIMOBS,double> > m_mr_rbpf_hmm;
     
     // for Test_resampLogWts
     arrayVec    m_vparts;
@@ -85,11 +85,11 @@ public:
         
         for(size_t i = 0; i < NUMPARTICLES; ++i){
             if(i == 0){
-                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS>(m_initProbDistn1, m_initTransMat1);
+                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS,double>(m_initProbDistn1, m_initTransMat1);
                 m_rbpf_samps[i] = ssv::Constant(0.0);
                 m_rbpf_logwts[i] = 0.0;
             }else{
-                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS>(m_initProbDistn2, m_initTransMat2);
+                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS,double>(m_initProbDistn2, m_initTransMat2);
                 m_rbpf_samps[i] = ssv::Constant(1.0);                
                 m_rbpf_logwts[i] = -1.0/0.0;
             }

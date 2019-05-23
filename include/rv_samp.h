@@ -16,13 +16,9 @@ namespace rvsamp{
  * @brief all rv samplers must inherit from this. 
  * @tparam dim the dimension of each random vector sample.
  */
-template<size_t dim = 1>
 class rvsamp_base
 {
 public:
-
-    /** "state size vector" type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<double,dim,1>;
 
     /**
      * @brief The default constructor. This is the only option available. Sets the seed with the clock. 
@@ -37,12 +33,6 @@ protected:
 };
 
 
-template<size_t dim>
-rvsamp_base<dim>::rvsamp_base() 
-    : m_rng{static_cast<std::uint32_t>(std::chrono::high_resolution_clock::now().time_since_epoch().count())} 
-{
-}
-
 
 //! A class that performs sampling from a univariate Normal distribution.
 /**
@@ -51,7 +41,8 @@ rvsamp_base<dim>::rvsamp_base()
 * @file rv_samp.h
 * @brief Samples from univariate Normal distribution.
 */
-class UnivNormSampler : public rvsamp_base<1>
+template<typename float_t>
+class UnivNormSampler : public rvsamp_base
 {
     
 public:
@@ -65,31 +56,31 @@ public:
 
      /**
       * @brief The user must supply both mean and std. dev.
-      * @param mu a double for the mean of the sampling distribution.
-      * @param sigma a double (> 0) representing the standard deviation of the samples.
+      * @param mu a float_t for the mean of the sampling distribution.
+      * @param sigma a float_t (> 0) representing the standard deviation of the samples.
       */
-    UnivNormSampler(const double &mu, const double &sigma);
+    UnivNormSampler(const float_t &mu, const float_t &sigma);
 
 
     /**
      * @brief sets the standard deviation of the sampler.
      * @param sigma the desired standard deviation.
      */
-    void setStdDev(const double &sigma);
+    void setStdDev(const float_t &sigma);
     
     
     /**
      * @brief sets the mean of the sampler.
      * @param mu the desired mean.
      */
-    void setMean(const double &mu);
+    void setMean(const float_t &mu);
     
         
      /**
       * @brief Draws a random number.
-      * @return a random sample of type double.
+      * @return a random sample of type float_t.
       */
-    double sample();    
+    float_t sample();    
     
 
 private:
@@ -98,12 +89,54 @@ private:
     std::normal_distribution<> m_z_gen;
     
     /** @brief the mean */
-    double m_mu;
+    float_t m_mu;
     
     /** @brief the standard deviation */
-    double m_sigma;
+    float_t m_sigma;
 
 };
+
+
+template<typename float_t>
+UnivNormSampler<float_t>::UnivNormSampler()
+    : rvsamp_base()
+    , m_z_gen(0.0, 1.0)
+{
+    setMean(0.0);
+    setStdDev(1.0);
+}
+
+
+template<typename float_t>
+UnivNormSampler<float_t>::UnivNormSampler(const float_t &mu, const float_t &sigma)
+    : rvsamp_base()
+    , m_z_gen(0.0, 1.0)
+{
+    setMean(mu); 
+    setStdDev(sigma);
+}
+
+
+template<typename float_t>
+void UnivNormSampler<float_t>::setMean(const float_t &mu)
+{
+    m_mu = mu;
+}
+
+
+template<typename float_t>
+void UnivNormSampler<float_t>::setStdDev(const float_t &sigma)
+{
+    m_sigma = sigma;
+}
+
+
+template<typename float_t>
+float_t UnivNormSampler<float_t>::sample()
+{
+    return m_mu + m_sigma * m_z_gen(m_rng);
+}
+
 
 
 //! A class that performs sampling from a univariate Bernoulli distribution.
@@ -113,7 +146,7 @@ private:
 * @file rv_samp.h
 * @brief Samples from univariate Bernoulli distribution.
 */
-class BernSampler : public rvsamp_base<1>
+class BernSampler : public rvsamp_base
 {
     
 public:
@@ -127,9 +160,16 @@ public:
 
      /**
       * @brief Constructs Bernoulli sampler with user-specified p.
-      * @param p a double for the probability that the rv equals 1.
+      * @param p a float_t for the probability that the rv equals 1.
       */
     BernSampler(const double &p);
+
+
+     /**
+      * @brief Constructs Bernoulli sampler with user-specified p.
+      * @param p a float for the probability that the rv equals 1.
+      */
+    BernSampler(const float &p);
 
 
     /**
@@ -137,10 +177,18 @@ public:
      * @param p the p(X=1) = 1-p(X=0).
      */
     void setP(const double &p);
+
+
+    /**
+     * @brief sets the parameter p.
+     * @param p the p(X=1) = 1-p(X=0).
+     */
+    void setP(const float &p);
     
+
     /** 
       * @brief Draws a random number.
-      * @return a random sample of type double.
+      * @return a random sample of type float_t.
       */
     int sample();    
     
@@ -151,7 +199,7 @@ private:
     std::bernoulli_distribution m_B_gen;
     
     /** @brief the mean */
-    double m_p;
+    float_t m_p;
 };
 
 
@@ -164,15 +212,15 @@ private:
 * @file rv_samp.h
 * @brief Can sample from a distribution with fixed mean and covariance, fixed mean only, fixed covariance only, or nothing fixed.
 */
-template<size_t dim>
-class MVNSampler : public rvsamp_base<dim>
+template<size_t dim, typename float_t>
+class MVNSampler : public rvsamp_base
 {
 public:
 
     /** type alias for linear algebra stuff */
-    using Vec = Eigen::Matrix<double,dim,1>;
+    using Vec = Eigen::Matrix<float_t,dim,1>;
     /** type alias for linear algebra stuff */
-    using Mat = Eigen::Matrix<double,dim,dim>;
+    using Mat = Eigen::Matrix<float_t,dim,dim>;
     
     /**
      * @todo: implement move semantics 
@@ -226,9 +274,9 @@ private:
 };
 
 
-template<size_t dim>
-MVNSampler<dim>::MVNSampler()
-        : rvsamp_base<dim>()
+template<size_t dim, typename float_t>
+MVNSampler<dim, float_t>::MVNSampler()
+        : rvsamp_base()
         , m_z_gen(0.0, 1.0)
 {
     setMean(Vec::Zero());
@@ -236,9 +284,9 @@ MVNSampler<dim>::MVNSampler()
 }
 
 
-template<size_t dim>
-MVNSampler<dim>::MVNSampler(const Vec &meanVec, const Mat &covMat)
-    : rvsamp_base<dim>()
+template<size_t dim, typename float_t>
+MVNSampler<dim, float_t>::MVNSampler(const Vec &meanVec, const Mat &covMat)
+    : rvsamp_base()
     , m_z_gen(0.0, 1.0)
 {
     setCovar(covMat);
@@ -246,23 +294,23 @@ MVNSampler<dim>::MVNSampler(const Vec &meanVec, const Mat &covMat)
 }
 
 
-template<size_t dim>
-void MVNSampler<dim>::setCovar(const Mat &covMat)
+template<size_t dim, typename float_t>
+void MVNSampler<dim, float_t>::setCovar(const Mat &covMat)
 {
     Eigen::SelfAdjointEigenSolver<Mat> eigenSolver(covMat);
     m_scale_mat = eigenSolver.eigenvectors() * eigenSolver.eigenvalues().cwiseMax(0).cwiseSqrt().asDiagonal();
 }
 
 
-template<size_t dim>
-void MVNSampler<dim>::setMean(const Vec &meanVec)
+template<size_t dim, typename float_t>
+void MVNSampler<dim, float_t>::setMean(const Vec &meanVec)
 {
     m_mean = meanVec;
 }
 
 
-template<size_t dim>
-auto MVNSampler<dim>::sample() -> Vec
+template<size_t dim, typename float_t>
+auto MVNSampler<dim, float_t>::sample() -> Vec
 {
     Vec Z;
     for (size_t i=0; i< dim; ++i) 
@@ -281,7 +329,8 @@ auto MVNSampler<dim>::sample() -> Vec
 * @file rv_samp.h
 * @brief 
 */
-class UniformSampler : public rvsamp_base<1>
+template<typename float_t>
+class UniformSampler : public rvsamp_base
 {
 public:
 
@@ -296,14 +345,14 @@ public:
       * @param lower the lower bound of the PRNG.
       * @param upper the upper bound of the PRNG.
       */
-    UniformSampler(const double &lower, const double &upper);
+    UniformSampler(const float_t &lower, const float_t &upper);
     
     
      /**
       * @brief Draws a sample.
-      * @return a sample of type double.
+      * @return a sample of type float_t.
       */
-    double sample();
+    float_t sample();
 
 private:
 
@@ -311,6 +360,29 @@ private:
     std::uniform_real_distribution<> m_unif_gen;
 
 };
+
+
+template<typename float_t>
+UniformSampler<float_t>::UniformSampler() 
+        : rvsamp_base()
+        , m_unif_gen(0.0, 1.0)
+{
+}
+
+
+template<typename float_t>
+UniformSampler<float_t>::UniformSampler(const float_t &lower, const float_t &upper) 
+        : rvsamp_base()
+        , m_unif_gen(lower, upper)
+{    
+}
+
+
+template<typename float_t>
+float_t UniformSampler<float_t>::sample()
+{
+    return m_unif_gen(m_rng);
+}
 
 
 
@@ -322,8 +394,8 @@ private:
  * @brief Basically a wrapper for std::discrete_distribution<>
  * outputs are in the rage (0,1,...N-1)
  */
-template<size_t N>
-class k_gen : public rvsamp_base<N>
+template<size_t N, typename float_t>
+class k_gen : public rvsamp_base
 {
 public:
     /**
@@ -334,19 +406,19 @@ public:
     
     /**
      * @brief sample N times from (0,1,...N-1) 
-     * @param logWts possibly unnormalized type std::array<double, N>
+     * @param logWts possibly unnormalized type std::array<float_t, N>
      * @return the integers in a std::array<unsigned int, N>
      */
-    std::array<unsigned int, N> sample(const std::array<double, N> &logWts);     
+    std::array<unsigned int, N> sample(const std::array<float_t, N> &logWts);     
 };
 
 
-template<size_t N>
-k_gen<N>::k_gen() : rvsamp_base<N>() {}
+template<size_t N, typename float_t>
+k_gen<N, float_t>::k_gen() : rvsamp_base() {}
 
 
-template<size_t N>
-std::array<unsigned int, N> k_gen<N>::sample(const std::array<double, N> &logWts)
+template<size_t N, typename float_t>
+std::array<unsigned int, N> k_gen<N, float_t>::sample(const std::array<float_t, N> &logWts)
 {
     // these log weights may be very negative. If that's the case, exponentiating them may cause underflow
     // so we use the "log-exp-sum" trick
@@ -356,10 +428,10 @@ std::array<unsigned int, N> k_gen<N>::sample(const std::array<double, N> &logWts
    // Create the distribution with exponentiated log-weights
    // subtract the max first to prevent underflow
    // normalization is taken care of by std::discrete_distribution
-    std::array<double, N> w;
-    double m = *std::max_element(logWts.begin(), logWts.end());
+    std::array<float_t, N> w;
+    float_t m = *std::max_element(logWts.begin(), logWts.end());
     std::transform(logWts.begin(), logWts.end(), w.begin(), 
-                   [&m](const double& d) -> double { return std::exp(d-m); } );
+                   [&m](const float_t& d) -> float_t { return std::exp(d-m); } );
     std::discrete_distribution<> kGen(w.begin(), w.end());
     
     // sample and return ks

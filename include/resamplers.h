@@ -19,17 +19,17 @@
  * @tparam nparts the number of particles.
  * @tparam dimx the dimension of each state sample.
  */
-template<size_t nparts, size_t dimx>
+template<size_t nparts, size_t dimx, typename float_t = double>
 class rbase
 {
 public:
 
     /** type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<double,dimx,1>;
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
     /** type alias for array of Eigen Matrices */
     using arrayVec = std::array<ssv, nparts>;
-    /** type alias for array of doubles */
-    using arrayDouble = std::array<double,nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
 
 
     /**
@@ -42,7 +42,7 @@ public:
      * @param oldParts
      * @param oldLogUnNormWts
      */
-    virtual void resampLogWts(arrayVec &oldParts, arrayDouble &oldLogUnNormWts) = 0;
+    virtual void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts) = 0;
 
 private:
 
@@ -52,8 +52,8 @@ private:
 };
 
 
-template<size_t nparts, size_t dimx>
-rbase<nparts, dimx>::rbase() 
+template<size_t nparts, size_t dimx, typename float_t>
+rbase<nparts, dimx, float_t>::rbase() 
         : m_gen{static_cast<std::uint32_t>(
                     std::chrono::high_resolution_clock::now().time_since_epoch().count()
                                            )}
@@ -71,16 +71,16 @@ rbase<nparts, dimx>::rbase()
  * @tparam nparts the number of particles.
  * @tparam dimx the dimension of each state sample.
  */
-template<size_t nparts, size_t dimx>
-class mn_resampler : public rbase<nparts, dimx>
+template<size_t nparts, size_t dimx, typename float_t = double>
+class mn_resampler : public rbase<nparts, dimx, float_t>
 {
 public:
     /** type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<double,dimx,1>;
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
     /** type alias for linear algebra stuff */
     using arrayVec = std::array<ssv, nparts>;
-    /** type alias for array of doubles */
-    using arrayDouble = std::array<double,nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
     /** type alias for array of integers */
     using arrayInt = std::array<unsigned int,nparts>;
 
@@ -95,7 +95,7 @@ public:
      * @param oldParts the old particles
      * @param oldLogUnNormWts the old log unnormalized weights
      */
-    void resampLogWts(arrayVec &oldParts, arrayDouble &oldLogUnNormWts);
+    void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
 private:
 
@@ -107,14 +107,14 @@ private:
 
 
 
-template<size_t nparts, size_t dimx>
-mn_resampler<nparts, dimx>::mn_resampler() : rbase<nparts, dimx>()
+template<size_t nparts, size_t dimx, typename float_t>
+mn_resampler<nparts, dimx, float_t>::mn_resampler() : rbase<nparts, dimx>()
 {
 }
 
 
-template<size_t nparts, size_t dimx>
-void mn_resampler<nparts, dimx>::resampLogWts(arrayVec &oldParts, arrayDouble &oldLogUnNormWts)
+template<size_t nparts, size_t dimx, typename float_t>
+void mn_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts)
 {
     // these log weights may be very negative. If that's the case, exponentiating them may cause underflow
     // so we use the "log-exp-sum" trick
@@ -122,10 +122,10 @@ void mn_resampler<nparts, dimx>::resampLogWts(arrayVec &oldParts, arrayDouble &o
     // they have the same normalized probabilities
        
     // Create the distribution with exponentiated log-weights
-    arrayDouble w;
-    double m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    arrayFloat w;
+    float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
     std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), w.begin(), 
-                    [&m](double& d) -> double { return std::exp( d - m ); } );
+                    [&m](float_t& d) -> float_t { return std::exp( d - m ); } );
     std::discrete_distribution<> idxSampler(w.begin(), w.end());
     
     // create temporary particle vector and weight vector
@@ -155,16 +155,16 @@ void mn_resampler<nparts, dimx>::resampLogWts(arrayVec &oldParts, arrayDouble &o
  * @tparam nparts the number of particles.
  * @tparam dimsampledx the dimension of each state sample.
  */
-template<size_t nparts, size_t dimsampledx, typename cfModT>
+template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t = double>
 class mn_resampler_rbpf
 {
 public:
     /** type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<double,dimsampledx,1>;
+    using ssv = Eigen::Matrix<float_t,dimsampledx,1>;
     /** type alias for linear algebra stuff */
     using arrayVec = std::array<ssv, nparts>;
-    /** type alias for array of doubles */
-    using arrayDouble = std::array<double,nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
     /** type alias for array of closed-form models */
     using arrayMod = std::array<cfModT,nparts>;
 
@@ -180,7 +180,7 @@ public:
      * @param oldParts the old particles
      * @param oldLogUnNormWts the old log unnormalized weights
      */
-    void resampLogWts(arrayMod &oldMods, arrayVec &oldParts, arrayDouble &oldLogUnNormWts);
+    void resampLogWts(arrayMod &oldMods, arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
 private:
 
@@ -190,8 +190,8 @@ private:
 };
 
 
-template<size_t nparts, size_t dimsampledx, typename cfModT>
-mn_resampler_rbpf<nparts, dimsampledx, cfModT>::mn_resampler_rbpf() 
+template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t>
+mn_resampler_rbpf<nparts, dimsampledx, cfModT,float_t>::mn_resampler_rbpf() 
     : m_gen{static_cast<std::uint32_t>(
                     std::chrono::high_resolution_clock::now().time_since_epoch().count()
                                            )}
@@ -199,14 +199,14 @@ mn_resampler_rbpf<nparts, dimsampledx, cfModT>::mn_resampler_rbpf()
 }
 
 
-template<size_t nparts, size_t dimsampledx, typename cfModT>
-void mn_resampler_rbpf<nparts, dimsampledx, cfModT>::resampLogWts(arrayMod &oldMods, arrayVec &oldSamps, arrayDouble &oldLogUnNormWts) 
+template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t>
+void mn_resampler_rbpf<nparts, dimsampledx, cfModT,float_t>::resampLogWts(arrayMod &oldMods, arrayVec &oldSamps, arrayFloat &oldLogUnNormWts) 
 {
     // Create the distribution with exponentiated log-weights
-    arrayDouble w;
-    double m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    arrayFloat w;
+    float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
     std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), w.begin(), 
-                    [&m](double& d) -> double { return std::exp( d - m ); } );
+                    [&m](float_t& d) -> float_t { return std::exp( d - m ); } );
     std::discrete_distribution<> idxSampler(w.begin(), w.end());
     
     // create temporary vectors for samps and mods

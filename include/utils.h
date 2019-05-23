@@ -27,8 +27,8 @@ namespace utils{
      * @param vec the Eigen::Vector.
      * @param ofs the target ofstream.
      */
-    template<size_t dim>
-    void logParams(const Eigen::Matrix<double,dim,1> &vec, std::ofstream &ofs);
+    template<size_t dim, typename float_t>
+    void logParams(const Eigen::Matrix<float_t,dim,1> &vec, std::ofstream &ofs);
      
     
     /**
@@ -37,8 +37,8 @@ namespace utils{
      * @param vec the Eigen::Vector.
      * @param outfile the target file path.
      */
-    template<size_t dim>
-    void logParams(const Eigen::Matrix<double,dim,1> &vec, const std::string &outfile);//std::ofstream &ofs);
+    template<size_t dim, typename float_t>
+    void logParams(const Eigen::Matrix<float_t,dim,1> &vec, const std::string &outfile);//std::ofstream &ofs);
 
 
     /**
@@ -47,8 +47,8 @@ namespace utils{
      * @param arr the array to be written.
      * @param outfile the target file path.
      */
-    template<size_t size>
-    void logParams(const std::array<double, size> &arr, const std::string &outfile);//std::ofstream &ofs);
+    template<size_t size, typename float_t>
+    void logParams(const std::array<float_t, size> &arr, const std::string &outfile);//std::ofstream &ofs);
     
     
     /**
@@ -57,12 +57,12 @@ namespace utils{
      * @param fileLoc the string filepath of the file.
      * @return a std::vector of your data. Each elemenet is a row in Eigen::Vector form.
      */
-    template<size_t nc>
-    std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc);
+    template<size_t nc, typename float_t>
+    std::vector<Eigen::Matrix<float_t,nc,1> > readInData(const std::string& fileLoc);
 
 
-template<size_t dim>
-void logParams(const Eigen::Matrix<double,dim,1> &vec, std::ofstream &ofs)
+template<size_t dim, typename float_t>
+void logParams(const Eigen::Matrix<float_t,dim,1> &vec, std::ofstream &ofs)
 {
     // make sure open and doesn't close
     if(ofs.is_open()){
@@ -84,8 +84,8 @@ void logParams(const Eigen::Matrix<double,dim,1> &vec, std::ofstream &ofs)
 }
 
 
-template<size_t dim>
-void logParams(const Eigen::Matrix<double,dim,1> &vec, const std::string &outfile)
+template<size_t dim, typename float_t>
+void logParams(const Eigen::Matrix<float_t,dim,1> &vec, const std::string &outfile)
 {
 
     // open the file in append mode
@@ -112,8 +112,8 @@ void logParams(const Eigen::Matrix<double,dim,1> &vec, const std::string &outfil
 }
 
 
-template<size_t size>
-void logParams(const std::array<double, size> &arr, const std::string &outfile)
+template<size_t size, typename float_t>
+void logParams(const std::array<float_t, size> &arr, const std::string &outfile)
 {
     /**
      * \todo test to make sure write worked (e.g. if( !f << "derp" ) ) 
@@ -145,11 +145,11 @@ void logParams(const std::array<double, size> &arr, const std::string &outfile)
  * NB: you need to know the number of columns beforehand, and pass this number in as a template parameter
  * NB: the data cannot have a header
  */
-template<size_t nc>
-std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc)
+template<size_t nc, typename float_t>
+std::vector<Eigen::Matrix<float_t,nc,1> > readInData(const std::string& fileLoc)
 {
     // returning this. gotta build it up
-    std::vector<Eigen::Matrix<double,nc,1> > data;
+    std::vector<Eigen::Matrix<float_t,nc,1> > data;
     
     // start reading
     std::string line;
@@ -162,7 +162,7 @@ std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc)
     // didn't fail...keep going
     while ( std::getline(ifs, line) ){     // get a whole row as a string
     
-        std::vector<double> data_row;
+        std::vector<float_t> data_row;
         try{
             // get a single element on a row
             std::istringstream buff(line);
@@ -178,7 +178,7 @@ std::vector<Eigen::Matrix<double,nc,1> > readInData(const std::string& fileLoc)
         }   
         
         // now append this Vec to your collection
-        Eigen::Map<Eigen::Matrix<double,nc,1> > drw(&data_row[0], nc);
+        Eigen::Map<Eigen::Matrix<float_t,nc,1> > drw(&data_row[0], nc);
         data.push_back(drw);
     }
     
