@@ -23,7 +23,7 @@
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the resampler type (e.g. multinomial, etc.)
  */
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t = double>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t >
 class rbpf_hmm : public pf_base
 {
 public:

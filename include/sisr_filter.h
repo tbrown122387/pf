@@ -17,7 +17,7 @@
  * @tparam the size of the observation
  * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t = double>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
 class SISRFilter : public pf_base
 {
 public:
@@ -27,7 +27,7 @@ public:
     /** "obs size vector" type alias for linear algebra stuff */
     using osv         = Eigen::Matrix<float_t, dimy, 1>; // obs size vec
     /** type alias for linear algebra stuff */
-    using Mat         = Eigen::MatrixXd;
+    using Mat         = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     /** type alias for linear algebra stuff */
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of float_ts */

@@ -19,7 +19,7 @@
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t = double>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
 class BSFilter : public pf_base
 {
 public:
@@ -251,7 +251,7 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
             Mat testOutput = h(m_particles[0]);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
-            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(rows,cols);
+            Mat numer = Mat::Zero(rows,cols);
             float_t weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);

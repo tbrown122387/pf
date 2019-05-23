@@ -24,7 +24,7 @@
   * @tparam dimy the dimension of the observations
   * @tparam resamp_t the resampler type
   */
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t = double>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
 class APF : public pf_base
 {
 public:
@@ -33,7 +33,7 @@ public:
     /** "observation size vector" type alias for linear algebra stuff */
     using osv = Eigen::Matrix<float_t,dimy,1>;
     /** type alias for linear algebra stuff (dimension of the state ^2) */
-    using Mat = Eigen::MatrixXd;
+    using Mat = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     /** type alias for array of float_ts */
     using arrayfloat_t = std::array<float_t, nparts>;
     /** type alias for array of state vectors */
@@ -147,7 +147,7 @@ protected:
     resamp_t m_resampler;
     
     /** @brief k generator object (default ctor'd)*/
-    rvsamp::k_gen<nparts> m_kGen;
+    rvsamp::k_gen<nparts,float_t> m_kGen;
     
     /** @brief expectations E[h(x_t) | y_{1:t}] for user defined "h"s */
     std::vector<Mat> m_expectations;

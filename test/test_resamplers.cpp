@@ -24,8 +24,8 @@ public:
     
     
     // make the resampling object(s)
-    mn_resampler<NUMPARTICLES, DIMSTATE> m_mr;
-    mn_resampler_rbpf<NUMPARTICLES,DIMSTATE,hmm<DIMINNERMOD,DIMOBS,double> > m_mr_rbpf_hmm;
+    mn_resampler<NUMPARTICLES, DIMSTATE,double> m_mr;
+    mn_resampler_rbpf<NUMPARTICLES,DIMSTATE,hmm<DIMINNERMOD,DIMOBS,double>,double> m_mr_rbpf_hmm;
     
     // for Test_resampLogWts
     arrayVec    m_vparts;

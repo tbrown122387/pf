@@ -19,7 +19,7 @@
  * @tparam nparts the number of particles.
  * @tparam dimx the dimension of each state sample.
  */
-template<size_t nparts, size_t dimx, typename float_t = double>
+template<size_t nparts, size_t dimx, typename float_t >
 class rbase
 {
 public:
@@ -71,7 +71,7 @@ rbase<nparts, dimx, float_t>::rbase()
  * @tparam nparts the number of particles.
  * @tparam dimx the dimension of each state sample.
  */
-template<size_t nparts, size_t dimx, typename float_t = double>
+template<size_t nparts, size_t dimx, typename float_t>
 class mn_resampler : public rbase<nparts, dimx, float_t>
 {
 public:
@@ -108,7 +108,8 @@ private:
 
 
 template<size_t nparts, size_t dimx, typename float_t>
-mn_resampler<nparts, dimx, float_t>::mn_resampler() : rbase<nparts, dimx>()
+mn_resampler<nparts, dimx, float_t>::mn_resampler() 
+	: rbase<nparts, dimx, float_t>()
 {
 }
 
@@ -155,7 +156,7 @@ void mn_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, array
  * @tparam nparts the number of particles.
  * @tparam dimsampledx the dimension of each state sample.
  */
-template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t = double>
+template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t>
 class mn_resampler_rbpf
 {
 public:

@@ -19,7 +19,7 @@
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t = double>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
 class BSFilterWC : public pf_base
 {
 public:
@@ -31,7 +31,7 @@ public:
     /** covariate size vector" type alias for linear algebra stuff */
     using cvsv         = Eigen::Matrix<float_t,dimcov,1>;
     /** type alias for dynamically sized matrix */
-    using Mat         = Eigen::MatrixXd;
+    using Mat         = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     /** type alias for linear algebra stuff */
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of float_ts */
@@ -259,7 +259,7 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
             Mat testOutput = h(m_particles[0]);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
-            Eigen::MatrixXd numer = Eigen::MatrixXd::Zero(rows,cols);
+            Mat numer = Mat::Zero(rows,cols);
             float_t weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);

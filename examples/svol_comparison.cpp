@@ -14,27 +14,30 @@
 #define dimobs   1
 #define numparts 50000
 
+
 void run_svol_comparison(const std::string &csv)
 {
-        
+    using FLOATTYPE = float;
+    using ssv = Eigen::Matrix<FLOATTYPE,dimstate,1>;    
+    using Mat = Eigen::Matrix<FLOATTYPE,Eigen::Dynamic,Eigen::Dynamic>;
+    
     // make some models
-    double phi = .91;
-    double beta = .5;
-    double sigma = 1.0;
-    svol_bs<numparts, dimstate, dimobs,mn_resampler<numparts,dimstate>> bssvol(phi, beta, sigma);
-    svol_apf<numparts,dimstate,dimobs,mn_resampler<numparts,dimstate> > apfsvol(phi,beta,sigma);
-    svol_sisr<numparts,dimstate,dimobs,mn_resampler<numparts,dimstate> > sisrsvol(phi,beta,sigma);
+    FLOATTYPE phi = .91;
+    FLOATTYPE beta = .5;
+    FLOATTYPE sigma = 1.0;
+    svol_bs<numparts, dimstate, dimobs,mn_resampler<numparts,dimstate,FLOATTYPE>,FLOATTYPE> bssvol(phi, beta, sigma);
+    svol_apf<numparts,dimstate,dimobs,mn_resampler<numparts,dimstate,FLOATTYPE>,FLOATTYPE> apfsvol(phi,beta,sigma);
+    svol_sisr<numparts,dimstate,dimobs,mn_resampler<numparts,dimstate,FLOATTYPE>,FLOATTYPE> sisrsvol(phi,beta,sigma);
 
     // read in some data
-    std::vector<Eigen::Matrix<double,dimobs,1>> data = utils::readInData<dimobs>(csv);
+    std::vector<Eigen::Matrix<FLOATTYPE,dimobs,1>> data = utils::readInData<dimobs,FLOATTYPE>(csv);
 
     // optional lambda
-    using ssv = Eigen::Matrix<double,dimstate,1>;
-    auto idtyLambda = [](const ssv& xt) -> const Eigen::MatrixXd
+    auto idtyLambda = [](const ssv& xt) -> const Mat  
     {
         return xt;
     };
-    std::vector<std::function<const Eigen::MatrixXd(const ssv&)>> v;
+    std::vector<std::function<const Mat(const ssv&)>> v;
     v.push_back(idtyLambda);
 
     // iterate over the data
