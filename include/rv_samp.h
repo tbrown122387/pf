@@ -86,7 +86,7 @@ public:
 private:
 
     /** @brief makes normal random variates */
-    std::normal_distribution<> m_z_gen;
+    std::normal_distribution<float_t> m_z_gen;
     
     /** @brief the mean */
     float_t m_mu;
@@ -263,7 +263,7 @@ public:
 private:
 
     /** @brief makes normal random variates */
-    std::normal_distribution<> m_z_gen;
+    std::normal_distribution<float_t> m_z_gen;
     
     /** @brief covariance matrix */
     Mat m_scale_mat;
@@ -357,7 +357,7 @@ public:
 private:
 
     /** @brief makes uniform random variates */
-    std::uniform_real_distribution<> m_unif_gen;
+    std::uniform_real_distribution<float_t> m_unif_gen;
 
 };
 
