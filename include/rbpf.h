@@ -39,7 +39,7 @@ public:
     /** Dynamic size matrix*/
     using Mat = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     /** array of model objects */
-    using arrayMod = std::array<hmm<dimnss,dimy>,nparts>;
+    using arrayMod = std::array<hmm<dimnss,dimy,float_t>,nparts>;
     /** array of samples */
     using arrayVec = std::array<sssv,nparts>;
     /** array of weights */
@@ -168,7 +168,7 @@ public:
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */
-    virtual void updateHMM(hmm<dimnss,dimy> &aModel, const osv &yt, const sssv &x2t) = 0;
+    virtual void updateHMM(hmm<dimnss,dimy,float_t> &aModel, const osv &yt, const sssv &x2t) = 0;
 
 private:
     
@@ -221,7 +221,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
             m_p_samps[ii] = q1Samp(data); 
             tmpProbs = initHMMProbVec(m_p_samps[ii]);
             tmpTransMat = initHMMTransMat(m_p_samps[ii]);
-            m_p_innerMods[ii] = hmm<dimnss,dimy>(tmpProbs, tmpTransMat);
+            m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
             this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
 
@@ -363,7 +363,7 @@ public:
     /** Dynamic size matrix*/
     using Mat = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     /** array of model objects */
-    using arrayMod = std::array<hmm<dimnss,dimy>,nparts>;
+    using arrayMod = std::array<hmm<dimnss,dimy,float_t>,nparts>;
     /** array of samples */
     using arrayVec = std::array<sssv,nparts>;
     /** array of weights */
@@ -451,7 +451,7 @@ public:
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */
-    virtual void updateHMM(hmm<dimnss,dimy> &aModel, const osv &yt, const sssv &x2t) = 0;
+    virtual void updateHMM(hmm<dimnss,dimy,float_t> &aModel, const osv &yt, const sssv &x2t) = 0;
 
 private:
     
@@ -504,7 +504,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
             m_p_samps[ii] = muSamp(); 
             tmpProbs = initHMMProbVec(m_p_samps[ii]);
             tmpTransMat = initHMMTransMat(m_p_samps[ii]);
-            m_p_innerMods[ii] = hmm<dimnss,dimy>(tmpProbs, tmpTransMat);
+            m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
             this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
 
@@ -645,7 +645,7 @@ public:
     /** "not sampled state size matrix" */
     using nsssMat = Eigen::Matrix<float_t,dimnss,dimnss>;
     /** array of model objects */
-    using arrayMod = std::array<kalman<dimnss,dimy,0>,nparts>;
+    using arrayMod = std::array<kalman<dimnss,dimy,0,float_t>,nparts>;
     /** array of samples */
     using arrayVec = std::array<sssv,nparts>;
     /** array of weights */
@@ -772,7 +772,7 @@ public:
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */
-    virtual void updateKalman(kalman<dimnss,dimy,0> &kMod, const osv &yt, const sssv &x2t) = 0;
+    virtual void updateKalman(kalman<dimnss,dimy,0,float_t> &kMod, const osv &yt, const sssv &x2t) = 0;
     
 private:
 
@@ -823,7 +823,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
             m_p_samps[ii] = q1Samp(data); 
             tmpMean = initKalmanMean(m_p_samps[ii]);
             tmpVar  = initKalmanVar(m_p_samps[ii]);
-            m_p_innerMods[ii] = kalman<dimnss,dimy,1>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
+            m_p_innerMods[ii] = kalman<dimnss,dimy,1,float_t>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
             this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
@@ -968,7 +968,7 @@ public:
     /** "not sampled state size matrix" */
     using nsssMat = Eigen::Matrix<float_t,dimnss,dimnss>;
     /** array of model objects */
-    using arrayMod = std::array<kalman<dimnss,dimy,0>,nparts>;
+    using arrayMod = std::array<kalman<dimnss,dimy,0,float_t>,nparts>;
     /** array of samples */
     using arrayVec = std::array<sssv,nparts>;
     /** array of weights */
@@ -1053,7 +1053,7 @@ public:
      * @param yt the current time series observation.
      * @param x2t the current second state component.
      */
-    virtual void updateKalman(kalman<dimnss, dimy,0> &kMod, const osv &yt, const sssv &x2t) = 0;
+    virtual void updateKalman(kalman<dimnss, dimy,0,float_t> &kMod, const osv &yt, const sssv &x2t) = 0;
     
 private:
 
@@ -1104,7 +1104,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
             m_p_samps[ii] = muSamp(data); 
             tmpMean = initKalmanMean(m_p_samps[ii]);
             tmpVar  = initKalmanVar(m_p_samps[ii]);
-            m_p_innerMods[ii] = kalman<dimnss,dimy,1>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
+            m_p_innerMods[ii] = kalman<dimnss,dimy,1,float_t>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
             this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
