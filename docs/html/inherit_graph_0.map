@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classAPF.html" title="A base&#45;class for Auxiliary Particle Filtering. Filtering only, no smoothing. " alt="" coords="5,5,141,47"/>
+<area shape="rect" id="node1" href="$classcf__filter.html" title="Abstract Base Class for Kalman filter and HMM filter. " alt="" coords="5,5,136,47"/>
+<area shape="rect" id="node2" href="$classhmm.html" title="A class template for HMM filtering. " alt="" coords="184,5,351,47"/>
 </map>

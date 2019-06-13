@@ -1,15 +1,16 @@
 var classhmm =
 [
-    [ "osv", "classhmm.html#a8b831550f17d3abfdbde1d9aadfdc861", null ],
-    [ "ssMat", "classhmm.html#a1c1d1649a78ddbe6029556fd1e10d0ab", null ],
-    [ "ssv", "classhmm.html#a4a536464d63f3e7b06ab867cde35fb6a", null ],
-    [ "hmm", "classhmm.html#ae7ec1812c1ee0d8ed57eb6c3f62b92a1", null ],
-    [ "hmm", "classhmm.html#a3ad1950d8fcef28430da0bf435da0a77", null ],
-    [ "getFilterVec", "classhmm.html#a71547a134dce31e831004cace2ba4bd7", null ],
-    [ "getLogCondLike", "classhmm.html#ab961ea54f4573a1b1c257162fb264cf7", null ],
-    [ "update", "classhmm.html#ae294c9e939f3484f00c943f505095971", null ],
-    [ "m_filtVec", "classhmm.html#a1d95a240203405976193cc9792b83a67", null ],
-    [ "m_fresh", "classhmm.html#ad5e43bdfcbdf90cc610a1d9148755c46", null ],
-    [ "m_lastCondLike", "classhmm.html#ad02a43632a0cc42b96730ddb0cf6d538", null ],
-    [ "m_transMatTranspose", "classhmm.html#a27c26b0248bafd930ff33278ec1c4c10", null ]
+    [ "osv", "classhmm.html#a9acf2492ac9dd051d4c98dc137bee7c2", null ],
+    [ "ssMat", "classhmm.html#ab954b8e3fc86a60201ec33f371a241aa", null ],
+    [ "ssv", "classhmm.html#ae13f52a15dc738d07c43be7f7545d26a", null ],
+    [ "hmm", "classhmm.html#ad3dc1fd2d297d6da8c58b2d5075e561c", null ],
+    [ "hmm", "classhmm.html#a51696b4e5a92c56c589b5e9522115994", null ],
+    [ "~hmm", "classhmm.html#ab22e0359030d40feb7f17f56261152c9", null ],
+    [ "getFilterVec", "classhmm.html#a670de13d08520008774ee31b3712b5b5", null ],
+    [ "getLogCondLike", "classhmm.html#a588f2aed002614e75f523213eba1b290", null ],
+    [ "update", "classhmm.html#a5a25f1d14b38f0fae35a9072cfa0a368", null ],
+    [ "m_filtVec", "classhmm.html#ab986d567358117debde35a1bf9063d1a", null ],
+    [ "m_fresh", "classhmm.html#a0a209809aeeef9d4b5679ca6bb51e588", null ],
+    [ "m_lastCondLike", "classhmm.html#a923bd361313fedb0a0a55bdb95cfbf07", null ],
+    [ "m_transMatTranspose", "classhmm.html#a95b1182114d3334585108a6a7e75c99d", null ]
 ];

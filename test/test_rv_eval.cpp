@@ -20,6 +20,7 @@ public:
     bigVec x;
     bigVec mu;
     bigMat covMat;
+    bigMat badCovMat;
     bigVec A;
     smallMat C;
     bigVec U;
@@ -33,6 +34,9 @@ public:
     double upper;
     double lnMu;
     double lnSigma;
+    Eigen::Matrix<double,2,2> Omega;
+    Eigen::Matrix<double,2,2> S;
+    Eigen::Matrix<double,2,2> Sinv;
     
 
     DensFixture() 
@@ -46,7 +50,8 @@ public:
         covMat(0,1) = 1.0;
         covMat(1,0) = 1.0;
         covMat(1,1) = 3.0;
-        
+        badCovMat(0,0) = badCovMat(0,1) = badCovMat(1,0) = badCovMat(1,1) = 1.0; 
+
         // MVN NORM woodbury        
         A(0,0) = A(1,0) = 2.0;
         U(0,0) = U(1,0) = 1.0;
@@ -71,6 +76,18 @@ public:
         // lognormal
         lnMu = .5;
         lnSigma = 5.3;
+
+        // wishart
+        Omega(0,0) = 2.0;
+        Omega(0,1) = -.3;
+        Omega(1,0) = -.3;
+        Omega(1,1) = 4.0;
+        Sinv(0,0) = 1.010101010101010;
+        Sinv(1,1) = 1.010101010101010;
+        Sinv(0,1) = -0.101010101010101;
+        Sinv(1,0) = -0.101010101010101;
+        S(0,0) = S(1,1) = 1.0;
+        S(0,1) = S(1,0) = .1;
 
     }
     
@@ -125,6 +142,11 @@ TEST_FIXTURE(DensFixture, multivariateGaussianTest)
     CHECK_CLOSE(num2, 
                 0.05626309,
                 PREC);
+
+    double badNormLogDens = rveval::evalMultivNorm<bigdim,double>(x,mu,badCovMat,true);
+    double badNormDens = rveval::evalMultivNorm<bigdim,double>(x,mu,badCovMat,false);
+    CHECK_CLOSE(-1.0/0.0, badNormLogDens, PREC);
+    CHECK_CLOSE(0.0, badNormDens, PREC);
 }
 
 
@@ -230,5 +252,63 @@ TEST_FIXTURE(DensFixture, evalBernoulliTest)
     CHECK_CLOSE(0.0, rveval::evalBernoulli(1, 1.1, false), PREC);
 }
 
+
+TEST_FIXTURE(DensFixture, evalWishartTest)
+{
+    // library(LaplacesDemon)
+    // dwishart(matrix(c(2,-.3,-.3,4),2,2), 3, matrix(c(1,.1,.1,1),2,2), log=T)
+    // -5.5765548037951
+    // dwishart(matrix(c(2,-.3,-.3,4),2,2), 3, matrix(c(1,.1,.1,1),2,2))
+    // 0.00378558516193494
+
+    double goodLogDens =  rveval::evalWishart<2,double>(Omega, Sinv, 3, true);   
+    CHECK_CLOSE(-5.57655, goodLogDens, PREC);
+    double goodDens = rveval::evalWishart<2,double>(Omega, Sinv, 3, false);
+    CHECK_CLOSE(0.003785, goodDens, PREC);
+    double badLogDens = rveval::evalWishart<2,double>(Omega, Sinv, 1, true);
+    CHECK_CLOSE(-1.0/0.0, badLogDens, PREC);
+    double badDens = rveval::evalWishart<2,double>(Omega,Sinv, 1, false);
+    CHECK_CLOSE(0.0, badDens, PREC);
+    double badLogDens2 = rveval::evalWishart<2,double>(Omega, badCovMat, 3, true);
+    CHECK_CLOSE(-1.0/0.0, badLogDens2, PREC);
+    double badDens2 = rveval::evalWishart<2,double>(Omega, badCovMat, 3, false);
+    CHECK_CLOSE(0.0, badDens2, PREC);
+    double badLogDens3 = rveval::evalWishart<2,double>(badCovMat, Sinv, 3, true);
+    double badDens3 = rveval::evalWishart<2,double>(badCovMat,Sinv,3,false);
+    CHECK_CLOSE(-1.0/0.0, badLogDens3, PREC);
+    CHECK_CLOSE(0.0, badDens3, PREC);
+        
+}
+
+
+TEST_FIXTURE(DensFixture, evalInvWishart)
+{
+    //library(LaplacesDemon)
+    //dinvwishart(matrix(c(2,-.3,-.3,4),2,2), 3, matrix(c(1,.1,.1,1),2,2))
+    //0.0001079824
+    //dinvwishart(matrix(c(2,-.3,-.3,4),2,2), 3, matrix(c(1,.1,.1,1),2,2), log = T)
+    // -9.133543
+    
+    double goodLogDens = rveval::evalInvWishart<2,double>(Omega, S, 3, true);
+    double goodDens = rveval::evalInvWishart<2,double>(Omega,S,3,false);
+    double badLogDens = rveval::evalInvWishart<2,double>(Omega,badCovMat,3,true);
+    double badDens = rveval::evalInvWishart<2,double>(Omega,badCovMat,3,false);
+    double badLogDens2 = rveval::evalInvWishart<2,double>(badCovMat,S,3,true);
+    double badDens2 = rveval::evalInvWishart<2,double>(badCovMat,S,3,false);
+    double badLogDens3 = rveval::evalInvWishart<2,double>(Omega,S,1,true);
+    double badDens3 = rveval::evalInvWishart<2,double>(Omega,S,1,false);
+    
+    CHECK_CLOSE(-1.0/0.0, badLogDens, PREC);
+    CHECK_CLOSE(-1.0/0.0, badLogDens2, PREC);
+    CHECK_CLOSE(-1.0/0.0, badLogDens3, PREC);
+    CHECK_CLOSE(0.0, badDens, PREC);
+    CHECK_CLOSE(0.0, badDens2, PREC);
+    CHECK_CLOSE(0.0, badDens3, PREC);
+
+    CHECK_CLOSE(-9.133543, goodLogDens, PREC);
+    CHECK_CLOSE(0.0001079824, goodDens, PREC);
+        
+        
+}
 
 

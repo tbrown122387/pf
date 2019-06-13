@@ -1,5 +1,5 @@
-\hypertarget{classrvsamp_1_1k__gen}{}\section{rvsamp\+:\+:k\+\_\+gen$<$ N $>$ Class Template Reference}
-\label{classrvsamp_1_1k__gen}\index{rvsamp\+::k\+\_\+gen$<$ N $>$@{rvsamp\+::k\+\_\+gen$<$ N $>$}}
+\hypertarget{classrvsamp_1_1k__gen}{}\section{rvsamp\+:\+:k\+\_\+gen$<$ N, float\+\_\+t $>$ Class Template Reference}
+\label{classrvsamp_1_1k__gen}\index{rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$@{rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$}}
 
 
 A class that performs sampling with replacement (useful for the index sampler in an \hyperlink{classAPF}{A\+PF})  
@@ -11,36 +11,38 @@ A class that performs sampling with replacement (useful for the index sampler in
 
 
 
-Inheritance diagram for rvsamp\+:\+:k\+\_\+gen$<$ N $>$\+:\nopagebreak
+Inheritance diagram for rvsamp\+:\+:k\+\_\+gen$<$ N, float\+\_\+t $>$\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=219pt]{classrvsamp_1_1k__gen__inherit__graph}
+\includegraphics[width=220pt]{classrvsamp_1_1k__gen__inherit__graph}
 \end{center}
 \end{figure}
 
 
-Collaboration diagram for rvsamp\+:\+:k\+\_\+gen$<$ N $>$\+:\nopagebreak
+Collaboration diagram for rvsamp\+:\+:k\+\_\+gen$<$ N, float\+\_\+t $>$\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=219pt]{classrvsamp_1_1k__gen__coll__graph}
+\includegraphics[width=220pt]{classrvsamp_1_1k__gen__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classrvsamp_1_1k__gen_a3f3f0cd14ebf47d18796c713e834306c}{k\+\_\+gen} ()\hypertarget{classrvsamp_1_1k__gen_a3f3f0cd14ebf47d18796c713e834306c}{}\label{classrvsamp_1_1k__gen_a3f3f0cd14ebf47d18796c713e834306c}
-
+\mbox{\Hypertarget{classrvsamp_1_1k__gen_accfb09ee03db9550cda24d4f81ac37e7}\label{classrvsamp_1_1k__gen_accfb09ee03db9550cda24d4f81ac37e7}} 
+\hyperlink{classrvsamp_1_1k__gen_accfb09ee03db9550cda24d4f81ac37e7}{k\+\_\+gen} ()
 \begin{DoxyCompactList}\small\item\em default constructor. only one available. \end{DoxyCompactList}\item 
-std\+::array$<$ unsigned int, N $>$ \hyperlink{classrvsamp_1_1k__gen_a00221f2eab38faaf602a25b626f184d6}{sample} (const std\+::array$<$ double, N $>$ \&log\+Wts)
+std\+::array$<$ unsigned int, N $>$ \hyperlink{classrvsamp_1_1k__gen_ac7bc64186ad0696b33e67c4b3e2218d9}{sample} (const std\+::array$<$ float\+\_\+t, N $>$ \&log\+Wts)
 \begin{DoxyCompactList}\small\item\em sample N times from (0,1,...N-\/1) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$size\+\_\+t N$>$\\*
-class rvsamp\+::k\+\_\+gen$<$ N $>$}
+\subsubsection*{template$<$size\+\_\+t N, typename float\+\_\+t$>$\newline
+class rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$}
 
 A class that performs sampling with replacement (useful for the index sampler in an \hyperlink{classAPF}{A\+PF}) 
 
@@ -50,20 +52,20 @@ taylor
 
 
 \subsection{Member Function Documentation}
+\mbox{\Hypertarget{classrvsamp_1_1k__gen_ac7bc64186ad0696b33e67c4b3e2218d9}\label{classrvsamp_1_1k__gen_ac7bc64186ad0696b33e67c4b3e2218d9}} 
 \index{rvsamp\+::k\+\_\+gen@{rvsamp\+::k\+\_\+gen}!sample@{sample}}
 \index{sample@{sample}!rvsamp\+::k\+\_\+gen@{rvsamp\+::k\+\_\+gen}}
-\subsubsection[{\texorpdfstring{sample(const std\+::array$<$ double, N $>$ \&log\+Wts)}{sample(const std::array< double, N > &logWts)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t N$>$ std\+::array$<$ unsigned int, N $>$ {\bf rvsamp\+::k\+\_\+gen}$<$ N $>$\+::sample (
-\begin{DoxyParamCaption}
-\item[{const std\+::array$<$ double, N $>$ \&}]{log\+Wts}
-\end{DoxyParamCaption}
-)}\hypertarget{classrvsamp_1_1k__gen_a00221f2eab38faaf602a25b626f184d6}{}\label{classrvsamp_1_1k__gen_a00221f2eab38faaf602a25b626f184d6}
+\subsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t N, typename float\+\_\+t$>$ \\
+std\+::array$<$ unsigned int, N $>$ \hyperlink{classrvsamp_1_1k__gen}{rvsamp\+::k\+\_\+gen}$<$ N, float\+\_\+t $>$\+::sample (\begin{DoxyParamCaption}\item[{const std\+::array$<$ float\+\_\+t, N $>$ \&}]{log\+Wts }\end{DoxyParamCaption})}
+
 
 
 sample N times from (0,1,...N-\/1) 
 
 
 \begin{DoxyParams}{Parameters}
-{\em log\+Wts} & possibly unnormalized type std\+::array$<$double, N$>$ \\
+{\em log\+Wts} & possibly unnormalized type std\+::array$<$float\+\_\+t, N$>$ \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

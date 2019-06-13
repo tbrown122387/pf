@@ -1,0 +1,10 @@
+<map id="pf_base" name="pf_base">
+<area shape="rect" id="node2" href="$classAPF.html" title="A base&#45;class for Auxiliary Particle Filtering. Filtering only, no smoothing. " alt="" coords="127,5,299,47"/>
+<area shape="rect" id="node3" href="$classBSFilter.html" title="A base class for the boostrap particle filter. " alt="" coords="127,71,299,112"/>
+<area shape="rect" id="node4" href="$classBSFilterWC.html" title="A base class for the boostrap particle filter with covariates. " alt="" coords="141,137,285,193"/>
+<area shape="rect" id="node5" href="$classrbpf__hmm.html" title="Rao&#45;Blackwellized/Marginal Particle Filter with inner HMMs. " alt="" coords="121,217,304,273"/>
+<area shape="rect" id="node6" href="$classrbpf__hmm__bs.html" title="Rao&#45;Blackwellized/Marginal Bootstrap Filter with inner HMMs. " alt="" coords="136,297,289,353"/>
+<area shape="rect" id="node7" href="$classrbpf__kalman.html" title="Rao&#45;Blackwellized/Marginal Particle Filter with inner Kalman Filter objectss. " alt="" coords="137,377,288,433"/>
+<area shape="rect" id="node8" href="$classrbpf__kalman__bs.html" title="Rao&#45;Blackwellized/Marginal Bootstrap Filter with inner Kalman Filter objectss. " alt="" coords="129,457,296,513"/>
+<area shape="rect" id="node9" href="$classSISRFilter.html" title="A base class for the Sequential Important Sampling with Resampling (SISR). " alt="" coords="142,537,283,593"/>
+</map>

@@ -1,0 +1,149 @@
+\hypertarget{classrvsamp_1_1BernSampler}{}\section{rvsamp\+:\+:Bern\+Sampler Class Reference}
+\label{classrvsamp_1_1BernSampler}\index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
+
+
+A class that performs sampling from a univariate Bernoulli distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for rvsamp\+:\+:Bern\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classrvsamp_1_1BernSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for rvsamp\+:\+:Bern\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classrvsamp_1_1BernSampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_a4401c2717776040550e555ec3ae48ee2}\label{classrvsamp_1_1BernSampler_a4401c2717776040550e555ec3ae48ee2}} 
+\hyperlink{classrvsamp_1_1BernSampler_a4401c2717776040550e555ec3ae48ee2}{Bern\+Sampler} ()
+\begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for Bernoulli random variate generation with p = .5. \end{DoxyCompactList}\item 
+\hyperlink{classrvsamp_1_1BernSampler_ab71d1320b26f2ea63b1a7adc4183db3b}{Bern\+Sampler} (const double \&p)
+\begin{DoxyCompactList}\small\item\em Constructs Bernoulli sampler with user-\/specified p. \end{DoxyCompactList}\item 
+\hyperlink{classrvsamp_1_1BernSampler_a3e48a918a7be355435ae1ab425974c6d}{Bern\+Sampler} (const float \&p)
+\begin{DoxyCompactList}\small\item\em Constructs Bernoulli sampler with user-\/specified p. \end{DoxyCompactList}\item 
+void \hyperlink{classrvsamp_1_1BernSampler_ad6020e9f9f62a9ab32e64638cc29880b}{setP} (const double \&p)
+\begin{DoxyCompactList}\small\item\em sets the parameter p. \end{DoxyCompactList}\item 
+void \hyperlink{classrvsamp_1_1BernSampler_a115d668c1eb9e13a98c5d5f265a26ba2}{setP} (const float \&p)
+\begin{DoxyCompactList}\small\item\em sets the parameter p. \end{DoxyCompactList}\item 
+int \hyperlink{classrvsamp_1_1BernSampler_aa12177f8517a1462d84e5fd964c7dadb}{sample} ()
+\begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_af9b28903cd86a0f02cece4a8c407f4ed}\label{classrvsamp_1_1BernSampler_af9b28903cd86a0f02cece4a8c407f4ed}} 
+std\+::bernoulli\+\_\+distribution \hyperlink{classrvsamp_1_1BernSampler_af9b28903cd86a0f02cece4a8c407f4ed}{m\+\_\+\+B\+\_\+gen}
+\begin{DoxyCompactList}\small\item\em makes normal random variates \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_a813e9f2491074c5df44154b83698091b}\label{classrvsamp_1_1BernSampler_a813e9f2491074c5df44154b83698091b}} 
+float\+\_\+t \hyperlink{classrvsamp_1_1BernSampler_a813e9f2491074c5df44154b83698091b}{m\+\_\+p}
+\begin{DoxyCompactList}\small\item\em the mean \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A class that performs sampling from a univariate Bernoulli distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_ab71d1320b26f2ea63b1a7adc4183db3b}\label{classrvsamp_1_1BernSampler_ab71d1320b26f2ea63b1a7adc4183db3b}} 
+\index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}!Bern\+Sampler@{Bern\+Sampler}}
+\index{Bern\+Sampler@{Bern\+Sampler}!rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
+\subsubsection{\texorpdfstring{Bern\+Sampler()}{BernSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily rvsamp\+::\+Bern\+Sampler\+::\+Bern\+Sampler (\begin{DoxyParamCaption}\item[{const double \&}]{p }\end{DoxyParamCaption})}
+
+
+
+Constructs Bernoulli sampler with user-\/specified p. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & a float\+\_\+t for the probability that the rv equals 1. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_a3e48a918a7be355435ae1ab425974c6d}\label{classrvsamp_1_1BernSampler_a3e48a918a7be355435ae1ab425974c6d}} 
+\index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}!Bern\+Sampler@{Bern\+Sampler}}
+\index{Bern\+Sampler@{Bern\+Sampler}!rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
+\subsubsection{\texorpdfstring{Bern\+Sampler()}{BernSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily rvsamp\+::\+Bern\+Sampler\+::\+Bern\+Sampler (\begin{DoxyParamCaption}\item[{const float \&}]{p }\end{DoxyParamCaption})}
+
+
+
+Constructs Bernoulli sampler with user-\/specified p. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & a float for the probability that the rv equals 1. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_aa12177f8517a1462d84e5fd964c7dadb}\label{classrvsamp_1_1BernSampler_aa12177f8517a1462d84e5fd964c7dadb}} 
+\index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}!sample@{sample}}
+\index{sample@{sample}!rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
+\subsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily int rvsamp\+::\+Bern\+Sampler\+::sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_ad6020e9f9f62a9ab32e64638cc29880b}\label{classrvsamp_1_1BernSampler_ad6020e9f9f62a9ab32e64638cc29880b}} 
+\index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}!setP@{setP}}
+\index{setP@{setP}!rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
+\subsubsection{\texorpdfstring{set\+P()}{setP()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void rvsamp\+::\+Bern\+Sampler\+::setP (\begin{DoxyParamCaption}\item[{const double \&}]{p }\end{DoxyParamCaption})}
+
+
+
+sets the parameter p. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & the p(X=1) = 1-\/p(X=0). \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_a115d668c1eb9e13a98c5d5f265a26ba2}\label{classrvsamp_1_1BernSampler_a115d668c1eb9e13a98c5d5f265a26ba2}} 
+\index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}!setP@{setP}}
+\index{setP@{setP}!rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
+\subsubsection{\texorpdfstring{set\+P()}{setP()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void rvsamp\+::\+Bern\+Sampler\+::setP (\begin{DoxyParamCaption}\item[{const float \&}]{p }\end{DoxyParamCaption})}
+
+
+
+sets the parameter p. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & the p(X=1) = 1-\/p(X=0). \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

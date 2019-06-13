@@ -1,4 +1,5 @@
-<map id="APF&lt; nparts, dimx, dimy, resampT &gt;" name="APF&lt; nparts, dimx, dimy, resampT &gt;">
-<area shape="rect" id="node2" href="$classrvsamp_1_1k__gen.html" title="rvsamp::k_gen\&lt; nparts \&gt;" alt="" coords="14,81,182,108"/>
-<area shape="rect" id="node3" href="$classrvsamp_1_1rvsamp__base.html" title="rvsamp::rvsamp_base\&lt; N \&gt;" alt="" coords="5,5,191,32"/>
+<map id="APF&lt; nparts, dimx, dimy, resamp_t, float_t &gt;" name="APF&lt; nparts, dimx, dimy, resamp_t, float_t &gt;">
+<area shape="rect" id="node2" href="$classpf__base.html" title="pf_base" alt="" coords="36,89,104,115"/>
+<area shape="rect" id="node3" href="$classrvsamp_1_1k__gen.html" title="rvsamp::k_gen\&lt; nparts,\l float_t \&gt;" alt="" coords="129,81,289,123"/>
+<area shape="rect" id="node4" href="$classrvsamp_1_1rvsamp__base.html" title="Base class for all random variable sampler types. Primary benefit is that it sets the seed for you..." alt="" coords="133,5,284,32"/>
 </map>

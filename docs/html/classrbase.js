@@ -1,9 +1,9 @@
 var classrbase =
 [
-    [ "arrayDouble", "classrbase.html#ab1b61e00a2e0783d9b414118d912427e", null ],
-    [ "arrayVec", "classrbase.html#a428b9f0dd8712a93c096baaf6ab74d8c", null ],
-    [ "ssv", "classrbase.html#a78cdecb1ac67ffdaee90be7709c961e4", null ],
-    [ "rbase", "classrbase.html#ac50680d1f898da868a3a0cbc439522ea", null ],
-    [ "resampLogWts", "classrbase.html#ad14a177d1beb6fae9ee8370c29f46da9", null ],
-    [ "m_gen", "classrbase.html#a4083e9e008ffe12b62d53d71a8a78644", null ]
+    [ "arrayFloat", "classrbase.html#a6f76bef853e508cb5b6f546d231b06f5", null ],
+    [ "arrayVec", "classrbase.html#aa12fc826befa6ba0647b5f59ebc396ee", null ],
+    [ "ssv", "classrbase.html#ae20e0b8df15aa109252f57ecbf1f20f8", null ],
+    [ "rbase", "classrbase.html#aae80801bfc60ee3573cb728fc9460b0c", null ],
+    [ "resampLogWts", "classrbase.html#aff0f6f88fd4656e67f5ebc870f10dd44", null ],
+    [ "m_gen", "classrbase.html#ac278c975bd5b23ad009f1ce685552c5c", null ]
 ];

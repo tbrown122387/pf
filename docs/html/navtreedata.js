@@ -23,7 +23,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classrbpf__kalman__bs.html#ad60b5c636ab9e894dd8c3781709f0e4c"
+"classrbpf__kalman.html#a88f7188c59b2cc1407a14e60051a1840"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,6 +1,7 @@
 var annotated_dup =
 [
     [ "rvsamp", null, [
+      [ "BernSampler", "classrvsamp_1_1BernSampler.html", "classrvsamp_1_1BernSampler" ],
       [ "k_gen", "classrvsamp_1_1k__gen.html", "classrvsamp_1_1k__gen" ],
       [ "MVNSampler", "classrvsamp_1_1MVNSampler.html", "classrvsamp_1_1MVNSampler" ],
       [ "rvsamp_base", "classrvsamp_1_1rvsamp__base.html", "classrvsamp_1_1rvsamp__base" ],
@@ -9,11 +10,13 @@ var annotated_dup =
     ] ],
     [ "APF", "classAPF.html", "classAPF" ],
     [ "BSFilter", "classBSFilter.html", "classBSFilter" ],
+    [ "BSFilterWC", "classBSFilterWC.html", "classBSFilterWC" ],
     [ "cf_filter", "classcf__filter.html", "classcf__filter" ],
     [ "hmm", "classhmm.html", "classhmm" ],
     [ "kalman", "classkalman.html", "classkalman" ],
     [ "mn_resampler", "classmn__resampler.html", "classmn__resampler" ],
     [ "mn_resampler_rbpf", "classmn__resampler__rbpf.html", "classmn__resampler__rbpf" ],
+    [ "pf_base", "classpf__base.html", "classpf__base" ],
     [ "rbase", "classrbase.html", "classrbase" ],
     [ "rbpf_hmm", "classrbpf__hmm.html", "classrbpf__hmm" ],
     [ "rbpf_hmm_bs", "classrbpf__hmm__bs.html", "classrbpf__hmm__bs" ],

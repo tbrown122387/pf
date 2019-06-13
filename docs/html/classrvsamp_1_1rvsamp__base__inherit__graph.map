@@ -1,3 +1,8 @@
-<map id="rvsamp::rvsamp_base&lt; dim &gt;" name="rvsamp::rvsamp_base&lt; dim &gt;">
-<area shape="rect" id="node2" href="$classrvsamp_1_1MVNSampler.html" title="A class that performs sampling from a multivariate normal distribution. " alt="" coords="5,95,156,136"/>
+<map id="rvsamp::rvsamp_base" name="rvsamp::rvsamp_base">
+<area shape="rect" id="node2" href="$classrvsamp_1_1k__gen.html" title="rvsamp::k_gen\&lt; nparts,\l float_t \&gt;" alt="" coords="217,5,377,47"/>
+<area shape="rect" id="node3" href="$classrvsamp_1_1BernSampler.html" title="A class that performs sampling from a univariate Bernoulli distribution. " alt="" coords="223,71,371,98"/>
+<area shape="rect" id="node4" href="$classrvsamp_1_1k__gen.html" title="A class that performs sampling with replacement (useful for the index sampler in an APF) ..." alt="" coords="204,122,391,149"/>
+<area shape="rect" id="node5" href="$classrvsamp_1_1MVNSampler.html" title="A class that performs sampling from a multivariate normal distribution. " alt="" coords="222,173,373,215"/>
+<area shape="rect" id="node6" href="$classrvsamp_1_1UniformSampler.html" title="A class that performs sampling from a continuous uniform distribution. " alt="" coords="214,239,381,280"/>
+<area shape="rect" id="node7" href="$classrvsamp_1_1UnivNormSampler.html" title="A class that performs sampling from a univariate Normal distribution. " alt="" coords="207,304,387,345"/>
 </map>
