@@ -23,7 +23,9 @@ public:
     /**
      * @brief The default constructor. This is the only option available. Sets the seed with the clock. 
      */
-    rvsamp_base();
+    inline rvsamp_base() : 
+        m_rng{static_cast<std::uint32_t>(std::chrono::high_resolution_clock::now().time_since_epoch().count())} 
+    {}
 
 protected:
 
@@ -146,6 +148,7 @@ float_t UnivNormSampler<float_t>::sample()
 * @file rv_samp.h
 * @brief Samples from univariate Bernoulli distribution.
 */
+template<typename float_t, typename int_t>
 class BernSampler : public rvsamp_base
 {
     
@@ -162,35 +165,21 @@ public:
       * @brief Constructs Bernoulli sampler with user-specified p.
       * @param p a float_t for the probability that the rv equals 1.
       */
-    BernSampler(const double &p);
-
-
-     /**
-      * @brief Constructs Bernoulli sampler with user-specified p.
-      * @param p a float for the probability that the rv equals 1.
-      */
-    BernSampler(const float &p);
+    BernSampler(const float_t &p);
 
 
     /**
      * @brief sets the parameter p.
      * @param p the p(X=1) = 1-p(X=0).
      */
-    void setP(const double &p);
-
-
-    /**
-     * @brief sets the parameter p.
-     * @param p the p(X=1) = 1-p(X=0).
-     */
-    void setP(const float &p);
+    void setP(const float_t &p);
     
 
     /** 
       * @brief Draws a random number.
       * @return a random sample of type float_t.
       */
-    int sample();    
+    int_t sample();    
     
 
 private:
@@ -202,6 +191,33 @@ private:
     float_t m_p;
 };
 
+
+template<typename float_t, typename int_t>
+BernSampler<float_t, int_t>::BernSampler() 
+    : rvsamp_base(), m_B_gen(.5)
+{
+}
+
+
+template<typename float_t, typename int_t>
+BernSampler<float_t, int_t>::BernSampler(const float_t& p) 
+    : rvsamp_base(), m_B_gen(p)
+{
+}
+
+
+template<typename float_t, typename int_t>
+void BernSampler<float_t, int_t>::setP(const float_t& p)
+{
+    m_p = p;
+}
+
+
+template<typename float_t, typename int_t>
+int_t BernSampler<float_t, int_t>::sample()
+{
+    return (m_B_gen(m_rng)) ? 1 : 0;
+}
 
 
 

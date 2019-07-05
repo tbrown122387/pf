@@ -1,11 +1,9 @@
 PROG = examples
 SRCS = main.cpp svol_comparison.cpp
 OBJS = main.o svol_comparison.o
-LIBS = -lpf 
 INCLUDES = -I../include -I/usr/include/eigen3
 CXX = g++
 CXXFLAGS = -std=c++11 -O3 $(INCLUDES) -pg
-LDFLAGS = "-L../bin"
 
 
 all: $(PROG)
