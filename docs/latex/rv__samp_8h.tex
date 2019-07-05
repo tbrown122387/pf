@@ -5,17 +5,19 @@
 all rv samplers must inherit from this.  
 
 
-{\ttfamily \#include $<$chrono$>$}\\*
-{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
-{\ttfamily \#include $<$random$>$}\\*
-Include dependency graph for rv\+\_\+samp.\+h\+:\nopagebreak
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+Include dependency graph for rv\+\_\+samp.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=285pt]{rv__samp_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -25,15 +27,17 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classrvsamp_1_1rvsamp__base}{rvsamp\+::rvsamp\+\_\+base$<$ dim $>$}
+class \hyperlink{classrvsamp_1_1rvsamp__base}{rvsamp\+::rvsamp\+\_\+base}
 \begin{DoxyCompactList}\small\item\em Base class for all random variable sampler types. Primary benefit is that it sets the seed for you. \end{DoxyCompactList}\item 
-class \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler}
+class \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Normal distribution. \end{DoxyCompactList}\item 
-class \hyperlink{classrvsamp_1_1MVNSampler}{rvsamp\+::\+M\+V\+N\+Sampler$<$ dim $>$}
+class \hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler}
+\begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Bernoulli distribution. \end{DoxyCompactList}\item 
+class \hyperlink{classrvsamp_1_1MVNSampler}{rvsamp\+::\+M\+V\+N\+Sampler$<$ dim, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a multivariate normal distribution. \end{DoxyCompactList}\item 
-class \hyperlink{classrvsamp_1_1UniformSampler}{rvsamp\+::\+Uniform\+Sampler}
+class \hyperlink{classrvsamp_1_1UniformSampler}{rvsamp\+::\+Uniform\+Sampler$<$ float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a continuous uniform distribution. \end{DoxyCompactList}\item 
-class \hyperlink{classrvsamp_1_1k__gen}{rvsamp\+::k\+\_\+gen$<$ N $>$}
+class \hyperlink{classrvsamp_1_1k__gen}{rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling with replacement (useful for the index sampler in an \hyperlink{classAPF}{A\+PF}) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -43,6 +47,8 @@ all rv samplers must inherit from this.
 Basically a wrapper for std\+::discrete\+\_\+distribution$<$$>$ outputs are in the rage (0,1,...N-\/1)
 
 Can sample from a distribution with fixed mean and covariance, fixed mean only, fixed covariance only, or nothing fixed.
+
+Samples from univariate Bernoulli distribution.
 
 Samples from univariate Normal distribution.
 

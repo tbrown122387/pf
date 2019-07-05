@@ -1,10 +1,10 @@
 var classmn__resampler =
 [
-    [ "arrayDouble", "classmn__resampler.html#a42c1ad632e0bcc40df749e370aa4c301", null ],
-    [ "arrayInt", "classmn__resampler.html#a37074929b181708729008b6fd798626f", null ],
-    [ "arrayVec", "classmn__resampler.html#af39a099d2ae642d229cb4ec20385193e", null ],
-    [ "ssv", "classmn__resampler.html#ae9b9c863c83ef47d10f66469f15c2277", null ],
-    [ "mn_resampler", "classmn__resampler.html#ac9dc07a64fdd14485c04cd5dd7a7c84a", null ],
-    [ "resampLogWts", "classmn__resampler.html#af36489e85dc03eab972b692d860fc420", null ],
-    [ "m_gen", "classmn__resampler.html#af3ce5420d54ac17492132d78056c06ea", null ]
+    [ "arrayFloat", "classmn__resampler.html#ae26be2889cf3cd4ddea66928d879809e", null ],
+    [ "arrayInt", "classmn__resampler.html#afb5d000e2464afef813792c57c42599b", null ],
+    [ "arrayVec", "classmn__resampler.html#aa8ff37576399807b14a7a12615032bb1", null ],
+    [ "ssv", "classmn__resampler.html#a1cb075b42f73e01de7fc1b27f51bfc4c", null ],
+    [ "mn_resampler", "classmn__resampler.html#afcb296db505c5d2bcdba4e00ae9d6672", null ],
+    [ "resampLogWts", "classmn__resampler.html#a13b1897e180a791a3a099d5d6329a125", null ],
+    [ "m_gen", "classmn__resampler.html#a565f3bdfb2e7ccba217292c20a2afb6a", null ]
 ];

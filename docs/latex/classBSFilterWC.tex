@@ -1,0 +1,336 @@
+\hypertarget{classBSFilterWC}{}\section{B\+S\+Filter\+WC$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$ Class Template Reference}
+\label{classBSFilterWC}\index{B\+S\+Filter\+W\+C$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$@{B\+S\+Filter\+W\+C$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$}}
+
+
+A base class for the boostrap particle filter with covariates.  
+
+
+
+
+{\ttfamily \#include $<$bootstrap\+\_\+filter\+\_\+with\+\_\+covariates.\+h$>$}
+
+
+
+Inheritance diagram for B\+S\+Filter\+WC$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{classBSFilterWC__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for B\+S\+Filter\+WC$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{classBSFilterWC__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+using \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
+\item 
+using \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimcov, 1 $>$
+\item 
+using \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+using \hyperlink{classBSFilterWC_af89dac8c324ae8b549595a85e89ec7da}{array\+States} = std\+::array$<$ \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv}, nparts $>$
+\item 
+using \hyperlink{classBSFilterWC_a12c3f32cb628a0efaa0267262205d6d6}{arrayfloat\+\_\+t} = std\+::array$<$ float\+\_\+t, nparts $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBSFilterWC_a8b9399d0b7008aa6bca19a87834dfd6a}{B\+S\+Filter\+WC} (const unsigned int \&rs=1)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSFilterWC_a125b13d2ba71b3bce05c315dea38b476}\label{classBSFilterWC_a125b13d2ba71b3bce05c315dea38b476}} 
+virtual \hyperlink{classBSFilterWC_a125b13d2ba71b3bce05c315dea38b476}{$\sim$\+B\+S\+Filter\+WC} ()
+\begin{DoxyCompactList}\small\item\em The (virtual) destructor. \end{DoxyCompactList}\item 
+float\+\_\+t \hyperlink{classBSFilterWC_a26e23f7f1e17e3fb3e6a3bfdb633cc2b}{get\+Log\+Cond\+Like} () const
+\begin{DoxyCompactList}\small\item\em Returns the most recent (log-\/) conditiona likelihood. \end{DoxyCompactList}\item 
+void \hyperlink{classBSFilterWC_a0637035a4553ae3ffeaf1ddce0de2c6b}{filter} (const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&ydata, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&covdata, const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&)$>$ $>$())
+\begin{DoxyCompactList}\small\item\em updates filtering distribution on a new datapoint. Optionally stores expectations of functionals. \end{DoxyCompactList}\item 
+auto \hyperlink{classBSFilterWC_abbac1ed7a57f04ec34d389e3ac822a90}{get\+Expectations} () const -\/$>$ std\+::vector$<$ \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat} $>$
+\begin{DoxyCompactList}\small\item\em return all stored expectations (taken with respect to \$p(x\+\_\+t$\vert$y\+\_\+\{1\+:t\})\$ \end{DoxyCompactList}\item 
+virtual float\+\_\+t \hyperlink{classBSFilterWC_aa6cd7297e8e8d0beff66555e56d918d2}{log\+Mu\+Ev} (const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&x1, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&z1)=0
+\begin{DoxyCompactList}\small\item\em Calculate mu\+Ev or logmu\+Ev. \end{DoxyCompactList}\item 
+virtual \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \hyperlink{classBSFilterWC_af6be8944fa674554f91e003b66f514ca}{q1\+Samp} (const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&y1, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&z1)=0
+\begin{DoxyCompactList}\small\item\em Samples from time 1 proposal. \end{DoxyCompactList}\item 
+virtual float\+\_\+t \hyperlink{classBSFilterWC_a7047659c85ddc9a9e798f8e66d5f0d2b}{log\+Q1\+Ev} (const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&x1, const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&y1, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&z1)=0
+\begin{DoxyCompactList}\small\item\em Calculate q1\+Ev or log q1\+Ev. \end{DoxyCompactList}\item 
+virtual float\+\_\+t \hyperlink{classBSFilterWC_aa990c3307d1b3fd5fd980c5c770ec0be}{log\+G\+Ev} (const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&yt, const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&xt, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&zt)=0
+\begin{DoxyCompactList}\small\item\em Calculate g\+Ev or log\+G\+Ev. \end{DoxyCompactList}\item 
+virtual \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \hyperlink{classBSFilterWC_a8a503fa65fea50829b0223345d890a3e}{f\+Samp} (const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&xtm1, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&zt)=0
+\begin{DoxyCompactList}\small\item\em Sample from the state transition distribution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBSFilterWC_abd332451e5d42093d95f2a8202220c7e}\label{classBSFilterWC_abd332451e5d42093d95f2a8202220c7e}} 
+\hyperlink{classBSFilterWC_af89dac8c324ae8b549595a85e89ec7da}{array\+States} \hyperlink{classBSFilterWC_abd332451e5d42093d95f2a8202220c7e}{m\+\_\+particles}
+\begin{DoxyCompactList}\small\item\em particle samples \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSFilterWC_a1587d1370cb0ed304c6b7789e8b0230c}\label{classBSFilterWC_a1587d1370cb0ed304c6b7789e8b0230c}} 
+\hyperlink{classBSFilterWC_a12c3f32cb628a0efaa0267262205d6d6}{arrayfloat\+\_\+t} \hyperlink{classBSFilterWC_a1587d1370cb0ed304c6b7789e8b0230c}{m\+\_\+log\+Un\+Norm\+Weights}
+\begin{DoxyCompactList}\small\item\em particle unnormalized weights \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSFilterWC_a1cf44a2c240be863bc2c0b3cf21bae9b}\label{classBSFilterWC_a1cf44a2c240be863bc2c0b3cf21bae9b}} 
+unsigned int \hyperlink{classBSFilterWC_a1cf44a2c240be863bc2c0b3cf21bae9b}{m\+\_\+now}
+\begin{DoxyCompactList}\small\item\em time point \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSFilterWC_ad777a75d66ff91ab883824da57026a86}\label{classBSFilterWC_ad777a75d66ff91ab883824da57026a86}} 
+float\+\_\+t \hyperlink{classBSFilterWC_ad777a75d66ff91ab883824da57026a86}{m\+\_\+log\+Last\+Cond\+Like}
+\begin{DoxyCompactList}\small\item\em log p(y\+\_\+t$\vert$y\+\_\+\{1\+:t-\/1\}) or log p(y1) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSFilterWC_a7cbf8d09b07e0f20b5c8a8f1f7f0590f}\label{classBSFilterWC_a7cbf8d09b07e0f20b5c8a8f1f7f0590f}} 
+resamp\+\_\+t \hyperlink{classBSFilterWC_a7cbf8d09b07e0f20b5c8a8f1f7f0590f}{m\+\_\+resampler}
+\begin{DoxyCompactList}\small\item\em resampler object \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSFilterWC_ab3c3b0f329bd3ce8980242551fb8bd37}\label{classBSFilterWC_ab3c3b0f329bd3ce8980242551fb8bd37}} 
+std\+::vector$<$ \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat} $>$ \hyperlink{classBSFilterWC_ab3c3b0f329bd3ce8980242551fb8bd37}{m\+\_\+expectations}
+\begin{DoxyCompactList}\small\item\em expectations E\mbox{[}h(x\+\_\+t) $\vert$ y\+\_\+\{1\+:t\}\mbox{]} for user defined \char`\"{}h\char`\"{}s \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSFilterWC_a8d173dfb2640a96e97488a5cbba4444d}\label{classBSFilterWC_a8d173dfb2640a96e97488a5cbba4444d}} 
+unsigned int \hyperlink{classBSFilterWC_a8d173dfb2640a96e97488a5cbba4444d}{m\+\_\+resamp\+Sched}
+\begin{DoxyCompactList}\small\item\em resampling schedule (e.\+g. resample every \+\_\+\+\_\+ time points) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t, typename float\+\_\+t$>$\newline
+class B\+S\+Filter\+W\+C$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$}
+
+A base class for the boostrap particle filter with covariates. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classBSFilterWC_a12c3f32cb628a0efaa0267262205d6d6}\label{classBSFilterWC_a12c3f32cb628a0efaa0267262205d6d6}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!arrayfloat\+\_\+t@{arrayfloat\+\_\+t}}
+\index{arrayfloat\+\_\+t@{arrayfloat\+\_\+t}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{arrayfloat\+\_\+t}{arrayfloat\_t}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_a12c3f32cb628a0efaa0267262205d6d6}{arrayfloat\+\_\+t} =  std\+::array$<$float\+\_\+t, nparts$>$}
+
+type alias for array of float\+\_\+ts \mbox{\Hypertarget{classBSFilterWC_af89dac8c324ae8b549595a85e89ec7da}\label{classBSFilterWC_af89dac8c324ae8b549595a85e89ec7da}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!array\+States@{array\+States}}
+\index{array\+States@{array\+States}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{array\+States}{arrayStates}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_af89dac8c324ae8b549595a85e89ec7da}{array\+States} =  std\+::array$<$\hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv}, nparts$>$}
+
+type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}\label{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!cvsv@{cvsv}}
+\index{cvsv@{cvsv}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{cvsv}{cvsv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimcov,1$>$}
+
+covariate size vector" type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}\label{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!Mat@{Mat}}
+\index{Mat@{Mat}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{Mat}{Mat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat} =  Eigen\+::\+Matrix$<$float\+\_\+t,Eigen\+::\+Dynamic,Eigen\+::\+Dynamic$>$}
+
+type alias for dynamically sized matrix \mbox{\Hypertarget{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}\label{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!osv@{osv}}
+\index{osv@{osv}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{osv}{osv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} =  Eigen\+::\+Matrix$<$float\+\_\+t, dimy, 1$>$}
+
+\char`\"{}obs size vector\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}\label{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!ssv@{ssv}}
+\index{ssv@{ssv}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t, dimx, 1$>$}
+
+\char`\"{}state size vector\char`\"{} type alias for linear algebra stuff 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBSFilterWC_a8b9399d0b7008aa6bca19a87834dfd6a}\label{classBSFilterWC_a8b9399d0b7008aa6bca19a87834dfd6a}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{B\+S\+Filter\+W\+C()}{BSFilterWC()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+\hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC}{B\+S\+Filter\+WC} (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{rs = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+The constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rs} & the resampling schedule (e.\+g. every rs time point) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBSFilterWC_a0637035a4553ae3ffeaf1ddce0de2c6b}\label{classBSFilterWC_a0637035a4553ae3ffeaf1ddce0de2c6b}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!filter@{filter}}
+\index{filter@{filter}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{filter()}{filter()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+void \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::filter (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&}]{ydata,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{covdata,  }\item[{const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&)$>$ $>$ \&}]{fs = {\ttfamily std\+:\+:vector$<$std\+:\+:function$<$const~\hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const~\hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv}\&)$>$~$>$()} }\end{DoxyParamCaption})}
+
+
+
+updates filtering distribution on a new datapoint. Optionally stores expectations of functionals. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & the most recent data point \\
+\hline
+{\em cov\+Data} & covariate data \\
+\hline
+{\em fs} & a vector of functions if you want to calculate expectations. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]\+: work in support for effective sample size stuff. \end{DoxyRefDesc}
+\mbox{\Hypertarget{classBSFilterWC_a8a503fa65fea50829b0223345d890a3e}\label{classBSFilterWC_a8a503fa65fea50829b0223345d890a3e}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!f\+Samp@{f\+Samp}}
+\index{f\+Samp@{f\+Samp}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{f\+Samp()}{fSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+virtual \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::f\+Samp (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&}]{xtm1,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{zt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Sample from the state transition distribution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xtm1} & is a const Vec\& describing the time t-\/1 state \\
+\hline
+{\em zt} & is a const Vec\& describing the time t covariate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the sample as a Vec 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSFilterWC_abbac1ed7a57f04ec34d389e3ac822a90}\label{classBSFilterWC_abbac1ed7a57f04ec34d389e3ac822a90}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!get\+Expectations@{get\+Expectations}}
+\index{get\+Expectations@{get\+Expectations}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{get\+Expectations()}{getExpectations()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+auto \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::get\+Expectations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$ std\+::vector$<$\hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}$>$}
+
+
+
+return all stored expectations (taken with respect to \$p(x\+\_\+t$\vert$y\+\_\+\{1\+:t\})\$ 
+
+\begin{DoxyReturn}{Returns}
+return a std\+::vector$<$\+Mat$>$ of expectations. How many depends on how many callbacks you gave to 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSFilterWC_a26e23f7f1e17e3fb3e6a3bfdb633cc2b}\label{classBSFilterWC_a26e23f7f1e17e3fb3e6a3bfdb633cc2b}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}}
+\index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{get\+Log\+Cond\+Like()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+float\+\_\+t \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the most recent (log-\/) conditiona likelihood. 
+
+\begin{DoxyReturn}{Returns}
+log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSFilterWC_aa990c3307d1b3fd5fd980c5c770ec0be}\label{classBSFilterWC_aa990c3307d1b3fd5fd980c5c770ec0be}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!log\+G\+Ev@{log\+G\+Ev}}
+\index{log\+G\+Ev@{log\+G\+Ev}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{log\+G\+Ev()}{logGEv()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+virtual float\+\_\+t \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::log\+G\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&}]{yt,  }\item[{const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&}]{xt,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{zt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Calculate g\+Ev or log\+G\+Ev. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yt} & is a const Vec\& describing the time t datum \\
+\hline
+{\em xt} & is a const Vec\& describing the time t state \\
+\hline
+{\em zt} & is a const Vec\& describing the time t covariate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the density or log-\/density evaluation as a float\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSFilterWC_aa6cd7297e8e8d0beff66555e56d918d2}\label{classBSFilterWC_aa6cd7297e8e8d0beff66555e56d918d2}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!log\+Mu\+Ev@{log\+Mu\+Ev}}
+\index{log\+Mu\+Ev@{log\+Mu\+Ev}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{log\+Mu\+Ev()}{logMuEv()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+virtual float\+\_\+t \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::log\+Mu\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&}]{x1,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{z1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Calculate mu\+Ev or logmu\+Ev. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & is a const Vec\& describing the state sample \\
+\hline
+{\em z1} & is a const Vec\& describing the covariate sample \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the density or log-\/density evaluation as a float\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSFilterWC_a7047659c85ddc9a9e798f8e66d5f0d2b}\label{classBSFilterWC_a7047659c85ddc9a9e798f8e66d5f0d2b}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!log\+Q1\+Ev@{log\+Q1\+Ev}}
+\index{log\+Q1\+Ev@{log\+Q1\+Ev}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{log\+Q1\+Ev()}{logQ1Ev()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+virtual float\+\_\+t \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::log\+Q1\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&}]{x1,  }\item[{const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&}]{y1,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{z1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Calculate q1\+Ev or log q1\+Ev. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & is a const Vec\& describing the time 1 state sample \\
+\hline
+{\em y1} & is a const Vec\& describing the time 1 datum \\
+\hline
+{\em z1} & is a const Vec\& describing the time 1 covariate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the density or log-\/density evaluation as a float\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSFilterWC_af6be8944fa674554f91e003b66f514ca}\label{classBSFilterWC_af6be8944fa674554f91e003b66f514ca}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!q1\+Samp@{q1\+Samp}}
+\index{q1\+Samp@{q1\+Samp}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{q1\+Samp()}{q1Samp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+virtual \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::q1\+Samp (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&}]{y1,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{z1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Samples from time 1 proposal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em y1} & is a const Vec\& representing the first observed datum \\
+\hline
+{\em z1} & is the const Vec\& representing the first covariate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the sample as a Vec 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{bootstrap__filter__with__covariates_8h}{bootstrap\+\_\+filter\+\_\+with\+\_\+covariates.\+h}\end{DoxyCompactItemize}

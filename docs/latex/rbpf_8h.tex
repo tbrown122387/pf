@@ -5,12 +5,15 @@
 Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner H\+M\+Ms.  
 
 
-{\ttfamily \#include $<$functional$>$}\\*
-{\ttfamily \#include $<$vector$>$}\\*
-{\ttfamily \#include $<$array$>$}\\*
-{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
-{\ttfamily \#include \char`\"{}cf\+\_\+filters.\+h\char`\"{}}\\*
-Include dependency graph for rbpf.\+h\+:\nopagebreak
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include \char`\"{}pf\+\_\+base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cf\+\_\+filters.\+h\char`\"{}}\newline
+Include dependency graph for rbpf.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -20,13 +23,13 @@ Include dependency graph for rbpf.\+h\+:\nopagebreak
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classrbpf__hmm}{rbpf\+\_\+hmm$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+class \hyperlink{classrbpf__hmm}{rbpf\+\_\+hmm$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner H\+M\+Ms. \end{DoxyCompactList}\item 
-class \hyperlink{classrbpf__hmm__bs}{rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+class \hyperlink{classrbpf__hmm__bs}{rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner H\+M\+Ms. \end{DoxyCompactList}\item 
-class \hyperlink{classrbpf__kalman}{rbpf\+\_\+kalman$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+class \hyperlink{classrbpf__kalman}{rbpf\+\_\+kalman$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Particle Filter with inner Kalman Filter objectss. \end{DoxyCompactList}\item 
-class \hyperlink{classrbpf__kalman__bs}{rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+T $>$}
+class \hyperlink{classrbpf__kalman__bs}{rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner Kalman Filter objectss. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -49,7 +52,7 @@ Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner H\+M\+Ms.
 \hline
 {\em dimy} & the dimension of the observations \\
 \hline
-{\em resampT} & the resampler type (e.\+g. multinomial, etc.)\\
+{\em resamp\+\_\+t} & the resampler type (e.\+g. multinomial, etc.)\\
 \hline
 {\em nparts} & the number of particles \\
 \hline
@@ -59,6 +62,6 @@ Rao-\/\+Blackwellized/\+Marginal Bootstrap Filter with inner H\+M\+Ms.
 \hline
 {\em dimy} & the dimension of the observations \\
 \hline
-{\em resampT} & the resampler type \\
+{\em resamp\+\_\+t} & the resampler type \\
 \hline
 \end{DoxyTemplParams}

@@ -1,5 +1,5 @@
-\hypertarget{classhmm}{}\section{hmm$<$ dimstate, dimobs $>$ Class Template Reference}
-\label{classhmm}\index{hmm$<$ dimstate, dimobs $>$@{hmm$<$ dimstate, dimobs $>$}}
+\hypertarget{classhmm}{}\section{hmm$<$ dimstate, dimobs, float\+\_\+t $>$ Class Template Reference}
+\label{classhmm}\index{hmm$<$ dimstate, dimobs, float\+\_\+t $>$@{hmm$<$ dimstate, dimobs, float\+\_\+t $>$}}
 
 
 A class template for H\+MM filtering.  
@@ -11,67 +11,72 @@ A class template for H\+MM filtering.
 
 
 
-Inheritance diagram for hmm$<$ dimstate, dimobs $>$\+:\nopagebreak
+Inheritance diagram for hmm$<$ dimstate, dimobs, float\+\_\+t $>$\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=211pt]{classhmm__inherit__graph}
+\includegraphics[width=205pt]{classhmm__inherit__graph}
 \end{center}
 \end{figure}
 
 
-Collaboration diagram for hmm$<$ dimstate, dimobs $>$\+:\nopagebreak
+Collaboration diagram for hmm$<$ dimstate, dimobs, float\+\_\+t $>$\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=211pt]{classhmm__coll__graph}
+\includegraphics[width=205pt]{classhmm__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \hyperlink{classhmm_a4a536464d63f3e7b06ab867cde35fb6a}{ssv} = Eigen\+::\+Matrix$<$ double, dimstate, 1 $>$\hypertarget{classhmm_a4a536464d63f3e7b06ab867cde35fb6a}{}\label{classhmm_a4a536464d63f3e7b06ab867cde35fb6a}
-
+\mbox{\Hypertarget{classhmm_ae13f52a15dc738d07c43be7f7545d26a}\label{classhmm_ae13f52a15dc738d07c43be7f7545d26a}} 
+using \hyperlink{classhmm_ae13f52a15dc738d07c43be7f7545d26a}{ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, 1 $>$
 \begin{DoxyCompactList}\small\item\em \char`\"{}state size vector\char`\"{} \end{DoxyCompactList}\item 
-using \hyperlink{classhmm_a8b831550f17d3abfdbde1d9aadfdc861}{osv} = Eigen\+::\+Matrix$<$ double, dimobs, 1 $>$\hypertarget{classhmm_a8b831550f17d3abfdbde1d9aadfdc861}{}\label{classhmm_a8b831550f17d3abfdbde1d9aadfdc861}
-
+\mbox{\Hypertarget{classhmm_a9acf2492ac9dd051d4c98dc137bee7c2}\label{classhmm_a9acf2492ac9dd051d4c98dc137bee7c2}} 
+using \hyperlink{classhmm_a9acf2492ac9dd051d4c98dc137bee7c2}{osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
 \begin{DoxyCompactList}\small\item\em \char`\"{}observation size vector\char`\"{} \end{DoxyCompactList}\item 
-using \hyperlink{classhmm_a1c1d1649a78ddbe6029556fd1e10d0ab}{ss\+Mat} = Eigen\+::\+Matrix$<$ double, dimstate, dimstate $>$\hypertarget{classhmm_a1c1d1649a78ddbe6029556fd1e10d0ab}{}\label{classhmm_a1c1d1649a78ddbe6029556fd1e10d0ab}
-
+\mbox{\Hypertarget{classhmm_ab954b8e3fc86a60201ec33f371a241aa}\label{classhmm_ab954b8e3fc86a60201ec33f371a241aa}} 
+using \hyperlink{classhmm_ab954b8e3fc86a60201ec33f371a241aa}{ss\+Mat} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, dimstate $>$
 \begin{DoxyCompactList}\small\item\em \char`\"{}state size matrix\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classhmm_ae7ec1812c1ee0d8ed57eb6c3f62b92a1}{hmm} ()
+\hyperlink{classhmm_ad3dc1fd2d297d6da8c58b2d5075e561c}{hmm} ()
 \begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
-\hyperlink{classhmm_a3ad1950d8fcef28430da0bf435da0a77}{hmm} (const \hyperlink{classcf__filter_a5562e379d385df4d81c949e32d84ee19}{ssv} \&init\+State\+Distr, const \hyperlink{classhmm_a1c1d1649a78ddbe6029556fd1e10d0ab}{ss\+Mat} \&trans\+Mat)
+\hyperlink{classhmm_a51696b4e5a92c56c589b5e9522115994}{hmm} (const \hyperlink{classcf__filter_ad4bce534d6b7a494dae851846037c94b}{ssv} \&init\+State\+Distr, const \hyperlink{classhmm_ab954b8e3fc86a60201ec33f371a241aa}{ss\+Mat} \&trans\+Mat)
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
-double \hyperlink{classhmm_ab961ea54f4573a1b1c257162fb264cf7}{get\+Log\+Cond\+Like} () const 
+\mbox{\Hypertarget{classhmm_ab22e0359030d40feb7f17f56261152c9}\label{classhmm_ab22e0359030d40feb7f17f56261152c9}} 
+virtual \hyperlink{classhmm_ab22e0359030d40feb7f17f56261152c9}{$\sim$hmm} ()
+\begin{DoxyCompactList}\small\item\em The (virtual) desuctor. \end{DoxyCompactList}\item 
+float\+\_\+t \hyperlink{classhmm_a588f2aed002614e75f523213eba1b290}{get\+Log\+Cond\+Like} () const
 \begin{DoxyCompactList}\small\item\em Get the latest conditional likelihood. \end{DoxyCompactList}\item 
-\hyperlink{classcf__filter_a5562e379d385df4d81c949e32d84ee19}{ssv} \hyperlink{classhmm_a71547a134dce31e831004cace2ba4bd7}{get\+Filter\+Vec} () const 
+\hyperlink{classcf__filter_ad4bce534d6b7a494dae851846037c94b}{ssv} \hyperlink{classhmm_a670de13d08520008774ee31b3712b5b5}{get\+Filter\+Vec} () const
 \begin{DoxyCompactList}\small\item\em Get the current filter vector. \end{DoxyCompactList}\item 
-void \hyperlink{classhmm_ae294c9e939f3484f00c943f505095971}{update} (const \hyperlink{classcf__filter_a5562e379d385df4d81c949e32d84ee19}{ssv} \&cond\+Dens\+Vec)
+void \hyperlink{classhmm_a5a25f1d14b38f0fae35a9072cfa0a368}{update} (const \hyperlink{classcf__filter_ad4bce534d6b7a494dae851846037c94b}{ssv} \&cond\+Dens\+Vec)
 \begin{DoxyCompactList}\small\item\em Perform a H\+MM filter update. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classcf__filter_a5562e379d385df4d81c949e32d84ee19}{ssv} \hyperlink{classhmm_a1d95a240203405976193cc9792b83a67}{m\+\_\+filt\+Vec}\hypertarget{classhmm_a1d95a240203405976193cc9792b83a67}{}\label{classhmm_a1d95a240203405976193cc9792b83a67}
-
+\mbox{\Hypertarget{classhmm_ab986d567358117debde35a1bf9063d1a}\label{classhmm_ab986d567358117debde35a1bf9063d1a}} 
+\hyperlink{classcf__filter_ad4bce534d6b7a494dae851846037c94b}{ssv} \hyperlink{classhmm_ab986d567358117debde35a1bf9063d1a}{m\+\_\+filt\+Vec}
 \begin{DoxyCompactList}\small\item\em filter vector \end{DoxyCompactList}\item 
-\hyperlink{classhmm_a1c1d1649a78ddbe6029556fd1e10d0ab}{ss\+Mat} \hyperlink{classhmm_a27c26b0248bafd930ff33278ec1c4c10}{m\+\_\+trans\+Mat\+Transpose}\hypertarget{classhmm_a27c26b0248bafd930ff33278ec1c4c10}{}\label{classhmm_a27c26b0248bafd930ff33278ec1c4c10}
-
+\mbox{\Hypertarget{classhmm_a95b1182114d3334585108a6a7e75c99d}\label{classhmm_a95b1182114d3334585108a6a7e75c99d}} 
+\hyperlink{classhmm_ab954b8e3fc86a60201ec33f371a241aa}{ss\+Mat} \hyperlink{classhmm_a95b1182114d3334585108a6a7e75c99d}{m\+\_\+trans\+Mat\+Transpose}
 \begin{DoxyCompactList}\small\item\em transition matrix \end{DoxyCompactList}\item 
-double \hyperlink{classhmm_ad02a43632a0cc42b96730ddb0cf6d538}{m\+\_\+last\+Cond\+Like}\hypertarget{classhmm_ad02a43632a0cc42b96730ddb0cf6d538}{}\label{classhmm_ad02a43632a0cc42b96730ddb0cf6d538}
-
+\mbox{\Hypertarget{classhmm_a923bd361313fedb0a0a55bdb95cfbf07}\label{classhmm_a923bd361313fedb0a0a55bdb95cfbf07}} 
+float\+\_\+t \hyperlink{classhmm_a923bd361313fedb0a0a55bdb95cfbf07}{m\+\_\+last\+Cond\+Like}
 \begin{DoxyCompactList}\small\item\em last conditional likelihood \end{DoxyCompactList}\item 
-bool \hyperlink{classhmm_ad5e43bdfcbdf90cc610a1d9148755c46}{m\+\_\+fresh}\hypertarget{classhmm_ad5e43bdfcbdf90cc610a1d9148755c46}{}\label{classhmm_ad5e43bdfcbdf90cc610a1d9148755c46}
-
+\mbox{\Hypertarget{classhmm_a0a209809aeeef9d4b5679ca6bb51e588}\label{classhmm_a0a209809aeeef9d4b5679ca6bb51e588}} 
+bool \hyperlink{classhmm_a0a209809aeeef9d4b5679ca6bb51e588}{m\+\_\+fresh}
 \begin{DoxyCompactList}\small\item\em has data been observed? \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$\\*
-class hmm$<$ dimstate, dimobs $>$}
+\subsubsection*{template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t$>$\newline
+class hmm$<$ dimstate, dimobs, float\+\_\+t $>$}
 
 A class template for H\+MM filtering. 
 
@@ -81,25 +86,24 @@ taylor
 
 
 \subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classhmm_ad3dc1fd2d297d6da8c58b2d5075e561c}\label{classhmm_ad3dc1fd2d297d6da8c58b2d5075e561c}} 
 \index{hmm@{hmm}!hmm@{hmm}}
 \index{hmm@{hmm}!hmm@{hmm}}
-\subsubsection[{\texorpdfstring{hmm()}{hmm()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ {\bf hmm}$<$ dimstate, dimobs $>$\+::{\bf hmm} (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\hypertarget{classhmm_ae7ec1812c1ee0d8ed57eb6c3f62b92a1}{}\label{classhmm_ae7ec1812c1ee0d8ed57eb6c3f62b92a1}
+\subsubsection{\texorpdfstring{hmm()}{hmm()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t $>$ \\
+\hyperlink{classhmm}{hmm}$<$ dimstate, dimobs, float\+\_\+t $>$\+::\hyperlink{classhmm}{hmm} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 
 
 Default constructor. 
 
-Need ths fir constructing default std\+::array$<$$>$s. Fills all vectors and matrices with zeros. \index{hmm@{hmm}!hmm@{hmm}}
+Need ths fir constructing default std\+::array$<$$>$s. Fills all vectors and matrices with zeros. \mbox{\Hypertarget{classhmm_a51696b4e5a92c56c589b5e9522115994}\label{classhmm_a51696b4e5a92c56c589b5e9522115994}} 
 \index{hmm@{hmm}!hmm@{hmm}}
-\subsubsection[{\texorpdfstring{hmm(const ssv \&init\+State\+Distr, const ss\+Mat \&trans\+Mat)}{hmm(const ssv &initStateDistr, const ssMat &transMat)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ {\bf hmm}$<$ dimstate, dimobs $>$\+::{\bf hmm} (
-\begin{DoxyParamCaption}
-\item[{const {\bf ssv} \&}]{init\+State\+Distr, }
-\item[{const {\bf ss\+Mat} \&}]{trans\+Mat}
-\end{DoxyParamCaption}
-)}\hypertarget{classhmm_a3ad1950d8fcef28430da0bf435da0a77}{}\label{classhmm_a3ad1950d8fcef28430da0bf435da0a77}
+\index{hmm@{hmm}!hmm@{hmm}}
+\subsubsection{\texorpdfstring{hmm()}{hmm()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t $>$ \\
+\hyperlink{classhmm}{hmm}$<$ dimstate, dimobs, float\+\_\+t $>$\+::\hyperlink{classhmm}{hmm} (\begin{DoxyParamCaption}\item[{const \hyperlink{classcf__filter_ad4bce534d6b7a494dae851846037c94b}{ssv} \&}]{init\+State\+Distr,  }\item[{const \hyperlink{classhmm_ab954b8e3fc86a60201ec33f371a241aa}{ss\+Mat} \&}]{trans\+Mat }\end{DoxyParamCaption})}
+
 
 
 Constructor. 
@@ -114,13 +118,13 @@ allows specification of initstate distn and transition matrix.
 
 
 \subsection{Member Function Documentation}
+\mbox{\Hypertarget{classhmm_a670de13d08520008774ee31b3712b5b5}\label{classhmm_a670de13d08520008774ee31b3712b5b5}} 
 \index{hmm@{hmm}!get\+Filter\+Vec@{get\+Filter\+Vec}}
 \index{get\+Filter\+Vec@{get\+Filter\+Vec}!hmm@{hmm}}
-\subsubsection[{\texorpdfstring{get\+Filter\+Vec() const }{getFilterVec() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ auto {\bf hmm}$<$ dimstate, dimobs $>$\+::get\+Filter\+Vec (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const}\hypertarget{classhmm_a71547a134dce31e831004cace2ba4bd7}{}\label{classhmm_a71547a134dce31e831004cace2ba4bd7}
+\subsubsection{\texorpdfstring{get\+Filter\+Vec()}{getFilterVec()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t $>$ \\
+auto \hyperlink{classhmm}{hmm}$<$ dimstate, dimobs, float\+\_\+t $>$\+::get\+Filter\+Vec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 
 
 Get the current filter vector. 
@@ -128,13 +132,13 @@ Get the current filter vector.
 get the current filter vector. \begin{DoxyReturn}{Returns}
 a probability vector p(x\+\_\+t $\vert$ y\+\_\+\{1\+:t\}) 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classhmm_a588f2aed002614e75f523213eba1b290}\label{classhmm_a588f2aed002614e75f523213eba1b290}} 
 \index{hmm@{hmm}!get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}}
 \index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!hmm@{hmm}}
-\subsubsection[{\texorpdfstring{get\+Log\+Cond\+Like() const }{getLogCondLike() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ double {\bf hmm}$<$ dimstate, dimobs $>$\+::get\+Log\+Cond\+Like (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classhmm_ab961ea54f4573a1b1c257162fb264cf7}{}\label{classhmm_ab961ea54f4573a1b1c257162fb264cf7}
+\subsubsection{\texorpdfstring{get\+Log\+Cond\+Like()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t $>$ \\
+auto \hyperlink{classhmm}{hmm}$<$ dimstate, dimobs, float\+\_\+t $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
 
 
 Get the latest conditional likelihood. 
@@ -144,15 +148,15 @@ the latest conditional likelihood.
 \end{DoxyReturn}
 
 
-Implements \hyperlink{classcf__filter_a561b2979440ad273807f2ec16bc6f3ae}{cf\+\_\+filter$<$ dimstate, dimobs $>$}.
+Implements \hyperlink{classcf__filter_a11b26307172bf94b8075ed2cdb8fc09c}{cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}.
 
+\mbox{\Hypertarget{classhmm_a5a25f1d14b38f0fae35a9072cfa0a368}\label{classhmm_a5a25f1d14b38f0fae35a9072cfa0a368}} 
 \index{hmm@{hmm}!update@{update}}
 \index{update@{update}!hmm@{hmm}}
-\subsubsection[{\texorpdfstring{update(const ssv \&cond\+Dens\+Vec)}{update(const ssv &condDensVec)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\+\_\+t dimstate, size\+\_\+t dimobs$>$ void {\bf hmm}$<$ dimstate, dimobs $>$\+::update (
-\begin{DoxyParamCaption}
-\item[{const {\bf ssv} \&}]{cond\+Dens\+Vec}
-\end{DoxyParamCaption}
-)}\hypertarget{classhmm_ae294c9e939f3484f00c943f505095971}{}\label{classhmm_ae294c9e939f3484f00c943f505095971}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t $>$ \\
+void \hyperlink{classhmm}{hmm}$<$ dimstate, dimobs, float\+\_\+t $>$\+::update (\begin{DoxyParamCaption}\item[{const \hyperlink{classcf__filter_ad4bce534d6b7a494dae851846037c94b}{ssv} \&}]{cond\+Dens\+Vec }\end{DoxyParamCaption})}
+
 
 
 Perform a H\+MM filter update. 

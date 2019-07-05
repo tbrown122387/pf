@@ -5,19 +5,22 @@
 bootstrap particle filter  
 
 
-{\ttfamily \#include $<$array$>$}\\*
-{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
-Include dependency graph for bootstrap\+\_\+filter.\+h\+:\nopagebreak
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include \char`\"{}pf\+\_\+base.\+h\char`\"{}}\newline
+Include dependency graph for bootstrap\+\_\+filter.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=215pt]{bootstrap__filter_8h__incl}
+\includegraphics[width=349pt]{bootstrap__filter_8h__incl}
 \end{center}
 \end{figure}
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classBSFilter}{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+T $>$}
+class \hyperlink{classBSFilter}{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A base class for the boostrap particle filter. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -32,6 +35,6 @@ bootstrap particle filter
 \hline
 {\em dimy} & the dimension of the observations \\
 \hline
-{\em resampT} & the type of resampler \\
+{\em resamp\+\_\+t} & the type of resampler \\
 \hline
 \end{DoxyTemplParams}

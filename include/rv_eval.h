@@ -23,6 +23,9 @@ const double log_two_pi (1.83787706640935);
 /** log(2/pi) */
 const double log_two_over_pi (-0.451582705289455);
 
+/** log(pi) */
+const double log_pi (1.1447298858494);
+
 
 ////////////////////////////////////////////////
 /////////      Transformations         /////////
@@ -464,8 +467,11 @@ float_t evalBernoulli(const int& x, const float_t& p, bool log)
 
 
 /**
- * @brief Evaluates the multivariate Normal density
+ * @brief Evaluates the multivariate Normal density. 
+ * If covariance matrix isn't pd, then returns 0 
+ * (or negative infinity if log is true)
  * @tparam dim the size of the vectors 
+ * @tparam float_t the floating point type
  * @param x the point you're evaluating at.
  * @param meanVec the mean vector.
  * @param covMat the positive definite, symmetric covariance matrix.
@@ -479,31 +485,23 @@ float_t evalMultivNorm(const Eigen::Matrix<float_t,dim,1> &x,
                       bool log = false)
 {
     using Mat = Eigen::Matrix<float_t,dim,dim>;
-    
-    // from Eigen: Remember that Cholesky decompositions are not rank-revealing. 
-    /// This LLT decomposition is only stable on positive definite matrices, 
-    // use LDLT instead for the semidefinite case. Also, do not use a Cholesky 
-    // decomposition to determine whether a system of equations has a solution.
     Eigen::LLT<Mat> lltM(covMat);
-    float_t quadform = (lltM.matrixL().solve(x-meanVec)).squaredNorm();
-    if (log){
+    if(lltM.info() == Eigen::NumericalIssue) return log ? -1.0/0.0 : 0.0; // if not pd return 0 dens
+    Mat L = lltM.matrixL(); // the lower diagonal L such that M = LL^T
+    float_t quadform = (lltM.solve(x-meanVec)).squaredNorm();
+    float_t ld (0.0);  // calculate log-determinant using cholesky decomposition too
+    // add up log of diagnols of Cholesky L
+    for(size_t i = 0; i < dim; ++i){
+        ld += std::log(L(i,i));
+    }
+    ld *= 2; // covMat = LL^T
 
-        // calculate log-determinant using cholesky decomposition too
-        float_t ld (0.0);
-        Mat L = lltM.matrixL(); // the lower diagonal L such that M = LL^T
+    float_t logDens = -.5*log_two_pi * dim - .5*ld - .5*quadform;
 
-        // add up log of diagnols of Cholesky L
-        for(size_t i = 0; i < dim; ++i){
-            ld += std::log(L(i,i));
-        }
-        ld *= 2; // covMat = LL^T
-
-        return -.5*log_two_pi * dim - .5*ld - .5*quadform;
-
-
-    }else{  // not the log density
-        float_t normConst = std::pow(inv_sqrt_2pi, dim) / lltM.matrixL().determinant();
-        return normConst * std::exp(-.5* quadform);
+    if(log){
+        return logDens;
+    }else{
+        return std::exp(logDens);
     }
 }
 
@@ -555,6 +553,107 @@ float_t evalMultivNormWBDA(const Eigen::Matrix<float_t,bigd,1> &x,
         return normConst * std::exp(-.5* quadform);
     }
                               
+}
+
+
+/**
+ * @brief Evaluates the Wishart density
+ * returns 0 if either matrix is not sym pd (
+ * or - infinity if log is true)
+ * @tparam dim the number of rows of the square matrix
+ * @tparam float_t the type of floating point number
+ * @param X the matrix you're evaluating at.
+ * @param Vinv the INVERSE of the scale matrix.
+ * @param n the degrees of freedom.
+ * @param log true if you want to return the log density. False otherwise.
+ * @return a float_t evaluation.
+ */
+template<std::size_t dim, typename float_t>
+float_t evalWishart(const Eigen::Matrix<float_t,dim,dim> &X, 
+                    const Eigen::Matrix<float_t,dim,dim> &Vinv, 
+                    const unsigned int &n, 
+                    bool log = false)
+{
+    using Mat = Eigen::Matrix<float_t,dim,dim>;
+    Eigen::LLT<Mat> lltX(X);
+    Eigen::LLT<Mat> lltVinv(Vinv);
+    if((n < dim) | (lltX.info() == Eigen::NumericalIssue) | (lltVinv.info() == Eigen::NumericalIssue)) return log ? -1.0/0.0 : 0.0; 
+    // https://stackoverflow.com/questions/35227131/eigen-check-if-matrix-is-positive-semi-definite 
+
+    float_t ldx (0.0); // log determinant of X
+    float_t ldvinv (0.0);
+    Mat Lx = lltX.matrixL(); // the lower diagonal L such that X = LL^T
+    Mat Lvi = lltVinv.matrixL();
+    float_t logGammaNOver2 = .25*dim*(dim-1)*log_pi; // existence guaranteed when n > dim-1
+
+    // add up log of diagonals of each Cholesky L
+    for(size_t i = 0; i < dim; ++i){
+        ldx += std::log(Lx(i,i));
+        ldvinv += std::log(Lvi(i,i));
+        logGammaNOver2 += std::lgamma(.5*(n-i)); // recall j = i+1
+    }
+    ldx *= 2.0; // X = LL^T
+    ldvinv *= 2.0;
+
+    float_t logDens = .5*(n - dim -1)*ldx - .5*(Vinv*X).trace() - .5*n*dim*std::log(2.0) + .5*n*ldvinv - logGammaNOver2;
+
+    if(log){
+        return logDens;
+    }else{
+        return std::exp(logDens);
+    }
+}
+
+
+/**
+ * @brief Evaluates the Inverse Wishart density
+ * returns 0 if either matrix is not sym pd (
+ * or - infinity if log is true)
+ * @tparam dim the number of rows of the square matrix
+ * @tparam float_t the type of floating point number
+ * @param X the matrix you're evaluating at.
+ * @param Psi the scale matrix.
+ * @param nu the degrees of freedom.
+ * @param log true if you want to return the log density. False otherwise.
+ * @return a float_t evaluation.
+ */
+template<std::size_t dim, typename float_t>
+float_t evalInvWishart(const Eigen::Matrix<float_t,dim,dim> &X, 
+                       const Eigen::Matrix<float_t,dim,dim> &Psi, 
+                       const unsigned int &nu, 
+                       bool log = false)
+{
+    using Mat = Eigen::Matrix<float_t,dim,dim>;
+    Eigen::LLT<Mat> lltX(X);
+    Eigen::LLT<Mat> lltPsi(Psi);
+    if((nu < dim) | (lltX.info() == Eigen::NumericalIssue) | (lltPsi.info() == Eigen::NumericalIssue)) return log ? -1.0/0.0 : 0.0; 
+    // https://stackoverflow.com/questions/35227131/eigen-check-if-matrix-is-positive-semi-definite 
+
+    float_t ldx (0.0); // log determinant of X
+    float_t ldPsi (0.0);
+    Mat Lx = lltX.matrixL(); // the lower diagonal L such that X = LL^T
+    Mat Lpsi = lltPsi.matrixL();
+    float_t logGammaNuOver2 = .25*dim*(dim-1)*log_pi; // existence guaranteed when n > dim-1
+
+    // add up log of diagonals of each Cholesky L
+    for(size_t i = 0; i < dim; ++i){
+        ldx += std::log(Lx(i,i));
+        ldPsi += std::log(Lpsi(i,i));
+        logGammaNuOver2 += std::lgamma(.5*(nu-i)); // recall j = i+1
+    }
+    ldx *= 2.0; // X = LL^T
+    ldPsi *= 2.0;
+
+    // TODO: this will probably be faster if you find an analogue...
+    //float_t logDens = .5*nu*ldPsi - .5*(nu + dim + 1.0)*ldx - .5*(X.solve(Psi)).trace() - .5*nu*dim*std::log(2.0) - logGammaNuOver2;
+    float_t logDens = .5*nu*ldPsi - .5*(nu + dim + 1.0)*ldx - .5*(Psi*X.inverse() ).trace() - .5*nu*dim*std::log(2.0) - logGammaNuOver2;
+
+
+    if(log){
+        return logDens;
+    }else{
+        return std::exp(logDens);
+    }
 }
 
 
