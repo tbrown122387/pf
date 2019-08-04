@@ -4,8 +4,10 @@
 #include <Eigen/Dense> //linear algebra stuff
 #include <math.h>       /* log */
 
+#include "rv_eval.h"
 
-//! Abstract Base Class for Kalman filter and HMM filter.
+
+//! Abstract Base Class for all closed-form filters.
 /**
  * @class cf_filter
  * @author taylor
@@ -442,5 +444,164 @@ void hmm<dimstate,dimobs,float_t>::update(const ssv &condDensVec)
     }
 }
     
+
+
+
+
+
+
+
+//! A class template for Gamma filtering.
+/**
+ * @class gamFilter
+ * @author taylor
+ * @file cf_filters.h
+ * @brief Inherit from this for a model that admits Gamma filtering.
+ */
+template<size_t dim_pred, typename float_t>
+class gamFilter : public cf_filter<1,1,float_t>
+{
+
+public:
+
+    /** @brief "prediction size vector" */
+    using psv = Eigen::Matrix<float_t,dim_pred,1>;
+    
+    /** @brief "two by 1 vector" */
+    using tsv = Eigen::Matrix<float_t,2,1>;
+
+
+    //! Default constructor. 
+    /**
+     * @brief Need ths fir constructing default std::array<>s. Fills all vectors and matrices with zeros.
+     */
+    //gamFilter();
+
+
+    //! Constructor
+    /**
+     * @brief 
+     * @param nOneTilde degrees of freedom for time 1 prior.
+     * @param dOneTilde rate parameter for time 1 prior.
+    */
+    gamFilter(const float_t &nOneTilde, const float_t &dOneTilde);
+    
+    
+    /**
+     * @brief The (virtual) desuctor.
+     */
+    virtual ~gamFilter();
+    
+
+    //! Get the latest conditional likelihood.
+    /**
+     * @return the latest conditional likelihood.
+     */  
+    float_t getLogCondLike() const;
+    
+    
+    //! Get the current filter vector.
+    /**
+     * @brief get the current filtering distribution. First element is the shape, second is the rate.
+     * @returns a vector of the shape and rate parameters of f(p_t | y_{1:t})
+     */
+    tsv getFilterVec() const;
+    
+        
+    //! Perform a filtering update.
+    /**
+     * @brief Perform a Gamma filter update.
+     * @param yt the most recent dependent random variable
+     * @param xt the most recent predictor vector
+     * @param beta the beta vector
+     * @param sigmaSquared the observation variance scale parameter.
+     * @param delta between 0 and 1 the discount parameter
+     */
+    void update(const float_t& yt, const psv &xt, const psv& beta, const float_t& sigmaSquared, const float_t& delta);
+
+
+private:
+
+    /** @brief filter vector (shape and rate) */
+    tsv m_filtVec;
+    
+    /** @brief last log of the conditional likelihood */
+    float_t m_lastLogCondLike; 
+    
+    /** @brief has data been observed? */
+    bool m_fresh;
+
+};
+
+
+//template<typename dim_pred, typename float_t>
+//gamFilter<dim_pred,float_t>::gamFilter() 
+//    : cf_filter<1,1,float_t>::cf_filter()
+//    , m_filtVec(tsv::Zero())
+//    , m_lastCondLike(0.0)
+//    , m_fresh(false)
+//{
+//}
+    
+
+template<size_t dim_pred, typename float_t>
+gamFilter<dim_pred,float_t>::gamFilter(const float_t &nOneTilde, const float_t &dOneTilde)
+    : cf_filter<1,1,float_t>()
+    , m_lastLogCondLike(0.0)
+    , m_fresh(false)
+{
+    m_filtVec(0) = nOneTilde;
+    m_filtVec(1) = dOneTilde;
+}
+
+
+template<size_t dim_pred, typename float_t>
+gamFilter<dim_pred,float_t>::~gamFilter() {}
+
+
+template<size_t dim_pred, typename float_t>
+auto gamFilter<dim_pred,float_t>::getLogCondLike() const -> float_t
+{
+    return m_lastLogCondLike;
+}
+
+
+template<size_t dim_pred, typename float_t>
+auto gamFilter<dim_pred,float_t>::getFilterVec() const -> tsv
+{
+    return m_filtVec;
+}
+
+
+
+template<size_t dim_pred, typename float_t>
+void gamFilter<dim_pred,float_t>::update(const float_t& yt, const psv &xt, const psv& beta, const float_t& sigmaSquared, const float_t& delta)
+{
+
+    if(sigmaSquared <= 0 || delta <= 0)
+        throw std::invalid_argument("ME: both sigma squared and delta have to be positive.\n");
+
+    if (!m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
+    {
+        float_t tmpScale = std::sqrt(sigmaSquared*m_filtVec(1)/m_filtVec(0));
+        m_lastLogCondLike = rveval::evalScaledT<float_t>(yt, xt.dot(beta), tmpScale, m_filtVec(0), true);
+        m_filtVec(0) += 1;
+        m_filtVec(1) += (yt - xt.dot(beta))*(yt - xt.dot(beta))/sigmaSquared;
+        m_fresh = true;
+        
+    } else { // has seen data before
+        
+        m_filtVec(0) *= delta;
+        m_filtVec(1) *= delta;
+        float_t tmpScale = std::sqrt(sigmaSquared*m_filtVec(1)/m_filtVec(0));
+        m_lastLogCondLike = rveval::evalScaledT<float_t>(yt, xt.dot(beta), tmpScale, m_filtVec(0), true);
+        m_filtVec(0) += 1;
+        m_filtVec(1) += (yt - xt.dot(beta))*(yt - xt.dot(beta))/sigmaSquared;
+    }
+}
+ 
+
+
+
 
 #endif //CF_FILTERS_H

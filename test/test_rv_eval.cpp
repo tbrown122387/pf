@@ -16,7 +16,7 @@ public:
     using smallVec = Eigen::Matrix<double,smalldim,1>;
     using smallMat = Eigen::Matrix<double,smalldim,smalldim>;
 
-    // for multivariate Gaussian
+    // all arguments
     bigVec x;
     bigVec mu;
     bigMat covMat;
@@ -37,7 +37,8 @@ public:
     Eigen::Matrix<double,2,2> Omega;
     Eigen::Matrix<double,2,2> S;
     Eigen::Matrix<double,2,2> Sinv;
-    
+    double scaledTMu, scaledTdof, scaledTSigma;
+
 
     DensFixture() 
     {
@@ -89,6 +90,10 @@ public:
         S(0,0) = S(1,1) = 1.0;
         S(0,1) = S(1,0) = .1;
 
+        // scaled t
+        scaledTMu = 23.2;
+        scaledTdof = 3.6;
+        scaledTSigma = 1.7;
     }
     
 };
@@ -99,6 +104,20 @@ TEST_FIXTURE(DensFixture, univNormalTest)
     // via R dnorm(.5, 2, 1.5, T)
     CHECK_CLOSE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, true), -1.824404, PREC);
     CHECK_CLOSE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, false), 0.1613138, PREC);
+}
+
+
+TEST_FIXTURE(DensFixture, univScaledT)
+{
+    // via dt.scaled(1.23, 3.6, 23.2, 1.7, log =T)
+    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, scaledTdof, true), -10.39272, PREC);
+    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, scaledTdof, false), 3.065496e-05, PREC);
+
+    // test broken ones
+    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, -1.0*scaledTSigma, scaledTdof, true), -1.0/0.0, PREC);
+    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, -1.0*scaledTSigma, scaledTdof, false), 0.0, PREC);
+    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, -scaledTdof, true), -1.0/0.0, PREC);
+    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, -scaledTdof, false), 0.0, PREC);
 }
 
 

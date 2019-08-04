@@ -403,6 +403,27 @@ float_t evalUniform(const float_t &x, const float_t &lower, const float_t &upper
 }
 
 
+template<typename float_t>
+float_t evalScaledT(const float_t& x, const float_t& mu, const float_t& sigma, const float_t& dof, bool log)
+{
+
+    if( (sigma > 0.0) && (dof > 0.0) ){
+
+        float_t logDens = std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi - std::lgamma(.5*dof) - .5*(dof+1.0)*std::log( 1 + ((x - mu)/sigma)*((x-mu)/sigma)/dof );
+        if(log)
+            return logDens;
+        else
+            return std::exp(logDens);    
+    }else{
+        if(log)
+            return -1.0/0.0;
+        else
+            return 0.0;
+    }
+} 
+
+
+
 /**
  * @brief Evaluates discrete uniform pmf
  * @param x the hypothetical value of a rv 
