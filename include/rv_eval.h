@@ -520,6 +520,49 @@ float_t evalMultivNorm(const Eigen::Matrix<float_t,dim,1> &x,
 
 
 /**
+ * @brief Evaluates the multivariate T density. 
+ * If covariance matrix isn't pd, then returns 0 
+ * (or negative infinity if log is true)
+ * @tparam dim the size of the vectors 
+ * @tparam float_t the floating point type
+ * @param x the point you're evaluating at.
+ * @param locVec the location vector.
+ * @param shapeMat the positive definite, symmetric shape matrix.
+ * @param log true if you want to return the log density. False otherwise.
+ * @return a float_t evaluation.
+ */
+template<std::size_t dim, typename float_t>
+float_t evalMultivT(const Eigen::Matrix<float_t,dim,1> &x, 
+                    const Eigen::Matrix<float_t,dim,1> &locVec, 
+                    const Eigen::Matrix<float_t,dim,dim> &shapeMat,
+                    const float_t& dof, 
+                    bool log = false)
+{
+    if(dof <= 0.0) return log ? -1.0/0.0 : 0.0; // degrees of freedom must be positive 
+    using Mat = Eigen::Matrix<float_t,dim,dim>;
+    Eigen::LLT<Mat> lltM(shapeMat);
+    if(lltM.info() == Eigen::NumericalIssue) return log ? -1.0/0.0 : 0.0; // if not pd return 0 dens
+    Mat L = lltM.matrixL(); // the lower diagonal L such that M = LL^T
+    float_t quadform = (lltM.solve(x-locVec)).squaredNorm();
+    float_t ld (0.0);  // calculate log-determinant using cholesky decomposition too
+    // add up log of diagnols of Cholesky L
+    for(size_t i = 0; i < dim; ++i){
+        ld += std::log(L(i,i));
+    }
+    ld *= 2; // shapeMat = LL^T
+
+    float_t logDens = std::lgamma(.5*(dof+dim)) - .5*dim*std::log(dof) - .5*dim*log_pi 
+        - std::lgamma(.5*dof) -.5*ld - .5*(dof+dim)*std::log( 1.0 + quadform/dof );
+
+    if(log){
+        return logDens;
+    }else{
+        return std::exp(logDens);
+    }
+}
+
+
+/**
  * @brief Evaluates the multivariate Normal density using the Woodbury Matrix Identity to speed up inversion. 
  * Sigma = A + UCU'. This function assumes A is diagonal and C is symmetric.
  * @param x the point you're evaluating at.

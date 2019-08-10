@@ -392,7 +392,7 @@ hmm<dimstate,dimobs,float_t>::hmm()
     , m_filtVec(ssv::Zero())
     , m_transMatTranspose(ssMat::Zero())
     , m_lastCondLike(0.0)
-    , m_fresh(false)
+    , m_fresh(true)
 {
 }
     
@@ -403,7 +403,7 @@ hmm<dimstate,dimobs,float_t>::hmm(const ssv &initStateDistr, const ssMat &transM
     , m_filtVec(initStateDistr)
     , m_transMatTranspose(transMat.transpose())
     , m_lastCondLike(0.0)
-    , m_fresh(false)
+    , m_fresh(true)
 {
 }
 
@@ -429,12 +429,12 @@ auto hmm<dimstate,dimobs,float_t>::getFilterVec() const -> ssv
 template<size_t dimstate, size_t dimobs, typename float_t>
 void hmm<dimstate,dimobs,float_t>::update(const ssv &condDensVec)
 {
-    if (!m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
+    if (m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
     {
         m_filtVec = m_filtVec.cwiseProduct( condDensVec ); // now it's p(x_1, y_1)
         m_lastCondLike = m_filtVec.sum();
         m_filtVec /= m_lastCondLike;
-        m_fresh = true;
+        m_fresh = false;
         
     } else { // has seen data before
         m_filtVec = m_transMatTranspose * m_filtVec; // now p(x_t |y_{1:t-1})
@@ -464,7 +464,7 @@ class gamFilter : public cf_filter<1,1,float_t>
 
 public:
 
-    /** @brief "prediction size vector" */
+    /** @brief "predictor size vector" */
     using psv = Eigen::Matrix<float_t,dim_pred,1>;
     
     /** @brief "two by 1 vector" */
@@ -539,7 +539,7 @@ private:
 //    : cf_filter<1,1,float_t>::cf_filter()
 //    , m_filtVec(tsv::Zero())
 //    , m_lastCondLike(0.0)
-//    , m_fresh(false)
+//    , m_fresh(true)
 //{
 //}
     
@@ -548,7 +548,7 @@ template<size_t dim_pred, typename float_t>
 gamFilter<dim_pred,float_t>::gamFilter(const float_t &nOneTilde, const float_t &dOneTilde)
     : cf_filter<1,1,float_t>()
     , m_lastLogCondLike(0.0)
-    , m_fresh(false)
+    , m_fresh(true)
 {
     m_filtVec(0) = nOneTilde;
     m_filtVec(1) = dOneTilde;
@@ -581,13 +581,13 @@ void gamFilter<dim_pred,float_t>::update(const float_t& yt, const psv &xt, const
     if(sigmaSquared <= 0 || delta <= 0)
         throw std::invalid_argument("ME: both sigma squared and delta have to be positive.\n");
 
-    if (!m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
+    if (m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
     {
         float_t tmpScale = std::sqrt(sigmaSquared*m_filtVec(1)/m_filtVec(0));
         m_lastLogCondLike = rveval::evalScaledT<float_t>(yt, xt.dot(beta), tmpScale, m_filtVec(0), true);
         m_filtVec(0) += 1;
         m_filtVec(1) += (yt - xt.dot(beta))*(yt - xt.dot(beta))/sigmaSquared;
-        m_fresh = true;
+        m_fresh = false;
         
     } else { // has seen data before
         
@@ -601,7 +601,153 @@ void gamFilter<dim_pred,float_t>::update(const float_t& yt, const psv &xt, const
 }
  
 
+//! Another class template for Gamma filtering, but this time
+// it's for a multivariate response.
+/**
+ * @class multivGamFilter
+ * @author taylor
+ * @file cf_filters.h
+ * @brief Inherit from this for a model that admits Gamma filtering.
+ */
+template<size_t dim_obs, size_t dim_pred, typename float_t>
+class multivGamFilter : public cf_filter<1,dim_obs,float_t>
+{
 
+public:
+
+    /** @brief "predictor size vector" */
+    using psv = Eigen::Matrix<float_t,dim_pred,1>;
+    
+    /** @brief "beta size matrix" */
+    using bsm = Eigen::Matrix<float_t,dim_obs, dim_pred>;
+
+    /** @brief "two by 1 vector" to store size and shapes of gamma distributions */
+    using tsv = Eigen::Matrix<float_t,2,1>;
+
+    /** @brief "observation size vector"  */
+    using osv = Eigen::Matrix<float_t, dim_obs, 1>;
+
+    /** @brief "observation size matrix" */
+    using osm = Eigen::Matrix<float_t, dim_obs, dim_obs>;
+
+
+    //! Constructor
+    /**
+     * @brief 
+     * @param nOneTilde degrees of freedom for time 1 prior.
+     * @param dOneTilde rate parameter for time 1 prior.
+    */
+    multivGamFilter(const float_t &nOneTilde, const float_t &dOneTilde);
+    
+    
+    /**
+     * @brief The (virtual) desuctor.
+     */
+    virtual ~multivGamFilter();
+    
+
+    //! Get the latest conditional likelihood.
+    /**
+     * @return the latest conditional likelihood.
+     */  
+    float_t getLogCondLike() const;
+    
+    
+    //! Get the current filter vector.
+    /**
+     * @brief get the current filtering distribution. First element is the shape, second is the rate.
+     * @returns a vector of the shape and rate parameters of f(p_t | y_{1:t})
+     */
+    tsv getFilterVec() const;
+    
+        
+    //! Perform a filtering update.
+    /**
+     * @brief Perform a Gamma filter update.
+     * @param yt the most recent dependent random variable
+     * @param xt the most recent predictor vector
+     * @param B the beta vector
+     * @param sigmaSquared the observation variance scale parameter.
+     * @param delta between 0 and 1 the discount parameter
+     */
+    void update(const osv& yt, const psv &xt, const bsm& B, const osm& Sigma, const float_t& delta);
+
+
+private:
+
+    /** @brief filter vector (shape and rate) */
+    tsv m_filtVec;
+    
+    /** @brief last log of the conditional likelihood */
+    float_t m_lastLogCondLike; 
+    
+    /** @brief has data been observed? */
+    bool m_fresh;
+
+};
+
+
+template<size_t dim_obs, size_t dim_pred, typename float_t
+multivGamFilter<dim_obs,dim_pred,float_t>::multivGamFilter(const float_t &nOneTilde, const float_t &dOneTilde)
+    : cf_filter<1,dim_obs,float_t>()
+    , m_lastLogCondLike(0.0)
+    , m_fresh(true)
+{
+    m_filtVec(0) = nOneTilde;
+    m_filtVec(1) = dOneTilde;
+}
+
+
+template<size_t dim_obs, size_t dim_pred, typename float_t>
+multivGamFilter<dim_obs,dim_pred,float_t>::~multivGamFilter() {}
+
+
+template<size_t dim_obs, size_t dim_pred, typename float_t>
+auto multivGamFilter<dim_obs,dim_pred,float_t>::getLogCondLike() const -> float_t
+{
+    return m_lastLogCondLike;
+}
+
+
+template<size_t dim_obs, size_t dim_pred, typename float_t>
+auto multivGamFilter<dim_obs,dim_pred,float_t>::getFilterVec() const -> tsv
+{
+    return m_filtVec;
+}
+
+
+
+template<size_t dim_obs, size_t dim_pred, typename float_t>
+void multivGamFilter<dim_obs,dim_pred,float_t>::update(const osv& yt, const psv &xt, const bsm& B, const osm& Sigma, const float_t& delta)
+{
+
+    // TODO: doesn't check that Sigma is positive definite or symmetric!
+    if(delta <= 0)
+        throw std::invalid_argument("ME: delta has to be positive (you're not even checking Sigma).\n");
+
+    if (m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
+    {
+        osm scaleMat = Sigma * m_filtVec(1)/m_filtVec(0);
+        osv modeVec = B*xt;
+        m_lastLogCondLike = rveval::evalMultivT<dim_obs,float_t>(yt, modeVec, scaleMat, m_filtVec(0), true);
+        m_filtVec(0) += 1; 
+        m_filtVec(1) += (Sigma.ldlt().solve(yt - modeVec)).squaredNorm();
+        m_fresh = false;
+        
+    } else { // has seen data before
+        
+        m_filtVec(0) *= delta;
+        m_filtVec(1) *= delta;
+        
+        osm scaleMat = Sigma * m_filtVec(1)/m_filtVec(0);
+        osv modeVec = B*xt;
+        m_lastLogCondLike = rveval::evalMultivT<dim_obs,float_t>(yt, modeVec, scaleMat, m_filtVec(0), true);
+        
+        m_filtVec(0) += 1;
+        m_filtVec(1) += (Sigma.ldlt().solve(yt - modeVec)).squaredNorm();
+    }
+}
+ 
 
 
 #endif //CF_FILTERS_H

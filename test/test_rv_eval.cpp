@@ -169,6 +169,28 @@ TEST_FIXTURE(DensFixture, multivariateGaussianTest)
 }
 
 
+TEST_FIXTURE(DensFixture, multivariateTTest)
+{
+    // via R dmvt(c(.02, -.01), c(0,0), sigma=matrix(c(3,1,1,3),nrow=2), 10)
+    // reusing some of the multivariate normal variables, but the names are
+    // a bit off..so I apologize
+    double num = rveval::evalMultivT<bigdim,double>(x, mu, covMat, 3, true);    
+    CHECK_CLOSE(num,
+                -2.877796,
+                PREC);
+
+    double num2 = rveval::evalMultivT<bigdim,double>(x, mu, covMat, 3, false);
+    CHECK_CLOSE(num2, 
+                0.05625863,
+                PREC);
+
+    double badNormLogDens = rveval::evalMultivT<bigdim,double>(x,mu,badCovMat,3,true);
+    double badNormDens = rveval::evalMultivT<bigdim,double>(x,mu,badCovMat,3,false);
+    CHECK_CLOSE(-1.0/0.0, badNormLogDens, PREC);
+    CHECK_CLOSE(0.0, badNormDens, PREC);
+}
+
+
 TEST_FIXTURE(DensFixture, multivNormWoodburyTest)
 {
     double normeval = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, true);
