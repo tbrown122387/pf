@@ -687,7 +687,7 @@ private:
 };
 
 
-template<size_t dim_obs, size_t dim_pred, typename float_t
+template<size_t dim_obs, size_t dim_pred, typename float_t>
 multivGamFilter<dim_obs,dim_pred,float_t>::multivGamFilter(const float_t &nOneTilde, const float_t &dOneTilde)
     : cf_filter<1,dim_obs,float_t>()
     , m_lastLogCondLike(0.0)
