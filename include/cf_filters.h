@@ -666,11 +666,35 @@ public:
      * @brief Perform a Gamma filter update.
      * @param yt the most recent dependent random variable
      * @param xt the most recent predictor vector
-     * @param B the beta vector
-     * @param sigmaSquared the observation variance scale parameter.
+     * @param B the loadings matrix
+     * @param Sigma the observation "shape" matrix.
      * @param delta between 0 and 1 the discount parameter
      */
     void update(const osv& yt, const psv &xt, const bsm& B, const osm& Sigma, const float_t& delta);
+
+
+    //! Get the forecast mean (assuming filtering has been performed already)
+    /**
+     * @brief gets the forecast mean!
+     * @param xtp1 the next time period's predictor vector
+     * @param B the loadings matrix
+     * @param Sigma the observation "shape" matrix 
+     * @param delta between 0 and 1 the discount parameter
+     * @return a mean vector
+     */
+    osv getFcastMean(const psv &xtp1, const bsm& B, const osm& Sigma, const float_t& delta);
+
+
+    //! Get the forecast covariance matrix (assuming filtering has been performed already)
+    /**
+     * @brief gets the forecast covariance matrix!
+     * @param xtp1 the next time period's predictor vector
+     * @param B the loadings matrix
+     * @param Sigma the observation "shape" matrix 
+     * @param delta between 0 and 1 the discount parameter
+     * @return a forecast covariance matrix
+     */
+    osm getFcastCov(const psv &xtp1, const bsm& B, const osm& Sigma, const float_t& delta);
 
 
 private:
@@ -748,6 +772,23 @@ void multivGamFilter<dim_obs,dim_pred,float_t>::update(const osv& yt, const psv 
     }
 }
  
+
+template<size_t dim_obs, size_t dim_pred, typename float_t>
+auto multivGamFilter<dim_obs,dim_pred,float_t>::getFcastMean(const psv &xtp1, const bsm& B, const osm& Sigma, const float_t& delta) -> osv
+{
+    if(delta*m_filtVec(0) > 1.0)
+        return B*xtp1;
+}
+
+
+template<size_t dim_obs, size_t dim_pred, typename float_t>
+auto multivGamFilter<dim_obs,dim_pred,float_t>::getFcastCov(const psv &xtp1, const bsm& B, const osm& Sigma, const float_t& delta) -> osm
+{
+    if(delta * m_filtVec(0) > 2.0)
+        return Sigma * delta * m_filtVec(1) / (delta * m_filtVec(0) - 2.0);
+}
+
+
 
 
 #endif //CF_FILTERS_H
