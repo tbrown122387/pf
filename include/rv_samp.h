@@ -195,10 +195,10 @@ private:
 
 
 template<typename float_t>
-TruncUnivNormSampler::TruncUnivNormSampler(const float_t &mu, 
-                                           const float_t &sigma, 
-                                           const float_t &lower, 
-                                           const float_t& upper)
+TruncUnivNormSampler<float_t>::TruncUnivNormSampler(const float_t &mu, 
+                                                    const float_t &sigma, 
+                                                    const float_t &lower, 
+                                                    const float_t& upper)
     : rvsamp_base()
     , m_z_gen(0.0, 1.0)
     , m_mu(mu)
@@ -210,7 +210,7 @@ TruncUnivNormSampler::TruncUnivNormSampler(const float_t &mu,
 
 
 template<typename float_t>
-float_t TruncUnivNormSampler::sample()
+float_t TruncUnivNormSampler<float_t>::sample()
 {
     float_t proposal;
     bool accepted = false;
