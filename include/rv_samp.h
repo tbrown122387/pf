@@ -140,7 +140,87 @@ float_t UnivNormSampler<float_t>::sample()
 }
 
 
+//! A class that performs sampling from a truncated univariate Normal distribution.
+/**
+* @class TruncUnivNormSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from a truncated univariate Normal distribution using the 
+* acceptance rejection method. The proposal distribution used is a normal 
+* distribution with the same location and scale parameters as the target.
+* As a result, this method will take a long time when the width of the 
+* support of the target is narrow.
+*/
+template<typename float_t>
+class TruncUnivNormSampler : public rvsamp_base
+{
+    
+public:
 
+
+     /**
+      * @brief The user must supply both mean and std. dev.
+      * @param mu a float_t for the location parameter.
+      * @param sigma a float_t (> 0) representing the scale of the samples.
+      * @param lower the lower bound of the support
+      * @param upper the upper bound of the support
+      */
+    TruncUnivNormSampler(const float_t &mu, const float_t &sigma, const float_t &lower, const float_t& upper);
+
+        
+     /**
+      * @brief Draws a random number.
+      * @return a random sample of type float_t.
+      */
+    float_t sample();    
+    
+
+private:
+ 
+    /** @brief makes normal random variates */
+    std::normal_distribution<float_t> m_z_gen;
+ 
+    /** @brief the mean */
+    float_t m_mu;
+    
+    /** @brief the standard deviation */
+    float_t m_sigma;
+
+    /** @brief the lower bound */
+    float_t m_lower;
+
+    /** @brief the upper bound */
+    float_t m_upper;
+};
+
+
+template<typename float_t>
+TruncUnivNormSampler::TruncUnivNormSampler(const float_t &mu, 
+                                           const float_t &sigma, 
+                                           const float_t &lower, 
+                                           const float_t& upper)
+    : rvsamp_base()
+    , m_z_gen(0.0, 1.0)
+{
+
+}
+
+
+template<typename float_t>
+TruncUnivNormSampler::sample()
+{
+    float_t proposal;
+    bool accepted = false;
+    while(!accepted)
+    {
+        proposal = m_mu + m_sigma*m_z_gen(this->m_rng);
+        if((m_lower <= proposal) & (proposal <= m_upper))
+            accepted = true;
+    }
+    return proposal;
+}
+
+    
 //! A class that performs sampling from a univariate Bernoulli distribution.
 /**
 * @class BernSampler
