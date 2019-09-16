@@ -17,6 +17,7 @@
  * @tparam nparts the number of particles
  * @tparam dimx the dimension of the state
  * @tparam dimy the dimension of the observations
+ * @tparam dimcov the dimension of the covariates
  * @tparam resamp_t the type of resampler
  */
 template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
@@ -36,7 +37,8 @@ public:
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of float_ts */
     using arrayfloat_t = std::array<float_t, nparts>;
-
+    /** type alias for function */
+    using Funcs = std::vector<std::function<const Mat(const ssv&)>>;
 
     /**
      * @brief The constructor
@@ -65,7 +67,7 @@ public:
      * @param covData covariate data
      * @param fs a vector of functions if you want to calculate expectations.
      */
-    void filter(const osv &ydata, const cvsv &covdata, const std::vector<std::function<const Mat(const ssv&)> >& fs = std::vector<std::function<const Mat(const ssv&)> >()); 
+    void filter(const osv &ydata, const cvsv &covdata, const Funcs& fs = Funcs()); 
 
 
     /**
@@ -167,12 +169,9 @@ BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::~BSFilterWC() {}
 
 
 template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv &dat, const cvsv &covData, const std::vector<std::function<const Mat(const ssv&)> >& fs) 
+void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv &dat, const cvsv &covData, const Funcs& fs) 
 {
 
-    /**
-     * @todo: work in support for effective sample size stuff. 
-     */
     if (m_now == 0) //time 1
     {  
         // only need to iterate over particles once
@@ -191,7 +190,7 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
         for(size_t i = 0; i < nparts; ++i){
             sumExp += std::exp(m_logUnNormWeights[i] - max);
         }
-        m_logLastCondLike = -std::log(nparts) + (max) + std::log(sumExp);
+        m_logLastCondLike = -std::log(nparts) + max + std::log(sumExp);
    
         // calculate expectations before you resample
         // paying mind to underflow
@@ -252,7 +251,6 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
         m_logLastCondLike = maxNumer + std::log(sumExp1) - maxOldLogUnNormWts - std::log(sumExp2);
 
         // calculate expectations before you resample
-//        m_expectations.resize(fs.size());
         int fId(0);
         for(auto & h : fs){ // iterate over all functions
         
