@@ -38,7 +38,7 @@ public:
     /** type alias for array of float_ts */
     using arrayfloat_t = std::array<float_t, nparts>;
     /** type alias for function */
-    using Funcs = std::vector<std::function<const Mat(const ssv&)>>;
+    using Funcs = std::vector<std::function<const Mat(const ssv&, const cvsv&)>>;
 
     /**
      * @brief The constructor
@@ -278,14 +278,14 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
 
 
 template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-float_t BSFilterWC<nparts, dimx, dimy, resamp_t, float_t>::getLogCondLike() const
+float_t BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
 
 
 template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-auto BSFilterWC<nparts, dimx, dimy, resamp_t, float_t>::getExpectations() const -> std::vector<Mat>
+auto BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
