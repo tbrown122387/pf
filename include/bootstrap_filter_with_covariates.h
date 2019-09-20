@@ -198,13 +198,13 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
         unsigned int fId(0);
         for(auto & h : fs){
 
-            Mat testOutput = h(m_particles[0]);
+            Mat testOutput = h(m_particles[0], covData);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl]) * std::exp( m_logUnNormWeights[prtcl] - (max) );
+                numer += h(m_particles[prtcl],covData) * std::exp( m_logUnNormWeights[prtcl] - (max) );
                 weightNormConst += std::exp( m_logUnNormWeights[prtcl] - (max) );
             }
             m_expectations[fId] = numer/weightNormConst;
@@ -254,13 +254,13 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
         int fId(0);
         for(auto & h : fs){ // iterate over all functions
         
-            Mat testOutput = h(m_particles[0]);
+            Mat testOutput = h(m_particles[0],covData);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);
+                numer += h(m_particles[prtcl],covData) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);
                 weightNormConst += std::exp(m_logUnNormWeights[prtcl] - maxNumer);
             }
             m_expectations[fId] = numer/weightNormConst;
