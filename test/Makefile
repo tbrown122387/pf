@@ -3,7 +3,7 @@ BIN := run_tests
 
 # source files
 SRCS := \
-    run_tests.cpp test_resamplers.cpp test_rv_eval.cpp test_rv_samp.cpp test_utils.cpp
+    run_tests.cpp test_resamplers.cpp test_rv_eval.cpp test_rv_samp.cpp 
 
 # intermediate directory for generated object files
 OBJDIR := .o
@@ -31,7 +31,7 @@ LDFLAGS := -no-pie "-L../bin" "-L/usr/local/lib"
 # flags required for dependency generation; passed to compilers
 DEPFLAGS = -MT $@ -MD -MP -MF $(DEPDIR)/$*.Td
 # libraries
-LDLIBS := -lpf -lUnitTest++
+LDLIBS := -lUnitTest++
 
 # compile C++ source files
 COMPILE.cc = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -c -o $@

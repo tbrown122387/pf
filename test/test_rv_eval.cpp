@@ -2,7 +2,7 @@
 #include <UnitTest++/UnitTest++.h>
 #include "rv_eval.h"
 
-#define PREC .0001 // define the precision for floating point tests
+#define PREC .001 // define the precision for floating point tests
 
 #define bigdim 2
 #define smalldim 1

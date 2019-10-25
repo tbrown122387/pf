@@ -4,9 +4,11 @@
 #include <chrono>
 #include <array>
 #include <random>
+#include <numeric> // accumulate
+#include <cmath> //floor
 #include <Eigen/Dense>
 
-    
+   
 //! Base class for all resampler types.
 /**
  * @class rbase
@@ -33,7 +35,7 @@ public:
 
 
     /**
-     * @brief The default constructor. This is the only option available. Sets the seed with the clock. 
+     * @brief The default constructor gets called by default, and it sets the seed with the clock. 
      */
     rbase();
     
@@ -44,7 +46,7 @@ public:
      */
     virtual void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts) = 0;
 
-private:
+protected:
 
     /** @brief prng */
     std::mt19937 m_gen;
@@ -61,23 +63,23 @@ rbase<nparts, dimx, float_t>::rbase()
 }
 
 
-//! Performs multinomial resampling.
 /**
  * @class mn_resampler
  * @author taylor
  * @date 15/04/18
  * @file resamplers.h
- * @brief Class that performs multinomial resampling.
+ * @brief Class that performs multinomial resampling for "standard" models.
  * @tparam nparts the number of particles.
  * @tparam dimx the dimension of each state sample.
  */
 template<size_t nparts, size_t dimx, typename float_t>
-class mn_resampler : public rbase<nparts, dimx, float_t>
+class mn_resampler : private rbase<nparts, dimx, float_t>
 {
 public:
+
     /** type alias for linear algebra stuff */
     using ssv = Eigen::Matrix<float_t,dimx,1>;
-    /** type alias for linear algebra stuff */
+    /** type alias for array of Eigen Matrices */
     using arrayVec = std::array<ssv, nparts>;
     /** type alias for array of float_ts */
     using arrayFloat = std::array<float_t,nparts>;
@@ -87,7 +89,7 @@ public:
     /**
      * @brief Default constructor. Only option available.
      */
-    mn_resampler();
+    mn_resampler() = default;
     
     
     /**
@@ -97,21 +99,7 @@ public:
      */
     void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
-private:
-
-    /** @brief prng */
-    std::mt19937 m_gen;
-
 };
-
-
-
-
-template<size_t nparts, size_t dimx, typename float_t>
-mn_resampler<nparts, dimx, float_t>::mn_resampler() 
-	: rbase<nparts, dimx, float_t>()
-{
-}
 
 
 template<size_t nparts, size_t dimx, typename float_t>
@@ -136,7 +124,7 @@ void mn_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, array
     unsigned int whichPart;
     for(size_t part = 0; part < nparts; ++part)
     {
-        whichPart = idxSampler(m_gen);
+        whichPart = idxSampler(this->m_gen);
         tmpPartics[part] = oldParts[whichPart];
     }
         
@@ -147,7 +135,6 @@ void mn_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, array
 
 
 
-//! Performs multinomial resampling for a Rao-Blackwellized pf.
 /**
  * @class mn_resampler_rbpf
  * @author taylor
@@ -155,11 +142,14 @@ void mn_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, array
  * @brief Class that performs multinomial resampling for RBPFs.
  * @tparam nparts the number of particles.
  * @tparam dimsampledx the dimension of each state sample.
+ * @tparam cfModT the type of closed form model
+ * @tparam float_t the type of floating point number
  */
 template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t>
 class mn_resampler_rbpf
 {
 public:
+
     /** type alias for linear algebra stuff */
     using ssv = Eigen::Matrix<float_t,dimsampledx,1>;
     /** type alias for linear algebra stuff */
@@ -228,6 +218,95 @@ void mn_resampler_rbpf<nparts, dimsampledx, cfModT,float_t>::resampLogWts(arrayM
     oldSamps = std::move(tmpSamps);
     std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0);
 
+}
+
+
+/**
+ * @class resid_resampler
+ * @author taylor
+ * @date 10/25/19
+ * @file resamplers.h
+ * @brief Class that performs residual resampling.
+ * @tparam nparts the number of particles.
+ * @tparam dimx the dimension of each state sample.
+ * @tparam float_t the floating point for samples
+ */
+template<size_t nparts, size_t dimx, typename float_t>
+class resid_resampler : private rbase<nparts, dimx, float_t>
+{
+public:
+
+    /** type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
+    /** type alias for array of Eigen Matrices */
+    using arrayVec = std::array<ssv, nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
+    /** type alias for array of integers */
+    using arrayInt = std::array<unsigned int, nparts>;
+
+
+    /**
+     * @brief Default constructor. Only option available.
+     */
+    resid_resampler() = default;
+    
+    
+    /**
+     * @brief resamples particles.
+     * @param oldParts the old particles
+     * @param oldLogUnNormWts the old log unnormalized weights
+     */
+    void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
+    
+};
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+void resid_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts)
+{
+
+    // calculate normalized weights
+    arrayFloat w; 
+    float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), w.begin(), 
+                    [&m](const float_t& d) -> float_t { return std::exp( d - m ); } );
+    float_t norm_const (0.0);
+    norm_const = std::accumulate(w.begin(), w.end(), norm_const);
+    for( auto& weight : w)
+        weight = weight/norm_const;
+
+    // calc
+    arrayFloat unNormWBar;
+    for(size_t i = 0; i < nparts; ++i)
+        unNormWBar[i] = w[i]*nparts - std::floor(w[i]*nparts);
+
+    // make multinomial distribution for residuals
+    std::discrete_distribution<> idxSampler(unNormWBar.begin(), unNormWBar.end());
+
+    // start resampling new particles/samples
+    std::array<unsigned int, nparts> sampleCounts;
+    for(size_t i = 0; i < nparts; ++i) {
+        sampleCounts[i] = std::floor(nparts*w[i]); // initial
+    }
+    for( size_t i = 0; i < nparts; ++i) {
+        sampleCounts[idxSampler(this->m_gen)]++;
+    }
+    arrayFloat tmpPartics;
+    unsigned int c(0);
+    for( size_t i = 0; i < nparts; ++i) { // over count container
+        unsigned int num_replicants = sampleCounts[i];
+        if( num_replicants > 0) {
+            for(size_t j = 0; j < num_replicants; ++j) { // assign the same thing several times
+                tmpPartics[c] = oldParts[i];
+                c++;
+            }
+        }
+    }
+
+    //overwrite olds with news
+    oldParts = std::move(tmpPartics);
+    std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0); // change back    
 }
 
 
