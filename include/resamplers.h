@@ -4,7 +4,7 @@
 #include <chrono>
 #include <array>
 #include <random>
-#include <numeric> // accumulate
+#include <numeric> // accumulate, partial_sum
 #include <cmath> //floor
 #include <Eigen/Dense>
 
@@ -226,7 +226,7 @@ void mn_resampler_rbpf<nparts, dimsampledx, cfModT,float_t>::resampLogWts(arrayM
  * @author taylor
  * @date 10/25/19
  * @file resamplers.h
- * @brief Class that performs residual resampling.
+ * @brief Class that performs residual resampling on "standard" models.
  * @tparam nparts the number of particles.
  * @tparam dimx the dimension of each state sample.
  * @tparam float_t the floating point for samples
@@ -309,5 +309,95 @@ void resid_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, ar
     std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0); // change back    
 }
 
+
+/**
+ * @class stratif_resampler
+ * @author taylor
+ * @date 10/25/19
+ * @file resamplers.h
+ * @brief Class that performs stratified resampling on "standard" models.
+ * @tparam nparts the number of particles.
+ * @tparam dimx the dimension of each state sample.
+ * @tparam float_t the floating point for samples
+ */
+template<size_t nparts, size_t dimx, typename float_t>
+class stratif_resampler : private rbase<nparts, dimx, float_t>
+{
+public:
+
+    /** type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
+    /** type alias for array of Eigen Matrices */
+    using arrayVec = std::array<ssv, nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
+    /** type alias for array of integers */
+    using arrayInt = std::array<unsigned int, nparts>;
+
+
+    /**
+     * @brief Default constructor. Only option available.
+     */
+    stratif_resampler() = default;
+    
+    
+    /**
+     * @brief resamples particles.
+     * @param oldParts the old particles
+     * @param oldLogUnNormWts the old log unnormalized weights
+     */
+    void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
+    
+};
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+void stratif_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts)
+{
+
+    // calculate normalized weights
+    arrayFloat w; 
+    float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), w.begin(), 
+                    [&m](const float_t& d) -> float_t { return std::exp( d - m ); } );
+    float_t norm_const (0.0);
+    norm_const = std::accumulate(w.begin(), w.end(), norm_const);
+    for( auto& weight : w)
+        weight = weight/norm_const;
+
+    // calculate the cumulative sums of the weights
+    arrayFloat cumsums;
+    std::partial_sum(w.begin(), w.end(), cumsums.begin());
+
+    // samplethe Uis
+    std::uniform_real_distribution<float_t> u_sampler(0.0, 1.0/nparts);
+    arrayFloat u_samples;
+    for(size_t i = 0; i < nparts; ++i) {
+        u_samples[i] = i/nparts + u_sampler(this->m_gen);
+    }
+
+    // resample
+    arrayFloat tmpPartics;
+    for(size_t i = 0; i < nparts; ++i){ // tmpPartics, Uis
+
+        // find which index
+        unsigned int idx;
+        for(unsigned int j = 0; j < nparts; ++j){
+            
+            // get the first time it gets covered by a cumsum
+            if(cumsums[j] >= u_samples[i]){ 
+                idx = j;
+                break;
+            }   
+        }
+
+        // assign
+        tmpPartics[i] = oldParts[idx];
+    }
+
+    //overwrite olds with news
+    oldParts = std::move(tmpPartics);
+    std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0); // change back    
+}
 
 #endif // RESAMPLERS_H
