@@ -26,10 +26,19 @@ public:
     // make the resampling object(s)
     mn_resampler<NUMPARTICLES, DIMSTATE,double> m_mr;
     mn_resampler_rbpf<NUMPARTICLES,DIMSTATE,hmm<DIMINNERMOD,DIMOBS,double>,double> m_mr_rbpf_hmm;
-    
+    resid_resampler<NUMPARTICLES,DIMSTATE,double> m_residr;
+    stratif_resampler<NUMPARTICLES,DIMSTATE,double> m_stratifr;
+    systematic_resampler<NUMPARTICLES,DIMSTATE,double> m_systematicr;
+
     // for Test_resampLogWts
     arrayVec    m_vparts;
     arrayDouble m_vw;
+    arrayVec    m_vparts2;
+    arrayDouble m_vw2;
+    arrayVec    m_vparts3;
+    arrayDouble m_vw3;
+    arrayVec    m_vparts4;
+    arrayDouble m_vw4;
     
     // for Test_resampLogWts_RBPF
     innerVec m_initProbDistn1;
@@ -112,6 +121,7 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts)
     }
 }
 
+
 TEST_FIXTURE(MRFixture, Test_resampLogWts_RBPF)
 {
     
@@ -153,3 +163,47 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_RBPF)
      * @TODO complete Kalman testing as well
      */
 }
+
+
+TEST_FIXTURE(MRFixture, Test_resampLogWts_resid)
+{
+    
+    m_residr.resampLogWts(m_vparts2, m_vw2);
+    for(unsigned int p = 0; p < NUMPARTICLES; ++p){
+        
+        CHECK_EQUAL(m_vw2[p], 0.0);
+        for(unsigned int i = 0; i < DIMSTATE; ++i){
+            CHECK_EQUAL(m_vparts2[p](i), 0.0);
+        }
+    }
+}
+
+
+TEST_FIXTURE(MRFixture, Test_resampLogWts_stratif)
+{
+    
+    m_stratifr.resampLogWts(m_vparts3, m_vw3);
+    for(unsigned int p = 0; p < NUMPARTICLES; ++p){
+        
+        CHECK_EQUAL(m_vw3[p], 0.0);
+        for(unsigned int i = 0; i < DIMSTATE; ++i){
+            CHECK_EQUAL(m_vparts3[p](i), 0.0);
+        }
+    }
+}
+
+
+TEST_FIXTURE(MRFixture, Test_resampLogWts_systematic)
+{
+    
+    m_systematicr.resampLogWts(m_vparts4, m_vw4);
+    for(unsigned int p = 0; p < NUMPARTICLES; ++p){
+        
+        CHECK_EQUAL(m_vw4[p], 0.0);
+        for(unsigned int i = 0; i < DIMSTATE; ++i){
+            CHECK_EQUAL(m_vparts4[p](i), 0.0);
+        }
+    }
+}
+
+

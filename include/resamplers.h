@@ -276,25 +276,31 @@ void resid_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, ar
     for( auto& weight : w)
         weight = weight/norm_const;
 
-    // calc
+    // calc unNormWBars and numRandomSamples (N-R using IIHMM notation)
+    size_t i;
     arrayFloat unNormWBar;
-    for(size_t i = 0; i < nparts; ++i)
+    float_t numRandomSamples(0.0);
+    for(i = 0; i < nparts; ++i) {
         unNormWBar[i] = w[i]*nparts - std::floor(w[i]*nparts);
+        numRandomSamples += unNormWBar[i];
+    }
 
     // make multinomial distribution for residuals
     std::discrete_distribution<> idxSampler(unNormWBar.begin(), unNormWBar.end());
 
-    // start resampling new particles/samples
-    std::array<unsigned int, nparts> sampleCounts;
-    for(size_t i = 0; i < nparts; ++i) {
-        sampleCounts[i] = std::floor(nparts*w[i]); // initial
+    // start resampling by producing a count vector
+    arrayInt sampleCounts;
+    for(i = 0; i < nparts; ++i) {
+        sampleCounts[i] = static_cast<unsigned int>(std::floor(nparts*w[i])); // initial
     }
-    for( size_t i = 0; i < nparts; ++i) {
+    for(i = 0; i < static_cast<unsigned int>(numRandomSamples); ++i) {
         sampleCounts[idxSampler(this->m_gen)]++;
     }
-    arrayFloat tmpPartics;
+    
+    // now resample the particles using the counts 
+    arrayVec tmpPartics;
     unsigned int c(0);
-    for( size_t i = 0; i < nparts; ++i) { // over count container
+    for(i = 0; i < nparts; ++i) { // over count container
         unsigned int num_replicants = sampleCounts[i];
         if( num_replicants > 0) {
             for(size_t j = 0; j < num_replicants; ++j) { // assign the same thing several times
@@ -377,7 +383,99 @@ void stratif_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, 
     }
 
     // resample
-    arrayFloat tmpPartics;
+    arrayVec tmpPartics;
+    for(size_t i = 0; i < nparts; ++i){ // tmpPartics, Uis
+
+        // find which index
+        unsigned int idx;
+        for(unsigned int j = 0; j < nparts; ++j){
+            
+            // get the first time it gets covered by a cumsum
+            if(cumsums[j] >= u_samples[i]){ 
+                idx = j;
+                break;
+            }   
+        }
+
+        // assign
+        tmpPartics[i] = oldParts[idx];
+    }
+
+    //overwrite olds with news
+    oldParts = std::move(tmpPartics);
+    std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0); // change back    
+}
+
+
+/**
+ * @class systematic_resampler
+ * @author taylor
+ * @date 10/25/19
+ * @file resamplers.h
+ * @brief Class that performs systematic resampling on "standard" models.
+ * @tparam nparts the number of particles.
+ * @tparam dimx the dimension of each state sample.
+ * @tparam float_t the floating point for samples
+ */
+template<size_t nparts, size_t dimx, typename float_t>
+class systematic_resampler : private rbase<nparts, dimx, float_t>
+{
+public:
+
+    /** type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
+    /** type alias for array of Eigen Matrices */
+    using arrayVec = std::array<ssv, nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
+    /** type alias for array of integers */
+    using arrayInt = std::array<unsigned int, nparts>;
+
+
+    /**
+     * @brief Default constructor. Only option available.
+     */
+    systematic_resampler() = default;
+    
+    
+    /**
+     * @brief resamples particles.
+     * @param oldParts the old particles
+     * @param oldLogUnNormWts the old log unnormalized weights
+     */
+    void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
+    
+};
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+void systematic_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts)
+{
+
+    // calculate normalized weights
+    arrayFloat w; 
+    float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), w.begin(), 
+                    [&m](const float_t& d) -> float_t { return std::exp( d - m ); } );
+    float_t norm_const (0.0);
+    norm_const = std::accumulate(w.begin(), w.end(), norm_const);
+    for( auto& weight : w)
+        weight = weight/norm_const;
+
+    // calculate the cumulative sums of the weights
+    arrayFloat cumsums;
+    std::partial_sum(w.begin(), w.end(), cumsums.begin());
+
+    // samplethe Uis
+    std::uniform_real_distribution<float_t> u_sampler(0.0, 1.0/nparts);
+    arrayFloat u_samples;
+    u_samples[0] = u_sampler(this->m_gen);
+    for(size_t i = 1; i < nparts; ++i) {
+        u_samples[i] = u_samples[i-1] + 1.0/nparts;
+    }
+
+    // resample (same code from here on as stratified)
+    arrayVec tmpPartics;
     for(size_t i = 0; i < nparts; ++i){ // tmpPartics, Uis
 
         // find which index
