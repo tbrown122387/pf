@@ -10,7 +10,7 @@
 // some template parameters
 #define dimstate 1
 #define dimobs   1
-#define numparts 50000
+#define numparts 5000
 #define FLOATTYPE float // choose float (faster) or double (slower)
 
 // a function to read in data from a csv file
