@@ -372,6 +372,7 @@ void stratif_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, 
         weight = weight/norm_const;
 
     // calculate the cumulative sums of the weights
+    // TODO: possible bug
     arrayFloat cumsums;
     std::partial_sum(w.begin(), w.end(), cumsums.begin());
 

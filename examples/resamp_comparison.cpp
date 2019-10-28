@@ -1,22 +1,19 @@
 #include <fstream> // for ifstream
 
-#include "svol_comparison.h" // function header
+#include "resamp_comparison.h" // function header
 #include "data_reader.h"
 
 #include "svol_bs.h" // bs filter for svol
-#include "svol_apf.h" // apf filter for svol
-#include "svol_sisr.h" // sisr filter for svol
-#include "resamplers.h" // for mn_resampler
+#include "resamplers.h" 
 
 // some template parameters
 #define dimstate 1
 #define dimobs   1
-#define numparts 5000
+#define numparts 500
 #define FLOATTYPE float // choose float (faster) or double (slower)
 
 
-
-void run_svol_comparison(const std::string &csv)
+void run_resamp_comparison(const std::string &csv)
 {
     // "state size vector"
     using ssv = Eigen::Matrix<FLOATTYPE,dimstate,1>;
@@ -24,16 +21,22 @@ void run_svol_comparison(const std::string &csv)
     using osv = Eigen::Matrix<FLOATTYPE,dimobs,1>;    
     // dynamically-sized square matrix
     using Mat = Eigen::Matrix<FLOATTYPE,Eigen::Dynamic,Eigen::Dynamic>;
-    
+
+    using multinomialR = mn_resampler        <numparts,dimstate,FLOATTYPE>;
+    using residR       = resid_resampler     <numparts,dimstate,FLOATTYPE>;
+    using stratifR     = stratif_resampler   <numparts,dimstate,FLOATTYPE>;
+    using systematicR  = systematic_resampler<numparts,dimstate,FLOATTYPE>;
+
     // model parameters that are assumed known
     FLOATTYPE phi = .91;
     FLOATTYPE beta = .5;
     FLOATTYPE sigma = 1.0;
 
     // the same model in three different particle filters
-    svol_bs<numparts, dimstate, dimobs,mn_resampler<numparts,dimstate,FLOATTYPE>,FLOATTYPE> bssvol(phi, beta, sigma);
-    svol_apf<numparts,dimstate,dimobs,mn_resampler<numparts,dimstate,FLOATTYPE>,FLOATTYPE> apfsvol(phi,beta,sigma);
-    svol_sisr<numparts,dimstate,dimobs,mn_resampler<numparts,dimstate,FLOATTYPE>,FLOATTYPE> sisrsvol(phi,beta,sigma);
+    svol_bs<numparts, dimstate, dimobs, multinomialR,FLOATTYPE> bssvol1(phi, beta, sigma);
+    svol_bs<numparts, dimstate, dimobs, residR      ,FLOATTYPE> bssvol2(phi, beta, sigma);
+    svol_bs<numparts, dimstate, dimobs, stratifR    ,FLOATTYPE> bssvol3(phi, beta, sigma);
+    svol_bs<numparts, dimstate, dimobs, systematicR ,FLOATTYPE> bssvol4(phi, beta, sigma);
 
     // read in some data
     std::vector<osv> data = readInData<FLOATTYPE,dimobs>(csv);
@@ -54,12 +57,16 @@ void run_svol_comparison(const std::string &csv)
     // iterate over the data (finally)
     // printing stuff is obviously optional
     for(size_t row = 0; row < data.size(); ++row){
-        bssvol.filter(data[row], v);
-        apfsvol.filter(data[row], v);
-        sisrsvol.filter(data[row], v);
-        
-        std::cout << bssvol.getExpectations()[0] << ", " << apfsvol.getExpectations()[0] << ", " << sisrsvol.getExpectations()[0] << "\n";
-        //std::cout << bssvol.getLogCondLike() << ", " << apfsvol.getLogCondLike() <<", " << sisrsvol.getLogCondLike() << "\n";
+        bssvol1.filter(data[row], v);
+        bssvol2.filter(data[row], v);
+        bssvol3.filter(data[row], v);
+        bssvol4.filter(data[row], v);
+
+        std::cout << bssvol1.getExpectations()[0] << ", ";
+        std::cout << bssvol2.getExpectations()[0] << ", ";
+        std::cout << bssvol3.getExpectations()[0] << ", ";
+        std::cout << bssvol4.getExpectations()[0] << "\n";
+
     }
     
 }

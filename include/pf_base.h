@@ -19,13 +19,13 @@ public:
 
 
 /**
- * @class homog_forward_model
+ * @class ForwardMod
  * @author t
  * @file pf_base.h
  * @brief inherit from this if you want to simulate from a homogeneous forward/generative model.
  */
 template<size_t dimx, size_t dimy, typename float_t>
-class homog_forward_model {
+class ForwardMod {
 public:
 
     /* state-sized vector  */
@@ -66,7 +66,7 @@ public:
 
 
 template<size_t dimx, size_t dimy, typename float_t>
-auto homog_forward_model<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
+auto ForwardMod<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
 
     std::vector<ssv> xs;
     std::vector<osv> ys;
