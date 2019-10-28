@@ -7,7 +7,7 @@
 #define DIMSTATE     3
 #define DIMINNERMOD  2
 #define DIMOBS       1
-
+#define TOLERANCE .001
 
 class MRFixture
 {
@@ -122,6 +122,26 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts)
 }
 
 
+TEST_FIXTURE(MRFixture, Test_resampLogWts2)
+{
+    
+    arrayVec oneGoodSamp;
+    arrayDouble oneGoodWeight;
+    for(size_t i =0; i < NUMPARTICLES; ++i){
+        oneGoodWeight[i] = -1.0/0.0;
+        ssv xt;
+        xt(0) = i;
+        oneGoodSamp[i] = xt;
+    }
+    oneGoodWeight[3] = 0.0;
+    m_mr.resampLogWts(oneGoodSamp, oneGoodWeight);
+    for(unsigned int p = 0; p < NUMPARTICLES; ++p){
+        
+        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
+        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+    }
+}
+
 TEST_FIXTURE(MRFixture, Test_resampLogWts_RBPF)
 {
     
@@ -178,6 +198,26 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_resid)
     }
 }
 
+TEST_FIXTURE(MRFixture, Test_resampLogWts_resid2)
+{
+    
+    arrayVec oneGoodSamp;
+    arrayDouble oneGoodWeight;
+    for(size_t i =0; i < NUMPARTICLES; ++i){
+        oneGoodWeight[i] = -1.0/0.0;
+        ssv xt;
+        xt(0) = i;
+        oneGoodSamp[i] = xt;
+    }
+    oneGoodWeight[3] = 0.0;
+    m_residr.resampLogWts(oneGoodSamp, oneGoodWeight);
+    for(unsigned int p = 0; p < NUMPARTICLES; ++p){
+        
+        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
+        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+    }
+}
+
 
 TEST_FIXTURE(MRFixture, Test_resampLogWts_stratif)
 {
@@ -193,6 +233,26 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_stratif)
 }
 
 
+TEST_FIXTURE(MRFixture, Test_resampLogWts_stratif2)
+{
+    
+    arrayVec oneGoodSamp;
+    arrayDouble oneGoodWeight;
+    for(size_t i =0; i < NUMPARTICLES; ++i){
+        oneGoodWeight[i] = -1.0/0.0;
+        ssv xt;
+        xt(0) = i;
+        oneGoodSamp[i] = xt;
+    }
+    oneGoodWeight[3] = 0.0;
+    m_stratifr.resampLogWts(oneGoodSamp, oneGoodWeight);
+    for(unsigned int p = 0; p < NUMPARTICLES; ++p){
+        
+        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
+        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+    }
+}
+
 TEST_FIXTURE(MRFixture, Test_resampLogWts_systematic)
 {
     
@@ -206,4 +266,23 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_systematic)
     }
 }
 
+TEST_FIXTURE(MRFixture, Test_resampLogWts_systematic2)
+{
+    
+    arrayVec oneGoodSamp;
+    arrayDouble oneGoodWeight;
+    for(size_t i =0; i < NUMPARTICLES; ++i){
+        oneGoodWeight[i] = -1.0/0.0;
+        ssv xt;
+        xt(0) = i;
+        oneGoodSamp[i] = xt;
+    }
+    oneGoodWeight[3] = 0.0;
+    m_systematicr.resampLogWts(oneGoodSamp, oneGoodWeight);
+    for(unsigned int p = 0; p < NUMPARTICLES; ++p){
+        
+        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
+        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+    }
+}
 
