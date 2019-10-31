@@ -25,6 +25,7 @@ public:
     using funcs = std::vector<func>;
 
     virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0; 
+    virtual float_t getLogCondLike() const = 0;
     virtual ~pf_base(){};
 };
 
