@@ -18,7 +18,7 @@
  * @tparam resamp_t the type of resampler
  */
 template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-class SISRFilter : public pf_base
+class SISRFilter : public pf_base<float_t, dimy, dimx>
 {
 public:
 

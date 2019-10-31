@@ -50,7 +50,7 @@ cf_filter<dimstate,dimobs,float_t>::~cf_filter() {}
  * @brief Inherit from this for a model that admits Kalman filtering.
  */
 template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-class kalman{
+class kalman : public cf_filter<dimstate, dimobs, float_t> {
 
 public:    
     

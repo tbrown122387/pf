@@ -25,7 +25,7 @@
   * @tparam resamp_t the resampler type
   */
 template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-class APF : public pf_base
+class APF : public pf_base<float_t, dimy, dimx>
 {
 public:
     /** "state size vector" type alias for linear algebra stuff */

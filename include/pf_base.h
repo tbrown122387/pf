@@ -4,17 +4,52 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <Eigen/Dense>
 
 
 /**
- * @class pf_base
  * @author t
  * @file pf_base.h
- * @brief All particle filters inherit from this. 
+ * @brief All non Rao-Blackwellized particle filters inherit from this.
+ * @tparam float_t (e.g. double, float, etc.)
+ * @tparam dimobs the dimension of each observation
+ * @tparam dimstate the dimension of each state
  */
-class pf_base{
+template<typename float_t, size_t dimobs, size_t dimstate>
+class pf_base {
 public:
+    using osv = Eigen::Matrix<float_t,dimobs,1>;
+    using ssv = Eigen::Matrix<float_t,dimstate,1>;
+    using Mat = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
+    using func = std::function<const Mat(const ssv&)>;
+    using funcs = std::vector<func>;
+
+    virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0; 
     virtual ~pf_base(){};
+};
+
+
+/**
+ * @author t
+ * @file pf_base.h
+ * @brief All Rao-Blackwellized particle filters inherit from this. 
+ * @tparam float_t (e.g. double, float, etc.)
+ * @tparam dim_s_state the dimension of the state vector that's sampled
+ * @tparam dim_ns_state the dimension of the state vector that isn't sampled
+ * @tparam dimobs the dimension of each observation vector
+ */
+template<typename float_t, size_t dim_s_state, size_t dim_ns_state, size_t dimobs>
+class rbpf_base {
+public:
+    using osv   = Eigen::Matrix<float_t,dimobs,1>;
+    using sssv  = Eigen::Matrix<float_t,dim_s_state,1>;
+    using nsssv = Eigen::Matrix<float_t,dim_ns_state,1>;
+    using Mat   = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
+    using func  = std::function<const Mat(const nsssv&, const sssv&)>;
+    using funcs = std::vector<func>;
+
+    virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0;
+    virtual ~rbpf_base(){};
 };
 
 

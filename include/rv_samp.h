@@ -140,6 +140,110 @@ float_t UnivNormSampler<float_t>::sample()
 }
 
 
+//! A class that performs sampling from a univariate Log-Normal distribution.
+/**
+* @class UnivLogNormSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from univariate Log-Normal distribution.
+*/
+template<typename float_t>
+class UnivLogNormSampler : public rvsamp_base
+{
+    
+public:
+
+
+    /**
+     * @brief Default-constructor sets up for standard Normal random variate generation.
+     */
+    UnivLogNormSampler();
+
+
+     /**
+      * @brief The user must supply both mu and sigma.
+      * @param mu a location parameter for the logarithm of the sample.
+      * @param sigma a positive scale parameter for the logarithm of the sample.
+      */
+    UnivLogNormSampler(const float_t &mu, const float_t &sigma);
+
+
+    /**
+     * @brief sets the scale parameter of the logged random variable.
+     * @param sigma the desired parameter.
+     */
+    void setSigma(const float_t &sigma);
+    
+    
+    /**
+     * @brief sets the location parameter of the logged random variable.
+     * @param mu the desired parameter.
+     */
+    void setMu(const float_t &mu);
+    
+        
+     /**
+      * @brief draws a random number.
+      * @return a random sample of type float_t.
+      */
+    float_t sample();    
+    
+
+private:
+
+    /** @brief makes normal random variates */
+    std::normal_distribution<float_t> m_z_gen;
+    
+    /** @brief mu */
+    float_t m_mu;
+    
+    /** @brief sigma */
+    float_t m_sigma;
+
+};
+
+
+template<typename float_t>
+UnivLogNormSampler<float_t>::UnivLogNormSampler()
+    : rvsamp_base()
+    , m_z_gen(0.0, 1.0)
+{
+    setMu(0.0);
+    setSigma(1.0);
+}
+
+
+template<typename float_t>
+UnivLogNormSampler<float_t>::UnivLogNormSampler(const float_t &mu, const float_t &sigma)
+    : rvsamp_base()
+    , m_z_gen(0.0, 1.0)
+{
+    setMu(mu); 
+    setSigma(sigma);
+}
+
+
+template<typename float_t>
+void UnivLogNormSampler<float_t>::setMu(const float_t &mu)
+{
+    m_mu = mu;
+}
+
+
+template<typename float_t>
+void UnivLogNormSampler<float_t>::setSigma(const float_t &sigma)
+{
+    m_sigma = sigma;
+}
+
+
+template<typename float_t>
+float_t UnivLogNormSampler<float_t>::sample()
+{
+    return std::exp(m_mu + m_sigma * m_z_gen(m_rng));
+}
+
+
 //! A class that performs sampling from a truncated univariate Normal distribution.
 /**
 * @class TruncUnivNormSampler

@@ -21,7 +21,7 @@
  * @tparam resamp_t the type of resampler
  */
 template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-class BSFilterWC : public pf_base
+class BSFilterWC 
 {
 public:
     
