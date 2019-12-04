@@ -122,7 +122,28 @@ public:
      */
     ssMat getFiltVar() const;
     
-    
+
+    /**
+     * @brief get the one-step-ahead point forecast for y
+     * @return E[y_{t+1} | y_{1:t}, params]
+     */
+    osv getPredYMean(const ssMat &stateTrans,
+                     const obsStateSizeMat &obsMat, 
+                     const siMat &stateInptAffector,
+                     const oiMat &obsInptAffector, 
+                     const isv &inputData) const;
+
+
+    /**
+     * @brief get the one-step-ahead forecast variance
+     * @return V[y_{t+1} | y_{1:t}, params]
+     */
+    osMat getPredYVar(const ssMat &stateTrans,
+                      const ssMat &cholStateVar,
+                      const obsStateSizeMat &obsMat,
+                      const osMat &cholObsVar) const;
+
+
     //! Perform a Kalman filter predict-and-update.
     /**
      * @param yt the new data point.
@@ -306,7 +327,30 @@ void kalman<dimstate,dimobs,diminput,float_t>::update(const osv &yt,
     }
 }
     
-    
+ 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+auto kalman<dimstate,dimobs,diminput,float_t>::getPredYMean(
+        const ssMat &stateTrans,
+        const obsStateSizeMat &obsMat, 
+        const siMat &stateInptAffector,
+        const oiMat &obsInptAffector, 
+        const isv &futureInputData) const -> osv
+{
+    return obsMat * (stateTrans * m_filtMean + stateInptAffector * futureInputData) + obsInptAffector * futureInputData;
+}
+
+
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+auto kalman<dimstate,dimobs,diminput,float_t>::getPredYVar(
+        const ssMat &stateTrans,
+        const ssMat &cholStateVar,
+        const obsStateSizeMat &obsMat,
+        const osMat &cholObsVar) const -> osMat
+{
+    return obsMat * (stateTrans * m_filtVar * stateTrans.transpose() + cholStateVar.transpose()*cholStateVar) * obsMat.transpose() + cholObsVar.transpose() * cholObsVar;
+}
+
+
 //! A class template for HMM filtering.
 /**
  * @class hmm
