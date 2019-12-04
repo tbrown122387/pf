@@ -8,7 +8,7 @@
 #include <cmath> //floor
 #include <Eigen/Dense>
 
-   
+
 //! Base class for all resampler types.
 /**
  * @class rbase

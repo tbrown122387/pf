@@ -74,7 +74,8 @@ public:
         
     /** "observation dimension by input dim matrix" */
     using oiMat = Eigen::Matrix<float_t,dimobs,diminput>;
-    
+
+    using obsStateSizeMat = Eigen::Matrix<float_t,dimobs,dimstate>;    
 
     //! Default constructor. 
     /**
@@ -133,7 +134,7 @@ public:
                 const ssMat &cholStateVar, 
                 const siMat &stateInptAffector, 
                 const isv &inputData,
-                const osMat &obsMat,
+                const obsStateSizeMat &obsMat,
                 const oiMat &obsInptAffector, 
                 const osMat &cholObsVar);
                 
@@ -186,7 +187,7 @@ private:
      * @param cholObsVar
      */
     void updatePosterior(const osv &yt, 
-                         const osMat &obsMat, 
+                         const obsStateSizeMat &obsMat, 
                          const oiMat &obsInptAffector, 
                          const isv &inputData, 
                          const osMat &cholObsVar);
@@ -233,7 +234,7 @@ void kalman<dimstate,dimobs,diminput,float_t>::updatePrior(const ssMat &stateTra
 
 template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
 void kalman<dimstate,dimobs,diminput,float_t>::updatePosterior(const osv &yt, 
-                             const osMat &obsMat, 
+                             const obsStateSizeMat &obsMat, 
                              const oiMat &obsInptAffector, 
                              const isv &inputData, 
                              const osMat &cholObsVar)
@@ -283,7 +284,7 @@ void kalman<dimstate,dimobs,diminput,float_t>::update(const osv &yt,
                                               const ssMat &cholStateVar, 
                                               const siMat &stateInptAffector, 
                                               const isv &inData,
-                                              const osMat &obsMat,
+                                              const obsStateSizeMat &obsMat,
                                               const oiMat &obsInptAffector, 
                                               const osMat &cholObsVar)
 {
