@@ -75,7 +75,12 @@ public:
     /** "observation dimension by input dim matrix" */
     using oiMat = Eigen::Matrix<float_t,dimobs,diminput>;
 
+    /** "observation dimension by state dimension -sized matrix" */
     using obsStateSizeMat = Eigen::Matrix<float_t,dimobs,dimstate>;    
+
+    /** "state dimension by observation dimension matrix */
+    using stateObsSizeMat = Eigen::Matrix<float_t,dimstate,dimobs>;
+
 
     //! Default constructor. 
     /**
@@ -243,7 +248,7 @@ void kalman<dimstate,dimobs,diminput,float_t>::updatePosterior(const osv &yt,
     osMat sigma = obsMat * m_predVar * obsMat.transpose() + R; // pred or APA' + R 
     osMat symSigma = (sigma.transpose() + sigma )/2.0; // ensure symmetric
     osMat siginv = symSigma.inverse();
-    ssMat K = m_predVar * obsMat.transpose() * siginv;
+    stateObsSizeMat K = m_predVar * obsMat.transpose() * siginv;
     osv obsPred = obsMat * m_predMean + obsInptAffector * inputData;
     osv innov = yt - obsPred;
     m_filtMean = m_predMean + K*innov;
