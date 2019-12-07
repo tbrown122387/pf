@@ -294,6 +294,28 @@ TEST_FIXTURE(DensFixture, evalBernoulliTest)
 }
 
 
+TEST_FIXTURE(DensFixture, evalSkellamTest)
+{
+    // dskellam(-3, .2, .3, log = F)
+    CHECK_CLOSE(0.002770575, rveval::evalSkellam(-3, .2, .3, false), PREC);
+
+    // dskellam(-3, .2, .3, log = T)
+    CHECK_CLOSE(-5.8887, rveval::evalSkellam(-3, .2, .3, true), PREC);
+    
+    // dskellam(3, .2, .3, log = F)
+    CHECK_CLOSE(0.0008209112, rveval::evalSkellam(3, .2, .3, false), PREC);
+
+    // dskellam(3, .2, .3, log = T)
+    CHECK_CLOSE(-7.105096, rveval::evalSkellam(3, .2, .3, true), PREC);
+
+    CHECK_CLOSE(-1.0/0.0, rveval::evalSkellam(-1, .5, -.5, true), PREC);
+    CHECK_CLOSE(-1.0/0.0, rveval::evalSkellam(-1, -.5, .5, true), PREC);
+    CHECK_CLOSE(0.0, rveval::evalSkellam(-1, .5, -.5, false), PREC);
+    CHECK_CLOSE(0.0, rveval::evalSkellam(-1, -.5, .5, false), PREC);
+
+}
+
+
 TEST_FIXTURE(DensFixture, evalWishartTest)
 {
     // library(LaplacesDemon)

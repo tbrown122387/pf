@@ -8,7 +8,7 @@
 #include "pf_base.h"
     
 
-//! A base class for the boostrap particle filter.
+//! A base class for the bootstrap particle filter.
 /**
  * @class BSFilter
  * @author taylor

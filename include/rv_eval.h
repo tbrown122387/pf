@@ -3,7 +3,9 @@
 
 #include <cstddef> // std::size_t
 #include <Eigen/Dense>
-#include <iostream>
+#include <iostream> // cerr
+#include "boost/math/special_functions.hpp"
+
 
 namespace rveval{
     
@@ -133,7 +135,7 @@ float_t evalUnivNorm(const float_t &x, const float_t &mu, const float_t &sigma, 
         }
     }else{
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -191,7 +193,7 @@ float_t evalUnivBeta(const float_t &x, const float_t &alpha, const float_t &beta
 
     }else{ //not ( x in support and parameters acceptable )
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -218,7 +220,7 @@ float_t evalUnivInvGamma(const float_t &x, const float_t &alpha, const float_t &
         }
     }else{ // not ( x in support and acceptable parameters )
         if (log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -244,7 +246,7 @@ float_t evalUnivHalfNorm(const float_t &x, const float_t &sigmaSqd, bool log)
         }
     }else{
         if (log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -275,7 +277,7 @@ float_t evalUnivTruncNorm(const float_t &x, const float_t &mu, const float_t &si
         
     }else{
         if (log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -305,7 +307,7 @@ float_t evalLogitNormal(const float_t &x, const float_t &mu, const float_t &sigm
         }
     }else{
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -335,7 +337,7 @@ float_t evalTwiceFisherNormal(const float_t &x, const float_t &mu, const float_t
         }
     }else{
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -364,7 +366,7 @@ float_t evalLogNormal(const float_t &x, const float_t &mu, const float_t &sigma,
         }
     }else{
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -394,7 +396,7 @@ float_t evalUniform(const float_t &x, const float_t &lower, const float_t &upper
         }
     }else{
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -414,9 +416,9 @@ float_t evalScaledT(const float_t& x, const float_t& mu, const float_t& sigma, c
             return logDens;
         else
             return std::exp(logDens);    
-    }else{
+    } else{
         if(log)
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         else
             return 0.0;
     }
@@ -431,8 +433,8 @@ float_t evalScaledT(const float_t& x, const float_t& mu, const float_t& sigma, c
  * @param log true if you want log pmf
  * @return P(X=x) probability that X equals x
  */
-template<typename float_t>
-float_t evalDiscreteUnif(const int &x, const int &k, bool log)
+template<typename int_t, typename float_t>
+float_t evalDiscreteUnif(const int_t &x, const int &k, bool log)
 {
     if( (1 <= x) && (x <= k) ){
         if(log){
@@ -442,7 +444,7 @@ float_t evalDiscreteUnif(const int &x, const int &k, bool log)
         }
     }else{ // x not in support
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
@@ -455,8 +457,8 @@ float_t evalDiscreteUnif(const int &x, const int &k, bool log)
  * @param x the hypothetical value of a rv
  * @param p the probability that the rv equals 1
  */
-template<typename float_t>
-float_t evalBernoulli(const int& x, const float_t& p, bool log)
+template<typename int_t, typename float_t>
+float_t evalBernoulli(const int_t& x, const float_t& p, bool log)
 {
     if( ((x == 0) || (x == 1)) && ( (0.0 <= p) && (p <= 1.0)  ) ){ // if valid x and valid p
         if(log){
@@ -466,11 +468,42 @@ float_t evalBernoulli(const int& x, const float_t& p, bool log)
         }    
     }else{ // either invalid x or invalid p
         if(log){
-            return -1.0/0.0;
+            return -std::numeric_limits<float_t>::infinity();
         }else{
             return 0.0;
         }
     }
+}
+
+
+/**
+ * @brief Evaluates the Skellam pmf.
+ * @param x the point at which you're evaluating.
+ * @param mu1.
+ * @param mu2.
+ * @param log true if you want the log-mass. False otherwise.
+ * @return a float_t evaluation.
+ */
+template<typename int_t, typename float_t>
+float_t evalSkellam(const int_t &x, const float_t &mu1, const float_t &mu2, bool log)
+{
+    if( (mu1 > 0) && (mu2 > 0) ){
+
+        float_t log_mass = -mu1 - mu2 + .5*x*(std::log(mu1) - std::log(mu2));
+        log_mass += std::log(boost::math::cyl_bessel_i<int_t, float_t>(x,2.0*std::sqrt(mu1*mu2)));
+
+        if(log) {
+            return log_mass;
+        }else {
+            return std::exp(log_mass);
+        }
+    }else {
+        if(log) {
+            return -std::numeric_limits<float_t>::infinity();
+        }else {
+            return 0.0;
+        }
+    }        
 }
 
 
@@ -499,7 +532,7 @@ float_t evalMultivNorm(const Eigen::Matrix<float_t,dim,1> &x,
 {
     using Mat = Eigen::Matrix<float_t,dim,dim>;
     Eigen::LLT<Mat> lltM(covMat);
-    if(lltM.info() == Eigen::NumericalIssue) return log ? -1.0/0.0 : 0.0; // if not pd return 0 dens
+    if(lltM.info() == Eigen::NumericalIssue) return log ? -std::numeric_limits<float_t>::infinity() : 0.0; // if not pd return 0 dens
     Mat L = lltM.matrixL(); // the lower diagonal L such that M = LL^T
     float_t quadform = (lltM.solve(x-meanVec)).squaredNorm();
     float_t ld (0.0);  // calculate log-determinant using cholesky decomposition too
@@ -538,10 +571,10 @@ float_t evalMultivT(const Eigen::Matrix<float_t,dim,1> &x,
                     const float_t& dof, 
                     bool log = false)
 {
-    if(dof <= 0.0) return log ? -1.0/0.0 : 0.0; // degrees of freedom must be positive 
+    if(dof <= 0.0) return log ? -std::numeric_limits<float_t>::infinity() : 0.0; // degrees of freedom must be positive 
     using Mat = Eigen::Matrix<float_t,dim,dim>;
     Eigen::LLT<Mat> lltM(shapeMat);
-    if(lltM.info() == Eigen::NumericalIssue) return log ? -1.0/0.0 : 0.0; // if not pd return 0 dens
+    if(lltM.info() == Eigen::NumericalIssue) return log ? -std::numeric_limits<float_t>::infinity() : 0.0; // if not pd return 0 dens
     Mat L = lltM.matrixL(); // the lower diagonal L such that M = LL^T
     float_t quadform = (lltM.solve(x-locVec)).squaredNorm();
     float_t ld (0.0);  // calculate log-determinant using cholesky decomposition too
@@ -633,7 +666,7 @@ float_t evalWishart(const Eigen::Matrix<float_t,dim,dim> &X,
     using Mat = Eigen::Matrix<float_t,dim,dim>;
     Eigen::LLT<Mat> lltX(X);
     Eigen::LLT<Mat> lltVinv(Vinv);
-    if((n < dim) | (lltX.info() == Eigen::NumericalIssue) | (lltVinv.info() == Eigen::NumericalIssue)) return log ? -1.0/0.0 : 0.0; 
+    if((n < dim) | (lltX.info() == Eigen::NumericalIssue) | (lltVinv.info() == Eigen::NumericalIssue)) return log ? -std::numeric_limits<float_t>::infinity() : 0.0; 
     // https://stackoverflow.com/questions/35227131/eigen-check-if-matrix-is-positive-semi-definite 
 
     float_t ldx (0.0); // log determinant of X
@@ -682,7 +715,7 @@ float_t evalInvWishart(const Eigen::Matrix<float_t,dim,dim> &X,
     using Mat = Eigen::Matrix<float_t,dim,dim>;
     Eigen::LLT<Mat> lltX(X);
     Eigen::LLT<Mat> lltPsi(Psi);
-    if((nu < dim) | (lltX.info() == Eigen::NumericalIssue) | (lltPsi.info() == Eigen::NumericalIssue)) return log ? -1.0/0.0 : 0.0; 
+    if((nu < dim) | (lltX.info() == Eigen::NumericalIssue) | (lltPsi.info() == Eigen::NumericalIssue)) return log ? -std::numeric_limits<float_t>::infinity() : 0.0; 
     // https://stackoverflow.com/questions/35227131/eigen-check-if-matrix-is-positive-semi-definite 
 
     float_t ldx (0.0); // log determinant of X

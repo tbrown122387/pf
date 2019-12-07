@@ -8,7 +8,7 @@
 #include "pf_base.h"
     
 
-//! A base class for the boostrap particle filter with covariates.
+//! A base class for the bootstrap particle filter with covariates.
 /**
  * @class BSFilterWC
  * @author taylor
