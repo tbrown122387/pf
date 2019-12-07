@@ -1,0 +1,89 @@
+\hypertarget{classForwardMod}{}\section{Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$ Class Template Reference}
+\label{classForwardMod}\index{Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$@{Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}}
+
+
+{\ttfamily \#include $<$pf\+\_\+base.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classForwardMod_a32e8e8c3491d98db68e64cdca5bd05d9}\label{classForwardMod_a32e8e8c3491d98db68e64cdca5bd05d9}} 
+using {\bfseries ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+\mbox{\Hypertarget{classForwardMod_a81a5afb13a81b2ebb8196d626fa3f261}\label{classForwardMod_a81a5afb13a81b2ebb8196d626fa3f261}} 
+using {\bfseries osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
+\item 
+\mbox{\Hypertarget{classForwardMod_a9d17ccfbab8e42cf70cd61c2f2c1844f}\label{classForwardMod_a9d17ccfbab8e42cf70cd61c2f2c1844f}} 
+using {\bfseries a\+Pair} = std\+::pair$<$ std\+::vector$<$ ssv $>$, std\+::vector$<$ osv $>$ $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classForwardMod_a374c715382620bef4475b233340dcbbc}\label{classForwardMod_a374c715382620bef4475b233340dcbbc}} 
+a\+Pair \hyperlink{classForwardMod_a374c715382620bef4475b233340dcbbc}{sim\+\_\+forward} (unsigned int T)
+\begin{DoxyCompactList}\small\item\em simulates forward through time \end{DoxyCompactList}\item 
+virtual ssv \hyperlink{classForwardMod_aa768950ea619560a820905eb71eed82c}{mu\+Samp} ()=0
+\begin{DoxyCompactList}\small\item\em samples from the first time\textquotesingle{}s state distribution \end{DoxyCompactList}\item 
+virtual ssv \hyperlink{classForwardMod_aa46752032b11a6ac76cd01e13780a932}{f\+Samp} (const ssv \&xtm1)=0
+\begin{DoxyCompactList}\small\item\em returns a sample from the latent Markov transition \end{DoxyCompactList}\item 
+virtual osv \hyperlink{classForwardMod_a3264f80eae33f89a504cdb25634cadda}{g\+Samp} (const ssv \&xt)=0
+\begin{DoxyCompactList}\small\item\em returns a sample for the observed series \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t$>$\newline
+class Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}
+
+\begin{DoxyAuthor}{Author}
+t 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classForwardMod_aa46752032b11a6ac76cd01e13780a932}\label{classForwardMod_aa46752032b11a6ac76cd01e13780a932}} 
+\index{Forward\+Mod@{Forward\+Mod}!f\+Samp@{f\+Samp}}
+\index{f\+Samp@{f\+Samp}!Forward\+Mod@{Forward\+Mod}}
+\subsubsection{\texorpdfstring{f\+Samp()}{fSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t $>$ \\
+virtual ssv \hyperlink{classForwardMod}{Forward\+Mod}$<$ dimx, dimy, float\+\_\+t $>$\+::f\+Samp (\begin{DoxyParamCaption}\item[{const ssv \&}]{xtm1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample from the latent Markov transition 
+
+\begin{DoxyReturn}{Returns}
+a state-\/sized vector for the xt sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classForwardMod_a3264f80eae33f89a504cdb25634cadda}\label{classForwardMod_a3264f80eae33f89a504cdb25634cadda}} 
+\index{Forward\+Mod@{Forward\+Mod}!g\+Samp@{g\+Samp}}
+\index{g\+Samp@{g\+Samp}!Forward\+Mod@{Forward\+Mod}}
+\subsubsection{\texorpdfstring{g\+Samp()}{gSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t $>$ \\
+virtual osv \hyperlink{classForwardMod}{Forward\+Mod}$<$ dimx, dimy, float\+\_\+t $>$\+::g\+Samp (\begin{DoxyParamCaption}\item[{const ssv \&}]{xt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample for the observed series 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classForwardMod_aa768950ea619560a820905eb71eed82c}\label{classForwardMod_aa768950ea619560a820905eb71eed82c}} 
+\index{Forward\+Mod@{Forward\+Mod}!mu\+Samp@{mu\+Samp}}
+\index{mu\+Samp@{mu\+Samp}!Forward\+Mod@{Forward\+Mod}}
+\subsubsection{\texorpdfstring{mu\+Samp()}{muSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t $>$ \\
+virtual ssv \hyperlink{classForwardMod}{Forward\+Mod}$<$ dimx, dimy, float\+\_\+t $>$\+::mu\+Samp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+samples from the first time\textquotesingle{}s state distribution 
+
+\begin{DoxyReturn}{Returns}
+a state-\/sized vector for the x1 sample 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}\end{DoxyCompactItemize}

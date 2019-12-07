@@ -1,0 +1,119 @@
+\hypertarget{classresid__resampler}{}\section{resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$ Class Template Reference}
+\label{classresid__resampler}\index{resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$@{resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}
+
+
+{\ttfamily \#include $<$resamplers.\+h$>$}
+
+
+
+Inheritance diagram for resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{classresid__resampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{classresid__resampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classresid__resampler_a500f44f0072a4d54b03762c946c38981}{ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+using \hyperlink{classresid__resampler_a33ba5996cd3099fb81d9932bf5f460c0}{array\+Vec} = std\+::array$<$ \hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv}, nparts $>$
+\item 
+using \hyperlink{classresid__resampler_ab95ecc6d5a33f1cbc9089a6b818df405}{array\+Float} = std\+::array$<$ float\+\_\+t, nparts $>$
+\item 
+using \hyperlink{classresid__resampler_a2ca1138b2d0fcad22c3720c83e56fc47}{array\+Int} = std\+::array$<$ unsigned int, nparts $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classresid__resampler_a7b3ebcc490d296b4ad9747c369b92f67}\label{classresid__resampler_a7b3ebcc490d296b4ad9747c369b92f67}} 
+\hyperlink{classresid__resampler_a7b3ebcc490d296b4ad9747c369b92f67}{resid\+\_\+resampler} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. Only option available. \end{DoxyCompactList}\item 
+void \hyperlink{classresid__resampler_ae6957cd1e080ac4313e6b0bc5ae9aa96}{resamp\+Log\+Wts} (\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&old\+Parts, \hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&old\+Log\+Un\+Norm\+Wts)
+\begin{DoxyCompactList}\small\item\em resamples particles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t$>$\newline
+class resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+10/25/19 
+\end{DoxyDate}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classresid__resampler_ab95ecc6d5a33f1cbc9089a6b818df405}\label{classresid__resampler_ab95ecc6d5a33f1cbc9089a6b818df405}} 
+\index{resid\+\_\+resampler@{resid\+\_\+resampler}!array\+Float@{array\+Float}}
+\index{array\+Float@{array\+Float}!resid\+\_\+resampler@{resid\+\_\+resampler}}
+\subsubsection{\texorpdfstring{array\+Float}{arrayFloat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classresid__resampler}{resid\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} =  std\+::array$<$float\+\_\+t,nparts$>$}
+
+type alias for array of float\+\_\+ts \mbox{\Hypertarget{classresid__resampler_a2ca1138b2d0fcad22c3720c83e56fc47}\label{classresid__resampler_a2ca1138b2d0fcad22c3720c83e56fc47}} 
+\index{resid\+\_\+resampler@{resid\+\_\+resampler}!array\+Int@{array\+Int}}
+\index{array\+Int@{array\+Int}!resid\+\_\+resampler@{resid\+\_\+resampler}}
+\subsubsection{\texorpdfstring{array\+Int}{arrayInt}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classresid__resampler}{resid\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classresid__resampler_a2ca1138b2d0fcad22c3720c83e56fc47}{array\+Int} =  std\+::array$<$unsigned int, nparts$>$}
+
+type alias for array of integers \mbox{\Hypertarget{classresid__resampler_a33ba5996cd3099fb81d9932bf5f460c0}\label{classresid__resampler_a33ba5996cd3099fb81d9932bf5f460c0}} 
+\index{resid\+\_\+resampler@{resid\+\_\+resampler}!array\+Vec@{array\+Vec}}
+\index{array\+Vec@{array\+Vec}!resid\+\_\+resampler@{resid\+\_\+resampler}}
+\subsubsection{\texorpdfstring{array\+Vec}{arrayVec}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classresid__resampler}{resid\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} =  std\+::array$<$\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv}, nparts$>$}
+
+type alias for array of Eigen Matrices \mbox{\Hypertarget{classresid__resampler_a500f44f0072a4d54b03762c946c38981}\label{classresid__resampler_a500f44f0072a4d54b03762c946c38981}} 
+\index{resid\+\_\+resampler@{resid\+\_\+resampler}!ssv@{ssv}}
+\index{ssv@{ssv}!resid\+\_\+resampler@{resid\+\_\+resampler}}
+\subsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classresid__resampler}{resid\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
+
+type alias for linear algebra stuff 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classresid__resampler_ae6957cd1e080ac4313e6b0bc5ae9aa96}\label{classresid__resampler_ae6957cd1e080ac4313e6b0bc5ae9aa96}} 
+\index{resid\+\_\+resampler@{resid\+\_\+resampler}!resamp\+Log\+Wts@{resamp\+Log\+Wts}}
+\index{resamp\+Log\+Wts@{resamp\+Log\+Wts}!resid\+\_\+resampler@{resid\+\_\+resampler}}
+\subsubsection{\texorpdfstring{resamp\+Log\+Wts()}{resampLogWts()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+void \hyperlink{classresid__resampler}{resid\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::resamp\+Log\+Wts (\begin{DoxyParamCaption}\item[{\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&}]{old\+Parts,  }\item[{\hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&}]{old\+Log\+Un\+Norm\+Wts }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+resamples particles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\+Parts} & the old particles \\
+\hline
+{\em old\+Log\+Un\+Norm\+Wts} & the old log unnormalized weights \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classrbase_aff0f6f88fd4656e67f5ebc870f10dd44}{rbase$<$ nparts, dimx, float\+\_\+t $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{resamplers_8h}{resamplers.\+h}\end{DoxyCompactItemize}

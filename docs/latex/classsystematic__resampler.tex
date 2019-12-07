@@ -1,0 +1,119 @@
+\hypertarget{classsystematic__resampler}{}\section{systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$ Class Template Reference}
+\label{classsystematic__resampler}\index{systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$@{systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}
+
+
+{\ttfamily \#include $<$resamplers.\+h$>$}
+
+
+
+Inheritance diagram for systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classsystematic__resampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classsystematic__resampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classsystematic__resampler_a9e158fbf5875f93e9cb4da562928e649}{ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+using \hyperlink{classsystematic__resampler_a89263b385b61687341d67a717da78dc1}{array\+Vec} = std\+::array$<$ \hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv}, nparts $>$
+\item 
+using \hyperlink{classsystematic__resampler_ae3f8e7d5687c068b7fc320fe4ee67871}{array\+Float} = std\+::array$<$ float\+\_\+t, nparts $>$
+\item 
+using \hyperlink{classsystematic__resampler_afbdf5779938dfee726f87d31040284de}{array\+Int} = std\+::array$<$ unsigned int, nparts $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsystematic__resampler_a6422f70f1f5315d16b018cb855435511}\label{classsystematic__resampler_a6422f70f1f5315d16b018cb855435511}} 
+\hyperlink{classsystematic__resampler_a6422f70f1f5315d16b018cb855435511}{systematic\+\_\+resampler} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. Only option available. \end{DoxyCompactList}\item 
+void \hyperlink{classsystematic__resampler_a9467aec6002043f35f40e9e4857021ed}{resamp\+Log\+Wts} (\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&old\+Parts, \hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&old\+Log\+Un\+Norm\+Wts)
+\begin{DoxyCompactList}\small\item\em resamples particles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t$>$\newline
+class systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+10/25/19 
+\end{DoxyDate}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classsystematic__resampler_ae3f8e7d5687c068b7fc320fe4ee67871}\label{classsystematic__resampler_ae3f8e7d5687c068b7fc320fe4ee67871}} 
+\index{systematic\+\_\+resampler@{systematic\+\_\+resampler}!array\+Float@{array\+Float}}
+\index{array\+Float@{array\+Float}!systematic\+\_\+resampler@{systematic\+\_\+resampler}}
+\subsubsection{\texorpdfstring{array\+Float}{arrayFloat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} =  std\+::array$<$float\+\_\+t,nparts$>$}
+
+type alias for array of float\+\_\+ts \mbox{\Hypertarget{classsystematic__resampler_afbdf5779938dfee726f87d31040284de}\label{classsystematic__resampler_afbdf5779938dfee726f87d31040284de}} 
+\index{systematic\+\_\+resampler@{systematic\+\_\+resampler}!array\+Int@{array\+Int}}
+\index{array\+Int@{array\+Int}!systematic\+\_\+resampler@{systematic\+\_\+resampler}}
+\subsubsection{\texorpdfstring{array\+Int}{arrayInt}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classsystematic__resampler_afbdf5779938dfee726f87d31040284de}{array\+Int} =  std\+::array$<$unsigned int, nparts$>$}
+
+type alias for array of integers \mbox{\Hypertarget{classsystematic__resampler_a89263b385b61687341d67a717da78dc1}\label{classsystematic__resampler_a89263b385b61687341d67a717da78dc1}} 
+\index{systematic\+\_\+resampler@{systematic\+\_\+resampler}!array\+Vec@{array\+Vec}}
+\index{array\+Vec@{array\+Vec}!systematic\+\_\+resampler@{systematic\+\_\+resampler}}
+\subsubsection{\texorpdfstring{array\+Vec}{arrayVec}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} =  std\+::array$<$\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv}, nparts$>$}
+
+type alias for array of Eigen Matrices \mbox{\Hypertarget{classsystematic__resampler_a9e158fbf5875f93e9cb4da562928e649}\label{classsystematic__resampler_a9e158fbf5875f93e9cb4da562928e649}} 
+\index{systematic\+\_\+resampler@{systematic\+\_\+resampler}!ssv@{ssv}}
+\index{ssv@{ssv}!systematic\+\_\+resampler@{systematic\+\_\+resampler}}
+\subsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
+
+type alias for linear algebra stuff 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classsystematic__resampler_a9467aec6002043f35f40e9e4857021ed}\label{classsystematic__resampler_a9467aec6002043f35f40e9e4857021ed}} 
+\index{systematic\+\_\+resampler@{systematic\+\_\+resampler}!resamp\+Log\+Wts@{resamp\+Log\+Wts}}
+\index{resamp\+Log\+Wts@{resamp\+Log\+Wts}!systematic\+\_\+resampler@{systematic\+\_\+resampler}}
+\subsubsection{\texorpdfstring{resamp\+Log\+Wts()}{resampLogWts()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+void \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::resamp\+Log\+Wts (\begin{DoxyParamCaption}\item[{\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&}]{old\+Parts,  }\item[{\hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&}]{old\+Log\+Un\+Norm\+Wts }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+resamples particles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\+Parts} & the old particles \\
+\hline
+{\em old\+Log\+Un\+Norm\+Wts} & the old log unnormalized weights \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classrbase_aff0f6f88fd4656e67f5ebc870f10dd44}{rbase$<$ nparts, dimx, float\+\_\+t $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{resamplers_8h}{resamplers.\+h}\end{DoxyCompactItemize}

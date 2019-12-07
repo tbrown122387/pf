@@ -1,0 +1,129 @@
+\hypertarget{classrvsamp_1_1TruncUnivNormSampler}{}\section{rvsamp\+:\+:Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$ Class Template Reference}
+\label{classrvsamp_1_1TruncUnivNormSampler}\index{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}}
+
+
+Default-\/constructor ...  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for rvsamp\+:\+:Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{classrvsamp_1_1TruncUnivNormSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for rvsamp\+:\+:Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{classrvsamp_1_1TruncUnivNormSampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classrvsamp_1_1TruncUnivNormSampler_a937288fd46dcfef2f88de8081bb13752}{Trunc\+Univ\+Norm\+Sampler} (const float\+\_\+t \&mu, const float\+\_\+t \&sigma, const float\+\_\+t \&lower, const float\+\_\+t \&upper)
+\begin{DoxyCompactList}\small\item\em The user must supply both mean and std. dev. \end{DoxyCompactList}\item 
+float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler_a2d6a8f2053e4ed0806718e6749288dce}{sample} ()
+\begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_a272eeaa23053de1bad153f34a7c34329}\label{classrvsamp_1_1TruncUnivNormSampler_a272eeaa23053de1bad153f34a7c34329}} 
+std\+::normal\+\_\+distribution$<$ float\+\_\+t $>$ \hyperlink{classrvsamp_1_1TruncUnivNormSampler_a272eeaa23053de1bad153f34a7c34329}{m\+\_\+z\+\_\+gen}
+\begin{DoxyCompactList}\small\item\em makes normal random variates \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_a7c1024d6d70fec2999d611512f4c30b4}\label{classrvsamp_1_1TruncUnivNormSampler_a7c1024d6d70fec2999d611512f4c30b4}} 
+float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler_a7c1024d6d70fec2999d611512f4c30b4}{m\+\_\+mu}
+\begin{DoxyCompactList}\small\item\em the mean \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_af54c9b539c82e865952e938cee75df1b}\label{classrvsamp_1_1TruncUnivNormSampler_af54c9b539c82e865952e938cee75df1b}} 
+float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler_af54c9b539c82e865952e938cee75df1b}{m\+\_\+sigma}
+\begin{DoxyCompactList}\small\item\em the standard deviation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_a6405f385e9fb923d5aeae60324b745c1}\label{classrvsamp_1_1TruncUnivNormSampler_a6405f385e9fb923d5aeae60324b745c1}} 
+float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler_a6405f385e9fb923d5aeae60324b745c1}{m\+\_\+lower}
+\begin{DoxyCompactList}\small\item\em the lower bound \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_a5081f5dfd44015a5af38572a4a22bf58}\label{classrvsamp_1_1TruncUnivNormSampler_a5081f5dfd44015a5af38572a4a22bf58}} 
+float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler_a5081f5dfd44015a5af38572a4a22bf58}{m\+\_\+upper}
+\begin{DoxyCompactList}\small\item\em the upper bound \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t$>$\newline
+class rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}
+
+Default-\/constructor ... 
+
+! A class that performs sampling from a univariate Gamma distribution. $\ast$$\ast$ The user must supply both mu and sigma. 
+\begin{DoxyParams}{Parameters}
+{\em mu} & a location parameter for the logarithm of the sample. \\
+\hline
+{\em sigma} & a positive scale parameter for the logarithm of the sample. sets the scale parameter of the logged random variable. \\
+\hline
+{\em sigma} & the desired parameter. sets the location parameter of the logged random variable. \\
+\hline
+{\em mu} & the desired parameter. draws a random number. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t.\+makes normal random variates mu sigma A class that performs sampling from a truncated univariate Normal distribution.
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_a937288fd46dcfef2f88de8081bb13752}\label{classrvsamp_1_1TruncUnivNormSampler_a937288fd46dcfef2f88de8081bb13752}} 
+\index{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}!Trunc\+Univ\+Norm\+Sampler@{Trunc\+Univ\+Norm\+Sampler}}
+\index{Trunc\+Univ\+Norm\+Sampler@{Trunc\+Univ\+Norm\+Sampler}!rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}}
+\subsubsection{\texorpdfstring{Trunc\+Univ\+Norm\+Sampler()}{TruncUnivNormSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+\hyperlink{classrvsamp_1_1TruncUnivNormSampler}{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1TruncUnivNormSampler}{Trunc\+Univ\+Norm\+Sampler} (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{mu,  }\item[{const float\+\_\+t \&}]{sigma,  }\item[{const float\+\_\+t \&}]{lower,  }\item[{const float\+\_\+t \&}]{upper }\end{DoxyParamCaption})}
+
+
+
+The user must supply both mean and std. dev. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & a float\+\_\+t for the location parameter. \\
+\hline
+{\em sigma} & a float\+\_\+t ($>$ 0) representing the scale of the samples. \\
+\hline
+{\em lower} & the lower bound of the support \\
+\hline
+{\em upper} & the upper bound of the support \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_a2d6a8f2053e4ed0806718e6749288dce}\label{classrvsamp_1_1TruncUnivNormSampler_a2d6a8f2053e4ed0806718e6749288dce}} 
+\index{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}!sample@{sample}}
+\index{sample@{sample}!rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}}
+\subsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler}{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

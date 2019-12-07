@@ -1,0 +1,34 @@
+\hypertarget{classrbpf__base}{}\section{rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$ Class Template Reference}
+\label{classrbpf__base}\index{rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$@{rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrbpf__base_a232936f9aba33d2cb3ec0a74d86ff673}\label{classrbpf__base_a232936f9aba33d2cb3ec0a74d86ff673}} 
+using {\bfseries osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\item 
+\mbox{\Hypertarget{classrbpf__base_ab2eccf330f9b74a01b4131ebf650fc45}\label{classrbpf__base_ab2eccf330f9b74a01b4131ebf650fc45}} 
+using {\bfseries sssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, 1 $>$
+\item 
+\mbox{\Hypertarget{classrbpf__base_af80df010347845efac98659ecf7bb1f2}\label{classrbpf__base_af80df010347845efac98659ecf7bb1f2}} 
+using {\bfseries nsssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+ns\+\_\+state, 1 $>$
+\item 
+\mbox{\Hypertarget{classrbpf__base_a195c55dcd55fb4a1a5a08c44603bd683}\label{classrbpf__base_a195c55dcd55fb4a1a5a08c44603bd683}} 
+using {\bfseries Mat} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+\mbox{\Hypertarget{classrbpf__base_ab97a27bf3704125176265f8cbb1ccb75}\label{classrbpf__base_ab97a27bf3704125176265f8cbb1ccb75}} 
+using {\bfseries func} = std\+::function$<$ const Mat(const nsssv \&, const sssv \&)$>$
+\item 
+\mbox{\Hypertarget{classrbpf__base_a5e2ffe0b6e10136fcac986314664f938}\label{classrbpf__base_a5e2ffe0b6e10136fcac986314664f938}} 
+using {\bfseries funcs} = std\+::vector$<$ func $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrbpf__base_afe22a67962a28c83b8568b96f80e9c7b}\label{classrbpf__base_afe22a67962a28c83b8568b96f80e9c7b}} 
+virtual void {\bfseries filter} (const osv \&data, const funcs \&fs=funcs())=0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}\end{DoxyCompactItemize}
