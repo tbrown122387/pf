@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pf: pf_base Class Reference</title>
+<title>pf: pf_base&lt; float_t, dimobs, dimstate &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -80,31 +80,42 @@ $(document).ready(function(){initNavTree('classpf__base.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classpf__base-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pf_base Class Reference</div>  </div>
+<div class="title">pf_base&lt; float_t, dimobs, dimstate &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="pf__base_8h_source.html">pf_base.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for pf_base:</div>
-<div class="dyncontent">
-<div class="center"><img src="classpf__base__inherit__graph.png" border="0" usemap="#pf__base_inherit__map" alt="Inheritance graph"/></div>
-<map name="pf__base_inherit__map" id="pf__base_inherit__map">
-<area shape="rect" id="node2" href="classAPF.html" title="A base&#45;class for Auxiliary Particle Filtering. Filtering only, no smoothing. " alt="" coords="127,5,299,47"/>
-<area shape="rect" id="node3" href="classBSFilter.html" title="A base class for the boostrap particle filter. " alt="" coords="127,71,299,112"/>
-<area shape="rect" id="node4" href="classBSFilterWC.html" title="A base class for the boostrap particle filter with covariates. " alt="" coords="141,137,285,193"/>
-<area shape="rect" id="node5" href="classrbpf__hmm.html" title="Rao&#45;Blackwellized/Marginal Particle Filter with inner HMMs. " alt="" coords="121,217,304,273"/>
-<area shape="rect" id="node6" href="classrbpf__hmm__bs.html" title="Rao&#45;Blackwellized/Marginal Bootstrap Filter with inner HMMs. " alt="" coords="136,297,289,353"/>
-<area shape="rect" id="node7" href="classrbpf__kalman.html" title="Rao&#45;Blackwellized/Marginal Particle Filter with inner Kalman Filter objectss. " alt="" coords="137,377,288,433"/>
-<area shape="rect" id="node8" href="classrbpf__kalman__bs.html" title="Rao&#45;Blackwellized/Marginal Bootstrap Filter with inner Kalman Filter objectss. " alt="" coords="129,457,296,513"/>
-<area shape="rect" id="node9" href="classSISRFilter.html" title="A base class for the Sequential Important Sampling with Resampling (SISR). " alt="" coords="142,537,283,593"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>t </dd></dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ab468bc1a4c41a4ad7372281a1db7db8b"><td class="memItemLeft" align="right" valign="top"><a id="ab468bc1a4c41a4ad7372281a1db7db8b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>osv</b> = Eigen::Matrix&lt; float_t, dimobs, 1 &gt;</td></tr>
+<tr class="separator:ab468bc1a4c41a4ad7372281a1db7db8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add01ddbbba6953260f53d47bae2888d2"><td class="memItemLeft" align="right" valign="top"><a id="add01ddbbba6953260f53d47bae2888d2"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ssv</b> = Eigen::Matrix&lt; float_t, dimstate, 1 &gt;</td></tr>
+<tr class="separator:add01ddbbba6953260f53d47bae2888d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b7fbe89aa5e34880ad81a5f48e82a04"><td class="memItemLeft" align="right" valign="top"><a id="a6b7fbe89aa5e34880ad81a5f48e82a04"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Mat</b> = Eigen::Matrix&lt; float_t, Eigen::Dynamic, Eigen::Dynamic &gt;</td></tr>
+<tr class="separator:a6b7fbe89aa5e34880ad81a5f48e82a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae409bcfbd5e1bc542134c4e9b6dce6c3"><td class="memItemLeft" align="right" valign="top"><a id="ae409bcfbd5e1bc542134c4e9b6dce6c3"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>func</b> = std::function&lt; const Mat(const ssv &amp;)&gt;</td></tr>
+<tr class="separator:ae409bcfbd5e1bc542134c4e9b6dce6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c328d66f991393ec0f1a082d5cbf4a6"><td class="memItemLeft" align="right" valign="top"><a id="a0c328d66f991393ec0f1a082d5cbf4a6"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>funcs</b> = std::vector&lt; func &gt;</td></tr>
+<tr class="separator:a0c328d66f991393ec0f1a082d5cbf4a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aec857789031fd938b7088faa3607707a"><td class="memItemLeft" align="right" valign="top"><a id="aec857789031fd938b7088faa3607707a"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>filter</b> (const osv &amp;data, const funcs &amp;fs=funcs())=0</td></tr>
+<tr class="separator:aec857789031fd938b7088faa3607707a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a350df818820d6ab0fd6d413022b7f23b"><td class="memItemLeft" align="right" valign="top"><a id="a350df818820d6ab0fd6d413022b7f23b"></a>
+virtual float_t&#160;</td><td class="memItemRight" valign="bottom"><b>getLogCondLike</b> () const =0</td></tr>
+<tr class="separator:a350df818820d6ab0fd6d413022b7f23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="pf__base_8h_source.html">pf_base.h</a></li>
 </ul>
 </div><!-- contents -->

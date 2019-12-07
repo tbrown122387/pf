@@ -95,8 +95,6 @@ $(document).ready(function(){initNavTree('rv__samp_8h.html','');});
 Include dependency graph for rv_samp.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="rv__samp_8h__incl.png" border="0" usemap="#include_2rv__samp_8h" alt=""/></div>
-<map name="include_2rv__samp_8h" id="include_2rv__samp_8h">
-</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -117,7 +115,13 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1UnivNormSampler.html">rvsamp::UnivNormSampler&lt; float_t &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a univariate Normal distribution.  <a href="classrvsamp_1_1UnivNormSampler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1BernSampler.html">rvsamp::BernSampler</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1UnivLogNormSampler.html">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a univariate Log-Normal distribution.  <a href="classrvsamp_1_1UnivLogNormSampler.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructor ...  <a href="classrvsamp_1_1TruncUnivNormSampler.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1BernSampler.html">rvsamp::BernSampler&lt; float_t, int_t &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a univariate Bernoulli distribution.  <a href="classrvsamp_1_1BernSampler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1MVNSampler.html">rvsamp::MVNSampler&lt; dim, float_t &gt;</a></td></tr>
@@ -135,6 +139,8 @@ Classes</h2></td></tr>
 <p>Basically a wrapper for std::discrete_distribution&lt;&gt; outputs are in the rage (0,1,...N-1)</p>
 <p>Can sample from a distribution with fixed mean and covariance, fixed mean only, fixed covariance only, or nothing fixed.</p>
 <p>Samples from univariate Bernoulli distribution.</p>
+<p>Samples from a truncated univariate Normal distribution using the acceptance rejection method. The proposal distribution used is a normal distribution with the same location and scale parameters as the target. As a result, this method will take a long time when the width of the support of the target is narrow.</p>
+<p>Samples from univariate Log-Normal distribution.</p>
 <p>Samples from univariate Normal distribution.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">

@@ -1,3 +1,6 @@
 <map id="rbase&lt; nparts, dimx, float_t &gt;" name="rbase&lt; nparts, dimx, float_t &gt;">
-<area shape="rect" id="node2" href="$classmn__resampler.html" title="Performs multinomial resampling. " alt="" coords="5,95,161,136"/>
+<area shape="rect" id="node2" href="$classmn__resampler.html" title="mn_resampler\&lt; nparts,\l dimx, float_t \&gt;" alt="" coords="201,5,357,47"/>
+<area shape="rect" id="node3" href="$classresid__resampler.html" title="resid_resampler\&lt; nparts,\l dimx, float_t \&gt;" alt="" coords="196,71,363,112"/>
+<area shape="rect" id="node4" href="$classstratif__resampler.html" title="stratif_resampler\&lt;\l nparts, dimx, float_t \&gt;" alt="" coords="202,136,357,177"/>
+<area shape="rect" id="node5" href="$classsystematic__resampler.html" title="systematic_resampler\l\&lt; nparts, dimx, float_t \&gt;" alt="" coords="198,201,361,243"/>
 </map>

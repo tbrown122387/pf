@@ -7,12 +7,13 @@ forces structure on the closed-\/form filters.
 
 {\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
 {\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}rv\+\_\+eval.\+h\char`\"{}}\newline
 Include dependency graph for cf\+\_\+filters.\+h\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=218pt]{cf__filters_8h__incl}
+\includegraphics[width=350pt]{cf__filters_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:
@@ -27,15 +28,21 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{classcf__filter}{cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}
-\begin{DoxyCompactList}\small\item\em Abstract Base Class for Kalman filter and H\+MM filter. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Abstract Base Class for all closed-\/form filters. \end{DoxyCompactList}\item 
 class \hyperlink{classkalman}{kalman$<$ dimstate, dimobs, diminput, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class template for Kalman filtering. \end{DoxyCompactList}\item 
 class \hyperlink{classhmm}{hmm$<$ dimstate, dimobs, float\+\_\+t $>$}
-\begin{DoxyCompactList}\small\item\em A class template for H\+MM filtering. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A class template for H\+MM filtering. \end{DoxyCompactList}\item 
+class \hyperlink{classgamFilter}{gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$}
+\begin{DoxyCompactList}\small\item\em A class template for Gamma filtering. \end{DoxyCompactList}\item 
+class \hyperlink{classmultivGamFilter}{multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$}
+\begin{DoxyCompactList}\small\item\em Another class template for Gamma filtering, but this time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 forces structure on the closed-\/form filters. 
+
+Inherit from this for a model that admits Gamma filtering.
 
 Inherit from this for a model that admits H\+MM filtering.
 

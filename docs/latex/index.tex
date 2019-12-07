@@ -1,11 +1,19 @@
 \href{https://zenodo.org/badge/latestdoi/130237492}{\tt }
 
-This is a static library for fast particle filtering. Abstract base classes for different particle filters are provided (e.\+g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-\/\+Blackwellized particle filter, etc.), as well as non-\/abstract base classes for closed form filtering algorithms (e.\+g. Kalman Filter, Hidden Markov Model filter, etc.). Most (all?) of these classes are templated for speed. Once you have a certain model in mind, make it into a class and inherit from an appropriate particle filter.
+This is a template library for fast particle filtering. Templated abstract base classes for different particle filters are provided (e.\+g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-\/\+Blackwellized particle filter, etc.), as well as non-\/abstract (but indeed templated) base classes for closed form filtering algorithms (e.\+g. Kalman Filter, Hidden Markov Model filter, etc.).
+
+Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use!
 
 \subsection*{Installation}
 
-Build this yourself using {\ttfamily build\+\_\+lib.\+sh} (possibly editing the variable {\ttfamily E\+I\+G\+EN}). When you use it in another project, make sure to compile with C++11 enabled ({\ttfamily -\/std=c++11}), and to include the {\ttfamily include} directory of this project. Note, also, that this code all makes use of the \href{http://eigen.tuxfamily.org/}{\tt Eigen library}.
+This is a header-\/only library, so there is no building necessary. When you use it in another project, make sure to compile with C++11 enabled ({\ttfamily -\/std=c++11}), and to include the {\ttfamily include} directory of this project.
+
+Note, also, that this code all makes use of \href{http://eigen.tuxfamily.org/}{\tt Eigen} and \href{https://www.boost.org/}{\tt Boost}.
 
 \subsection*{Examples}
 
-Don\textquotesingle{}t know how to use this? Check out the \href{https://github.com/tbrown122387/pf/tree/master/examples}{\tt {\ttfamily examples}} directory! After you have built {\ttfamily libpf.\+a}, edit {\ttfamily pf/examples/\+Makefile} and then run {\ttfamily make}. After that, run {\ttfamily ./examples ./data/svol\+\_\+y\+\_\+data.csv} and you\textquotesingle{}ll see the filtering output from {\ttfamily examples/svol\+\_\+comparison.\+cpp}. 
+Don\textquotesingle{}t know how to use this? Check out the \href{https://github.com/tbrown122387/pf/tree/master/examples}{\tt {\ttfamily examples}} directory! Check {\ttfamily pf/examples/\+Makefile} to make sure it jives with your directories, and then run {\ttfamily make}. After that, run {\ttfamily ./examples ./data/svol\+\_\+y\+\_\+data.csv} and you\textquotesingle{}ll see the filtering output from {\ttfamily examples/svol\+\_\+comparison.\+cpp}.
+
+\subsection*{Citation}
+
+Click the \char`\"{}\+D\+O\+I\char`\"{} link above. Or, if you\textquotesingle{}re impatient, click \href{https://zenodo.org/record/2633289/export/hx}{\tt \textquotesingle{}here\textquotesingle{}} for a Bibtex citation. 

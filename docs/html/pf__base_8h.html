@@ -86,9 +86,20 @@ $(document).ready(function(){initNavTree('pf__base_8h.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>All particle filters inherit from this.  
+<p>All non Rao-Blackwellized particle filters inherit from this.  
 <a href="#details">More...</a></p>
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for pf_base.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="pf__base_8h__incl.png" border="0" usemap="#include_2pf__base_8h" alt=""/></div>
+<map name="include_2pf__base_8h" id="include_2pf__base_8h">
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="pf__base_8h__dep__incl.png" border="0" usemap="#include_2pf__base_8hdep" alt=""/></div>
@@ -105,11 +116,36 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpf__base.html">pf_base</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpf__base.html">pf_base&lt; float_t, dimobs, dimstate &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrbpf__base.html">rbpf_base&lt; float_t, dim_s_state, dim_ns_state, dimobs &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classForwardMod.html">ForwardMod&lt; dimx, dimy, float_t &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>All particle filters inherit from this. </p>
+<div class="textblock"><p>All non Rao-Blackwellized particle filters inherit from this. </p>
+<p>inherit from this if you want to simulate from a homogeneous forward/generative model.</p>
+<p>All Rao-Blackwellized particle filters inherit from this.</p>
+<dl class="section author"><dt>Author</dt><dd>t</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">float_t</td><td>(e.g. double, float, etc.) </td></tr>
+    <tr><td class="paramname">dimobs</td><td>the dimension of each observation </td></tr>
+    <tr><td class="paramname">dimstate</td><td>the dimension of each state</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>t</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">float_t</td><td>(e.g. double, float, etc.) </td></tr>
+    <tr><td class="paramname">dim_s_state</td><td>the dimension of the state vector that's sampled </td></tr>
+    <tr><td class="paramname">dim_ns_state</td><td>the dimension of the state vector that isn't sampled </td></tr>
+    <tr><td class="paramname">dimobs</td><td>the dimension of each observation vector</td></tr>
+  </table>
+  </dd>
+</dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

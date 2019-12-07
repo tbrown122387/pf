@@ -2,7 +2,7 @@
 \label{classBSFilter}\index{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$@{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$}}
 
 
-A base class for the boostrap particle filter.  
+A base class for the bootstrap particle filter.  
 
 
 
@@ -96,7 +96,7 @@ unsigned int \hyperlink{classBSFilter_a3ae16f95c62e798c64150d3bb1451c9c}{m\+\_\+
 \subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t, typename float\+\_\+t$>$\newline
 class B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$}
 
-A base class for the boostrap particle filter. 
+A base class for the bootstrap particle filter. 
 
 \begin{DoxyAuthor}{Author}
 taylor 
@@ -219,7 +219,7 @@ return a std\+::vector$<$\+Mat$>$ of expectations. How many depends on how many 
 \index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{get\+Log\+Cond\+Like()}{getLogCondLike()}}
 {\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -228,6 +228,10 @@ Returns the most recent (log-\/) conditiona likelihood.
 \begin{DoxyReturn}{Returns}
 log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) 
 \end{DoxyReturn}
+
+
+Implements \hyperlink{classpf__base}{pf\+\_\+base$<$ float\+\_\+t, dimy, dimx $>$}.
+
 \mbox{\Hypertarget{classBSFilter_ae7ef5c414525879235f1e3b72833ced5}\label{classBSFilter_ae7ef5c414525879235f1e3b72833ced5}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!log\+G\+Ev@{log\+G\+Ev}}
 \index{log\+G\+Ev@{log\+G\+Ev}!B\+S\+Filter@{B\+S\+Filter}}

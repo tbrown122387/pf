@@ -1,25 +1,32 @@
-\hypertarget{classpf__base}{}\section{pf\+\_\+base Class Reference}
-\label{classpf__base}\index{pf\+\_\+base@{pf\+\_\+base}}
-
-
-{\ttfamily \#include $<$pf\+\_\+base.\+h$>$}
-
-
-
-Inheritance diagram for pf\+\_\+base\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=304pt]{classpf__base__inherit__graph}
-\end{center}
-\end{figure}
-
-
-\subsection{Detailed Description}
-\begin{DoxyAuthor}{Author}
-t 
-\end{DoxyAuthor}
+\hypertarget{classpf__base}{}\section{pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$ Class Template Reference}
+\label{classpf__base}\index{pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$@{pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf__base_ab468bc1a4c41a4ad7372281a1db7db8b}\label{classpf__base_ab468bc1a4c41a4ad7372281a1db7db8b}} 
+using {\bfseries osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf__base_add01ddbbba6953260f53d47bae2888d2}\label{classpf__base_add01ddbbba6953260f53d47bae2888d2}} 
+using {\bfseries ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf__base_a6b7fbe89aa5e34880ad81a5f48e82a04}\label{classpf__base_a6b7fbe89aa5e34880ad81a5f48e82a04}} 
+using {\bfseries Mat} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+\mbox{\Hypertarget{classpf__base_ae409bcfbd5e1bc542134c4e9b6dce6c3}\label{classpf__base_ae409bcfbd5e1bc542134c4e9b6dce6c3}} 
+using {\bfseries func} = std\+::function$<$ const Mat(const ssv \&)$>$
+\item 
+\mbox{\Hypertarget{classpf__base_a0c328d66f991393ec0f1a082d5cbf4a6}\label{classpf__base_a0c328d66f991393ec0f1a082d5cbf4a6}} 
+using {\bfseries funcs} = std\+::vector$<$ func $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf__base_aec857789031fd938b7088faa3607707a}\label{classpf__base_aec857789031fd938b7088faa3607707a}} 
+virtual void {\bfseries filter} (const osv \&data, const funcs \&fs=funcs())=0
+\item 
+\mbox{\Hypertarget{classpf__base_a350df818820d6ab0fd6d413022b7f23b}\label{classpf__base_a350df818820d6ab0fd6d413022b7f23b}} 
+virtual float\+\_\+t {\bfseries get\+Log\+Cond\+Like} () const =0
+\end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

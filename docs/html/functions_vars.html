@@ -83,7 +83,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>m_B_gen
-: <a class="el" href="classrvsamp_1_1BernSampler.html#af9b28903cd86a0f02cece4a8c407f4ed">rvsamp::BernSampler</a>
+: <a class="el" href="classrvsamp_1_1BernSampler.html#ada54494593944ed1aa4ecdafe3047e93">rvsamp::BernSampler&lt; float_t, int_t &gt;</a>
 </li>
 <li>m_expectations
 : <a class="el" href="classAPF.html#acd6946024490dc609f39fe4f183513df">APF&lt; nparts, dimx, dimy, resamp_t, float_t &gt;</a>
@@ -102,15 +102,18 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="classkalman.html#a9ca8319464c7a07435c4ff25fd53cc6d">kalman&lt; dimstate, dimobs, diminput, float_t &gt;</a>
 </li>
 <li>m_filtVec
-: <a class="el" href="classhmm.html#ab986d567358117debde35a1bf9063d1a">hmm&lt; dimstate, dimobs, float_t &gt;</a>
+: <a class="el" href="classgamFilter.html#a6ab069a63962551ef8b580cb9eb681c9">gamFilter&lt; dim_pred, float_t &gt;</a>
+, <a class="el" href="classhmm.html#ab986d567358117debde35a1bf9063d1a">hmm&lt; dimstate, dimobs, float_t &gt;</a>
+, <a class="el" href="classmultivGamFilter.html#a5a0acb67db0bbd0c687c59e3ec05a123">multivGamFilter&lt; dim_obs, dim_pred, float_t &gt;</a>
 </li>
 <li>m_fresh
-: <a class="el" href="classhmm.html#a0a209809aeeef9d4b5679ca6bb51e588">hmm&lt; dimstate, dimobs, float_t &gt;</a>
+: <a class="el" href="classgamFilter.html#a6bf29aaf7b43bb446821f06ea643df3f">gamFilter&lt; dim_pred, float_t &gt;</a>
+, <a class="el" href="classhmm.html#a0a209809aeeef9d4b5679ca6bb51e588">hmm&lt; dimstate, dimobs, float_t &gt;</a>
 , <a class="el" href="classkalman.html#ae36bdf8e665b5ad75b10b2cb7dda9e2d">kalman&lt; dimstate, dimobs, diminput, float_t &gt;</a>
+, <a class="el" href="classmultivGamFilter.html#a8ac99863dd918c7fcb6c97a7722efa2b">multivGamFilter&lt; dim_obs, dim_pred, float_t &gt;</a>
 </li>
 <li>m_gen
-: <a class="el" href="classmn__resampler.html#a565f3bdfb2e7ccba217292c20a2afb6a">mn_resampler&lt; nparts, dimx, float_t &gt;</a>
-, <a class="el" href="classmn__resampler__rbpf.html#ad4ff62e53d193d9126889a59c54a4d0e">mn_resampler_rbpf&lt; nparts, dimsampledx, cfModT, float_t &gt;</a>
+: <a class="el" href="classmn__resampler__rbpf.html#ad4ff62e53d193d9126889a59c54a4d0e">mn_resampler_rbpf&lt; nparts, dimsampledx, cfModT, float_t &gt;</a>
 , <a class="el" href="classrbase.html#ac278c975bd5b23ad009f1ce685552c5c">rbase&lt; nparts, dimx, float_t &gt;</a>
 </li>
 <li>m_kGen
@@ -120,7 +123,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="classhmm.html#a923bd361313fedb0a0a55bdb95cfbf07">hmm&lt; dimstate, dimobs, float_t &gt;</a>
 </li>
 <li>m_lastLogCondLike
-: <a class="el" href="classkalman.html#aa2b608d16d00a4f549316bfbd9345d11">kalman&lt; dimstate, dimobs, diminput, float_t &gt;</a>
+: <a class="el" href="classgamFilter.html#a15774fb5c9c20bff2f0f99cf52a2445f">gamFilter&lt; dim_pred, float_t &gt;</a>
+, <a class="el" href="classkalman.html#aa2b608d16d00a4f549316bfbd9345d11">kalman&lt; dimstate, dimobs, diminput, float_t &gt;</a>
+, <a class="el" href="classmultivGamFilter.html#a0c98ad325dec2868dcc0307f8f438f85">multivGamFilter&lt; dim_obs, dim_pred, float_t &gt;</a>
 , <a class="el" href="classrbpf__hmm.html#a8b08a5af7f7ef6b0079c69ff0c6b485f">rbpf_hmm&lt; nparts, dimnss, dimss, dimy, resamp_t, float_t &gt;</a>
 , <a class="el" href="classrbpf__hmm__bs.html#a90f0c7600229734cb3e5927685f63995">rbpf_hmm_bs&lt; nparts, dimnss, dimss, dimy, resamp_t, float_t &gt;</a>
 , <a class="el" href="classrbpf__kalman.html#adb1cf2ea7161d4a6e5a9a7240b9cdff1">rbpf_kalman&lt; nparts, dimnss, dimss, dimy, resamp_t, float_t &gt;</a>
@@ -142,11 +147,16 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 , <a class="el" href="classrbpf__kalman__bs.html#a2f61f3dca55d4c7f32b408569a75f464">rbpf_kalman_bs&lt; nparts, dimnss, dimss, dimy, resamp_t, float_t &gt;</a>
 , <a class="el" href="classSISRFilter.html#a99f63cbae203084cf3d812a61bb725fe">SISRFilter&lt; nparts, dimx, dimy, resamp_t, float_t &gt;</a>
 </li>
+<li>m_lower
+: <a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#a6405f385e9fb923d5aeae60324b745c1">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a>
+</li>
 <li>m_mean
 : <a class="el" href="classrvsamp_1_1MVNSampler.html#a0a1de8eea2dfa214c5495ccf226aba9c">rvsamp::MVNSampler&lt; dim, float_t &gt;</a>
 </li>
 <li>m_mu
-: <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a62483bf974fc36d79ff38aa81755e645">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
+: <a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#a7c1024d6d70fec2999d611512f4c30b4">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1UnivLogNormSampler.html#a94599a9ec4d17a1c68f77b5a6cb22a8d">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a62483bf974fc36d79ff38aa81755e645">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
 </li>
 <li>m_now
 : <a class="el" href="classAPF.html#a531ab23480d146ef4b15b0cd1991e609">APF&lt; nparts, dimx, dimy, resamp_t, float_t &gt;</a>
@@ -159,7 +169,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 , <a class="el" href="classSISRFilter.html#a1aafd7da52826fd25967c8258f68ce9c">SISRFilter&lt; nparts, dimx, dimy, resamp_t, float_t &gt;</a>
 </li>
 <li>m_p
-: <a class="el" href="classrvsamp_1_1BernSampler.html#a813e9f2491074c5df44154b83698091b">rvsamp::BernSampler</a>
+: <a class="el" href="classrvsamp_1_1BernSampler.html#ae0b9d07a5c37311c21c90b5d0d09ac56">rvsamp::BernSampler&lt; float_t, int_t &gt;</a>
 </li>
 <li>m_p_innerMods
 : <a class="el" href="classrbpf__hmm.html#a37251f098a509b771e20eae32d779f9d">rbpf_hmm&lt; nparts, dimnss, dimss, dimy, resamp_t, float_t &gt;</a>
@@ -217,7 +227,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="classrvsamp_1_1MVNSampler.html#a80319ff672cddccd2dc48a447a7dfac3">rvsamp::MVNSampler&lt; dim, float_t &gt;</a>
 </li>
 <li>m_sigma
-: <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a5ecc2ae8d9b2c25f070467651cf4f0d2">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
+: <a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#af54c9b539c82e865952e938cee75df1b">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1UnivLogNormSampler.html#a608a40aa21935aaa36a9c44f1a3392a4">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a5ecc2ae8d9b2c25f070467651cf4f0d2">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
 </li>
 <li>m_transMatTranspose
 : <a class="el" href="classhmm.html#a95b1182114d3334585108a6a7e75c99d">hmm&lt; dimstate, dimobs, float_t &gt;</a>
@@ -225,8 +237,13 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <li>m_unif_gen
 : <a class="el" href="classrvsamp_1_1UniformSampler.html#a015cefddd5e6e88f8a7318daec2211cc">rvsamp::UniformSampler&lt; float_t &gt;</a>
 </li>
+<li>m_upper
+: <a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#a5081f5dfd44015a5af38572a4a22bf58">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a>
+</li>
 <li>m_z_gen
 : <a class="el" href="classrvsamp_1_1MVNSampler.html#a44d420b751e226b77d8fdfc5c5bef09d">rvsamp::MVNSampler&lt; dim, float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#a272eeaa23053de1bad153f34a7c34329">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1UnivLogNormSampler.html#a2f41b8dd97ef6f0cd5537a2b11242cb6">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a>
 , <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a5c40c8154c9585acb70c9a487764806e">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
 </li>
 </ul>

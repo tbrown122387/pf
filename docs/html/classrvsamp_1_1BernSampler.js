@@ -1,11 +1,9 @@
 var classrvsamp_1_1BernSampler =
 [
-    [ "BernSampler", "classrvsamp_1_1BernSampler.html#a4401c2717776040550e555ec3ae48ee2", null ],
-    [ "BernSampler", "classrvsamp_1_1BernSampler.html#ab71d1320b26f2ea63b1a7adc4183db3b", null ],
-    [ "BernSampler", "classrvsamp_1_1BernSampler.html#a3e48a918a7be355435ae1ab425974c6d", null ],
-    [ "sample", "classrvsamp_1_1BernSampler.html#aa12177f8517a1462d84e5fd964c7dadb", null ],
-    [ "setP", "classrvsamp_1_1BernSampler.html#ad6020e9f9f62a9ab32e64638cc29880b", null ],
-    [ "setP", "classrvsamp_1_1BernSampler.html#a115d668c1eb9e13a98c5d5f265a26ba2", null ],
-    [ "m_B_gen", "classrvsamp_1_1BernSampler.html#af9b28903cd86a0f02cece4a8c407f4ed", null ],
-    [ "m_p", "classrvsamp_1_1BernSampler.html#a813e9f2491074c5df44154b83698091b", null ]
+    [ "BernSampler", "classrvsamp_1_1BernSampler.html#a85b39f1940da6d56a0d7923f684bdb5f", null ],
+    [ "BernSampler", "classrvsamp_1_1BernSampler.html#a18658e918b5bcd5cefdd900ded068686", null ],
+    [ "sample", "classrvsamp_1_1BernSampler.html#a2520daff5a896b58073d6756758d1323", null ],
+    [ "setP", "classrvsamp_1_1BernSampler.html#ab61c1b21be5d7422fec4ea95be91c8cc", null ],
+    [ "m_B_gen", "classrvsamp_1_1BernSampler.html#ada54494593944ed1aa4ecdafe3047e93", null ],
+    [ "m_p", "classrvsamp_1_1BernSampler.html#ae0b9d07a5c37311c21c90b5d0d09ac56", null ]
 ];

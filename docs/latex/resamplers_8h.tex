@@ -8,13 +8,15 @@ all resamplers must inherit from this. This will enforce certain structure that 
 {\ttfamily \#include $<$chrono$>$}\newline
 {\ttfamily \#include $<$array$>$}\newline
 {\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
 Include dependency graph for resamplers.\+h\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=341pt]{resamplers_8h__incl}
+\includegraphics[width=350pt]{resamplers_8h__incl}
 \end{center}
 \end{figure}
 \subsection*{Classes}
@@ -23,17 +25,29 @@ Include dependency graph for resamplers.\+h\+:
 class \hyperlink{classrbase}{rbase$<$ nparts, dimx, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em Base class for all resampler types. \end{DoxyCompactList}\item 
 class \hyperlink{classmn__resampler}{mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
-\begin{DoxyCompactList}\small\item\em Performs multinomial resampling. \end{DoxyCompactList}\item 
+\item 
 class \hyperlink{classmn__resampler__rbpf}{mn\+\_\+resampler\+\_\+rbpf$<$ nparts, dimsampledx, cf\+Mod\+T, float\+\_\+t $>$}
-\begin{DoxyCompactList}\small\item\em Performs multinomial resampling for a Rao-\/\+Blackwellized pf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\item 
+class \hyperlink{classresid__resampler}{resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+\item 
+class \hyperlink{classstratif__resampler}{stratif\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+\item 
+class \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 all resamplers must inherit from this. This will enforce certain structure that are assumed by all particle filters. 
 
+Class that performs systematic resampling on \char`\"{}standard\char`\"{} models.
+
+Class that performs stratified resampling on \char`\"{}standard\char`\"{} models.
+
+Class that performs residual resampling on \char`\"{}standard\char`\"{} models.
+
 Class that performs multinomial resampling for R\+B\+P\+Fs.
 
-Class that performs multinomial resampling.
+Class that performs multinomial resampling for \char`\"{}standard\char`\"{} models.
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -44,5 +58,15 @@ Class that performs multinomial resampling.
 {\em nparts} & the number of particles. \\
 \hline
 {\em dimsampledx} & the dimension of each state sample. \\
+\hline
+{\em cf\+ModT} & the type of closed form model \\
+\hline
+{\em float\+\_\+t} & the type of floating point number\\
+\hline
+{\em nparts} & the number of particles. \\
+\hline
+{\em dimx} & the dimension of each state sample. \\
+\hline
+{\em float\+\_\+t} & the floating point for samples \\
 \hline
 \end{DoxyTemplParams}

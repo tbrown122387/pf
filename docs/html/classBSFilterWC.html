@@ -89,26 +89,10 @@ $(document).ready(function(){initNavTree('classBSFilterWC.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>A base class for the boostrap particle filter with covariates.  
+<p>A base class for the bootstrap particle filter with covariates.  
  <a href="classBSFilterWC.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="bootstrap__filter__with__covariates_8h_source.html">bootstrap_filter_with_covariates.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for BSFilterWC&lt; nparts, dimx, dimy, dimcov, resamp_t, float_t &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="classBSFilterWC__inherit__graph.png" border="0" usemap="#BSFilterWC_3_01nparts_00_01dimx_00_01dimy_00_01dimcov_00_01resamp__t_00_01float__t_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="BSFilterWC_3_01nparts_00_01dimx_00_01dimy_00_01dimcov_00_01resamp__t_00_01float__t_01_4_inherit__map" id="BSFilterWC_3_01nparts_00_01dimx_00_01dimy_00_01dimcov_00_01resamp__t_00_01float__t_01_4_inherit__map">
-<area shape="rect" id="node2" href="classpf__base.html" title="pf_base" alt="" coords="43,5,111,32"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for BSFilterWC&lt; nparts, dimx, dimy, dimcov, resamp_t, float_t &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="classBSFilterWC__coll__graph.png" border="0" usemap="#BSFilterWC_3_01nparts_00_01dimx_00_01dimy_00_01dimcov_00_01resamp__t_00_01float__t_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="BSFilterWC_3_01nparts_00_01dimx_00_01dimy_00_01dimcov_00_01resamp__t_00_01float__t_01_4_coll__map" id="BSFilterWC_3_01nparts_00_01dimx_00_01dimy_00_01dimcov_00_01resamp__t_00_01float__t_01_4_coll__map">
-<area shape="rect" id="node2" href="classpf__base.html" title="pf_base" alt="" coords="43,5,111,32"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -124,6 +108,8 @@ Public Types</h2></td></tr>
 <tr class="separator:af89dac8c324ae8b549595a85e89ec7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12c3f32cb628a0efaa0267262205d6d6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBSFilterWC.html#a12c3f32cb628a0efaa0267262205d6d6">arrayfloat_t</a> = std::array&lt; float_t, nparts &gt;</td></tr>
 <tr class="separator:a12c3f32cb628a0efaa0267262205d6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a984a5a75eef118f2f4db7f8953fea653"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBSFilterWC.html#a984a5a75eef118f2f4db7f8953fea653">Funcs</a> = std::vector&lt; std::function&lt; const <a class="el" href="classBSFilterWC.html#a507a06203a27e3a025a43be68b4b0e0e">Mat</a>(const <a class="el" href="classBSFilterWC.html#afff292a8cc15505cc3aa244135203c78">ssv</a> &amp;, const <a class="el" href="classBSFilterWC.html#a52f5a46901a821fffe82937543220a1a">cvsv</a> &amp;)&gt; &gt;</td></tr>
+<tr class="separator:a984a5a75eef118f2f4db7f8953fea653"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -137,9 +123,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a26e23f7f1e17e3fb3e6a3bfdb633cc2b"><td class="memItemLeft" align="right" valign="top">float_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBSFilterWC.html#a26e23f7f1e17e3fb3e6a3bfdb633cc2b">getLogCondLike</a> () const</td></tr>
 <tr class="memdesc:a26e23f7f1e17e3fb3e6a3bfdb633cc2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the most recent (log-) conditiona likelihood.  <a href="#a26e23f7f1e17e3fb3e6a3bfdb633cc2b">More...</a><br /></td></tr>
 <tr class="separator:a26e23f7f1e17e3fb3e6a3bfdb633cc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0637035a4553ae3ffeaf1ddce0de2c6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBSFilterWC.html#a0637035a4553ae3ffeaf1ddce0de2c6b">filter</a> (const <a class="el" href="classBSFilterWC.html#a48b0c7f1a1cf7e57300cf820e74057ce">osv</a> &amp;ydata, const <a class="el" href="classBSFilterWC.html#a52f5a46901a821fffe82937543220a1a">cvsv</a> &amp;covdata, const std::vector&lt; std::function&lt; const <a class="el" href="classBSFilterWC.html#a507a06203a27e3a025a43be68b4b0e0e">Mat</a>(const <a class="el" href="classBSFilterWC.html#afff292a8cc15505cc3aa244135203c78">ssv</a> &amp;)&gt; &gt; &amp;fs=std::vector&lt; std::function&lt; const <a class="el" href="classBSFilterWC.html#a507a06203a27e3a025a43be68b4b0e0e">Mat</a>(const <a class="el" href="classBSFilterWC.html#afff292a8cc15505cc3aa244135203c78">ssv</a> &amp;)&gt; &gt;())</td></tr>
-<tr class="memdesc:a0637035a4553ae3ffeaf1ddce0de2c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates filtering distribution on a new datapoint. Optionally stores expectations of functionals.  <a href="#a0637035a4553ae3ffeaf1ddce0de2c6b">More...</a><br /></td></tr>
-<tr class="separator:a0637035a4553ae3ffeaf1ddce0de2c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fcdf06edc3b5528c5c33dd2e3df9b66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBSFilterWC.html#a5fcdf06edc3b5528c5c33dd2e3df9b66">filter</a> (const <a class="el" href="classBSFilterWC.html#a48b0c7f1a1cf7e57300cf820e74057ce">osv</a> &amp;ydata, const <a class="el" href="classBSFilterWC.html#a52f5a46901a821fffe82937543220a1a">cvsv</a> &amp;covdata, const <a class="el" href="classBSFilterWC.html#a984a5a75eef118f2f4db7f8953fea653">Funcs</a> &amp;fs=<a class="el" href="classBSFilterWC.html#a984a5a75eef118f2f4db7f8953fea653">Funcs</a>())</td></tr>
+<tr class="memdesc:a5fcdf06edc3b5528c5c33dd2e3df9b66"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates filtering distribution on a new datapoint. Optionally stores expectations of functionals.  <a href="#a5fcdf06edc3b5528c5c33dd2e3df9b66">More...</a><br /></td></tr>
+<tr class="separator:a5fcdf06edc3b5528c5c33dd2e3df9b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbac1ed7a57f04ec34d389e3ac822a90"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBSFilterWC.html#abbac1ed7a57f04ec34d389e3ac822a90">getExpectations</a> () const -&gt; std::vector&lt; <a class="el" href="classBSFilterWC.html#a507a06203a27e3a025a43be68b4b0e0e">Mat</a> &gt;</td></tr>
 <tr class="memdesc:abbac1ed7a57f04ec34d389e3ac822a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">return all stored expectations (taken with respect to $p(x_t|y_{1:t})$  <a href="#abbac1ed7a57f04ec34d389e3ac822a90">More...</a><br /></td></tr>
 <tr class="separator:abbac1ed7a57f04ec34d389e3ac822a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,7 +180,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div class="textblock"><h3>template&lt;size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t&gt;<br />
 class BSFilterWC&lt; nparts, dimx, dimy, dimcov, resamp_t, float_t &gt;</h3>
 
-<p>A base class for the boostrap particle filter with covariates. </p>
+<p>A base class for the bootstrap particle filter with covariates. </p>
 <dl class="section author"><dt>Author</dt><dd>taylor </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a12c3f32cb628a0efaa0267262205d6d6"></a>
@@ -245,6 +231,23 @@ template&lt;size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename res
       </table>
 </div><div class="memdoc">
 <p>covariate size vector" type alias for linear algebra stuff </p>
+
+</div>
+</div>
+<a id="a984a5a75eef118f2f4db7f8953fea653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a984a5a75eef118f2f4db7f8953fea653">&#9670;&nbsp;</a></span>Funcs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t , typename float_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classBSFilterWC.html">BSFilterWC</a>&lt; nparts, dimx, dimy, dimcov, resamp_t, float_t &gt;::<a class="el" href="classBSFilterWC.html#a984a5a75eef118f2f4db7f8953fea653">Funcs</a> =  std::vector&lt;std::function&lt;const <a class="el" href="classBSFilterWC.html#a507a06203a27e3a025a43be68b4b0e0e">Mat</a>(const <a class="el" href="classBSFilterWC.html#afff292a8cc15505cc3aa244135203c78">ssv</a>&amp;, const <a class="el" href="classBSFilterWC.html#a52f5a46901a821fffe82937543220a1a">cvsv</a>&amp;)&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>type alias for function </p>
 
 </div>
 </div>
@@ -329,8 +332,8 @@ template&lt;size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename res
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0637035a4553ae3ffeaf1ddce0de2c6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0637035a4553ae3ffeaf1ddce0de2c6b">&#9670;&nbsp;</a></span>filter()</h2>
+<a id="a5fcdf06edc3b5528c5c33dd2e3df9b66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fcdf06edc3b5528c5c33dd2e3df9b66">&#9670;&nbsp;</a></span>filter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,8 +355,8 @@ template&lt;size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename res
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; std::function&lt; const <a class="el" href="classBSFilterWC.html#a507a06203a27e3a025a43be68b4b0e0e">Mat</a>(const <a class="el" href="classBSFilterWC.html#afff292a8cc15505cc3aa244135203c78">ssv</a> &amp;)&gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fs</em> = <code>std::vector&lt;std::function&lt;const&#160;<a class="el" href="classBSFilterWC.html#a507a06203a27e3a025a43be68b4b0e0e">Mat</a>(const&#160;<a class="el" href="classBSFilterWC.html#afff292a8cc15505cc3aa244135203c78">ssv</a>&amp;)&gt;&#160;&gt;()</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classBSFilterWC.html#a984a5a75eef118f2f4db7f8953fea653">Funcs</a> &amp;&#160;</td>
+          <td class="paramname"><em>fs</em> = <code><a class="el" href="classBSFilterWC.html#a984a5a75eef118f2f4db7f8953fea653">Funcs</a>()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -372,7 +375,6 @@ template&lt;size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename res
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>: work in support for effective sample size stuff. </dd></dl>
 
 </div>
 </div>

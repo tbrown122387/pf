@@ -83,10 +83,12 @@ $(document).ready(function(){initNavTree('functions_s.html','');});
 
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>sample()
-: <a class="el" href="classrvsamp_1_1BernSampler.html#aa12177f8517a1462d84e5fd964c7dadb">rvsamp::BernSampler</a>
+: <a class="el" href="classrvsamp_1_1BernSampler.html#a2520daff5a896b58073d6756758d1323">rvsamp::BernSampler&lt; float_t, int_t &gt;</a>
 , <a class="el" href="classrvsamp_1_1k__gen.html#ac7bc64186ad0696b33e67c4b3e2218d9">rvsamp::k_gen&lt; N, float_t &gt;</a>
 , <a class="el" href="classrvsamp_1_1MVNSampler.html#a1b0b148b0d1223e35e317c804c9bf127">rvsamp::MVNSampler&lt; dim, float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#a2d6a8f2053e4ed0806718e6749288dce">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a>
 , <a class="el" href="classrvsamp_1_1UniformSampler.html#acc8866283171489eccc5f643269b6eed">rvsamp::UniformSampler&lt; float_t &gt;</a>
+, <a class="el" href="classrvsamp_1_1UnivLogNormSampler.html#a816c87875ed08b4b90f9fbe3fd4bda88">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a>
 , <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a67416efdbb1569a068d5a5a4914e27a1">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
 </li>
 <li>setCovar()
@@ -96,11 +98,20 @@ $(document).ready(function(){initNavTree('functions_s.html','');});
 : <a class="el" href="classrvsamp_1_1MVNSampler.html#a99b3bae7eb823d0bfcbbccf89555569e">rvsamp::MVNSampler&lt; dim, float_t &gt;</a>
 , <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a9f9281d2cd88d82d251686ea9b9d4182">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
 </li>
+<li>setMu()
+: <a class="el" href="classrvsamp_1_1UnivLogNormSampler.html#a43c00fb2c560c1444ccdee13060c5153">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a>
+</li>
 <li>setP()
-: <a class="el" href="classrvsamp_1_1BernSampler.html#ad6020e9f9f62a9ab32e64638cc29880b">rvsamp::BernSampler</a>
+: <a class="el" href="classrvsamp_1_1BernSampler.html#ab61c1b21be5d7422fec4ea95be91c8cc">rvsamp::BernSampler&lt; float_t, int_t &gt;</a>
+</li>
+<li>setSigma()
+: <a class="el" href="classrvsamp_1_1UnivLogNormSampler.html#a21bdbf5f20b327f5905605dd0357c8b8">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a>
 </li>
 <li>setStdDev()
 : <a class="el" href="classrvsamp_1_1UnivNormSampler.html#a77923ac7ff44866f2d6b50e75d97d119">rvsamp::UnivNormSampler&lt; float_t &gt;</a>
+</li>
+<li>sim_forward()
+: <a class="el" href="classForwardMod.html#a374c715382620bef4475b233340dcbbc">ForwardMod&lt; dimx, dimy, float_t &gt;</a>
 </li>
 <li>siMat
 : <a class="el" href="classkalman.html#ab024c795f585385ee14aea92a5dccfbc">kalman&lt; dimstate, dimobs, diminput, float_t &gt;</a>
@@ -128,7 +139,19 @@ $(document).ready(function(){initNavTree('functions_s.html','');});
 , <a class="el" href="classmn__resampler.html#a1cb075b42f73e01de7fc1b27f51bfc4c">mn_resampler&lt; nparts, dimx, float_t &gt;</a>
 , <a class="el" href="classmn__resampler__rbpf.html#aff8bcd12cfe60425c4406262a9640d68">mn_resampler_rbpf&lt; nparts, dimsampledx, cfModT, float_t &gt;</a>
 , <a class="el" href="classrbase.html#ae20e0b8df15aa109252f57ecbf1f20f8">rbase&lt; nparts, dimx, float_t &gt;</a>
+, <a class="el" href="classresid__resampler.html#a500f44f0072a4d54b03762c946c38981">resid_resampler&lt; nparts, dimx, float_t &gt;</a>
 , <a class="el" href="classSISRFilter.html#abfec45cf57ea6fadae4a9da8b0042351">SISRFilter&lt; nparts, dimx, dimy, resamp_t, float_t &gt;</a>
+, <a class="el" href="classstratif__resampler.html#a9b8a1de85ef718528f4c889678a9331f">stratif_resampler&lt; nparts, dimx, float_t &gt;</a>
+, <a class="el" href="classsystematic__resampler.html#a9e158fbf5875f93e9cb4da562928e649">systematic_resampler&lt; nparts, dimx, float_t &gt;</a>
+</li>
+<li>stateObsSizeMat
+: <a class="el" href="classkalman.html#a44779d7ee7b8c12ca08e9dac4112906c">kalman&lt; dimstate, dimobs, diminput, float_t &gt;</a>
+</li>
+<li>stratif_resampler()
+: <a class="el" href="classstratif__resampler.html#a76e8fbfaec214060f0644d5a076c2b2a">stratif_resampler&lt; nparts, dimx, float_t &gt;</a>
+</li>
+<li>systematic_resampler()
+: <a class="el" href="classsystematic__resampler.html#a6422f70f1f5315d16b018cb855435511">systematic_resampler&lt; nparts, dimx, float_t &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -2,9 +2,21 @@
 \label{pf__base_8h}\index{include/pf\+\_\+base.\+h@{include/pf\+\_\+base.\+h}}
 
 
-All particle filters inherit from this.  
+All non Rao-\/\+Blackwellized particle filters inherit from this.  
 
 
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+Include dependency graph for pf\+\_\+base.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{pf__base_8h__incl}
+\end{center}
+\end{figure}
 This graph shows which files directly or indirectly include this file\+:
 \nopagebreak
 \begin{figure}[H]
@@ -16,10 +28,44 @@ This graph shows which files directly or indirectly include this file\+:
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classpf__base}{pf\+\_\+base}
+class \hyperlink{classpf__base}{pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$}
+\item 
+class \hyperlink{classrbpf__base}{rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$}
+\item 
+class \hyperlink{classForwardMod}{Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-All particle filters inherit from this. 
+All non Rao-\/\+Blackwellized particle filters inherit from this. 
 
+inherit from this if you want to simulate from a homogeneous forward/generative model.
+
+All Rao-\/\+Blackwellized particle filters inherit from this.
+
+\begin{DoxyAuthor}{Author}
+t
+\end{DoxyAuthor}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em float\+\_\+t} & (e.\+g. double, float, etc.) \\
+\hline
+{\em dimobs} & the dimension of each observation \\
+\hline
+{\em dimstate} & the dimension of each state\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{Author}
+t
+\end{DoxyAuthor}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em float\+\_\+t} & (e.\+g. double, float, etc.) \\
+\hline
+{\em dim\+\_\+s\+\_\+state} & the dimension of the state vector that\textquotesingle{}s sampled \\
+\hline
+{\em dim\+\_\+ns\+\_\+state} & the dimension of the state vector that isn\textquotesingle{}t sampled \\
+\hline
+{\em dimobs} & the dimension of each observation vector\\
+\hline
+\end{DoxyTemplParams}

@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classrbpf__kalman.html" title="Rao&#45;Blackwellized/Marginal Particle Filter with inner Kalman Filter objectss. " alt="" coords="5,5,156,61"/>
+<area shape="rect" id="node1" href="$classrbase.html" title="Base class for all resampler types. " alt="" coords="5,104,148,145"/>
+<area shape="rect" id="node2" href="$classmn__resampler.html" title="mn_resampler\&lt; nparts,\l dimx, float_t \&gt;" alt="" coords="201,5,357,47"/>
+<area shape="rect" id="node3" href="$classresid__resampler.html" title="resid_resampler\&lt; nparts,\l dimx, float_t \&gt;" alt="" coords="196,71,363,112"/>
+<area shape="rect" id="node4" href="$classstratif__resampler.html" title="stratif_resampler\&lt;\l nparts, dimx, float_t \&gt;" alt="" coords="202,136,357,177"/>
+<area shape="rect" id="node5" href="$classsystematic__resampler.html" title="systematic_resampler\l\&lt; nparts, dimx, float_t \&gt;" alt="" coords="198,201,361,243"/>
 </map>

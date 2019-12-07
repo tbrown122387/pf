@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmn__resampler__rbpf.html" title="Performs multinomial resampling for a Rao&#45;Blackwellized pf. " alt="" coords="5,5,156,61"/>
+<area shape="rect" id="node1" href="$classcf__filter.html" title="cf_filter\&lt; 1, dim_obs,\l float_t \&gt;" alt="" coords="5,5,151,47"/>
+<area shape="rect" id="node2" href="$classmultivGamFilter.html" title="Another class template for Gamma filtering, but this time. " alt="" coords="199,5,365,47"/>
 </map>

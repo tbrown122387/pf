@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cvsv',['cvsv',['../classBSFilterWC.html#a52f5a46901a821fffe82937543220a1a',1,'BSFilterWC']]]
+  ['bsm',['bsm',['../classmultivGamFilter.html#a48015c1ef68e2d0a704306b56378417d',1,'multivGamFilter']]]
 ];

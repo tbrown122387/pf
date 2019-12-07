@@ -2,11 +2,6 @@
 \label{classmn__resampler}\index{mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$@{mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}
 
 
-Performs multinomial resampling.  
-
-
-
-
 {\ttfamily \#include $<$resamplers.\+h$>$}
 
 
@@ -43,24 +38,17 @@ using \hyperlink{classmn__resampler_afb5d000e2464afef813792c57c42599b}{array\+In
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classmn__resampler_afcb296db505c5d2bcdba4e00ae9d6672}\label{classmn__resampler_afcb296db505c5d2bcdba4e00ae9d6672}} 
-\hyperlink{classmn__resampler_afcb296db505c5d2bcdba4e00ae9d6672}{mn\+\_\+resampler} ()
+\mbox{\Hypertarget{classmn__resampler_a016a00570c30806a0fdad25385395f95}\label{classmn__resampler_a016a00570c30806a0fdad25385395f95}} 
+\hyperlink{classmn__resampler_a016a00570c30806a0fdad25385395f95}{mn\+\_\+resampler} ()=default
 \begin{DoxyCompactList}\small\item\em Default constructor. Only option available. \end{DoxyCompactList}\item 
 void \hyperlink{classmn__resampler_a13b1897e180a791a3a099d5d6329a125}{resamp\+Log\+Wts} (\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&old\+Parts, \hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&old\+Log\+Un\+Norm\+Wts)
 \begin{DoxyCompactList}\small\item\em resamples particles. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Private Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classmn__resampler_a565f3bdfb2e7ccba217292c20a2afb6a}\label{classmn__resampler_a565f3bdfb2e7ccba217292c20a2afb6a}} 
-std\+::mt19937 \hyperlink{classmn__resampler_a565f3bdfb2e7ccba217292c20a2afb6a}{m\+\_\+gen}
-\begin{DoxyCompactList}\small\item\em prng \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
 
 
 \subsection{Detailed Description}
 \subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t$>$\newline
 class mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
-
-Performs multinomial resampling. 
 
 \begin{DoxyAuthor}{Author}
 taylor 
@@ -92,7 +80,7 @@ type alias for array of integers \mbox{\Hypertarget{classmn__resampler_aa8ff3757
 {\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
 using \hyperlink{classmn__resampler}{mn\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} =  std\+::array$<$\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv}, nparts$>$}
 
-type alias for linear algebra stuff \mbox{\Hypertarget{classmn__resampler_a1cb075b42f73e01de7fc1b27f51bfc4c}\label{classmn__resampler_a1cb075b42f73e01de7fc1b27f51bfc4c}} 
+type alias for array of Eigen Matrices \mbox{\Hypertarget{classmn__resampler_a1cb075b42f73e01de7fc1b27f51bfc4c}\label{classmn__resampler_a1cb075b42f73e01de7fc1b27f51bfc4c}} 
 \index{mn\+\_\+resampler@{mn\+\_\+resampler}!ssv@{ssv}}
 \index{ssv@{ssv}!mn\+\_\+resampler@{mn\+\_\+resampler}}
 \subsubsection{\texorpdfstring{ssv}{ssv}}

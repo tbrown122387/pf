@@ -2,33 +2,13 @@
 \label{classBSFilterWC}\index{B\+S\+Filter\+W\+C$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$@{B\+S\+Filter\+W\+C$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$}}
 
 
-A base class for the boostrap particle filter with covariates.  
+A base class for the bootstrap particle filter with covariates.  
 
 
 
 
 {\ttfamily \#include $<$bootstrap\+\_\+filter\+\_\+with\+\_\+covariates.\+h$>$}
 
-
-
-Inheritance diagram for B\+S\+Filter\+WC$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=188pt]{classBSFilterWC__inherit__graph}
-\end{center}
-\end{figure}
-
-
-Collaboration diagram for B\+S\+Filter\+WC$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=188pt]{classBSFilterWC__coll__graph}
-\end{center}
-\end{figure}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -43,6 +23,8 @@ using \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat} = Eigen
 using \hyperlink{classBSFilterWC_af89dac8c324ae8b549595a85e89ec7da}{array\+States} = std\+::array$<$ \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv}, nparts $>$
 \item 
 using \hyperlink{classBSFilterWC_a12c3f32cb628a0efaa0267262205d6d6}{arrayfloat\+\_\+t} = std\+::array$<$ float\+\_\+t, nparts $>$
+\item 
+using \hyperlink{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}{Funcs} = std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&)$>$ $>$
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -54,7 +36,7 @@ virtual \hyperlink{classBSFilterWC_a125b13d2ba71b3bce05c315dea38b476}{$\sim$\+B\
 \begin{DoxyCompactList}\small\item\em The (virtual) destructor. \end{DoxyCompactList}\item 
 float\+\_\+t \hyperlink{classBSFilterWC_a26e23f7f1e17e3fb3e6a3bfdb633cc2b}{get\+Log\+Cond\+Like} () const
 \begin{DoxyCompactList}\small\item\em Returns the most recent (log-\/) conditiona likelihood. \end{DoxyCompactList}\item 
-void \hyperlink{classBSFilterWC_a0637035a4553ae3ffeaf1ddce0de2c6b}{filter} (const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&ydata, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&covdata, const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&)$>$ $>$())
+void \hyperlink{classBSFilterWC_a5fcdf06edc3b5528c5c33dd2e3df9b66}{filter} (const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&ydata, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&covdata, const \hyperlink{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}{Funcs} \&fs=\hyperlink{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}{Funcs}())
 \begin{DoxyCompactList}\small\item\em updates filtering distribution on a new datapoint. Optionally stores expectations of functionals. \end{DoxyCompactList}\item 
 auto \hyperlink{classBSFilterWC_abbac1ed7a57f04ec34d389e3ac822a90}{get\+Expectations} () const -\/$>$ std\+::vector$<$ \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat} $>$
 \begin{DoxyCompactList}\small\item\em return all stored expectations (taken with respect to \$p(x\+\_\+t$\vert$y\+\_\+\{1\+:t\})\$ \end{DoxyCompactList}\item 
@@ -98,7 +80,7 @@ unsigned int \hyperlink{classBSFilterWC_a8d173dfb2640a96e97488a5cbba4444d}{m\+\_
 \subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t, typename float\+\_\+t$>$\newline
 class B\+S\+Filter\+W\+C$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$}
 
-A base class for the boostrap particle filter with covariates. 
+A base class for the bootstrap particle filter with covariates. 
 
 \begin{DoxyAuthor}{Author}
 taylor 
@@ -127,7 +109,14 @@ type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilterWC_a52f5a469
 {\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
 using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimcov,1$>$}
 
-covariate size vector" type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}\label{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}} 
+covariate size vector" type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}\label{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}} 
+\index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!Funcs@{Funcs}}
+\index{Funcs@{Funcs}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
+\subsubsection{\texorpdfstring{Funcs}{Funcs}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
+using \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}{Funcs} =  std\+::vector$<$std\+::function$<$const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv}\&, const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv}\&)$>$ $>$}
+
+type alias for function \mbox{\Hypertarget{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}\label{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}} 
 \index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!Mat@{Mat}}
 \index{Mat@{Mat}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
 \subsubsection{\texorpdfstring{Mat}{Mat}}
@@ -170,12 +159,12 @@ The constructor.
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classBSFilterWC_a0637035a4553ae3ffeaf1ddce0de2c6b}\label{classBSFilterWC_a0637035a4553ae3ffeaf1ddce0de2c6b}} 
+\mbox{\Hypertarget{classBSFilterWC_a5fcdf06edc3b5528c5c33dd2e3df9b66}\label{classBSFilterWC_a5fcdf06edc3b5528c5c33dd2e3df9b66}} 
 \index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!filter@{filter}}
 \index{filter@{filter}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}
 \subsubsection{\texorpdfstring{filter()}{filter()}}
 {\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, size\+\_\+t dimcov, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-void \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::filter (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&}]{ydata,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{covdata,  }\item[{const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const \hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv} \&)$>$ $>$ \&}]{fs = {\ttfamily std\+:\+:vector$<$std\+:\+:function$<$const~\hyperlink{classBSFilterWC_a507a06203a27e3a025a43be68b4b0e0e}{Mat}(const~\hyperlink{classBSFilterWC_afff292a8cc15505cc3aa244135203c78}{ssv}\&)$>$~$>$()} }\end{DoxyParamCaption})}
+void \hyperlink{classBSFilterWC}{B\+S\+Filter\+WC}$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$\+::filter (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilterWC_a48b0c7f1a1cf7e57300cf820e74057ce}{osv} \&}]{ydata,  }\item[{const \hyperlink{classBSFilterWC_a52f5a46901a821fffe82937543220a1a}{cvsv} \&}]{covdata,  }\item[{const \hyperlink{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}{Funcs} \&}]{fs = {\ttfamily \hyperlink{classBSFilterWC_a984a5a75eef118f2f4db7f8953fea653}{Funcs}()} }\end{DoxyParamCaption})}
 
 
 
@@ -190,8 +179,6 @@ updates filtering distribution on a new datapoint. Optionally stores expectation
 {\em fs} & a vector of functions if you want to calculate expectations. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000002}{Todo}]\+: work in support for effective sample size stuff. \end{DoxyRefDesc}
 \mbox{\Hypertarget{classBSFilterWC_a8a503fa65fea50829b0223345d890a3e}\label{classBSFilterWC_a8a503fa65fea50829b0223345d890a3e}} 
 \index{B\+S\+Filter\+WC@{B\+S\+Filter\+WC}!f\+Samp@{f\+Samp}}
 \index{f\+Samp@{f\+Samp}!B\+S\+Filter\+WC@{B\+S\+Filter\+WC}}

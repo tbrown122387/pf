@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hmm',['hmm',['../classhmm.html',1,'']]]
+  ['forwardmod',['ForwardMod',['../classForwardMod.html',1,'']]]
 ];

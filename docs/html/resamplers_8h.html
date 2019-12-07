@@ -91,6 +91,8 @@ $(document).ready(function(){initNavTree('resamplers_8h.html','');});
 <div class="textblock"><code>#include &lt;chrono&gt;</code><br />
 <code>#include &lt;array&gt;</code><br />
 <code>#include &lt;random&gt;</code><br />
+<code>#include &lt;numeric&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;Eigen/Dense&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for resamplers.h:</div>
@@ -108,22 +110,34 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all resampler types.  <a href="classrbase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmn__resampler.html">mn_resampler&lt; nparts, dimx, float_t &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs multinomial resampling.  <a href="classmn__resampler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmn__resampler__rbpf.html">mn_resampler_rbpf&lt; nparts, dimsampledx, cfModT, float_t &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs multinomial resampling for a Rao-Blackwellized pf.  <a href="classmn__resampler__rbpf.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classresid__resampler.html">resid_resampler&lt; nparts, dimx, float_t &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstratif__resampler.html">stratif_resampler&lt; nparts, dimx, float_t &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsystematic__resampler.html">systematic_resampler&lt; nparts, dimx, float_t &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>all resamplers must inherit from this. This will enforce certain structure that are assumed by all particle filters. </p>
+<p>Class that performs systematic resampling on "standard" models.</p>
+<p>Class that performs stratified resampling on "standard" models.</p>
+<p>Class that performs residual resampling on "standard" models.</p>
 <p>Class that performs multinomial resampling for RBPFs.</p>
-<p>Class that performs multinomial resampling.</p>
+<p>Class that performs multinomial resampling for "standard" models.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">nparts</td><td>the number of particles. </td></tr>
     <tr><td class="paramname">dimx</td><td>the dimension of each state sample.</td></tr>
     <tr><td class="paramname">nparts</td><td>the number of particles. </td></tr>
     <tr><td class="paramname">dimsampledx</td><td>the dimension of each state sample. </td></tr>
+    <tr><td class="paramname">cfModT</td><td>the type of closed form model </td></tr>
+    <tr><td class="paramname">float_t</td><td>the type of floating point number</td></tr>
+    <tr><td class="paramname">nparts</td><td>the number of particles. </td></tr>
+    <tr><td class="paramname">dimx</td><td>the dimension of each state sample. </td></tr>
+    <tr><td class="paramname">float_t</td><td>the floating point for samples </td></tr>
   </table>
   </dd>
 </dl>

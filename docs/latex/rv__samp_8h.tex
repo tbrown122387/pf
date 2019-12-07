@@ -8,16 +8,14 @@ all rv samplers must inherit from this.
 {\ttfamily \#include $<$chrono$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
 {\ttfamily \#include $<$random$>$}\newline
-Include dependency graph for rv\+\_\+samp.\+h\+:
-\nopagebreak
+Include dependency graph for rv\+\_\+samp.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=285pt]{rv__samp_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -31,7 +29,11 @@ class \hyperlink{classrvsamp_1_1rvsamp__base}{rvsamp\+::rvsamp\+\_\+base}
 \begin{DoxyCompactList}\small\item\em Base class for all random variable sampler types. Primary benefit is that it sets the seed for you. \end{DoxyCompactList}\item 
 class \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Normal distribution. \end{DoxyCompactList}\item 
-class \hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler}
+class \hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$}
+\begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Log-\/\+Normal distribution. \end{DoxyCompactList}\item 
+class \hyperlink{classrvsamp_1_1TruncUnivNormSampler}{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}
+\begin{DoxyCompactList}\small\item\em Default-\/constructor ... \end{DoxyCompactList}\item 
+class \hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Bernoulli distribution. \end{DoxyCompactList}\item 
 class \hyperlink{classrvsamp_1_1MVNSampler}{rvsamp\+::\+M\+V\+N\+Sampler$<$ dim, float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a multivariate normal distribution. \end{DoxyCompactList}\item 
@@ -49,6 +51,10 @@ Basically a wrapper for std\+::discrete\+\_\+distribution$<$$>$ outputs are in t
 Can sample from a distribution with fixed mean and covariance, fixed mean only, fixed covariance only, or nothing fixed.
 
 Samples from univariate Bernoulli distribution.
+
+Samples from a truncated univariate Normal distribution using the acceptance rejection method. The proposal distribution used is a normal distribution with the same location and scale parameters as the target. As a result, this method will take a long time when the width of the support of the target is narrow.
+
+Samples from univariate Log-\/\+Normal distribution.
 
 Samples from univariate Normal distribution.
 

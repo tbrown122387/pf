@@ -82,7 +82,7 @@ $(document).ready(function(){initNavTree('classrbase.html','');});
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classrbase-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">rbase&lt; nparts, dimx, float_t &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -98,7 +98,10 @@ Inheritance diagram for rbase&lt; nparts, dimx, float_t &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classrbase__inherit__graph.png" border="0" usemap="#rbase_3_01nparts_00_01dimx_00_01float__t_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="rbase_3_01nparts_00_01dimx_00_01float__t_01_4_inherit__map" id="rbase_3_01nparts_00_01dimx_00_01float__t_01_4_inherit__map">
-<area shape="rect" id="node2" href="classmn__resampler.html" title="Performs multinomial resampling. " alt="" coords="5,95,161,136"/>
+<area shape="rect" id="node2" href="classmn__resampler.html" title="mn_resampler\&lt; nparts,\l dimx, float_t \&gt;" alt="" coords="201,5,357,47"/>
+<area shape="rect" id="node3" href="classresid__resampler.html" title="resid_resampler\&lt; nparts,\l dimx, float_t \&gt;" alt="" coords="196,71,363,112"/>
+<area shape="rect" id="node4" href="classstratif__resampler.html" title="stratif_resampler\&lt;\l nparts, dimx, float_t \&gt;" alt="" coords="202,136,357,177"/>
+<area shape="rect" id="node5" href="classsystematic__resampler.html" title="systematic_resampler\l\&lt; nparts, dimx, float_t \&gt;" alt="" coords="198,201,361,243"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -115,14 +118,14 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aae80801bfc60ee3573cb728fc9460b0c"><td class="memItemLeft" align="right" valign="top"><a id="aae80801bfc60ee3573cb728fc9460b0c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrbase.html#aae80801bfc60ee3573cb728fc9460b0c">rbase</a> ()</td></tr>
-<tr class="memdesc:aae80801bfc60ee3573cb728fc9460b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default constructor. This is the only option available. Sets the seed with the clock. <br /></td></tr>
+<tr class="memdesc:aae80801bfc60ee3573cb728fc9460b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default constructor gets called by default, and it sets the seed with the clock. <br /></td></tr>
 <tr class="separator:aae80801bfc60ee3573cb728fc9460b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff0f6f88fd4656e67f5ebc870f10dd44"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrbase.html#aff0f6f88fd4656e67f5ebc870f10dd44">resampLogWts</a> (<a class="el" href="classrbase.html#aa12fc826befa6ba0647b5f59ebc396ee">arrayVec</a> &amp;oldParts, <a class="el" href="classrbase.html#a6f76bef853e508cb5b6f546d231b06f5">arrayFloat</a> &amp;oldLogUnNormWts)=0</td></tr>
 <tr class="memdesc:aff0f6f88fd4656e67f5ebc870f10dd44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to resample from log unnormalized weights.  <a href="#aff0f6f88fd4656e67f5ebc870f10dd44">More...</a><br /></td></tr>
 <tr class="separator:aff0f6f88fd4656e67f5ebc870f10dd44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
 <tr class="memitem:ac278c975bd5b23ad009f1ce685552c5c"><td class="memItemLeft" align="right" valign="top"><a id="ac278c975bd5b23ad009f1ce685552c5c"></a>
 std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrbase.html#ac278c975bd5b23ad009f1ce685552c5c">m_gen</a></td></tr>
 <tr class="memdesc:ac278c975bd5b23ad009f1ce685552c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">prng <br /></td></tr>
@@ -233,7 +236,7 @@ template&lt;size_t nparts, size_t dimx, typename float_t &gt; </div>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classmn__resampler.html#a13b1897e180a791a3a099d5d6329a125">mn_resampler&lt; nparts, dimx, float_t &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsystematic__resampler.html#a9467aec6002043f35f40e9e4857021ed">systematic_resampler&lt; nparts, dimx, float_t &gt;</a>, <a class="el" href="classstratif__resampler.html#a2588147563bf3fe598e262cae7e125e6">stratif_resampler&lt; nparts, dimx, float_t &gt;</a>, <a class="el" href="classresid__resampler.html#ae6957cd1e080ac4313e6b0bc5ae9aa96">resid_resampler&lt; nparts, dimx, float_t &gt;</a>, and <a class="el" href="classmn__resampler.html#a13b1897e180a791a3a099d5d6329a125">mn_resampler&lt; nparts, dimx, float_t &gt;</a>.</p>
 
 </div>
 </div>

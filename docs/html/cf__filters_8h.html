@@ -90,11 +90,13 @@ $(document).ready(function(){initNavTree('cf__filters_8h.html','');});
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Eigen/Dense&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
+<code>#include &quot;rv_eval.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for cf_filters.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="cf__filters_8h__incl.png" border="0" usemap="#include_2cf__filters_8h" alt=""/></div>
 <map name="include_2cf__filters_8h" id="include_2cf__filters_8h">
+<area shape="rect" id="node4" href="rv__eval_8h_source.html" title="rv_eval.h" alt="" coords="179,80,254,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -111,7 +113,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcf__filter.html">cf_filter&lt; dimstate, dimobs, float_t &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract Base Class for Kalman filter and HMM filter.  <a href="classcf__filter.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract Base Class for all closed-form filters.  <a href="classcf__filter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkalman.html">kalman&lt; dimstate, dimobs, diminput, float_t &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class template for Kalman filtering.  <a href="classkalman.html#details">More...</a><br /></td></tr>
@@ -119,9 +121,16 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmm.html">hmm&lt; dimstate, dimobs, float_t &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class template for HMM filtering.  <a href="classhmm.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgamFilter.html">gamFilter&lt; dim_pred, float_t &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class template for Gamma filtering.  <a href="classgamFilter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmultivGamFilter.html">multivGamFilter&lt; dim_obs, dim_pred, float_t &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Another class template for Gamma filtering, but this time.  <a href="classmultivGamFilter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>forces structure on the closed-form filters. </p>
+<p>Inherit from this for a model that admits Gamma filtering.</p>
 <p>Inherit from this for a model that admits HMM filtering.</p>
 <p>Inherit from this for a model that admits Kalman filtering.</p>
 </div></div><!-- contents -->
