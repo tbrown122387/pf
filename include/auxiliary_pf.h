@@ -176,7 +176,7 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
     
     if(m_now == 0) 
     {
-        float_t max(-1.0/0.0);
+        float_t max(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii)
         {
             // sample particles
@@ -227,8 +227,8 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
         // set up "first stage weights" to make k index sampler 
         arrayfloat_t logFirstStageUnNormWeights = m_logUnNormWeights;
         arrayVec oldPartics = m_particles;
-        float_t m3(-1.0/0.0);
-        float_t m2(-1.0/0.0);
+        float_t m3(-std::numeric_limits<float_t>::infinity());
+        float_t m2(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii)  
         {
             // update m3
@@ -249,7 +249,7 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
         arrayUInt myKs = m_kGen.sample(logFirstStageUnNormWeights); 
                 
         // now draw xts
-        float_t m1(-1.0/0.0);
+        float_t m1(-std::numeric_limits<float_t>::infinity());
         float_t first_cll_sum(0.0);
         float_t second_cll_sum(0.0);
         float_t third_cll_sum(0.0);
@@ -318,10 +318,6 @@ auto APF<nparts, dimx, dimy, resamp_t, float_t>::getExpectations() const -> std:
 {
     return m_expectations;
 }
-
-
-
-
 
 #endif //APF_H
 

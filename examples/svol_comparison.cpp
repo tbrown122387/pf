@@ -11,7 +11,7 @@
 // some template parameters
 #define dimstate 1
 #define dimobs   1
-#define numparts 5000
+#define numparts 100
 #define FLOATTYPE float // choose float (faster) or double (slower)
 
 
@@ -58,8 +58,12 @@ void run_svol_comparison(const std::string &csv)
         apfsvol.filter(data[row], v);
         sisrsvol.filter(data[row], v);
         
-        std::cout << bssvol.getExpectations()[0] << ", " << apfsvol.getExpectations()[0] << ", " << sisrsvol.getExpectations()[0] << "\n";
-        //std::cout << bssvol.getLogCondLike() << ", " << apfsvol.getLogCondLike() <<", " << sisrsvol.getLogCondLike() << "\n";
+        std::cout << bssvol.getExpectations()[0] << ", " 
+                  << apfsvol.getExpectations()[0] << ", "
+                  << sisrsvol.getExpectations()[0] << ", "
+                  << bssvol.getLogCondLike() << ", " 
+                  << apfsvol.getLogCondLike() << ", "
+                  << sisrsvol.getLogCondLike() << "\n";
     }
     
 }
