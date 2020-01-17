@@ -18,13 +18,31 @@
 template<typename float_t, size_t dimobs, size_t dimstate>
 class pf_base {
 public:
+
+    /* observation-sized vector  */
     using osv = Eigen::Matrix<float_t,dimobs,1>;
+
+    /* state-sized vector  */
     using ssv = Eigen::Matrix<float_t,dimstate,1>;
+    
+    /* state-sized vector  */
     using Mat = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
+    
+    /* a function  */
     using func = std::function<const Mat(const ssv&)>;
+    
+    /* functions  */
     using funcs = std::vector<func>;
 
-    virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0; 
+    /**
+     * @brief the filtering function that must be defined
+     */ 
+    virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0;
+
+
+    /**
+     * @brief the getter method that must be defined (for conditional log-likelihood)
+     */ 
     virtual float_t getLogCondLike() const = 0;
     virtual ~pf_base(){};
 };
@@ -42,13 +60,28 @@ public:
 template<typename float_t, size_t dim_s_state, size_t dim_ns_state, size_t dimobs>
 class rbpf_base {
 public:
+
+    /* observation-sized vector */
     using osv   = Eigen::Matrix<float_t,dimobs,1>;
+    
+    /* sampled-state-size vector */
     using sssv  = Eigen::Matrix<float_t,dim_s_state,1>;
+    
+    /* not-sampled-state-sized vector */
     using nsssv = Eigen::Matrix<float_t,dim_ns_state,1>;
+    
+    /* matrix */
     using Mat   = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
+    
+    /* a function */
     using func  = std::function<const Mat(const nsssv&, const sssv&)>;
+    
+    /* functions */
     using funcs = std::vector<func>;
 
+    /**
+     * @brief the filtering function that must be defined
+     */
     virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0;
     virtual ~rbpf_base(){};
 };
