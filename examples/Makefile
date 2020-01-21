@@ -3,6 +3,7 @@ SRCS = main.cpp svol_comparison.cpp forward_sim.cpp resamp_comparison.cpp
 OBJS = main.o svol_comparison.o forward_sim.o resamp_comparison.o
 INCLUDES = -I../include -I/usr/include/eigen3
 CXX = g++
+#CXX = clang++-6.0
 CXXFLAGS = -std=c++11 -O3 $(INCLUDES) -pg
 
 
