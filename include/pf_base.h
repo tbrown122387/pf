@@ -34,6 +34,13 @@ public:
     /* functions  */
     using funcs = std::vector<func>;
 
+    /* the dimension of each observation vector */
+    static constexpr unsigned int dim_obs = dimobs;
+
+    /* the dimension of the state vector */
+    static constexpr unsigned int dim_state = dimstate;
+
+
     /**
      * @brief the filtering function that must be defined
      */ 
@@ -78,6 +85,16 @@ public:
     
     /* functions */
     using funcs = std::vector<func>;
+
+    /* the size of the sampled state portion */
+    static constexpr unsigned int dim_sampled_state = dim_s_state;
+
+    /* the size of the not sampled state portion */
+    static constexpr unsigned int dim_not_sampled_state = dim_ns_state;
+
+    /* the size of the observations */
+    static constexpr unsigned int dim_obs = dimobs;
+
 
     /**
      * @brief the filtering function that must be defined

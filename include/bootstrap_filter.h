@@ -34,6 +34,8 @@ public:
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of floating points */
     using arrayFloat = std::array<float_t, nparts>;
+    /** the number of particles */
+    static constexpr unsigned int num_particles = nparts;
 
 
     /**
@@ -138,11 +140,6 @@ protected:
 };
 
     
-    
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////// implementations ///////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
 BSFilter<nparts, dimx, dimy, resamp_t, float_t>::BSFilter(const unsigned int &rs)
                 : m_now(0)

@@ -40,7 +40,9 @@ public:
     using arrayVec = std::array<ssv, nparts>;
     /** type alias for array of unsigned ints */
     using arrayUInt = std::array<unsigned int, nparts>;
-    
+    /** the number of particles */
+    static constexpr unsigned int num_particles = nparts;
+
 public:
 
      /**

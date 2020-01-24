@@ -32,7 +32,9 @@ public:
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of float_ts */
     using arrayfloat_t = std::array<float_t, nparts>;
-    
+     /** the number of particles */
+    static constexpr unsigned int num_particles = nparts;
+   
 
     /**
      * @brief The (one and only) constructor.
