@@ -280,7 +280,7 @@ public:
 
 private:
 
-    /** @brief makes normal random variates */
+    /** @brief makes gamma random variates */
     std::gamma_distribution<float_t> m_gamma_gen;
     
     /** @brief mu */
@@ -312,6 +312,77 @@ template<typename float_t>
 float_t UnivGammaSampler<float_t>::sample()
 {
     return m_gamma_gen();
+}
+
+
+//! A class that performs sampling from a univariate Inverse Gamma distribution.
+/**
+* @class UnivInvGammaSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from univariate Inverse Gamma distribution.
+*/
+template<typename float_t>
+class UnivInvGammaSampler : public rvsamp_base
+{
+    
+public:
+
+
+    /**
+     * @brief Default-constructor ...
+     */
+    UnivInvGammaSampler();
+
+
+     /**
+      * @param alpha a positive shape parameter.
+      * @param beta a positive scale parameter.
+      */
+    UnivInvGammaSampler(const float_t &alpha, const float_t &beta);
+
+
+     /**
+      * @brief draws a random number.
+      * @return a random sample of type float_t.
+      */
+    float_t sample();    
+    
+
+private:
+
+    /** @brief makes gamma random variates that we take the reciprocal of*/
+    std::gamma_distribution<float_t> m_gamma_gen;
+    
+    /** @brief mu */
+    float_t m_alpha;
+    
+    /** @brief sigma */
+    float_t m_beta;
+
+};
+
+
+template<typename float_t>
+UnivInvGammaSampler<float_t>::UnivInvGammaSampler()
+    : rvsamp_base()
+    , m_gamma_gen(1.0, 1.0)
+{
+}
+
+
+template<typename float_t>
+UnivInvGammaSampler<float_t>::UnivInvGammaSampler(const float_t &alpha, const float_t &beta)
+    : rvsamp_base()
+    , m_gamma_gen(alpha, beta)
+{
+}
+
+
+template<typename float_t>
+float_t UnivInvGammaSampler<float_t>::sample()
+{
+    return 1.0/m_gamma_gen();
 }
 
 
