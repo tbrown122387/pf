@@ -14,6 +14,12 @@ Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/)
 ## Examples
 Don't know how to use this? Check out the [`examples`](https://github.com/tbrown122387/pf/tree/master/examples) directory! Check `pf/examples/Makefile` to make sure it jives with your directories, and then run `make`. After that, run `./examples ./data/svol_y_data.csv` and you'll see the filtering output from `examples/svol_comparison.cpp`.
 
+## Paper
+
+A full-length tutorial paper is now available! Click [here.](https://arxiv.org/abs/2001.10451)
+
 ## Citation
 
 Click the "DOI" link above. Or, if you're impatient, click ['here'](https://zenodo.org/record/2633289/export/hx) for a Bibtex citation.
+
+
