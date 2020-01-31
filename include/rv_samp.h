@@ -311,7 +311,7 @@ UnivGammaSampler<float_t>::UnivGammaSampler(const float_t &alpha, const float_t 
 template<typename float_t>
 float_t UnivGammaSampler<float_t>::sample()
 {
-    return m_gamma_gen();
+    return m_gamma_gen(m_rng);
 }
 
 
@@ -382,7 +382,7 @@ UnivInvGammaSampler<float_t>::UnivInvGammaSampler(const float_t &alpha, const fl
 template<typename float_t>
 float_t UnivInvGammaSampler<float_t>::sample()
 {
-    return 1.0/m_gamma_gen();
+    return 1.0/m_gamma_gen(m_rng);
 }
 
 
