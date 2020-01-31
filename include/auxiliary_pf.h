@@ -28,6 +28,7 @@ template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename fl
 class APF : public pf_base<float_t, dimy, dimx>
 {
 public:
+
     /** "state size vector" type alias for linear algebra stuff */
     using ssv = Eigen::Matrix<float_t,dimx,1>;
     /** "observation size vector" type alias for linear algebra stuff */

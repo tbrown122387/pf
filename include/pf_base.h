@@ -19,6 +19,9 @@ template<typename float_t, size_t dimobs, size_t dimstate>
 class pf_base {
 public:
 
+    /* expose float type to users of this ABCTP */
+    using float_type = float_t;
+
     /* observation-sized vector  */
     using osv = Eigen::Matrix<float_t,dimobs,1>;
 
