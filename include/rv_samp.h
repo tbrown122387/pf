@@ -244,108 +244,76 @@ float_t UnivLogNormSampler<float_t>::sample()
 }
 
 
-////! A class that performs sampling from a univariate Gamma distribution.
-///**
-//* @class UnivGammaSampler
-//* @author taylor
-//* @file rv_samp.h
-//* @brief Samples from univariate Gamma distribution.
-//*/
-//template<typename float_t>
-//class UnivGammaSampler : public rvsamp_base
-//{
-//    
-//public:
-//
-//
-//    /**
-//     * @brief Default-constructor ...
-//     */
-//    UnivGammaSampler();
-//
-//
-//     /**
-//      * @brief The user must supply both mu and sigma.
-//      * @param mu a location parameter for the logarithm of the sample.
-//      * @param sigma a positive scale parameter for the logarithm of the sample.
-//      */
-//    UnivLogNormSampler(const float_t &mu, const float_t &sigma);
-//
-//
-//    /**
-//     * @brief sets the scale parameter of the logged random variable.
-//     * @param sigma the desired parameter.
-//     */
-//    void setSigma(const float_t &sigma);
-//    
-//    
-//    /**
-//     * @brief sets the location parameter of the logged random variable.
-//     * @param mu the desired parameter.
-//     */
-//    void setMu(const float_t &mu);
-//    
-//        
-//     /**
-//      * @brief draws a random number.
-//      * @return a random sample of type float_t.
-//      */
-//    float_t sample();    
-//    
-//
-//private:
-//
-//    /** @brief makes normal random variates */
-//    std::normal_distribution<float_t> m_z_gen;
-//    
-//    /** @brief mu */
-//    float_t m_mu;
-//    
-//    /** @brief sigma */
-//    float_t m_sigma;
-//
-//};
-//
-//
-//template<typename float_t>
-//UnivLogNormSampler<float_t>::UnivLogNormSampler()
-//    : rvsamp_base()
-//    , m_z_gen(0.0, 1.0)
-//{
-//    setMu(0.0);
-//    setSigma(1.0);
-//}
-//
-//
-//template<typename float_t>
-//UnivLogNormSampler<float_t>::UnivLogNormSampler(const float_t &mu, const float_t &sigma)
-//    : rvsamp_base()
-//    , m_z_gen(0.0, 1.0)
-//{
-//    setMu(mu); 
-//    setSigma(sigma);
-//}
-//
-//
-//template<typename float_t>
-//void UnivLogNormSampler<float_t>::setMu(const float_t &mu)
-//{
-//    m_mu = mu;
-//}
-//
-//
-//template<typename float_t>
-//void UnivLogNormSampler<float_t>::setSigma(const float_t &sigma)
-//{
-//    m_sigma = sigma;
-//}
-//
-//
-//template<typename float_t>
-//float_t UnivLogNormSampler<float_t>::sample()
-//{
-//    return std::exp(m_mu + m_sigma * m_z_gen(m_rng));
-//}
+//! A class that performs sampling from a univariate Gamma distribution.
+/**
+* @class UnivGammaSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from univariate Gamma distribution.
+*/
+template<typename float_t>
+class UnivGammaSampler : public rvsamp_base
+{
+    
+public:
+
+
+    /**
+     * @brief Default-constructor ...
+     */
+    UnivGammaSampler();
+
+
+     /**
+      * @param alpha a positive shape parameter.
+      * @param beta a positive scale parameter.
+      */
+    UnivGammaSampler(const float_t &alpha, const float_t &beta);
+
+
+     /**
+      * @brief draws a random number.
+      * @return a random sample of type float_t.
+      */
+    float_t sample();    
+    
+
+private:
+
+    /** @brief makes normal random variates */
+    std::gamma_distribution<float_t> m_gamma_gen;
+    
+    /** @brief mu */
+    float_t m_alpha;
+    
+    /** @brief sigma */
+    float_t m_beta;
+
+};
+
+
+template<typename float_t>
+UnivGammaSampler<float_t>::UnivGammaSampler()
+    : rvsamp_base()
+    , m_gamma_gen(1.0, 1.0)
+{
+}
+
+
+template<typename float_t>
+UnivGammaSampler<float_t>::UnivGammaSampler(const float_t &alpha, const float_t &beta)
+    : rvsamp_base()
+    , m_gamma_gen(alpha, beta)
+{
+}
+
+
+template<typename float_t>
+float_t UnivGammaSampler<float_t>::sample()
+{
+    return m_gamma_gen();
+}
+
 
 //! A class that performs sampling from a truncated univariate Normal distribution.
 /**
