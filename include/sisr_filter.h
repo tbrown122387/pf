@@ -197,56 +197,7 @@ template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename fl
 void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
 
-    if (m_now == 0) //time 1
-    {
-       
-        // only need to iterate over particles once
-        float_t sumWts(0.0);
-        for(size_t ii = 0; ii < nparts; ++ii)
-        {
-            // sample particles
-            m_particles[ii] = q1Samp(data);
-            m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
-            m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
-            m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
-        }
-       
-        // calculate log cond likelihood with log-exp-sum trick
-        float_t max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
-        float_t sumExp(0.0);
-        for(size_t i = 0; i < nparts; ++i){
-            sumExp += std::exp(m_logUnNormWeights[i] - max);
-        }
-        m_logLastCondLike = -std::log(nparts) + max + std::log(sumExp);
-   
-        // calculate expectations before you resample
-        m_expectations.resize(fs.size());
-        //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
-        unsigned int fId(0);
-        for(auto & h : fs){
-            
-            Mat testOut = h(m_particles[0]);
-            unsigned int rows = testOut.rows();
-            unsigned int cols = testOut.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t denom(0.0);
-
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
-                denom += std::exp(m_logUnNormWeights[prtcl]);
-            }
-            m_expectations[fId] = numer/denom;
-            fId++;
-        }
-   
-        // resample if you should
-        if( (m_now + 1) % m_resampSched == 0)
-            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
-   
-        // advance time step
-        m_now += 1;   
-    }
-    else // m_now > 0
+    if(m_now > 0)
     {
 
         // try to iterate over particles all at once
@@ -308,6 +259,56 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, cons
         // advance time
         m_now += 1;       
     }
+    else // (m_now == 0) //time 1
+    {
+       
+        // only need to iterate over particles once
+        float_t sumWts(0.0);
+        for(size_t ii = 0; ii < nparts; ++ii)
+        {
+            // sample particles
+            m_particles[ii] = q1Samp(data);
+            m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
+            m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
+            m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
+        }
+       
+        // calculate log cond likelihood with log-exp-sum trick
+        float_t max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        float_t sumExp(0.0);
+        for(size_t i = 0; i < nparts; ++i){
+            sumExp += std::exp(m_logUnNormWeights[i] - max);
+        }
+        m_logLastCondLike = -std::log(nparts) + max + std::log(sumExp);
+   
+        // calculate expectations before you resample
+        m_expectations.resize(fs.size());
+        //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
+        unsigned int fId(0);
+        for(auto & h : fs){
+            
+            Mat testOut = h(m_particles[0]);
+            unsigned int rows = testOut.rows();
+            unsigned int cols = testOut.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t denom(0.0);
+
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
+                denom += std::exp(m_logUnNormWeights[prtcl]);
+            }
+            m_expectations[fId] = numer/denom;
+            fId++;
+        }
+   
+        // resample if you should
+        if( (m_now + 1) % m_resampSched == 0)
+            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
+   
+        // advance time step
+        m_now += 1;   
+    }
+
 }
 
 

@@ -177,55 +177,8 @@ template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename fl
 void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
     
-    if(m_now == 0) 
-    {
-        float_t max(-std::numeric_limits<float_t>::infinity());
-        for(size_t ii = 0; ii < nparts; ++ii)
-        {
-            // sample particles
-            m_particles[ii]  = q1Samp(data);
-            m_logUnNormWeights[ii]  = logMuEv(m_particles[ii]);
-            m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
-            m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
-            
-            // update maximum
-            if( m_logUnNormWeights[ii] > max)
-                max = m_logUnNormWeights[ii];
-        }
-        
-        // calculate log-likelihood with log-exp-sum trick
-        float_t sumExp(0.0);
-        for( size_t i = 0; i < nparts; ++i){
-            sumExp += std::exp( m_logUnNormWeights[i] - max );
-        }
-        m_logLastCondLike = - std::log( static_cast<float_t>(nparts) ) + max + std::log(sumExp);
-        
-        // calculate expectations before you resample
-        m_expectations.resize(fs.size());
-        unsigned int fId(0);
-        for(auto & h : fs){
-            
-            Mat testOutput = h(m_particles[0]);
-            unsigned int rows = testOutput.rows();
-            unsigned int cols = testOutput.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t denom(0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - max);
-                denom += std::exp(m_logUnNormWeights[prtcl] - max);
-            }
-            m_expectations[fId] = numer/denom;
-            fId++;
-        }
-        
-        // resample if you should (automatically normalizes)
-        if( (m_now+1) % m_rs == 0)
-            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
-
-        // advance time step
-        m_now += 1;    
-    }
-    else{ //m_now > 0
+    if(m_now > 0)
+    { 
         
         // set up "first stage weights" to make k index sampler 
         arrayfloat_t logFirstStageUnNormWeights = m_logUnNormWeights;
@@ -306,6 +259,55 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
         // advance time
         m_now += 1; 
     }
+    else // (m_now == 0) 
+    {
+        float_t max(-std::numeric_limits<float_t>::infinity());
+        for(size_t ii = 0; ii < nparts; ++ii)
+        {
+            // sample particles
+            m_particles[ii]  = q1Samp(data);
+            m_logUnNormWeights[ii]  = logMuEv(m_particles[ii]);
+            m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
+            m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
+            
+            // update maximum
+            if( m_logUnNormWeights[ii] > max)
+                max = m_logUnNormWeights[ii];
+        }
+        
+        // calculate log-likelihood with log-exp-sum trick
+        float_t sumExp(0.0);
+        for( size_t i = 0; i < nparts; ++i){
+            sumExp += std::exp( m_logUnNormWeights[i] - max );
+        }
+        m_logLastCondLike = - std::log( static_cast<float_t>(nparts) ) + max + std::log(sumExp);
+        
+        // calculate expectations before you resample
+        m_expectations.resize(fs.size());
+        unsigned int fId(0);
+        for(auto & h : fs){
+            
+            Mat testOutput = h(m_particles[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t denom(0.0);
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - max);
+                denom += std::exp(m_logUnNormWeights[prtcl] - max);
+            }
+            m_expectations[fId] = numer/denom;
+            fId++;
+        }
+        
+        // resample if you should (automatically normalizes)
+        if( (m_now+1) % m_rs == 0)
+            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
+
+        // advance time step
+        m_now += 1;    
+    }
+
 }
 
 

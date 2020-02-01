@@ -210,59 +210,8 @@ template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resam
 void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
 {
 
-    if( m_now == 0){ // first data point coming
-    
-        // initialize and update the closed-form mods        
-        nsssv tmpProbs;
-        nsssMat tmpTransMat;
-        float_t m1(-1.0/0.0);
-        for(size_t ii = 0; ii < nparts; ++ii){
-            
-            m_p_samps[ii] = q1Samp(data); 
-            tmpProbs = initHMMProbVec(m_p_samps[ii]);
-            tmpTransMat = initHMMTransMat(m_p_samps[ii]);
-            m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
-            this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
-            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
-
-            // maximum to be used in likelihood calc
-            if(m_logUnNormWeights[ii] > m1)
-                m1 = m_logUnNormWeights[ii];
-        }
-
-        // calc log p(y1)
-        float_t sumexp(0.0);
-        for(size_t p = 0; p < nparts; ++p)
-            sumexp += std::exp(m_logUnNormWeights[p] - m1);
-        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));
-
-        // calculate expectations before you resample
-        m_expectations.resize(fs.size());
-        unsigned int fId(0);
-        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
-        for(auto & h : fs){
-
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            unsigned int rows = testOutput.rows();
-            unsigned int cols = testOutput.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t denom(0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
-                denom += std::exp(m_logUnNormWeights[prtcl] - m1);
-            }
-            m_expectations[fId] = numer/denom;
-            fId++;
-        }
-        
-        // resample (unnormalized weights ok)
-        if( (m_now+1) % m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
-
-        // advance time step
-        m_now ++;
-    }
-    else { //m_now > 0
+    if(m_now > 0)
+    { //m_now > 0
         
         // update
         sssv newX2Samp;
@@ -317,7 +266,60 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
         // update time step
         m_now ++;
     }
+    else //( m_now == 0)
+    { // first data point coming
     
+        // initialize and update the closed-form mods        
+        nsssv tmpProbs;
+        nsssMat tmpTransMat;
+        float_t m1(-1.0/0.0);
+        for(size_t ii = 0; ii < nparts; ++ii){
+            
+            m_p_samps[ii] = q1Samp(data); 
+            tmpProbs = initHMMProbVec(m_p_samps[ii]);
+            tmpTransMat = initHMMTransMat(m_p_samps[ii]);
+            m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
+            this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
+            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
+
+            // maximum to be used in likelihood calc
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
+        }
+
+        // calc log p(y1)
+        float_t sumexp(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexp += std::exp(m_logUnNormWeights[p] - m1);
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));
+
+        // calculate expectations before you resample
+        m_expectations.resize(fs.size());
+        unsigned int fId(0);
+        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        for(auto & h : fs){
+
+            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t denom(0.0);
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
+                denom += std::exp(m_logUnNormWeights[prtcl] - m1);
+            }
+            m_expectations[fId] = numer/denom;
+            fId++;
+        }
+        
+        // resample (unnormalized weights ok)
+        if( (m_now+1) % m_rs == 0)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
+
+        // advance time step
+        m_now ++;
+    }
+   
 }
 
 
@@ -493,60 +495,8 @@ template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resam
 void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
 {
 
-    if( m_now == 0){ // first data point coming
-    
-        // initialize and update the closed-form mods        
-        nsssv tmpProbs;
-        nsssMat tmpTransMat;
-        float_t m1(-1.0/0.0);
-        for(size_t ii = 0; ii < nparts; ++ii){
-            
-            m_p_samps[ii] = muSamp(); 
-            tmpProbs = initHMMProbVec(m_p_samps[ii]);
-            tmpTransMat = initHMMTransMat(m_p_samps[ii]);
-            m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
-            this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
-            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
-
-            // maximum to be used in likelihood calc
-            if(m_logUnNormWeights[ii] > m1)
-                m1 = m_logUnNormWeights[ii];
-        }
-
-        // calc log p(y1)
-        float_t sumexp(0.0);
-        for(size_t p = 0; p < nparts; ++p)
-            sumexp += std::exp(m_logUnNormWeights[p] - m1);
-        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));
-
-        // calculate expectations before you resample
-        m_expectations.resize(fs.size());
-        unsigned int fId(0);
-        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); /// TODO: can we just use m1?
-        for(auto & h : fs){
-
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            unsigned int rows = testOutput.rows();
-            unsigned int cols = testOutput.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t denom(0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
-                denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
-            }
-            m_expectations[fId] = numer/denom;
-            fId++;
-        }
-        
-        // resample (unnormalized weights ok)
-        if( (m_now+1) % m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
-
-        // advance time step
-        m_now ++;
-    }
-    else { //m_now > 0
-        
+    if(m_now > 0)
+    {     
         // update
         sssv newX2Samp;
         float_t sumexpdenom(0.0);
@@ -598,7 +548,59 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
         // update time step
         m_now ++;
     }
-    
+    else// ( m_now == 0) // first data point coming
+    {
+        // initialize and update the closed-form mods        
+        nsssv tmpProbs;
+        nsssMat tmpTransMat;
+        float_t m1(-1.0/0.0);
+        for(size_t ii = 0; ii < nparts; ++ii){
+            
+            m_p_samps[ii] = muSamp(); 
+            tmpProbs = initHMMProbVec(m_p_samps[ii]);
+            tmpTransMat = initHMMTransMat(m_p_samps[ii]);
+            m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
+            this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
+            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
+
+            // maximum to be used in likelihood calc
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
+        }
+
+        // calc log p(y1)
+        float_t sumexp(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexp += std::exp(m_logUnNormWeights[p] - m1);
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));
+
+        // calculate expectations before you resample
+        m_expectations.resize(fs.size());
+        unsigned int fId(0);
+        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); /// TODO: can we just use m1?
+        for(auto & h : fs){
+
+            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t denom(0.0);
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
+                denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
+            }
+            m_expectations[fId] = numer/denom;
+            fId++;
+        }
+        
+        // resample (unnormalized weights ok)
+        if( (m_now+1) % m_rs == 0)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
+
+        // advance time step
+        m_now ++;
+    }
+   
 }
 
 
@@ -813,59 +815,8 @@ template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resam
 void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
 {
     
-    if( m_now == 0){ // first data point coming
-    
-        // initialize and update the closed-form mods      
-        nsssv tmpMean;
-        nsssMat tmpVar;
-        float_t m1(-1.0/0.0);
-        for(size_t ii = 0; ii < nparts; ++ii){
-            m_p_samps[ii] = q1Samp(data); 
-            tmpMean = initKalmanMean(m_p_samps[ii]);
-            tmpVar  = initKalmanVar(m_p_samps[ii]);
-            m_p_innerMods[ii] = kalman<dimnss,dimy,1,float_t>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
-            this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
-
-            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
-
-            // update a max
-            if(m_logUnNormWeights[ii] > m1)
-                m1 = m_logUnNormWeights[ii];
-        }
-
-        // calculate log p(y1)
-        float_t sumexp(0.0);
-        for(size_t p = 0; p < nparts; ++p)
-            sumexp += std::exp(m_logUnNormWeights[p] - m1);
-        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));  
-
-        // calculate expectations before you resample
-        m_expectations.resize(fs.size());
-        unsigned int fId(0);
-        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
-        for(auto & h : fs){
-
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            unsigned int rows = testOutput.rows();
-            unsigned int cols = testOutput.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t denom(0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
-                denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
-            }
-            m_expectations[fId] = numer/denom;
-            fId++;
-        }
-        
-        // resample (unnormalized weights ok)
-        if( (m_now+1)%m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
-            
-        // advance time step
-        m_now ++;
-    }
-    else { //m_now > 0
+    if(m_now > 0)
+    {
         
         // update
         sssv newX2Samp;
@@ -920,7 +871,59 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
         // update time step
         m_now ++;
     }
- 
+    else //( m_now == 0) // first data point coming
+    {
+        // initialize and update the closed-form mods      
+        nsssv tmpMean;
+        nsssMat tmpVar;
+        float_t m1(-1.0/0.0);
+        for(size_t ii = 0; ii < nparts; ++ii){
+            m_p_samps[ii] = q1Samp(data); 
+            tmpMean = initKalmanMean(m_p_samps[ii]);
+            tmpVar  = initKalmanVar(m_p_samps[ii]);
+            m_p_innerMods[ii] = kalman<dimnss,dimy,1,float_t>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
+            this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
+
+            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
+
+            // update a max
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
+        }
+
+        // calculate log p(y1)
+        float_t sumexp(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexp += std::exp(m_logUnNormWeights[p] - m1);
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));  
+
+        // calculate expectations before you resample
+        m_expectations.resize(fs.size());
+        unsigned int fId(0);
+        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        for(auto & h : fs){
+
+            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t denom(0.0);
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
+                denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
+            }
+            m_expectations[fId] = numer/denom;
+            fId++;
+        }
+        
+        // resample (unnormalized weights ok)
+        if( (m_now+1)%m_rs == 0)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
+            
+        // advance time step
+        m_now ++;
+    }
+
 }
 
 
@@ -1094,59 +1097,8 @@ template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resam
 void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
 {
     
-    if( m_now == 0){ // first data point coming
-    
-        // initialize and update the closed-form mods      
-        nsssv tmpMean;
-        nsssMat tmpVar;
-        float_t m1(-1.0/0.0);
-        for(size_t ii = 0; ii < nparts; ++ii){
-            m_p_samps[ii] = muSamp(data); 
-            tmpMean = initKalmanMean(m_p_samps[ii]);
-            tmpVar  = initKalmanVar(m_p_samps[ii]);
-            m_p_innerMods[ii] = kalman<dimnss,dimy,1,float_t>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
-            this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
-
-            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
-
-            // update a max
-            if(m_logUnNormWeights[ii] > m1)
-                m1 = m_logUnNormWeights[ii];
-        }
-
-        // calculate log p(y1)
-        float_t sumexp(0.0);
-        for(size_t p = 0; p < nparts; ++p)
-            sumexp += std::exp(m_logUnNormWeights[p] - m1);
-        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));  
-
-        // calculate expectations before you resample
-        m_expectations.resize(fs.size());
-        unsigned int fId(0);
-        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
-        for(auto & h : fs){
-
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
-            unsigned int rows = testOutput.rows();
-            unsigned int cols = testOutput.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t denom(0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl])*std::exp(m_logUnNormWeights[prtcl] - m1);
-                denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
-            }
-            m_expectations[fId] = numer/denom;
-            fId++;
-        }
-        
-        // resample (unnormalized weights ok)
-        if( (m_now+1)%m_rs == 0)
-            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
-            
-        // advance time step
-        m_now ++;
-    }
-    else { //m_now > 0
+    if(m_now > 0)
+    {
         
         // update
         sssv newX2Samp;
@@ -1202,7 +1154,59 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
         // update time step
         m_now ++;
     }
- 
+    else // ( m_now == 0) // first data point coming
+    {
+        // initialize and update the closed-form mods      
+        nsssv tmpMean;
+        nsssMat tmpVar;
+        float_t m1(-1.0/0.0);
+        for(size_t ii = 0; ii < nparts; ++ii){
+            m_p_samps[ii] = muSamp(data); 
+            tmpMean = initKalmanMean(m_p_samps[ii]);
+            tmpVar  = initKalmanVar(m_p_samps[ii]);
+            m_p_innerMods[ii] = kalman<dimnss,dimy,1,float_t>(tmpMean, tmpVar);   // TODO: allow for input or check to make sure this doesn't break anything else
+            this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
+
+            m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
+
+            // update a max
+            if(m_logUnNormWeights[ii] > m1)
+                m1 = m_logUnNormWeights[ii];
+        }
+
+        // calculate log p(y1)
+        float_t sumexp(0.0);
+        for(size_t p = 0; p < nparts; ++p)
+            sumexp += std::exp(m_logUnNormWeights[p] - m1);
+        m_lastLogCondLike = m1 + std::log(sumexp) - std::log(static_cast<float_t>(nparts));  
+
+        // calculate expectations before you resample
+        m_expectations.resize(fs.size());
+        unsigned int fId(0);
+        //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        for(auto & h : fs){
+
+            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t denom(0.0);
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
+                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl])*std::exp(m_logUnNormWeights[prtcl] - m1);
+                denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
+            }
+            m_expectations[fId] = numer/denom;
+            fId++;
+        }
+        
+        // resample (unnormalized weights ok)
+        if( (m_now+1)%m_rs == 0)
+            m_resampler.resampLogWts(m_p_innerMods, m_p_samps, m_logUnNormWeights);
+            
+        // advance time step
+        m_now ++;
+    }
+
 }
 
 

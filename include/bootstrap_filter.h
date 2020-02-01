@@ -162,54 +162,7 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
     /**
      * @todo: work in support for effective sample size stuff. 
      */
-    if (m_now == 0) //time 1
-    {  
-        // only need to iterate over particles once
-        for(size_t ii = 0; ii < nparts; ++ii)
-        {
-            // sample particles
-            m_particles[ii] = q1Samp(dat);
-            m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
-            m_logUnNormWeights[ii] += logGEv(dat, m_particles[ii]);
-            m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], dat);
-        }
-       
-        // calculate log cond likelihood with log-exp-sum trick
-        float_t max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
-        float_t sumExp(0.0);
-        for(size_t i = 0; i < nparts; ++i){
-            sumExp += std::exp(m_logUnNormWeights[i] - max);
-        }
-        m_logLastCondLike = -std::log(nparts) + (max) + std::log(sumExp);
-   
-        // calculate expectations before you resample
-        // paying mind to underflow
-        m_expectations.resize(fs.size());
-        unsigned int fId(0);
-        for(auto & h : fs){
-
-            Mat testOutput = h(m_particles[0]);
-            unsigned int rows = testOutput.rows();
-            unsigned int cols = testOutput.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t weightNormConst (0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl]) * std::exp( m_logUnNormWeights[prtcl] - (max) );
-                weightNormConst += std::exp( m_logUnNormWeights[prtcl] - (max) );
-            }
-            m_expectations[fId] = numer/weightNormConst;
-            fId++;
-        }
-   
-        // resample if you should
-        if ( (m_now+1) % m_resampSched == 0){
-            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
-        }
-        
-        // advance time step
-        m_now += 1;   
-    }
-    else // m_now > 0
+    if( m_now > 0)
     {
        
         // try to iterate over particles all at once
@@ -265,6 +218,54 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
         // advance time
         m_now += 1;       
     }
+    else //  (m_now == 0) //time 1
+    {  
+        // only need to iterate over particles once
+        for(size_t ii = 0; ii < nparts; ++ii)
+        {
+            // sample particles
+            m_particles[ii] = q1Samp(dat);
+            m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
+            m_logUnNormWeights[ii] += logGEv(dat, m_particles[ii]);
+            m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], dat);
+        }
+       
+        // calculate log cond likelihood with log-exp-sum trick
+        float_t max = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
+        float_t sumExp(0.0);
+        for(size_t i = 0; i < nparts; ++i){
+            sumExp += std::exp(m_logUnNormWeights[i] - max);
+        }
+        m_logLastCondLike = -std::log(nparts) + (max) + std::log(sumExp);
+   
+        // calculate expectations before you resample
+        // paying mind to underflow
+        m_expectations.resize(fs.size());
+        unsigned int fId(0);
+        for(auto & h : fs){
+
+            Mat testOutput = h(m_particles[0]);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t weightNormConst (0.0);
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+                numer += h(m_particles[prtcl]) * std::exp( m_logUnNormWeights[prtcl] - (max) );
+                weightNormConst += std::exp( m_logUnNormWeights[prtcl] - (max) );
+            }
+            m_expectations[fId] = numer/weightNormConst;
+            fId++;
+        }
+   
+        // resample if you should
+        if ( (m_now+1) % m_resampSched == 0){
+            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
+        }
+        
+        // advance time step
+        m_now += 1;   
+    }
+
 }
 
 
