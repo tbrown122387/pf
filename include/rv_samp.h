@@ -469,7 +469,83 @@ float_t TruncUnivNormSampler<float_t>::sample()
     return proposal;
 }
 
+
+//! A class that performs sampling from a Poisson distribution.
+/**
+* @class PoissonSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from univariate Poisson distribution.
+*/
+template<typename float_t, typename int_t>
+class PoissonSampler : public rvsamp_base
+{
     
+public:
+
+
+    /**
+     * @brief Default-constructor sets up for Poisson random variate generation with lambda = 1.
+     */
+    PoissonSampler();
+
+
+     /**
+      * @brief Constructs Poisson sampler with user-specified lambda.
+      * @param lambda a float_t for the average/variance.
+      */
+    PoissonSampler(const float_t &lambda);
+
+
+    /**
+     * @brief sets the parameter lambda.
+     * @param lambda (the average and the variance).
+     */
+    void setLambda(const float_t &lambda);
+    
+
+    /** 
+      * @brief Draws a random number.
+      * @return a random sample of type int_t.
+      */
+    int_t sample();    
+    
+
+private:
+
+    /** @brief makes normal random variates */
+    std::poisson_distribution<int_t> m_p_gen;
+};
+
+
+template<typename float_t, typename int_t>
+PoissonSampler<float_t, int_t>::PoissonSampler() 
+    : rvsamp_base(), m_p_gen(float_t(1.0))
+{
+}
+
+
+template<typename float_t, typename int_t>
+PoissonSampler<float_t, int_t>::PoissonSampler(const float_t& lambda) 
+    : rvsamp_base(), m_p_gen(lambda)
+{
+}
+
+
+template<typename float_t, typename int_t>
+void PoissonSampler<float_t, int_t>::setLambda(const float_t& lambda)
+{
+   m_p_gen.param(typename decltype(m_p_gen)::param_type(lambda)); 
+}
+
+
+template<typename float_t, typename int_t>
+int_t PoissonSampler<float_t, int_t>::sample()
+{
+    return m_p_gen(m_rng);
+}
+
+
 //! A class that performs sampling from a univariate Bernoulli distribution.
 /**
 * @class BernSampler
@@ -506,7 +582,7 @@ public:
 
     /** 
       * @brief Draws a random number.
-      * @return a random sample of type float_t.
+      * @return a random sample of type int_t.
       */
     int_t sample();    
     
