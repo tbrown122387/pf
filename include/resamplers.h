@@ -499,4 +499,104 @@ void systematic_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldPart
     std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0); // change back    
 }
 
+
+/**
+ * @class mn_resamp_fast1
+ * @author taylor
+ * @file resamplers.h
+ * @brief Class that performs multinomial resampling for "standard" models. 
+ * For justification, see page 244 of "Inference in Hidden Markov Models"
+ * @tparam nparts the number of particles.
+ * @tparam dimx the dimension of each state sample.
+ */
+template<size_t nparts, size_t dimx, typename float_t>
+class mn_resamp_fast1 : private rbase<nparts, dimx, float_t>
+{
+public:
+
+    /** type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
+    /** type alias for array of Eigen Matrices */
+    using arrayVec = std::array<ssv, nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
+    /** type alias for array of integers */
+    using arrayInt = std::array<unsigned int,nparts>;
+
+    /**
+     * @brief Default constructor. Only option available.
+     */
+    mn_resamp_fast1() = default;
+    
+    
+    /**
+     * @brief resamples particles.
+     * @param oldParts the old particles
+     * @param oldLogUnNormWts the old log unnormalized weights
+     */
+    void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
+    
+};
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+void mn_resamp_fast1<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts)
+{
+    // these log weights may be very negative. If that's the case, exponentiating them may cause underflow
+    // so we use the "log-exp-sum" trick
+    // actually not quite...we just shift the log-weights because after they're exponentiated
+    // they have the same normalized probabilities
+       
+    // Also, we're using a fancier algorthm detailed on page 244 of IHMM 
+
+    // Create unnormalized weights
+    arrayFloat unnorm_weights;
+    float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), unnorm_weights.begin(), 
+                    [&m](float_t& d) -> float_t { return std::exp( d - m ); } );
+    
+    // get a uniform rv sampler
+    std::uniform_real_distribution<float_t> u_sampler(0.0, 1.0);
+    
+    // two things: 
+    // 1.) calculate normalizing constant for weights, and 
+    // 2.) generate all these exponentials to help with getting order statistics
+    // NB: you never need to store E_{N+1}! (this is subtle)
+    float_t weight_norm_const(0.0);
+    arrayFloat exponentials;
+    float_t G(0.0);
+    for(size_t i = 0; i < nparts; ++i) {
+        weight_norm_const += unnorm_weights[i];
+        exponentials[i] = -std::log(u_sampler(this->m_gen));   
+        G += exponentials[i];
+    }
+    G+= std::log(u_sampler(this->m_gen)); // E_{N+1}
+
+    // see Fig 7.15 in IHMM on page 243
+    arrayVec tmpPartics = oldParts;                // the new particles 
+    float_t uniform_order_stat(0.0);               // U_{(i)} in the notation of IHMM
+    float_t running_sum_normalized_weights(unnorm_weights[0]/weight_norm_const); // \sum_{j=1}^I \omega^j in the notation of IHMM
+    float_t one_less_summand(0.0);                 // \sum_{j=1}^{I-1} \omega^j 
+    unsigned int idx = 0;
+    for(size_t i = 0; i < nparts; ++i){
+        uniform_order_stat += exponentials[i]/G; // add a spacing E_i/G
+        do {
+            if( one_less_summand < uniform_order_stat <= running_sum_normalized_weights ) {
+                // select index idx
+                tmpPartics[i] = oldParts[idx];
+                break;
+            }else{
+                // increment idx because it will never be chosen (all the other order statistics are even higher) 
+                idx++;
+                running_sum_normalized_weights += unnorm_weights[idx]/weight_norm_const;
+                one_less_summand += unnorm_weights[idx-1]/weight_norm_const;
+            }
+        }while(true);
+    }
+
+    //overwrite olds with news
+    oldParts = std::move(tmpPartics);
+    std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0);  
+}
+
 #endif // RESAMPLERS_H
