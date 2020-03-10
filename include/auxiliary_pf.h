@@ -24,7 +24,7 @@
   * @tparam dimy the dimension of the observations
   * @tparam resamp_t the resampler type
   */
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug=false>
 class APF : public pf_base<float_t, dimy, dimx>
 {
 public:
@@ -234,7 +234,7 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
                 std::cout << "time: " << m_now 
                           << ", transposed sample: " << m_particles[ii].transpose() 
                           << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-
+            }
 
             // update m1
             if(m_logUnNormWeights[ii] > m1)
@@ -277,9 +277,9 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
             
         // advance time
         m_now += 1; 
-    }
-    else // (m_now == 0) 
-    {
+    
+    } else { // (m_now == 0) 
+
         float_t max(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii)
         {

@@ -7,7 +7,7 @@ This is a template library for fast particle filtering. Templated abstract base 
 Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use!
 
 ## Installation
-This is a header-only library, so there is no building necessary. When you use it in another project, make sure to compile with C++11 enabled (`-std=c++11`), and to include the `include` directory of this project. 
+This is a header-only library, so there is no building necessary. When you use it in another project, make sure to compile with C++17 enabled (`-std=c++17`), and to include the `include` directory of this project. 
 
 Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/).
 

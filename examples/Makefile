@@ -4,7 +4,7 @@ OBJS = main.o svol_comparison.o forward_sim.o resamp_comparison.o
 INCLUDES = -I../include -I/usr/include/eigen3
 CXX = g++
 #CXX = clang++-6.0
-CXXFLAGS = -std=c++11 -O3 $(INCLUDES) -pg
+CXXFLAGS = -std=c++17 -O3 $(INCLUDES) -pg
 
 
 all: $(PROG)
