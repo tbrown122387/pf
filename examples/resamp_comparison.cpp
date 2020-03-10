@@ -9,7 +9,7 @@
 // some template parameters
 #define dimstate 1
 #define dimobs   1
-#define numparts 500
+#define numparts 5000
 #define FLOATTYPE float // choose float (faster) or double (slower)
 
 
@@ -26,17 +26,19 @@ void run_resamp_comparison(const std::string &csv)
     using residR       = resid_resampler     <numparts,dimstate,FLOATTYPE>;
     using stratifR     = stratif_resampler   <numparts,dimstate,FLOATTYPE>;
     using systematicR  = systematic_resampler<numparts,dimstate,FLOATTYPE>;
+    using fastMultinomR= mn_resamp_fast1     <numparts,dimstate,FLOATTYPE>;
 
     // model parameters that are assumed known
     FLOATTYPE phi = .91;
     FLOATTYPE beta = .5;
     FLOATTYPE sigma = 1.0;
 
-    // the same model in three different particle filters
-    svol_bs<numparts, dimstate, dimobs, multinomialR,FLOATTYPE> bssvol1(phi, beta, sigma);
-    svol_bs<numparts, dimstate, dimobs, residR      ,FLOATTYPE> bssvol2(phi, beta, sigma);
-    svol_bs<numparts, dimstate, dimobs, stratifR    ,FLOATTYPE> bssvol3(phi, beta, sigma);
-    svol_bs<numparts, dimstate, dimobs, systematicR ,FLOATTYPE> bssvol4(phi, beta, sigma);
+    // the same model in four different particle filters
+    svol_bs<numparts, dimstate, dimobs, multinomialR, FLOATTYPE> bssvol1(phi, beta, sigma);
+    svol_bs<numparts, dimstate, dimobs, residR      , FLOATTYPE> bssvol2(phi, beta, sigma);
+    svol_bs<numparts, dimstate, dimobs, stratifR    , FLOATTYPE> bssvol3(phi, beta, sigma);
+    svol_bs<numparts, dimstate, dimobs, systematicR , FLOATTYPE> bssvol4(phi, beta, sigma);
+    svol_bs<numparts, dimstate, dimobs, fastMultinomR,FLOATTYPE> bssvol5(phi, beta, sigma);
 
     // read in some data
     std::vector<osv> data = readInData<FLOATTYPE,dimobs>(csv);
@@ -61,12 +63,13 @@ void run_resamp_comparison(const std::string &csv)
         bssvol2.filter(data[row], v);
         bssvol3.filter(data[row], v);
         bssvol4.filter(data[row], v);
+        bssvol5.filter(data[row], v);
 
         std::cout << bssvol1.getExpectations()[0] << ", ";
         std::cout << bssvol2.getExpectations()[0] << ", ";
         std::cout << bssvol3.getExpectations()[0] << ", ";
-        std::cout << bssvol4.getExpectations()[0] << "\n";
-
+        std::cout << bssvol4.getExpectations()[0] << ", ";
+        std::cout << bssvol5.getExpectations()[0] << "\n";
     }
     
 }
