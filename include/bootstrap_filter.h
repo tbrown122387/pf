@@ -19,7 +19,7 @@
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug=false>
 class BSFilter : public pf_base<float_t, dimy, dimx>
 {
 public:
@@ -140,28 +140,25 @@ protected:
 };
 
     
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-BSFilter<nparts, dimx, dimy, resamp_t, float_t>::BSFilter(const unsigned int &rs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::BSFilter(const unsigned int &rs)
                 : m_now(0)
                 , m_logLastCondLike(0.0)
                 , m_resampSched(rs)
                   
 {
-    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0); // log(1) = 0
+    std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-BSFilter<nparts, dimx, dimy, resamp_t, float_t>::~BSFilter() {}
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::~BSFilter() {}
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, const std::vector<std::function<const Mat(const ssv&)> >& fs) 
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &dat, const std::vector<std::function<const Mat(const ssv&)> >& fs) 
 {
 
-    /**
-     * @todo: work in support for effective sample size stuff. 
-     */
     if( m_now > 0)
     {
        
@@ -178,9 +175,13 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
             // sample and get weight adjustments
             newSamp = fSamp(m_particles[ii]);
             m_logUnNormWeights[ii] = logGEv(dat, newSamp);
- 
+
             // overwrite stuff
             m_particles[ii] = newSamp;
+
+            // print stuff if debug mode is on
+            if constexpr(debug) 
+                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
         }
         
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
@@ -194,20 +195,24 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
         m_logLastCondLike = maxNumer + std::log(sumExp1) - maxOldLogUnNormWts - std::log(sumExp2);
 
         // calculate expectations before you resample
-//        m_expectations.resize(fs.size());
         int fId(0);
-        for(auto & h : fs){ // iterate over all functions
+        for(auto & h : fs){ 
         
             Mat testOutput = h(m_particles[0]);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t weightNormConst (0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);
                 weightNormConst += std::exp(m_logUnNormWeights[prtcl] - maxNumer);
             }
             m_expectations[fId] = numer/weightNormConst;
+            
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            
             fId++;
         }
 
@@ -228,6 +233,11 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
             m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(dat, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], dat);
+
+            // print stuff if debug mode is on
+            if constexpr(debug) 
+                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+
         }
        
         // calculate log cond likelihood with log-exp-sum trick
@@ -249,11 +259,16 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t weightNormConst (0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 numer += h(m_particles[prtcl]) * std::exp( m_logUnNormWeights[prtcl] - (max) );
                 weightNormConst += std::exp( m_logUnNormWeights[prtcl] - (max) );
             }
             m_expectations[fId] = numer/weightNormConst;
+
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
    
@@ -269,15 +284,15 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &dat, con
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-float_t BSFilter<nparts, dimx, dimy, resamp_t, float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+float_t BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-auto BSFilter<nparts, dimx, dimy, resamp_t, float_t>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+auto BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }

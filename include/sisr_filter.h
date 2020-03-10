@@ -17,7 +17,7 @@
  * @tparam the size of the observation
  * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug=false>
 class SISRFilter : public pf_base<float_t, dimy, dimx>
 {
 public:
@@ -165,8 +165,8 @@ private:
 
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::SISRFilter(const unsigned int &rs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::SISRFilter(const unsigned int &rs)
                 : m_now(0)
                 , m_logLastCondLike(0.0)
                 , m_resampSched(rs) 
@@ -175,26 +175,26 @@ SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::SISRFilter(const unsigned int &rs
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::~SISRFilter() {}
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::~SISRFilter() {}
 
     
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-float_t SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+float_t SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
     
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>    
-auto SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::getExpectations() const -> std::vector<Mat> 
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>    
+auto SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::getExpectations() const -> std::vector<Mat> 
 {
     return m_expectations;
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
 
     if(m_now > 0)
@@ -216,9 +216,13 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, cons
             m_logUnNormWeights[ii]  = logFEv(newSamp, m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(data, newSamp);
             m_logUnNormWeights[ii] -= logQEv(newSamp, m_particles[ii], data);
- 
+
             // overwrite stuff
             m_particles[ii] = newSamp;
+
+            if constexpr(debug) 
+                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+        
         }
        
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
@@ -232,8 +236,6 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, cons
         m_logLastCondLike = maxNumer + std::log(sumExp1) - maxOldLogUnNormWts - std::log(sumExp2);
 
         // calculate expectations before you resample
-        //m_expectations.resize(fs.size());
-        //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); // TODO: should this be Mat::Zero(m_dimState, m_dimState)?
         unsigned int fId(0);
         float_t weightNormConst(0.0);
         for(auto & h : fs){ // iterate over all functions
@@ -249,6 +251,11 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, cons
                 denom += std::exp(m_logUnNormWeights[prtcl]);
             }
             m_expectations[fId] = numer/denom;
+
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
  
@@ -271,6 +278,11 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, cons
             m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
+
+            if constexpr(debug) 
+                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+
+
         }
        
         // calculate log cond likelihood with log-exp-sum trick
@@ -283,7 +295,6 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, cons
    
         // calculate expectations before you resample
         m_expectations.resize(fs.size());
-        //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
         unsigned int fId(0);
         for(auto & h : fs){
             
@@ -293,11 +304,16 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t>::filter(const osv &data, cons
             Mat numer = Mat::Zero(rows,cols);
             float_t denom(0.0);
 
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
                 denom += std::exp(m_logUnNormWeights[prtcl]);
             }
             m_expectations[fId] = numer/denom;
+
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
    

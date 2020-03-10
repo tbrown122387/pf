@@ -24,7 +24,7 @@
   * @tparam dimy the dimension of the observations
   * @tparam resamp_t the resampler type
   */
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
 class APF : public pf_base<float_t, dimy, dimx>
 {
 public:
@@ -159,8 +159,8 @@ protected:
 
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-APF<nparts, dimx, dimy, resamp_t, float_t>::APF(const unsigned int &rs) 
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+APF<nparts, dimx, dimy, resamp_t, float_t, debug>::APF(const unsigned int &rs) 
     : m_now(0)
     , m_logLastCondLike(0.0)
     , m_rs(rs)
@@ -169,12 +169,12 @@ APF<nparts, dimx, dimy, resamp_t, float_t>::APF(const unsigned int &rs)
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-APF<nparts, dimx, dimy, resamp_t, float_t>::~APF() { }
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+APF<nparts, dimx, dimy, resamp_t, float_t, debug>::~APF() { }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
     
     if(m_now > 0)
@@ -193,11 +193,18 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
             
             // sample
             ssv xtm1                        = oldPartics[ii];
-            logFirstStageUnNormWeights[ii] += logGEv(data, propMu(xtm1)); // build up first stage weights
+            logFirstStageUnNormWeights[ii] += logGEv(data, propMu(xtm1)); 
             
             // accumulate things
             if(logFirstStageUnNormWeights[ii] > m2)
                 m2 = logFirstStageUnNormWeights[ii];
+            
+            // print stuff if debug mode is on
+            if constexpr(debug) {
+                std::cout << "time: " << m_now 
+                          << ", first stage log unnorm weight: " << logFirstStageUnNormWeights[ii] 
+                          << "\n";
+            }
 
         }
                
@@ -223,6 +230,12 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
             muT                     = propMu(xtm1k); 
             m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]) - logGEv(data, muT);
             
+            if constexpr(debug){ 
+                std::cout << "time: " << m_now 
+                          << ", transposed sample: " << m_particles[ii].transpose() 
+                          << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+
+
             // update m1
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -233,8 +246,10 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
              first_cll_sum += std::exp( m_logUnNormWeights[p] - m1 );
         m_logLastCondLike = m1 + std::log(first_cll_sum) + m2 + std::log(second_cll_sum) - 2*m3 - 2*std::log(third_cll_sum);
 
+        if constexpr(debug) 
+            std::cout << "time: " << m_now << ", log cond like: " << m_logLastCondLike << "\n";
+
         // calculate expectations before you resample
-        //std::fill(m_expectations.begin(), m_expectations.end(), ssv::Zero()); 
         unsigned int fId(0);
         for(auto & h : fs){
     
@@ -244,11 +259,15 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
             Mat numer = Mat::Zero(rows,cols);
             float_t denom(0.0);
             
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
                 denom += std::exp(m_logUnNormWeights[prtcl] - m1);
             }
             m_expectations[fId] = numer/denom;
+
+            if constexpr(debug)
+                std::cout << "transposed expectation " << fId << "; " << m_expectations[fId] << "\n";
+
             fId++;
         }
 
@@ -269,7 +288,15 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
             m_logUnNormWeights[ii]  = logMuEv(m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
-            
+
+            // print stuff if debug mode is on
+            if constexpr(debug) {
+                std::cout << "time: " << m_now 
+                          << ", log unnorm weight: " << m_logUnNormWeights[ii] 
+                          << ", transposed sample: " << m_particles[ii].transpose()
+                          << "\n";
+            }
+
             // update maximum
             if( m_logUnNormWeights[ii] > max)
                 max = m_logUnNormWeights[ii];
@@ -292,11 +319,15 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t denom(0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
                 numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - max);
                 denom += std::exp(m_logUnNormWeights[prtcl] - max);
             }
             m_expectations[fId] = numer/denom;
+
+            if constexpr(debug)
+                std::cout << "transposed expectation " << fId << "; " << m_expectations[fId] << "\n";
+
             fId++;
         }
         
@@ -311,15 +342,15 @@ void APF<nparts, dimx, dimy, resamp_t, float_t>::filter(const osv &data, const s
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-float_t APF<nparts, dimx, dimy, resamp_t, float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+float_t APF<nparts, dimx, dimy, resamp_t, float_t, debug>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t>
-auto APF<nparts, dimx, dimy, resamp_t, float_t>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug>
+auto APF<nparts, dimx, dimy, resamp_t, float_t, debug>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
