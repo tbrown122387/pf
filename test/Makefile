@@ -23,7 +23,7 @@ CXX := g++
 LD := g++
 
 # C++ flags
-CXXFLAGS := -std=c++11
+CXXFLAGS := -std=c++14
 # C/C++ flags
 CPPFLAGS := -g -Wall -Wextra -pedantic -I/usr/local/include/UnitTest++ -I/usr/include/eigen3 -I../include
 # linker flags

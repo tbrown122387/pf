@@ -14,19 +14,24 @@ namespace rveval{
 ////////////////////////////////////////////////
 
 /** (2 pi)^(-1/2) */
-const double inv_sqrt_2pi(0.3989422804014327);
+template<class T>
+constexpr T inv_sqrt_2pi = T(0.3989422804014327); 
 
 /** (2/pi)^(1/2) */
-const double sqrt_two_over_pi(0.797884560802865);
+template<class T>
+constexpr T sqrt_two_over_pi(0.797884560802865);
 
 /** log(2pi) */
-const double log_two_pi (1.83787706640935);
+template<class T>
+constexpr T log_two_pi (1.83787706640935);
 
 /** log(2/pi) */
-const double log_two_over_pi (-0.451582705289455);
+template<class T>
+constexpr T log_two_over_pi (-0.451582705289455);
 
 /** log(pi) */
-const double log_pi (1.1447298858494);
+template<class T>
+constexpr T log_pi (1.1447298858494);
 
 
 ////////////////////////////////////////////////
@@ -143,9 +148,9 @@ float_t evalUnivNorm(float_t x, float_t mu, float_t sigma, bool log)
     float_t exponent = -.5*(x - mu)*(x-mu)/(sigma*sigma);
     if( sigma > 0.0){
         if(log){
-            return -std::log(sigma) - .5*log_two_pi + exponent;
+            return -std::log(sigma) - .5*log_two_pi<float_t> + exponent;
         }else{
-            return inv_sqrt_2pi * std::exp(exponent) / sigma;
+            return inv_sqrt_2pi<float_t> * std::exp(exponent) / sigma;
         }
     }else{
         if(log){
@@ -337,9 +342,9 @@ float_t evalUnivHalfNorm(float_t x, float_t sigmaSqd, bool log)
 {
     if( (x >= 0.0) && (sigmaSqd > 0.0)){
         if (log){
-            return .5*log_two_over_pi - .5*std::log(sigmaSqd) - .5*x*x / sigmaSqd;
+            return .5*log_two_over_pi<float_t> - .5*std::log(sigmaSqd) - .5*x*x / sigmaSqd;
         }else{
-            return std::exp(-.5*x*x/sigmaSqd) * sqrt_two_over_pi / std::sqrt(sigmaSqd);
+            return std::exp(-.5*x*x/sigmaSqd) * sqrt_two_over_pi<float_t> / std::sqrt(sigmaSqd);
         }
     }else{
         if (log){
@@ -453,9 +458,9 @@ float_t evalLogitNormal(float_t x, float_t mu, float_t sigma, bool log)
         
         float_t exponent = -.5*(logit(x) - mu)*(logit(x) - mu) / (sigma*sigma);
         if(log){
-            return -std::log(sigma) - .5*log_two_pi - std::log(x) - std::log(1.0-x) + exponent;
+            return -std::log(sigma) - .5*log_two_pi<float_t> - std::log(x) - std::log(1.0-x) + exponent;
         }else{
-            return inv_sqrt_2pi * std::exp(exponent) / (x * (1.0-x) * sigma);   
+            return inv_sqrt_2pi<float_t> * std::exp(exponent) / (x * (1.0-x) * sigma);   
         }
     }else{
         if(log){
@@ -514,9 +519,9 @@ float_t evalTwiceFisherNormal(float_t x, float_t mu, float_t sigma, bool log)
         float_t exponent = std::log((1.0+x)/(1.0-x)) - mu;
         exponent = -.5*exponent*exponent/sigma/sigma;
         if(log){
-            return -std::log(sigma) - .5*log_two_pi + std::log(2.0) - std::log(1.0+x) - std::log(1.0-x) + exponent;
+            return -std::log(sigma) - .5*log_two_pi<float_t> + std::log(2.0) - std::log(1.0+x) - std::log(1.0-x) + exponent;
         }else{
-            return inv_sqrt_2pi * 2.0 * std::exp(exponent)/( (1.0-x)*(1.0+x)*sigma );
+            return inv_sqrt_2pi<float_t> * 2.0 * std::exp(exponent)/( (1.0-x)*(1.0+x)*sigma );
         }
     }else{
         if(log){
@@ -576,9 +581,9 @@ float_t evalLogNormal(float_t x, float_t mu, float_t sigma, bool log)
         float_t exponent = std::log(x)-mu;
         exponent = -.5 * exponent * exponent / sigma / sigma;
         if(log){
-            return -std::log(x) - std::log(sigma) - .5*log_two_pi + exponent;
+            return -std::log(x) - std::log(sigma) - .5*log_two_pi<float_t> + exponent;
         }else{
-            return inv_sqrt_2pi*std::exp(exponent)/(sigma*x);
+            return inv_sqrt_2pi<float_t> * std::exp(exponent)/(sigma*x);
         }
     }else{
         if(log){
@@ -699,9 +704,9 @@ float_t evalScaledT(float_t x, float_t mu, float_t sigma, float_t dof, bool log)
         float_t zscore = (x-mu)/sigma; 
         float_t lmt =  - .5*(dof+1.0)*std::log(1.0 + (zscore*zscore)/dof);
         if(log)
-            return std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi - std::lgamma(.5*dof) + lmt;
+            return std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi<float_t> - std::lgamma(.5*dof) + lmt;
         else
-            return std::exp(std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi - std::lgamma(.5*dof) + lmt);
+            return std::exp(std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi<float_t> - std::lgamma(.5*dof) + lmt);
     } else{
         if(log)
             return -std::numeric_limits<float_t>::infinity();
@@ -909,7 +914,7 @@ float_t evalMultivNorm(const Eigen::Matrix<float_t,dim,1> &x,
     }
     ld *= 2; // covMat = LL^T
 
-    float_t logDens = -.5*log_two_pi * dim - .5*ld - .5*quadform;
+    float_t logDens = -.5*log_two_pi<float_t> * dim - .5*ld - .5*quadform;
 
     if(log){
         return logDens;
@@ -951,7 +956,7 @@ float_t evalMultivT(const Eigen::Matrix<float_t,dim,1> &x,
     }
     ld *= 2; // shapeMat = LL^T
 
-    float_t logDens = std::lgamma(.5*(dof+dim)) - .5*dim*std::log(dof) - .5*dim*log_pi 
+    float_t logDens = std::lgamma(.5*(dof+dim)) - .5*dim*std::log(dof) - .5*dim*log_pi<float_t> 
         - std::lgamma(.5*dof) -.5*ld - .5*(dof+dim)*std::log( 1.0 + quadform/dof );
 
     if(log){
@@ -1001,11 +1006,11 @@ float_t evalMultivNormWBDA(const Eigen::Matrix<float_t,bigd,1> &x,
             halfld += std::log(L(i,i));
         }
 
-        return -.5*log_two_pi * bigd + halfld - .5*quadform;
+        return -.5*log_two_pi<float_t> * bigd + halfld - .5*quadform;
 
 
     }else{  // not the log density
-        float_t normConst = std::pow(inv_sqrt_2pi, bigd) * L.determinant();
+        float_t normConst = std::pow(inv_sqrt_2pi<float_t>, bigd) * L.determinant();
         return normConst * std::exp(-.5* quadform);
     }
                               
@@ -1040,7 +1045,7 @@ float_t evalWishart(const Eigen::Matrix<float_t,dim,dim> &X,
     float_t ldvinv (0.0);
     Mat Lx = lltX.matrixL(); // the lower diagonal L such that X = LL^T
     Mat Lvi = lltVinv.matrixL();
-    float_t logGammaNOver2 = .25*dim*(dim-1)*log_pi; // existence guaranteed when n > dim-1
+    float_t logGammaNOver2 = .25*dim*(dim-1)*log_pi<float_t>; // existence guaranteed when n > dim-1
 
     // add up log of diagonals of each Cholesky L
     for(size_t i = 0; i < dim; ++i){
@@ -1089,7 +1094,7 @@ float_t evalInvWishart(const Eigen::Matrix<float_t,dim,dim> &X,
     float_t ldPsi (0.0);
     Mat Lx = lltX.matrixL(); // the lower diagonal L such that X = LL^T
     Mat Lpsi = lltPsi.matrixL();
-    float_t logGammaNuOver2 = .25*dim*(dim-1)*log_pi; // existence guaranteed when n > dim-1
+    float_t logGammaNuOver2 = .25*dim*(dim-1)*log_pi<float_t>; // existence guaranteed when n > dim-1
 
     // add up log of diagonals of each Cholesky L
     for(size_t i = 0; i < dim; ++i){
