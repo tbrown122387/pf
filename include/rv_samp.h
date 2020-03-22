@@ -61,21 +61,21 @@ public:
       * @param mu a float_t for the mean of the sampling distribution.
       * @param sigma a float_t (> 0) representing the standard deviation of the samples.
       */
-    UnivNormSampler(const float_t &mu, const float_t &sigma);
+    UnivNormSampler(float_t mu, float_t sigma);
 
 
     /**
      * @brief sets the standard deviation of the sampler.
      * @param sigma the desired standard deviation.
      */
-    void setStdDev(const float_t &sigma);
+    void setStdDev(float_t sigma);
     
     
     /**
      * @brief sets the mean of the sampler.
      * @param mu the desired mean.
      */
-    void setMean(const float_t &mu);
+    void setMean(float_t mu);
     
         
      /**
@@ -110,7 +110,7 @@ UnivNormSampler<float_t>::UnivNormSampler()
 
 
 template<typename float_t>
-UnivNormSampler<float_t>::UnivNormSampler(const float_t &mu, const float_t &sigma)
+UnivNormSampler<float_t>::UnivNormSampler(float_t mu, float_t sigma)
     : rvsamp_base()
     , m_z_gen(0.0, 1.0)
 {
@@ -120,14 +120,14 @@ UnivNormSampler<float_t>::UnivNormSampler(const float_t &mu, const float_t &sigm
 
 
 template<typename float_t>
-void UnivNormSampler<float_t>::setMean(const float_t &mu)
+void UnivNormSampler<float_t>::setMean(float_t mu)
 {
     m_mu = mu;
 }
 
 
 template<typename float_t>
-void UnivNormSampler<float_t>::setStdDev(const float_t &sigma)
+void UnivNormSampler<float_t>::setStdDev(float_t sigma)
 {
     m_sigma = sigma;
 }
@@ -165,21 +165,21 @@ public:
       * @param mu a location parameter for the logarithm of the sample.
       * @param sigma a positive scale parameter for the logarithm of the sample.
       */
-    UnivLogNormSampler(const float_t &mu, const float_t &sigma);
+    UnivLogNormSampler(float_t mu, float_t sigma);
 
 
     /**
      * @brief sets the scale parameter of the logged random variable.
      * @param sigma the desired parameter.
      */
-    void setSigma(const float_t &sigma);
+    void setSigma(float_t sigma);
     
     
     /**
      * @brief sets the location parameter of the logged random variable.
      * @param mu the desired parameter.
      */
-    void setMu(const float_t &mu);
+    void setMu(float_t mu);
     
         
      /**
@@ -214,7 +214,7 @@ UnivLogNormSampler<float_t>::UnivLogNormSampler()
 
 
 template<typename float_t>
-UnivLogNormSampler<float_t>::UnivLogNormSampler(const float_t &mu, const float_t &sigma)
+UnivLogNormSampler<float_t>::UnivLogNormSampler(float_t mu, float_t sigma)
     : rvsamp_base()
     , m_z_gen(0.0, 1.0)
 {
@@ -224,14 +224,14 @@ UnivLogNormSampler<float_t>::UnivLogNormSampler(const float_t &mu, const float_t
 
 
 template<typename float_t>
-void UnivLogNormSampler<float_t>::setMu(const float_t &mu)
+void UnivLogNormSampler<float_t>::setMu(float_t mu)
 {
     m_mu = mu;
 }
 
 
 template<typename float_t>
-void UnivLogNormSampler<float_t>::setSigma(const float_t &sigma)
+void UnivLogNormSampler<float_t>::setSigma(float_t sigma)
 {
     m_sigma = sigma;
 }
@@ -268,7 +268,7 @@ public:
       * @param alpha a positive shape parameter.
       * @param beta a positive scale parameter.
       */
-    UnivGammaSampler(const float_t &alpha, const float_t &beta);
+    UnivGammaSampler(float_t alpha, float_t beta);
 
 
      /**
@@ -301,7 +301,7 @@ UnivGammaSampler<float_t>::UnivGammaSampler()
 
 
 template<typename float_t>
-UnivGammaSampler<float_t>::UnivGammaSampler(const float_t &alpha, const float_t &beta)
+UnivGammaSampler<float_t>::UnivGammaSampler(float_t alpha, float_t beta)
     : rvsamp_base()
     , m_gamma_gen(alpha, beta)
 {
@@ -339,7 +339,7 @@ public:
       * @param alpha a positive shape parameter.
       * @param beta a positive scale parameter.
       */
-    UnivInvGammaSampler(const float_t &alpha, const float_t &beta);
+    UnivInvGammaSampler(float_t alpha, float_t beta);
 
 
      /**
@@ -372,7 +372,7 @@ UnivInvGammaSampler<float_t>::UnivInvGammaSampler()
 
 
 template<typename float_t>
-UnivInvGammaSampler<float_t>::UnivInvGammaSampler(const float_t &alpha, const float_t &beta)
+UnivInvGammaSampler<float_t>::UnivInvGammaSampler(float_t alpha, float_t beta)
     : rvsamp_base()
     , m_gamma_gen(alpha, beta)
 {
@@ -411,7 +411,7 @@ public:
       * @param lower the lower bound of the support
       * @param upper the upper bound of the support
       */
-    TruncUnivNormSampler(const float_t &mu, const float_t &sigma, const float_t &lower, const float_t& upper);
+    TruncUnivNormSampler(float_t mu, float_t sigma, float_t lower, float_t upper);
 
         
      /**
@@ -441,10 +441,10 @@ private:
 
 
 template<typename float_t>
-TruncUnivNormSampler<float_t>::TruncUnivNormSampler(const float_t &mu, 
-                                                    const float_t &sigma, 
-                                                    const float_t &lower, 
-                                                    const float_t& upper)
+TruncUnivNormSampler<float_t>::TruncUnivNormSampler(float_t mu, 
+                                                    float_t sigma, 
+                                                    float_t lower, 
+                                                    float_t upper)
     : rvsamp_base()
     , m_z_gen(0.0, 1.0)
     , m_mu(mu)
@@ -494,14 +494,14 @@ public:
       * @brief Constructs Poisson sampler with user-specified lambda.
       * @param lambda a float_t for the average/variance.
       */
-    PoissonSampler(const float_t &lambda);
+    PoissonSampler(float_t lambda);
 
 
     /**
      * @brief sets the parameter lambda.
      * @param lambda (the average and the variance).
      */
-    void setLambda(const float_t &lambda);
+    void setLambda(float_t lambda);
     
 
     /** 
@@ -526,14 +526,14 @@ PoissonSampler<float_t, int_t>::PoissonSampler()
 
 
 template<typename float_t, typename int_t>
-PoissonSampler<float_t, int_t>::PoissonSampler(const float_t& lambda) 
+PoissonSampler<float_t, int_t>::PoissonSampler(float_t lambda) 
     : rvsamp_base(), m_p_gen(lambda)
 {
 }
 
 
 template<typename float_t, typename int_t>
-void PoissonSampler<float_t, int_t>::setLambda(const float_t& lambda)
+void PoissonSampler<float_t, int_t>::setLambda(float_t lambda)
 {
    m_p_gen.param(typename decltype(m_p_gen)::param_type(lambda)); 
 }
@@ -570,14 +570,14 @@ public:
       * @brief Constructs Bernoulli sampler with user-specified p.
       * @param p a float_t for the probability that the rv equals 1.
       */
-    BernSampler(const float_t &p);
+    BernSampler(float_t p);
 
 
     /**
      * @brief sets the parameter p.
      * @param p the p(X=1) = 1-p(X=0).
      */
-    void setP(const float_t &p);
+    void setP(float_t p);
     
 
     /** 
@@ -605,14 +605,14 @@ BernSampler<float_t, int_t>::BernSampler()
 
 
 template<typename float_t, typename int_t>
-BernSampler<float_t, int_t>::BernSampler(const float_t& p) 
+BernSampler<float_t, int_t>::BernSampler(float_t p) 
     : rvsamp_base(), m_B_gen(p)
 {
 }
 
 
 template<typename float_t, typename int_t>
-void BernSampler<float_t, int_t>::setP(const float_t& p)
+void BernSampler<float_t, int_t>::setP(float_t p)
 {
     m_p = p;
 }
@@ -766,7 +766,7 @@ public:
       * @param lower the lower bound of the PRNG.
       * @param upper the upper bound of the PRNG.
       */
-    UniformSampler(const float_t &lower, const float_t &upper);
+    UniformSampler(float_t lower, float_t upper);
     
     
      /**
@@ -792,7 +792,7 @@ UniformSampler<float_t>::UniformSampler()
 
 
 template<typename float_t>
-UniformSampler<float_t>::UniformSampler(const float_t &lower, const float_t &upper) 
+UniformSampler<float_t>::UniformSampler(float_t lower, float_t upper) 
         : rvsamp_base()
         , m_unif_gen(lower, upper)
 {    
@@ -852,7 +852,7 @@ std::array<unsigned int, N> k_gen<N, float_t>::sample(const std::array<float_t, 
     std::array<float_t, N> w;
     float_t m = *std::max_element(logWts.begin(), logWts.end());
     std::transform(logWts.begin(), logWts.end(), w.begin(), 
-                   [&m](const float_t& d) -> float_t { return std::exp(d-m); } );
+                   [&m](float_t d) -> float_t { return std::exp(d-m); } );
     std::discrete_distribution<> kGen(w.begin(), w.end());
     
     // sample and return ks
