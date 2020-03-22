@@ -39,7 +39,7 @@ const double log_pi (1.1447298858494);
  * @return psi
  */
 template<typename float_t>
-float_t twiceFisher(const float_t &phi)
+float_t twiceFisher(float_t phi)
 {
     if ( (phi <= -1.0) || (phi >= 1.0) )
         throw std::invalid_argument( "error: phi was not between -1 and 1" );
@@ -55,7 +55,7 @@ float_t twiceFisher(const float_t &phi)
  * @return phi
  */
 template<typename float_t>
-float_t invTwiceFisher(const float_t &psi)
+float_t invTwiceFisher(float_t psi)
 {
     float_t ans = (1.0 - std::exp(psi)) / ( -1.0 - std::exp(psi) );
     
@@ -72,7 +72,7 @@ float_t invTwiceFisher(const float_t &psi)
  * @return logit(p)
  */
 template<typename float_t>
-float_t logit(const float_t &p)
+float_t logit(float_t p)
 {
     if ( (p <= 0.0) || (p >= 1.0))
         std::cerr << "error: p was not between 0 and 1 \n";
@@ -87,7 +87,7 @@ float_t logit(const float_t &p)
  * @return p = invlogit(p)
  */
 template<typename float_t>
-float_t inv_logit(const float_t &r)
+float_t inv_logit(float_t r)
 {
     float_t ans = 1.0/( 1.0 + std::exp(-r) );
     
@@ -104,10 +104,24 @@ float_t inv_logit(const float_t &r)
  * @return log(invlogit(p))
  */
 template<typename float_t>
-float_t log_inv_logit(const float_t& r)
+float_t log_inv_logit(float_t r)
 {
     if(r < -750.00 || r > 750.00) std::cerr << "warning: log_inv_logit might be under/over-flowing\n";
     return -std::log(1.0 + std::exp(-r));
+}
+
+
+/**
+ * @brief calculates log-sum-exp in a way that prevents over/under-flow
+ * @param a
+ * @param b
+ * @return a floating point number
+ */
+template<typename float_t>
+float_t log_sum_exp(float_t a, float_t b)
+{
+    float_t m = std::max(a,b);
+    return m + std::log(std::exp(a-m) + std::exp(b-m));
 }
 
 
@@ -124,7 +138,7 @@ float_t log_inv_logit(const float_t& r)
  * @return a float_t evaluation.
  */
 template<typename float_t>
-float_t evalUnivNorm(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+float_t evalUnivNorm(float_t x, float_t mu, float_t sigma, bool log)
 {
     float_t exponent = -.5*(x - mu)*(x-mu)/(sigma*sigma);
     if( sigma > 0.0){
@@ -144,12 +158,40 @@ float_t evalUnivNorm(const float_t &x, const float_t &mu, const float_t &sigma, 
 
 
 /**
+ * @brief Evaluates the unnormalized univariate Normal density. Use with care.
+ * @param x the point at which you're evaluating.
+ * @param mu the mean.
+ * @param sigma the standard deviation.
+ * @param log true if you want the log-unnormalized density. False otherwise.
+ * @return a float_t evaluation.
+ */
+template<typename float_t>
+float_t evalUnivNorm_unnorm(float_t x, float_t mu, float_t sigma, bool log)
+{
+    float_t exponent = -.5*(x - mu)*(x-mu)/(sigma*sigma);
+    if( sigma > 0.0){
+        if(log){
+            return exponent;
+        }else{
+            return std::exp(exponent);
+        }
+    }else{
+        if(log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
+/**
  * @brief Evaluates the standard Normal CDF.
  * @param x the quantile.
  * @return the probability Z < x
  */
 template<typename float_t>
-float_t evalUnivStdNormCDF(const float_t &x) // john cook code
+float_t evalUnivStdNormCDF(float_t x) // john cook code
 {
     // constants
     float_t a1 =  0.254829592;
@@ -182,13 +224,41 @@ float_t evalUnivStdNormCDF(const float_t &x) // john cook code
  * @return float_t evaluation.
 */  
 template<typename float_t>
-float_t evalUnivBeta(const float_t &x, const float_t &alpha, const float_t &beta, bool log)
+float_t evalUnivBeta(float_t x, float_t alpha, float_t beta, bool log)
 {
     if( (x > 0.0) && (x < 1.0) && (alpha > 0.0) && (beta > 0.0) ){ // x in support and parameters acceptable
         if(log){
             return std::lgamma(alpha + beta) - std::lgamma(alpha) - std::lgamma(beta) + (alpha - 1.0)*std::log(x) + (beta - 1.0) * std::log(1.0 - x);
         }else{
             return pow(x, alpha-1.0) * pow(1.0-x, beta-1.0) * std::tgamma(alpha + beta) / ( std::tgamma(alpha) * std::tgamma(beta) );
+        }
+
+    }else{ //not ( x in support and parameters acceptable )
+        if(log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
+/**
+ * @brief Evaluates the unnormalized univariate Beta density. Use with care.
+ * @param x the point
+ * @param alpha parameter 1 
+ * @param beta parameter 2
+ * @param log true if you want log unnormalized density
+ * @return float_t evaluation.
+*/  
+template<typename float_t>
+float_t evalUnivBeta_unnorm(float_t x, float_t alpha, float_t beta, bool log)
+{
+    if( (x > 0.0) && (x < 1.0) && (alpha > 0.0) && (beta > 0.0) ){ // x in support and parameters acceptable
+        if(log){
+            return (alpha - 1.0)*std::log(x) + (beta - 1.0) * std::log(1.0 - x);
+        }else{
+            return pow(x, alpha-1.0) * pow(1.0-x, beta-1.0);
         }
 
     }else{ //not ( x in support and parameters acceptable )
@@ -210,13 +280,40 @@ float_t evalUnivBeta(const float_t &x, const float_t &alpha, const float_t &beta
  * @return float_t evaluation.
 */    
 template<typename float_t>
-float_t evalUnivInvGamma(const float_t &x, const float_t &alpha, const float_t &beta, bool log)
+float_t evalUnivInvGamma(float_t x, float_t alpha, float_t beta, bool log)
 {
     if ( (x > 0.0) && (alpha > 0.0) && (beta > 0.0) ){ // x in support and acceptable parameters
         if (log){
             return alpha * std::log(beta) - std::lgamma(alpha) - (alpha + 1.0)*std::log(x) - beta/x;
         }else{
             return pow(x, -alpha-1.0) * exp(-beta/x) * pow(beta, alpha) / std::tgamma(alpha);
+        }
+    }else{ // not ( x in support and acceptable parameters )
+        if (log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
+/**
+ * @brief Evaluates the unnormalized univariate Inverse Gamma density. Use with care.
+ * @param x the point
+ * @param alpha shape parameter  
+ * @param beta rate parameter 
+ * @param log true if you want log unnormalized density.
+ * @return float_t evaluation.
+*/    
+template<typename float_t>
+float_t evalUnivInvGamma_unnorm(float_t x, float_t alpha, float_t beta, bool log)
+{
+    if ( (x > 0.0) && (alpha > 0.0) && (beta > 0.0) ){ // x in support and acceptable parameters
+        if (log){
+            return (-alpha - 1.0)*std::log(x) - beta/x;
+        }else{
+            return pow(x, -alpha-1.0) * exp(-beta/x);
         }
     }else{ // not ( x in support and acceptable parameters )
         if (log){
@@ -236,7 +333,7 @@ float_t evalUnivInvGamma(const float_t &x, const float_t &alpha, const float_t &
  * @return float_t evaluation.
  */
 template<typename float_t>
-float_t evalUnivHalfNorm(const float_t &x, const float_t &sigmaSqd, bool log)
+float_t evalUnivHalfNorm(float_t x, float_t sigmaSqd, bool log)
 {
     if( (x >= 0.0) && (sigmaSqd > 0.0)){
         if (log){
@@ -253,6 +350,33 @@ float_t evalUnivHalfNorm(const float_t &x, const float_t &sigmaSqd, bool log)
     }
 }
 
+
+/**
+ * @brief Evaluates the unnormalized half-normal density. Use with care.
+ * @param x the point you're evaluating at
+ * @param sigmaSqd the scale parameter
+ * @param log true if you want log unnormalized density.
+ * @return float_t evaluation.
+ */
+template<typename float_t>
+float_t evalUnivHalfNorm_unnorm(float_t x, float_t sigmaSqd, bool log)
+{
+    if( (x >= 0.0) && (sigmaSqd > 0.0)){
+        if (log){
+            return -.5*x*x / sigmaSqd;
+        }else{
+            return std::exp(-.5*x*x/sigmaSqd);
+        }
+    }else{
+        if (log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
 /**
  * @brief Evaluates a truncated Normal density.
  * @param x the quantile
@@ -261,10 +385,10 @@ float_t evalUnivHalfNorm(const float_t &x, const float_t &sigmaSqd, bool log)
  * @param lower the lower truncation point (may be negative infinity)
  * @param upper the upper truncation point (may be positive infinity).
  * @param log true if you want the log density.
- * @return 
+ * @return the floating point number
  */
 template<typename float_t>
-float_t evalUnivTruncNorm(const float_t &x, const float_t &mu, const float_t &sigma, const float_t &lower, const float_t &upper, bool log)
+float_t evalUnivTruncNorm(float_t x, float_t mu, float_t sigma, float_t lower, float_t upper, bool log)
 {
     if( (sigma > 0.0) && (lower <= x) & (x <= upper) ){
         if(log){
@@ -285,6 +409,34 @@ float_t evalUnivTruncNorm(const float_t &x, const float_t &mu, const float_t &si
 }
 
 
+/**
+ * @brief Evaluates the unnormalized truncated Normal density. Use with care.
+ * @param x the quantile
+ * @param mu the mode
+ * @param sigma the scale parameter.
+ * @param lower the lower truncation point (may be negative infinity)
+ * @param upper the upper truncation point (may be positive infinity).
+ * @param log true if you want the log unnormalized density.
+ * @return the floating point number
+ */
+template<typename float_t>
+float_t evalUnivTruncNorm_unnorm(float_t x, float_t mu, float_t sigma, float_t lower, float_t upper, bool log)
+{
+    if( (sigma > 0.0) && (lower <= x) & (x <= upper) ){
+        if(log){
+            return evalUnivNorm_unnorm(x, mu, sigma, true); 
+        }else{
+            return evalUnivNorm_unnorm(x, mu, sigma, false);
+        }
+    }else{
+        if (log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
 
 /**
  * @brief Evaluates the logit-Normal distribution (see Wiki for more info)
@@ -295,7 +447,7 @@ float_t evalUnivTruncNorm(const float_t &x, const float_t &mu, const float_t &si
  * @return a float_t evaluation
  */
 template<typename float_t>
-float_t evalLogitNormal(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+float_t evalLogitNormal(float_t x, float_t mu, float_t sigma, bool log)
 {
     if( (x >= 0.0) && (x <= 1.0) && (sigma > 0.0)){
         
@@ -316,8 +468,36 @@ float_t evalLogitNormal(const float_t &x, const float_t &mu, const float_t &sigm
 
 
 /**
+ * @brief Evaluates the unnormalized logit-Normal distribution. Use with care.
+ * @param x in [0,1] the point you're evaluating at
+ * @param mu location parameter that can take any real number
+ * @param sigma scale parameter that needs to be positive
+ * @param log true if you want to evalute the log unnormalized density. False otherwise.
+ * @return a float_t evaluation
+ */
+template<typename float_t>
+float_t evalLogitNormal_unnorm(float_t x, float_t mu, float_t sigma, bool log)
+{
+    if( (x >= 0.0) && (x <= 1.0) && (sigma > 0.0)){
+        
+        float_t exponent = -.5*(logit(x) - mu)*(logit(x) - mu) / (sigma*sigma);
+        if(log){
+            return -std::log(x) - std::log(1.0-x) + exponent;
+        }else{
+            return std::exp(exponent) / x / (1.0-x);   
+        }
+    }else{
+        if(log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
+/**
  * @brief Evaluates what I call the "twice-fisher-Normal" distribution
- * https://stats.stackexchange.com/questions/321905/what-is-the-name-of-this-random-variable/321907#321907
  * @param x in [-1,1] the point you are evaluating at
  * @param mu the location parameter (all real numbers)
  * @param sigma the scale parameter (positive)
@@ -325,15 +505,50 @@ float_t evalLogitNormal(const float_t &x, const float_t &mu, const float_t &sigm
  * @return a float_t evaluation
  */
 template<typename float_t>
-float_t evalTwiceFisherNormal(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+float_t evalTwiceFisherNormal(float_t x, float_t mu, float_t sigma, bool log)
 {
+
+    // https://stats.stackexchange.com/questions/321905/what-is-the-name-of-this-random-variable/321907#321907
     if( (x >= -1.0) && (x <= 1.0) && (sigma > 0.0)){
         
-        float_t exponent = -.5*(std::log((1.0+x)/(1.0-x)) - mu)*(std::log((1.0+x)/(1.0-x)) - mu)/(sigma* sigma);
+        float_t exponent = std::log((1.0+x)/(1.0-x)) - mu;
+        exponent = -.5*exponent*exponent/sigma/sigma;
         if(log){
             return -std::log(sigma) - .5*log_two_pi + std::log(2.0) - std::log(1.0+x) - std::log(1.0-x) + exponent;
         }else{
             return inv_sqrt_2pi * 2.0 * std::exp(exponent)/( (1.0-x)*(1.0+x)*sigma );
+        }
+    }else{
+        if(log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
+/**
+ * @brief Evaluates the unnormalized "twice-fisher-Normal" distribution. Use with care.
+ * @param x in [-1,1] the point you are evaluating at
+ * @param mu the location parameter (all real numbers)
+ * @param sigma the scale parameter (positive)
+ * @param log true if you want to evaluate the log unnormalized density. False otherwise.
+ * @return a float_t evaluation
+ */
+template<typename float_t>
+float_t evalTwiceFisherNormal_unnorm(float_t x, float_t mu, float_t sigma, bool log)
+{
+
+    // https://stats.stackexchange.com/questions/321905/what-is-the-name-of-this-random-variable/321907#321907
+    if( (x >= -1.0) && (x <= 1.0) && (sigma > 0.0)){
+ 
+        float_t exponent = std::log((1.0+x)/(1.0-x)) - mu;
+        exponent = -.5*exponent*exponent/sigma/sigma;
+        if(log){
+            return -std::log(1.0+x) - std::log(1.0-x) + exponent;
+        }else{
+            return std::exp(exponent)/(1.0-x)/(1.0+x);
         }
     }else{
         if(log){
@@ -354,15 +569,46 @@ float_t evalTwiceFisherNormal(const float_t &x, const float_t &mu, const float_t
  * @return a float_t evaluation
  */
 template<typename float_t>
-float_t evalLogNormal(const float_t &x, const float_t &mu, const float_t &sigma, bool log)
+float_t evalLogNormal(float_t x, float_t mu, float_t sigma, bool log)
 {
     if( (x > 0.0) && (sigma > 0.0)){
-        
-        float_t exponent = -.5*(std::log(x)-mu)*(std::log(x)-mu)/(sigma*sigma);
+ 
+        float_t exponent = std::log(x)-mu;
+        exponent = -.5 * exponent * exponent / sigma / sigma;
         if(log){
             return -std::log(x) - std::log(sigma) - .5*log_two_pi + exponent;
         }else{
             return inv_sqrt_2pi*std::exp(exponent)/(sigma*x);
+        }
+    }else{
+        if(log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
+/**
+ * @brief Evaluates the unnormalized lognormal density. Use with care.
+ * @param x in (0,infty) the point you are evaluating at
+ * @param mu the location parameter
+ * @param sigma in (0, infty) the scale parameter
+ * @param log true if you want to evaluate the log unnormalized density. False otherwise.
+ * @return a float_t evaluation
+ */
+template<typename float_t>
+float_t evalLogNormal_unnorm(float_t x, float_t mu, float_t sigma, bool log)
+{
+    if( (x > 0.0) && (sigma > 0.0)){
+        
+        float_t exponent = std::log(x)-mu;
+        exponent = -.5 * exponent * exponent / sigma / sigma;
+        if(log){
+            return -std::log(x) + exponent;
+        }else{
+            return std::exp(exponent)/x;
         }
     }else{
         if(log){
@@ -383,7 +629,7 @@ float_t evalLogNormal(const float_t &x, const float_t &mu, const float_t &sigma,
  * @return a float_t evaluation.
  */
 template<typename float_t>
-float_t evalUniform(const float_t &x, const float_t &lower, const float_t &upper, bool log)
+float_t evalUniform(float_t x, float_t lower, float_t upper, bool log)
 {
 
     if( (x > lower) && (x <= upper)){
@@ -405,17 +651,57 @@ float_t evalUniform(const float_t &x, const float_t &lower, const float_t &upper
 }
 
 
+/**
+ * @brief Evaluates the unnormalized uniform density. Use with care.
+ * @param x in (lower, upper] the point you are evaluating at.
+ * @param lower the lower bound of the support for x.
+ * @param upper the upper bound for the support of x.
+ * @param log true if you want to evaluate the log unnormalized density. False otherwise.
+ * @return a float_t evaluation.
+ */
 template<typename float_t>
-float_t evalScaledT(const float_t& x, const float_t& mu, const float_t& sigma, const float_t& dof, bool log)
+float_t evalUniform_unnorm(float_t x, float_t lower, float_t upper, bool log)
+{
+
+    if( (x > lower) && (x <= upper)){
+        
+        if(log){
+            return 0.0;
+        }else{
+            return 1.0;
+        }
+    }else{
+        if(log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+    
+}
+
+
+/**
+ * @brief Evaluates the scaled t distribution.
+ * @param x the percentile
+ * @param mu the location parameter
+ * @param sigma the scale parameter
+ * @param dof the degrees of freedom
+ * @param log true if you want the log of the unnormalized density. False otherwise.
+ * @return a floating point number
+ */
+template<typename float_t>
+float_t evalScaledT(float_t x, float_t mu, float_t sigma, float_t dof, bool log)
 {
 
     if( (sigma > 0.0) && (dof > 0.0) ){
 
-        float_t logDens = std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi - std::lgamma(.5*dof) - .5*(dof+1.0)*std::log( 1 + ((x - mu)/sigma)*((x-mu)/sigma)/dof );
+        float_t zscore = (x-mu)/sigma; 
+        float_t lmt =  - .5*(dof+1.0)*std::log(1.0 + (zscore*zscore)/dof);
         if(log)
-            return logDens;
+            return std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi - std::lgamma(.5*dof) + lmt;
         else
-            return std::exp(logDens);    
+            return std::exp(std::lgamma(.5*(dof+1.0)) - std::log(sigma) - .5*std::log(dof) - .5*log_pi - std::lgamma(.5*dof) + lmt);
     } else{
         if(log)
             return -std::numeric_limits<float_t>::infinity();
@@ -425,16 +711,44 @@ float_t evalScaledT(const float_t& x, const float_t& mu, const float_t& sigma, c
 } 
 
 
+/**
+ * @brief Evaluates the unnormalized scaled t distribution. Use with care.
+ * @param x the percentile
+ * @param mu the location parameter
+ * @param sigma the scale parameter
+ * @param dof the degrees of freedom
+ * @param log true if you want the log of the unnormalized density. False otherwise.
+ * @return a floating point number
+ */
+template<typename float_t>
+float_t evalScaledT_unnorm(float_t x, float_t mu, float_t sigma, float_t dof, bool log)
+{
+    if( (sigma > 0.0) && (dof > 0.0) ){
+
+        float_t zscore = (x-mu)/sigma; 
+        float_t lmt =  - .5*(dof+1.0)*std::log(1.0 + (zscore*zscore)/dof);
+        if(log)
+            return lmt;
+        else
+            return std::exp(lmt);
+    } else{
+        if(log)
+            return -std::numeric_limits<float_t>::infinity();
+        else
+            return 0.0;
+    }
+} 
+
 
 /**
- * @brief Evaluates discrete uniform pmf
+ * @brief Evaluates the discrete uniform pmf
  * @param x the hypothetical value of a rv 
  * @param k the size of the support i.e. (1,2,...k)
  * @param log true if you want log pmf
  * @return P(X=x) probability that X equals x
  */
 template<typename int_t, typename float_t>
-float_t evalDiscreteUnif(const int_t &x, const int &k, bool log)
+float_t evalDiscreteUnif(int_t x, int k, bool log)
 {
     if( (1 <= x) && (x <= k) ){
         if(log){
@@ -453,12 +767,39 @@ float_t evalDiscreteUnif(const int_t &x, const int &k, bool log)
 
 
 /**
- * @brief Evaluates the Bernoulli pmf
- * @param x the hypothetical value of a rv
- * @param p the probability that the rv equals 1
+ * @brief Evaluates the unnormalized discrete uniform pmf. Use with care.
+ * @param x the hypothetical value of a rv 
+ * @param k the size of the support i.e. (1,2,...k)
+ * @param log true if you want log unnormalized pmf
+ * @return P(X=x) probability that X equals x
  */
 template<typename int_t, typename float_t>
-float_t evalBernoulli(const int_t& x, const float_t& p, bool log)
+float_t evalDiscreteUnif_unnorm(int_t x, int_t k, bool log)
+{
+    if( (1 <= x) && (x <= k) ){
+        if(log){
+            return 0.0;
+        }else{
+            return 1.0;
+        }
+    }else{ 
+        if(log){
+            return -std::numeric_limits<float_t>::infinity();
+        }else{
+            return 0.0;
+        }
+    }
+}
+
+
+/**
+ * @brief Evaluates the Bernoulli pmf.
+ * @param x the hypothetical value of a rv
+ * @param p the probability that the rv equals 1
+ * @return P(X=x)
+ */
+template<typename int_t, typename float_t>
+float_t evalBernoulli(int_t x, float_t p, bool log)
 {
     if( ((x == 0) || (x == 1)) && ( (0.0 <= p) && (p <= 1.0)  ) ){ // if valid x and valid p
         if(log){
@@ -485,13 +826,40 @@ float_t evalBernoulli(const int_t& x, const float_t& p, bool log)
  * @return a float_t evaluation.
  */
 template<typename int_t, typename float_t>
-float_t evalSkellam(const int_t &x, const float_t &mu1, const float_t &mu2, bool log)
+float_t evalSkellam(int_t x, float_t mu1, float_t mu2, bool log)
 {
     if( (mu1 > 0) && (mu2 > 0) ){
 
-        float_t log_mass = -mu1 - mu2 + .5*x*(std::log(mu1) - std::log(mu2));
-        log_mass += std::log(boost::math::cyl_bessel_i<int_t, float_t>(x,2.0*std::sqrt(mu1*mu2)));
+        // TODO adapt special case algorithms for when x = -1,0,1
+        // motivated by https://github.com/stan-dev/math/blob/9b2e93ba58fa00521275b22a190468ab22f744a3/stan/math/prim/fun/log_modified_bessel_first_kind.hpp
 
+        // step 1: calculate log I_k(2\sqrt{mu_1 mu_2}) using log_sum_exp
+        // m=0
+        int_t absx = (x < 0) ? -x : x;
+        float_t lm1m2 = std::log(mu1) + std::log(mu2);
+        float_t first = .5*absx*lm1m2;
+        float_t second = 0.0;
+        float_t third = std::lgamma(absx+1);
+        float_t log_I = first - second - third;
+
+        // m > 0
+        float_t m = 1.0;
+        float_t last_iter_log_I;
+        do{
+            first += lm1m2;
+            second += std::log(m);
+            third += std::log(m+absx);
+            last_iter_log_I = log_I;
+            log_I = log_sum_exp<float_t>(log_I, first - second - third);
+            m++;
+        }while(log_I != last_iter_log_I);
+
+        // step 2: add the easy parts 
+        float_t log_mass = -mu1 - mu2 + .5*x*(std::log(mu1) - std::log(mu2)) + log_I;
+        //std::cout << "guaranteed: " << std::log(boost::math::cyl_bessel_i<int_t, float_t>(x,2.0*std::sqrt(mu1*mu2)))
+        //          << "\nmine: " << log_I << "\n";
+
+        // step 3: handle log/nonlog particulars
         if(log) {
             return log_mass;
         }else {
@@ -505,7 +873,6 @@ float_t evalSkellam(const int_t &x, const float_t &mu1, const float_t &mu2, bool
         }
     }        
 }
-
 
 ////////////////////////////////////////////////
 /////////      Eigen Evals             /////////
