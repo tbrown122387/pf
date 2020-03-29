@@ -338,6 +338,15 @@ TEST_FIXTURE(DensFixture, evalSkellamTest)
     // dskellam(1, 400.0, 10.0, log = F)
     CHECK_CLOSE(1.672127e-124, rveval::evalSkellam(1, 400.0, 10.0, false), PREC);
 
+    /////////////////////////////////////
+    // two above are false and z > 100 //
+    /////////////////////////////////////
+    // dskellam(2, 100.0, 1.3, log = T)
+    CHECK_CLOSE(-76.72014, rveval::evalSkellam(2, 100.0, 1.3, true), PREC);
+    // dskellam(2, 100.0, 1.3, log = F)
+    CHECK_CLOSE(4.795877e-34, rveval::evalSkellam(2, 100.0, 1.3, false), PREC);
+   
+
     ///////////////////
     // miscellaneous //
     ///////////////////

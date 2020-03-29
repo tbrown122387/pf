@@ -951,6 +951,26 @@ float_t evalSkellam(int_t x, float_t mu1, float_t mu2, bool log)
                 log_I = z + std::log(evaluate_polynomial(P, 1.0/z)) - 0.5*std::log(z);
             }
 
+        }else if( z > 100){
+            
+            // Boost does something like this in asymptotic_bessel_i_large_x
+            float_t lim = std::pow((x*x + 2.5) / (2 * z), 3) / 24;
+    
+            if (lim < std::numeric_limits<float_t>::epsilon()* 10) {
+                float_t s = 1;
+                float_t mu = 4*x*x;
+                float_t ex = 8 * z;
+                float_t num = mu - 1;
+                float_t denom = ex;
+                s -= num / denom;
+                num *= mu - 9;
+                denom *= ex * 2;
+                s += num / denom;
+                num *= mu - 25;
+                denom *= ex * 3;
+                s -= num / denom;
+                log_I = z - .5*std::log(z) - .5*log_two_pi<float_t> + std::log(s);      
+            } 
         }else{
 
             // just do the sum straightforwardly
@@ -972,6 +992,8 @@ float_t evalSkellam(int_t x, float_t mu1, float_t mu2, bool log)
                 last_iter_log_I = log_I;
                 log_I = log_sum_exp<float_t>(log_I, first - second - third);
                 m++;
+                if(m > 1000)
+                    std::cout << "first, second, third, mu1, mu2: " << first << ", " << second << ", " << third << ", " << mu1 << ", " << mu2 << "\n";
             }while(log_I != last_iter_log_I);
 
         }
