@@ -296,6 +296,52 @@ TEST_FIXTURE(DensFixture, evalBernoulliTest)
 
 TEST_FIXTURE(DensFixture, evalSkellamTest)
 {
+    /////////////////////////
+    // when first arg is 0 //
+    /////////////////////////
+    // z < 7.75
+    // dskellam(0, 1.0, .025, log = T)
+    CHECK_CLOSE(-1.000155, rveval::evalSkellam(0, 1.0, .025, true), PREC);
+    // dskellam(0, 1.0, .025, log = F)
+    CHECK_CLOSE(0.3678226, rveval::evalSkellam(0, 1.0, .025, false), PREC);
+    // z < 500
+    // dskellam(0, 115.2, 114.3, log = T)
+    CHECK_CLOSE(-3.638105, rveval::evalSkellam(0, 115.2, 114.3, true), PREC);
+    // dskellam(0, 115.2, 114.3, log = F)
+    CHECK_CLOSE(0.02630214, rveval::evalSkellam(0, 115.2, 114.3, false), PREC);
+    // otherwise... 
+    // dskellam(0, 400.0, 10.0, log = T)
+    CHECK_CLOSE(-286.8469, rveval::evalSkellam(0, 400.0, 10.0, true), PREC);
+    // dskellam(0, 400.0, 10.0, log = F)
+    CHECK_CLOSE(2.654379e-125, rveval::evalSkellam(0, 400.0, 10.0, false), PREC);
+ 
+    ///////////////////////////
+    // when first arg is +-1 //
+    ///////////////////////////
+    // z < 7.75
+    // dskellam(1, 1.0, .025, log = T)
+    CHECK_CLOSE(-1.012526, rveval::evalSkellam(1.0, 1.0, .025, true), PREC);
+    // dskellam(1, 1.0, .025, log = F)
+    CHECK_CLOSE(0.363300132, rveval::evalSkellam(1.0, 1.0, .025, false), PREC);
+    // dskellam(-1, 1.0, .025, log = T)
+    CHECK_CLOSE(-4.701405, rveval::evalSkellam(-1, 1.0, .025, true), PREC);
+    // dskellam(-1, 1.0, .025, log = F)
+    CHECK_CLOSE(0.009082504, rveval::evalSkellam(-1, 1.0, .025, false), PREC);
+    // z < 500
+    // dskellam(1, 115.2, 114.3, log = T)
+    CHECK_CLOSE(-3.636367, rveval::evalSkellam(1, 115.2, 114.3, true), PREC);
+    // dskellam(1, 115.2, 114.3, log = F)
+    CHECK_CLOSE(0.02634789, rveval::evalSkellam(1, 115.2, 114.3, false), PREC);
+    // otherwise... 
+    // dskellam(1, 400.0, 10.0, log = T)
+    CHECK_CLOSE(-285.0065, rveval::evalSkellam(1, 400.0, 10.0, true), PREC);
+    // dskellam(1, 400.0, 10.0, log = F)
+    CHECK_CLOSE(1.672127e-124, rveval::evalSkellam(1, 400.0, 10.0, false), PREC);
+
+    ///////////////////
+    // miscellaneous //
+    ///////////////////
+ 
     // dskellam(-3, .2, .3, log = F)
     CHECK_CLOSE(0.002770575, rveval::evalSkellam(-3, .2, .3, false), PREC);
 
@@ -308,6 +354,7 @@ TEST_FIXTURE(DensFixture, evalSkellamTest)
     // dskellam(3, .2, .3, log = T)
     CHECK_CLOSE(-7.105096, rveval::evalSkellam(3, .2, .3, true), PREC);
 
+    // out of bounds parameters    
     CHECK_CLOSE(-1.0/0.0, rveval::evalSkellam(-1, .5, -.5, true), PREC);
     CHECK_CLOSE(-1.0/0.0, rveval::evalSkellam(-1, -.5, .5, true), PREC);
     CHECK_CLOSE(0.0, rveval::evalSkellam(-1, .5, -.5, false), PREC);

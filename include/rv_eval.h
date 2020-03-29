@@ -835,31 +835,148 @@ float_t evalSkellam(int_t x, float_t mu1, float_t mu2, bool log)
 {
     if( (mu1 > 0) && (mu2 > 0) ){
 
-        // TODO adapt special case algorithms for when x = -1,0,1
-        // motivated by https://github.com/stan-dev/math/blob/9b2e93ba58fa00521275b22a190468ab22f744a3/stan/math/prim/fun/log_modified_bessel_first_kind.hpp
+        // much of this function is adapted from 
+        // https://github.com/stan-dev/math/blob/9b2e93ba58fa00521275b22a190468ab22f744a3/stan/math/prim/fun/log_modified_bessel_first_kind.hpp
 
         // step 1: calculate log I_k(2\sqrt{mu_1 mu_2}) using log_sum_exp
-        // m=0
-        int_t absx = (x < 0) ? -x : x;
-        float_t lm1m2 = std::log(mu1) + std::log(mu2);
-        float_t first = .5*absx*lm1m2;
-        float_t second = 0.0;
-        float_t third = std::lgamma(absx+1);
-        float_t log_I = first - second - third;
+        using boost::math::tools::evaluate_polynomial;
+        float_t z = 2*std::sqrt(mu1*mu2);
+        float_t log_I(-std::numeric_limits<float_t>::infinity());
 
-        // m > 0
-        float_t m = 1.0;
-        float_t last_iter_log_I;
-        do{
-            first += lm1m2;
-            second += std::log(m);
-            third += std::log(m+absx);
-            last_iter_log_I = log_I;
-            log_I = log_sum_exp<float_t>(log_I, first - second - third);
-            m++;
-        }while(log_I != last_iter_log_I);
+        if (x == 0) {
+            // modified from Boost's bessel_i0_imp in the double precision case,
+            // which refers to:
+            // Modified Bessel function of the first kind of order zero
+            // we use the approximating forms derived in:
+            // "Rational Approximations for the Modified Bessel Function of the
+            // First Kind -- I0(x) for Computations with Double Precision"
+            // by Pavel Holoborodko, see
+            // http://www.advanpix.com/2015/11/11/rational-approximations-for-the-modified-bessel-function-of-the-first-kind-i0-computations-double-precision
+            // The actual coefficients used are [Boost's] own, and extend
+            // Pavel's work to precisions other than double.
 
-        // step 2: add the easy parts 
+            if (z < 7.75) {
+                // Bessel I0 over[10 ^ -16, 7.75]
+                // Max error in interpolated form : 3.042e-18
+                // Max Error found at double precision = Poly : 5.106609e-16
+                //                                       Cheb : 5.239199e-16
+                static const float_t P[]
+                    = {1.00000000000000000e+00, 2.49999999999999909e-01,
+                        2.77777777777782257e-02, 1.73611111111023792e-03,
+                        6.94444444453352521e-05, 1.92901234513219920e-06,
+                        3.93675991102510739e-08, 6.15118672704439289e-10,
+                        7.59407002058973446e-12, 7.59389793369836367e-14,
+                        6.27767773636292611e-16, 4.34709704153272287e-18,
+                        2.63417742690109154e-20, 1.13943037744822825e-22,
+                        9.07926920085624812e-25};
+                log_I = log_sum_exp<float_t>(0.0, 2.0*std::log(z) - std::log(4.0) + std::log(evaluate_polynomial(P, mu1*mu2)));
+            
+            }else if (z < 500) {
+                // Max error in interpolated form : 1.685e-16
+                // Max Error found at double precision = Poly : 2.575063e-16
+                //                                       Cheb : 2.247615e+00
+                static const float_t P[]
+                    = {3.98942280401425088e-01,  4.98677850604961985e-02,
+                        2.80506233928312623e-02,  2.92211225166047873e-02,
+                        4.44207299493659561e-02,  1.30970574605856719e-01,
+                        -3.35052280231727022e+00, 2.33025711583514727e+02,
+                        -1.13366350697172355e+04, 4.24057674317867331e+05,
+                        -1.23157028595698731e+07, 2.80231938155267516e+08,
+                        -5.01883999713777929e+09, 7.08029243015109113e+10,
+                        -7.84261082124811106e+11, 6.76825737854096565e+12,
+                        -4.49034849696138065e+13, 2.24155239966958995e+14,
+                        -8.13426467865659318e+14, 2.02391097391687777e+15,
+                        -3.08675715295370878e+15, 2.17587543863819074e+15};
+                        
+                log_I = z + std::log(evaluate_polynomial(P, 1.0/z)) - 0.5*std::log(z);
+            
+            }else{
+
+                // Max error in interpolated form : 2.437e-18
+                // Max Error found at double precision = Poly : 1.216719e-16
+                static const float_t P[] = {3.98942280401432905e-01, 4.98677850491434560e-02,
+                                               2.80506308916506102e-02, 2.92179096853915176e-02,
+                                               4.53371208762579442e-02};
+                log_I = z + std::log(evaluate_polynomial(P, 1.0/z)) - 0.5*std::log(z);
+            
+            }
+        
+        }else if(std::abs(x)==1){
+               
+            // modified from Boost's bessel_i1_imp in the double precision case
+            // see credits above in the v == 0 case
+            if (z < 7.75) {
+                // Bessel I0 over[10 ^ -16, 7.75]
+                // Max error in interpolated form: 5.639e-17
+                // Max Error found at double precision = Poly: 1.795559e-16
+
+                static const float_t P[]
+                    = {8.333333333333333803e-02, 6.944444444444341983e-03,
+                        3.472222222225921045e-04, 1.157407407354987232e-05,
+                        2.755731926254790268e-07, 4.920949692800671435e-09,
+                        6.834657311305621830e-11, 7.593969849687574339e-13,
+                        6.904822652741917551e-15, 5.220157095351373194e-17,
+                        3.410720494727771276e-19, 1.625212890947171108e-21,
+                        1.332898928162290861e-23};
+      
+                float_t a = mu1*mu2;
+                float_t Q[3] = {1, 0.5, evaluate_polynomial(P, a)};
+                log_I = std::log(z) + std::log(evaluate_polynomial(Q, a)) - std::log(2.0);
+            
+            }else if (z < 500) {
+                // Max error in interpolated form: 1.796e-16
+                // Max Error found at double precision = Poly: 2.898731e-16
+
+                static const double P[]
+                    = {3.989422804014406054e-01,  -1.496033551613111533e-01,
+                        -4.675104253598537322e-02, -4.090895951581637791e-02,
+                        -5.719036414430205390e-02, -1.528189554374492735e-01,
+                        3.458284470977172076e+00,  -2.426181371595021021e+02,
+                        1.178785865993440669e+04,  -4.404655582443487334e+05,
+                        1.277677779341446497e+07,  -2.903390398236656519e+08,
+                        5.192386898222206474e+09,  -7.313784438967834057e+10,
+                        8.087824484994859552e+11,  -6.967602516005787001e+12,
+                        4.614040809616582764e+13,  -2.298849639457172489e+14,
+                        8.325554073334618015e+14,  -2.067285045778906105e+15,
+                        3.146401654361325073e+15,  -2.213318202179221945e+15};
+                log_I = z + std::log(evaluate_polynomial(P, 1.0/z)) - 0.5*std::log(z);
+            }else {
+            
+                // Max error in interpolated form: 1.320e-19
+                // Max Error found at double precision = Poly: 7.065357e-17
+                static const double P[]
+                    = {3.989422804014314820e-01, -1.496033551467584157e-01,
+                        -4.675105322571775911e-02, -4.090421597376992892e-02,
+                        -5.843630344778927582e-02};
+                log_I = z + std::log(evaluate_polynomial(P, 1.0/z)) - 0.5*std::log(z);
+            }
+
+        }else{
+
+            // just do the sum straightforwardly
+            // m=0
+            int_t absx = (x < 0) ? -x : x;
+            float_t lm1m2 = std::log(mu1) + std::log(mu2);
+            float_t first = .5*absx*lm1m2;
+            float_t second = 0.0;
+            float_t third = std::lgamma(absx+1);
+            log_I = first - second - third;
+
+            // m > 0
+            float_t m = 1.0;
+            float_t last_iter_log_I;
+            do{
+                first += lm1m2;
+                second += std::log(m);
+                third += std::log(m+absx);
+                last_iter_log_I = log_I;
+                log_I = log_sum_exp<float_t>(log_I, first - second - third);
+                m++;
+            }while(log_I != last_iter_log_I);
+
+        }
+
+        // step 2: add the easy parts to get the overall pmf evaluation
         float_t log_mass = -mu1 - mu2 + .5*x*(std::log(mu1) - std::log(mu2)) + log_I;
         //std::cout << "guaranteed: " << std::log(boost::math::cyl_bessel_i<int_t, float_t>(x,2.0*std::sqrt(mu1*mu2)))
         //          << "\nmine: " << log_I << "\n";
