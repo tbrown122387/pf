@@ -223,9 +223,9 @@ private:
 template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
 kalman<dimstate,dimobs,diminput,float_t>::kalman() 
         : cf_filter<dimstate,dimobs,float_t>()
-        , m_fresh(true)
         , m_predMean(ssv::Zero())
         , m_predVar(ssMat::Zero()) 
+        , m_fresh(true)
         , m_pi(3.14159265358979)
 {
 }
@@ -234,9 +234,9 @@ kalman<dimstate,dimobs,diminput,float_t>::kalman()
 template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
 kalman<dimstate,dimobs,diminput,float_t>::kalman(const ssv &initStateMean, const ssMat &initStateVar) 
         : cf_filter<dimstate,dimobs,float_t>()
-        , m_fresh(true)
         , m_predMean(initStateMean)
         , m_predVar(initStateVar) 
+        , m_fresh(true)
         , m_pi(3.14159265358979)
 {
 }
