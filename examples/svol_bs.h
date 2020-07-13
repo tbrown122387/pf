@@ -4,9 +4,9 @@
 
 #include <Eigen/Dense>
 
-#include "bootstrap_filter.h" // the boostrap particle filter
-#include "rv_samp.h" // for sampling random numbers
-#include "rv_eval.h" // for evaluating densities and pmfs
+#include <pf/bootstrap_filter.h> // the boostrap particle filter
+#include <pf/rv_samp.h> // for sampling random numbers
+#include <pf/rv_eval.h> // for evaluating densities and pmfs
 
 
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>

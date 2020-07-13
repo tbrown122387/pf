@@ -40,10 +40,11 @@ Thumbs.db
 
 # other stuff #
 ###############
-Debug/*
-Release/*
-examples/Release/*
-examples/Debug/*
+CMakeFiles
+Debug
+Release
+examples/Release
+examples/Debug
 test/Release/*
 test/Debug/*
 test/main.cpp

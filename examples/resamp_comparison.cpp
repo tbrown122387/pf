@@ -1,10 +1,10 @@
 #include <fstream> // for ifstream
 
+#include <pf/resamplers.h> 
+
 #include "resamp_comparison.h" // function header
 #include "data_reader.h"
-
 #include "svol_bs.h" // bs filter for svol
-#include "resamplers.h" 
 
 // some template parameters
 #define dimstate 1

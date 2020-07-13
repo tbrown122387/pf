@@ -1,12 +1,12 @@
 #include <fstream> // for ifstream
 
+#include <pf/resamplers.h> // for mn_resampler
+
 #include "svol_comparison.h" // function header
 #include "data_reader.h"
-
 #include "svol_bs.h" // bs filter for svol
 #include "svol_apf.h" // apf filter for svol
 #include "svol_sisr.h" // sisr filter for svol
-#include "resamplers.h" // for mn_resampler
 
 // some template parameters
 #define dimstate 1

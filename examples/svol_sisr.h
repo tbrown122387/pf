@@ -1,9 +1,9 @@
 #ifndef SVOL_SISR_H
 #define SVOL_SISR_H
 
-#include "sisr_filter.h" // inherit the right particle filter
-#include "rv_eval.h" // for evaluating densities and pmfs
-#include "rv_samp.h" // for sampling random numbers
+#include <pf/sisr_filter.h> // inherit the right particle filter
+#include <pf/rv_eval.h> // for evaluating densities and pmfs
+#include <pf/rv_samp.h> // for sampling random numbers
 
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>
 class svol_sisr : public SISRFilter<nparts, dimx, dimy, resampT,float_t>

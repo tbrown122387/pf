@@ -2,9 +2,9 @@
 #define SVOL_APF_H
 
 #include <Eigen/Dense>
-#include "auxiliary_pf.h" // the auxiliary parrticle filter
-#include "rv_eval.h" // for evaluating densities and pmfs
-#include "rv_samp.h" // for sampling random numbers
+#include <pf/auxiliary_pf.h> // the auxiliary parrticle filter
+#include <pf/rv_eval.h> // for evaluating densities and pmfs
+#include <pf/rv_samp.h> // for sampling random numbers
 
 
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>

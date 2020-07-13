@@ -1,8 +1,11 @@
 #include <iostream>
 
-#include "forward_sim.h" // function header
+// from pf
+#include <pf/resamplers.h> // for mn_resampler
+
+// from this project
 #include "svol_bs.h" // bs filter for svol
-#include "resamplers.h" // for mn_resampler
+#include "forward_sim.h" // function header
 
 // some template parameters
 #define dimstate 1
