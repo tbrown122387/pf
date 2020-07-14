@@ -2,15 +2,15 @@
 
 [![DOI](https://zenodo.org/badge/130237492.svg)](https://zenodo.org/badge/latestdoi/130237492)
 
-This is a template library for fast particle filtering. Templated abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-Blackwellized particle filter, etc.), as well as non-abstract (but indeed templated) base classes for closed form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.). 
+This is a template library for particle filtering. Templated abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-Blackwellized particle filter, etc.), as well as non-abstract (but indeed templated) base classes for closed-form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.). 
 
-Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use!
+Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use.
 
 ## Installation
 
-### Option 1:
+### Option 1: Install from Github
 
-First, clone the repostory, and `cd` into the directory where everything is saved. Then run the following commands:
+`git clone` this Github repostory, `cd` into the directory where everything is saved, then run the following commands:
 
     mkdir build && cd build/
     cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr/local
@@ -18,11 +18,9 @@ First, clone the repostory, and `cd` into the directory where everything is save
 
 You may subsitute another directory for `/usr/local`, if you wish.
 
-### Option 2:
+### Option 2: Drag-and-drop `.h` files
 
-This is a header-only library, so there is no building necessary. If you just wanted to copy the header files you want from `include/pf`, that's totally fine. If you go that route, all you really need to do is to make sure to compile with C++17 enabled. 
-
-Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/). Unit tests use the [Catch2](https://github.com/catchorg/Catch2) library.
+This is a header-only library, so there is no building necessary. If you just want to copy the desired header files from `include/pf` into your own project, that's totally fine. There is no linking necessary. If you go that route, though, all you really need to do is to make sure to compile with C++17 enabled. Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/). Unit tests use the [Catch2](https://github.com/catchorg/Catch2) library.
 
 ## Examples
 
