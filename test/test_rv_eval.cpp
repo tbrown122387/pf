@@ -1,4 +1,4 @@
-#include "catch.hpp"
+#include <catch2/catch.hpp>
 #include <pf/rv_eval.h>
 
 #define bigdim 2
@@ -147,12 +147,12 @@ TEST_CASE_METHOD(DensFixture, "truncNormTest", "[densities]")
 
 TEST_CASE_METHOD(DensFixture, "multivariateGaussianTest", "[densities]")
 {
-    // via R dmvnorm(c(.02, -.01),sigma=matrix(c(3,1,1,3),nrow=2))
+    // via R mvtnorm::dmvnorm(c(.02, -.01),sigma=matrix(c(3,1,1,3),nrow=2))
     double num = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, true);    
-    REQUIRE(num == Approx(-2.877717) );
+    REQUIRE( std::abs(num - (-2.877716587249263)) < .0001 );
 
     double num2 = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, false);
-    REQUIRE(num2 == Approx(0.05626309) );
+    REQUIRE( std::abs(num2 - 0.05626309) < .0001 );
 
     double badNormLogDens = rveval::evalMultivNorm<bigdim,double>(x,mu,badCovMat,true);
     double badNormDens = rveval::evalMultivNorm<bigdim,double>(x,mu,badCovMat,false);
@@ -167,10 +167,10 @@ TEST_CASE_METHOD(DensFixture, "multivariateTTest", "[densities]")
     // reusing some of the multivariate normal variables, but the names are
     // a bit off..so I apologize
     double num = rveval::evalMultivT<bigdim,double>(x, mu, covMat, 3, true);    
-    REQUIRE(num == Approx( -2.877796 ));
+    REQUIRE( std::abs(num - ( -2.877796 )) < .001);
 
     double num2 = rveval::evalMultivT<bigdim,double>(x, mu, covMat, 3, false);
-    REQUIRE(num2 == Approx(0.05625863));
+    REQUIRE( std::abs(num2 -0.05625863) < .0001);
 
     double badNormLogDens = rveval::evalMultivT<bigdim,double>(x,mu,badCovMat,3,true);
     double badNormDens = rveval::evalMultivT<bigdim,double>(x,mu,badCovMat,3,false);
@@ -183,11 +183,11 @@ TEST_CASE_METHOD(DensFixture, "multivNormWoodburyTest", "[densities]")
 {
     double normeval = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, true);
     double wbdanormeval = rveval::evalMultivNormWBDA<bigdim,smalldim,double>(x, mu, A, U, C, true);
-    REQUIRE(normeval == Approx( wbdanormeval));
+    REQUIRE( std::abs(normeval - wbdanormeval) < .0001 );
                 
     double normeval2 = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, false);
     double wbdanormeval2 = rveval::evalMultivNormWBDA<bigdim,smalldim,double>(x, mu, A, U, C, false);
-    REQUIRE(normeval2 == Approx( wbdanormeval2) );
+    REQUIRE( std::abs(normeval2 - wbdanormeval2) < .0001 );
 }
 
 
@@ -258,11 +258,11 @@ TEST_CASE_METHOD(DensFixture, "evalLogNormalTest", "[densities]")
 TEST_CASE_METHOD(DensFixture, "evalBernoulliTest", "[densities]")
 {
     /// dbinom(1, 1, .001, T) 
-    REQUIRE(-6.907755, rveval::evalBernoulli(1, .001, true), PREC);
-    REQUIRE(0.001, rveval::evalBernoulli(1, .001, false), PREC);
+    REQUIRE( Approx(-6.907755) ==  rveval::evalBernoulli(1, .001, true));
+    REQUIRE( Approx(0.001) ==  rveval::evalBernoulli(1, .001, false));
     
-    REQUIRE(-1.0/0.0, rveval::evalBernoulli(-1, .5, true), PREC);
-    REQUIRE(0.0, rveval::evalBernoulli(1, 1.1, false), PREC);
+    REQUIRE( -std::numeric_limits<double>::infinity() == rveval::evalBernoulli(-1, .5, true));
+    REQUIRE(0.0 == rveval::evalBernoulli(1, 1.1, false));
 }
 
 
@@ -314,7 +314,7 @@ TEST_CASE_METHOD(DensFixture, "evalSkellamTest", "[densities]")
     // two above are false and z > 100 //
     /////////////////////////////////////
     // dskellam(2, 100.0, 1.3, log = T)
-    REQUIRE( Approx(-76.72014) rveval::evalSkellam(2, 100.0, 1.3, true));
+    REQUIRE( Approx(-76.72014) == rveval::evalSkellam(2, 100.0, 1.3, true));
     // dskellam(2, 100.0, 1.3, log = F)
     REQUIRE( Approx(4.795877e-34) == rveval::evalSkellam(2, 100.0, 1.3, false));
    
@@ -354,18 +354,18 @@ TEST_CASE_METHOD(DensFixture, "evalWishartTest", "[densities]")
     double goodLogDens =  rveval::evalWishart<2,double>(Omega, Sinv, 3, true);   
     REQUIRE( Approx(-5.57655) == goodLogDens);
     double goodDens = rveval::evalWishart<2,double>(Omega, Sinv, 3, false);
-    REQUIRE( Approx(0.003785) == goodDens);
+    REQUIRE( std::abs(0.003785 - goodDens) < .0001 );
     double badLogDens = rveval::evalWishart<2,double>(Omega, Sinv, 1, true);
-    REQUIRE(-std::numeric_limits<double>::infinity() == badLogDens, PREC);
+    REQUIRE(-std::numeric_limits<double>::infinity() == badLogDens);
     double badDens = rveval::evalWishart<2,double>(Omega,Sinv, 1, false);
     REQUIRE(0.0 == badDens);
     double badLogDens2 = rveval::evalWishart<2,double>(Omega, badCovMat, 3, true);
-    REQUIRE(-std::numeric_limits<double>::infinity() == badLogDens2, PREC);
+    REQUIRE(-std::numeric_limits<double>::infinity() == badLogDens2);
     double badDens2 = rveval::evalWishart<2,double>(Omega, badCovMat, 3, false);
     REQUIRE(0.0 == badDens2);
     double badLogDens3 = rveval::evalWishart<2,double>(badCovMat, Sinv, 3, true);
     double badDens3 = rveval::evalWishart<2,double>(badCovMat,Sinv,3,false);
-    REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens3, PREC);
+    REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens3);
     REQUIRE(0.0 == badDens3);
 }
 
@@ -390,9 +390,9 @@ TEST_CASE_METHOD(DensFixture, "evalInvWishart", "[densities]")
     REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens);
     REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens2);
     REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens3);
-    REQUIRE(0.0 == badDens, PREC);
-    REQUIRE(0.0 == badDens2, PREC);
-    REQUIRE(0.0 == badDens3, PREC);
+    REQUIRE(0.0 == badDens);
+    REQUIRE(0.0 == badDens2);
+    REQUIRE(0.0 == badDens3);
 
     REQUIRE( Approx(-9.133543) == goodLogDens);
     REQUIRE( Approx(0.0001079824) == goodDens);

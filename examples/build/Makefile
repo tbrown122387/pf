@@ -40,9 +40,6 @@ default_target: all
 .SUFFIXES: .hpux_make_needs_suffix_list
 
 
-# Command-line flag to silence nested $(MAKE).
-$(VERBOSE)MAKESILENT = -s
-
 # Suppress display of executed commands.
 $(VERBOSE).SILENT:
 
@@ -59,10 +56,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/cmake/372/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /snap/cmake/372/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -79,7 +76,7 @@ CMAKE_BINARY_DIR = /home/taylor/pf/examples/build
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/cmake/372/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -89,8 +86,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/snap/cmake/372/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -101,13 +98,13 @@ edit_cache/fast: edit_cache
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/taylor/pf/examples/build/CMakeFiles /home/taylor/pf/examples/build/CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	$(MAKE) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/taylor/pf/examples/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	$(MAKE) -f CMakeFiles/Makefile2 clean
 .PHONY : clean
 
 # The main clean target
@@ -117,12 +114,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall/fast
 
 # clear depends
@@ -135,12 +132,12 @@ depend:
 
 # Build rule for target.
 pf_example: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pf_example
+	$(MAKE) -f CMakeFiles/Makefile2 pf_example
 .PHONY : pf_example
 
 # fast build rule for target.
 pf_example/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/build
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/build
 .PHONY : pf_example/fast
 
 forward_sim.o: forward_sim.cpp.o
@@ -149,7 +146,7 @@ forward_sim.o: forward_sim.cpp.o
 
 # target to build an object file
 forward_sim.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/forward_sim.cpp.o
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/forward_sim.cpp.o
 .PHONY : forward_sim.cpp.o
 
 forward_sim.i: forward_sim.cpp.i
@@ -158,7 +155,7 @@ forward_sim.i: forward_sim.cpp.i
 
 # target to preprocess a source file
 forward_sim.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/forward_sim.cpp.i
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/forward_sim.cpp.i
 .PHONY : forward_sim.cpp.i
 
 forward_sim.s: forward_sim.cpp.s
@@ -167,7 +164,7 @@ forward_sim.s: forward_sim.cpp.s
 
 # target to generate assembly for a file
 forward_sim.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/forward_sim.cpp.s
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/forward_sim.cpp.s
 .PHONY : forward_sim.cpp.s
 
 main.o: main.cpp.o
@@ -176,7 +173,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -185,7 +182,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -194,7 +191,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 resamp_comparison.o: resamp_comparison.cpp.o
@@ -203,7 +200,7 @@ resamp_comparison.o: resamp_comparison.cpp.o
 
 # target to build an object file
 resamp_comparison.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/resamp_comparison.cpp.o
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/resamp_comparison.cpp.o
 .PHONY : resamp_comparison.cpp.o
 
 resamp_comparison.i: resamp_comparison.cpp.i
@@ -212,7 +209,7 @@ resamp_comparison.i: resamp_comparison.cpp.i
 
 # target to preprocess a source file
 resamp_comparison.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/resamp_comparison.cpp.i
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/resamp_comparison.cpp.i
 .PHONY : resamp_comparison.cpp.i
 
 resamp_comparison.s: resamp_comparison.cpp.s
@@ -221,7 +218,7 @@ resamp_comparison.s: resamp_comparison.cpp.s
 
 # target to generate assembly for a file
 resamp_comparison.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/resamp_comparison.cpp.s
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/resamp_comparison.cpp.s
 .PHONY : resamp_comparison.cpp.s
 
 svol_comparison.o: svol_comparison.cpp.o
@@ -230,7 +227,7 @@ svol_comparison.o: svol_comparison.cpp.o
 
 # target to build an object file
 svol_comparison.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/svol_comparison.cpp.o
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/svol_comparison.cpp.o
 .PHONY : svol_comparison.cpp.o
 
 svol_comparison.i: svol_comparison.cpp.i
@@ -239,7 +236,7 @@ svol_comparison.i: svol_comparison.cpp.i
 
 # target to preprocess a source file
 svol_comparison.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/svol_comparison.cpp.i
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/svol_comparison.cpp.i
 .PHONY : svol_comparison.cpp.i
 
 svol_comparison.s: svol_comparison.cpp.s
@@ -248,7 +245,7 @@ svol_comparison.s: svol_comparison.cpp.s
 
 # target to generate assembly for a file
 svol_comparison.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/svol_comparison.cpp.s
+	$(MAKE) -f CMakeFiles/pf_example.dir/build.make CMakeFiles/pf_example.dir/svol_comparison.cpp.s
 .PHONY : svol_comparison.cpp.s
 
 # Help Target

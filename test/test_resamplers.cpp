@@ -1,4 +1,4 @@
-#include "catch.hpp"
+#include <catch2/catch.hpp>
 
 #include <pf/resamplers.h>
 #include <pf/cf_filters.h>

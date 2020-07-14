@@ -1,4 +1,4 @@
-#include "catch.hpp"
+#include <catch2/catch.hpp>
 
 #include <pf/rv_samp.h>
 
@@ -46,6 +46,8 @@ TEST_CASE_METHOD(SampFixture, "MultivNormalTest", "[samplers]")
 
 TEST_CASE_METHOD(SampFixture, "UniformTest", "[samplers]")
 {
-    REQUIRE( (0.0 < m_us.sample()) && (m_us.sample() < 1.0));
-    REQUIRE( (-2.0 < m_us2.sample()) && (m_us2.sample() < -1.0));
+    REQUIRE( 0.0 < m_us.sample());
+    REQUIRE( m_us.sample() < 1.0);
+    REQUIRE(-2.0 < m_us2.sample());
+    REQUIRE( m_us2.sample() < -1.0);
 }

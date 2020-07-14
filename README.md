@@ -14,20 +14,32 @@ First, clone the repostory, and `cd` into the directory where everything is save
 
     mkdir build && cd build/
     cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr/local
-    sudo cmake --build . --config Release --target install -- -j $(nproc)
+    sudo cmake --build . --config Release --target install --parallel
 
-You may subsitute another directory for `/usr/local/include` if you wish.
+You may subsitute another directory for `/usr/local`, if you wish.
 
 ### Option 2:
 
-This is a header-only library, so there is no building necessary. All you really need to do is to a.) make sure to compile with C++17 enabled (`-std=c++17`), and b.) to include the `include` directory of this project. Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/).
+This is a header-only library, so there is no building necessary. If you just wanted to copy the header files you want from `include/pf`, that's totally fine. If you go that route, all you really need to do is to make sure to compile with C++17 enabled. 
+
+Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/). Unit tests use the [Catch2](https://github.com/catchorg/Catch2) library.
 
 ## Examples
-Don't know how to use this? Check out the [`examples`](https://github.com/tbrown122387/pf/tree/master/examples) directory! Check `pf/examples/Makefile` to make sure it jives with your directories, and then run `make`. After that, run `./examples ./data/svol_y_data.csv` and you'll see the filtering output from `examples/svol_comparison.cpp`.
+
+Don't know how to use this? No problem. Check out the [`examples`](https://github.com/tbrown122387/pf/tree/master/examples) sub-directory. This is a stand-alone cmake project, so you can just copy this sub-directory anywhere you like, and start editing.
+
+For example, copy to `Desktop` and have at it:
+
+    cp -r ~/pf/examples/ ~/Desktop/
+    cd Desktop/examples/
+    mkdir build && cd build
+    cmake ..
+    make
+
 
 ## Paper
 
-A full-length tutorial paper is now available! Click [here.](https://arxiv.org/abs/2001.10451)
+A full-length tutorial paper is available [here.](https://arxiv.org/abs/2001.10451)
 
 ## Citation
 

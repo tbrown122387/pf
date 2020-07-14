@@ -40,14 +40,9 @@ Thumbs.db
 
 # other stuff #
 ###############
-CMakeFiles
-Debug
-Release
 examples/Release
 examples/Debug
-test/Release/*
-test/Debug/*
-test/main.cpp
+examples/build
 
 # codelite stuff
 *.project
