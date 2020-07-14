@@ -1,6 +1,6 @@
-//#include "UnitTest++.h"
-#include <UnitTest++/UnitTest++.h>
-#include "rv_samp.h"
+#include "catch.hpp"
+
+#include <pf/rv_samp.h>
 
 #define bigdim 2
 #define smalldim 1
@@ -31,21 +31,21 @@ public:
 };
 
 
-TEST_FIXTURE(SampFixture, univNormalTest)
+TEST_CASE_METHOD(SampFixture, "univNormalTest", "[samplers]")
 {
     // TODO test correctness
     m_ns.sample();
 }
 
 
-TEST_FIXTURE(SampFixture, MultivNormalTest)
+TEST_CASE_METHOD(SampFixture, "MultivNormalTest", "[samplers]")
 {
     m_mns.sample();
 }
 
 
-TEST_FIXTURE(SampFixture, UniformTest)
+TEST_CASE_METHOD(SampFixture, "UniformTest", "[samplers]")
 {
-    CHECK( (0.0 < m_us.sample()) && (m_us.sample() < 1.0));
-    CHECK( (-2.0 < m_us2.sample()) && (m_us2.sample() < -1.0));
+    REQUIRE( (0.0 < m_us.sample()) && (m_us.sample() < 1.0));
+    REQUIRE( (-2.0 < m_us2.sample()) && (m_us2.sample() < -1.0));
 }

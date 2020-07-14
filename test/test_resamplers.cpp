@@ -1,13 +1,12 @@
-//#include "UnitTest++.h"
-#include <UnitTest++/UnitTest++.h>
-#include "resamplers.h"
-#include "cf_filters.h"
+#include "catch.hpp"
+
+#include <pf/resamplers.h>
+#include <pf/cf_filters.h>
 
 #define NUMPARTICLES 20
 #define DIMSTATE     3
 #define DIMINNERMOD  2
 #define DIMOBS       1
-#define TOLERANCE .001
 
 class MRFixture
 {
@@ -108,21 +107,21 @@ public:
 };
 
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts", "[resamplers]")
 {
     
     m_mr.resampLogWts(m_vparts, m_vw);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_EQUAL(m_vw[p], 0.0);
+        REQUIRE(m_vw[p] == 0.0);
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            CHECK_EQUAL(m_vparts[p](i), 0.0);
+            REQUIRE(m_vparts[p](i) == 0.0);
         }
     }
 }
 
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts2)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts 2", "[resamplers]")
 {
     
     arrayVec oneGoodSamp;
@@ -137,12 +136,12 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts2)
     m_mr.resampLogWts(oneGoodSamp, oneGoodWeight);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
-        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+        REQUIRE(oneGoodSamp[p](0) == Approx(3.0));
+        REQUIRE(oneGoodWeight[p] == 0.0);
     }
 }
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts_RBPF)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts_RBPF", "[resamplers]")
 {
     
     // resample... you should only have the first set of things repeated a bunch of times
@@ -152,29 +151,29 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_RBPF)
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
         // log 1 = 0
-        CHECK_EQUAL(m_rbpf_logwts[p], 0.0);
+        REQUIRE(m_rbpf_logwts[p] == 0.0);
         
         // everything should be 0
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            CHECK_EQUAL(m_rbpf_samps[p](i), 0.0);
+            REQUIRE(m_rbpf_samps[p](i) == 0.0);
         }
         
         // the model that keeps everything in the first spot should remain
         innerVec before = m_hmms[p].getFilterVec();
         for(unsigned int i = 0; i < DIMINNERMOD; ++i){
             if(i == 0){
-                CHECK_EQUAL(before(i), 1.0); // all weight in the first spot 
+                REQUIRE(before(i) == 1.0); // all weight in the first spot 
             }else{
-                CHECK_EQUAL(before(i), 0.0); // all weight in the first spot
+                REQUIRE(before(i) == 0.0); // all weight in the first spot
             }
         }
         m_hmms[p].update(innerVec::Constant(1.0));
         innerVec after = m_hmms[p].getFilterVec();
         for(unsigned int i = 0; i < DIMINNERMOD; ++i){
             if(i == 0){
-                CHECK_EQUAL(after(i), 1.0); // all weight in the first spot 
+                REQUIRE(after(i) == 1.0); // all weight in the first spot 
             }else{
-                CHECK_EQUAL(after(i), 0.0); // all weight in the first spot
+                REQUIRE(after(i) == 0.0); // all weight in the first spot
             }
         }
     }
@@ -185,20 +184,20 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_RBPF)
 }
 
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts_resid)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts_resid" "[resamplers]")
 {
     
     m_residr.resampLogWts(m_vparts2, m_vw2);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_EQUAL(m_vw2[p], 0.0);
+        REQUIRE(m_vw2[p] == 0.0);
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            CHECK_EQUAL(m_vparts2[p](i), 0.0);
+            REQUIRE(m_vparts2[p](i) == 0.0);
         }
     }
 }
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts_resid2)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts_resid2" "[resamplers]")
 {
     
     arrayVec oneGoodSamp;
@@ -213,27 +212,27 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_resid2)
     m_residr.resampLogWts(oneGoodSamp, oneGoodWeight);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
-        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+        REQUIRE(oneGoodSamp[p](0) == Approx(3.0));
+        REQUIRE(oneGoodWeight[p] == 0.0);
     }
 }
 
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts_stratif)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts_stratif", "[resamplers]")
 {
     
     m_stratifr.resampLogWts(m_vparts3, m_vw3);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_EQUAL(m_vw3[p], 0.0);
+        REQUIRE(m_vw3[p] == 0.0);
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            CHECK_EQUAL(m_vparts3[p](i), 0.0);
+            REQUIRE(m_vparts3[p](i) == 0.0);
         }
     }
 }
 
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts_stratif2)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts_stratif2", "[resamplers]")
 {
     
     arrayVec oneGoodSamp;
@@ -248,25 +247,25 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_stratif2)
     m_stratifr.resampLogWts(oneGoodSamp, oneGoodWeight);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
-        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+        REQUIRE(oneGoodSamp[p](0) == Approx(3.0));
+        REQUIRE(oneGoodWeight[p] == 0.0);
     }
 }
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts_systematic)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts_systematic", "[resamplers]")
 {
     
     m_systematicr.resampLogWts(m_vparts4, m_vw4);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_EQUAL(m_vw4[p], 0.0);
+        REQUIRE(m_vw4[p] == 0.0);
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            CHECK_EQUAL(m_vparts4[p](i), 0.0);
+            REQUIRE(m_vparts4[p](i) == 0.0);
         }
     }
 }
 
-TEST_FIXTURE(MRFixture, Test_resampLogWts_systematic2)
+TEST_CASE_METHOD(MRFixture, "test resampLogWts_systematic2", "[resamplers]")
 {
     
     arrayVec oneGoodSamp;
@@ -281,8 +280,8 @@ TEST_FIXTURE(MRFixture, Test_resampLogWts_systematic2)
     m_systematicr.resampLogWts(oneGoodSamp, oneGoodWeight);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        CHECK_CLOSE(oneGoodSamp[p](0), 3.0, TOLERANCE);
-        CHECK_EQUAL(oneGoodWeight[p], 0.0);
+        REQUIRE(oneGoodSamp[p](0) == Approx(3.0));
+        REQUIRE(oneGoodWeight[p] == 0.0);
     }
 }
 

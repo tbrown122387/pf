@@ -1,8 +1,5 @@
-//#include "UnitTest++.h"
-#include <UnitTest++/UnitTest++.h>
-#include "rv_eval.h"
-
-#define PREC .001 // define the precision for floating point tests
+#include "catch.hpp"
+#include <pf/rv_eval.h>
 
 #define bigdim 2
 #define smalldim 1
@@ -99,252 +96,227 @@ public:
 };
 
 
-TEST_FIXTURE(DensFixture, univNormalTest)
-{
+TEST_CASE_METHOD(DensFixture, "univariate normal test", "[dentiies]") {
     // via R dnorm(.5, 2, 1.5, T)
-    CHECK_CLOSE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, true), -1.824404, PREC);
-    CHECK_CLOSE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, false), 0.1613138, PREC);
+    REQUIRE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, true) == Approx( -1.824404) );
+    REQUIRE(rveval::evalUnivNorm<double>(.5, 2.0, 1.5, false) == Approx( 0.1613138));
 }
 
 
-TEST_FIXTURE(DensFixture, univScaledT)
+TEST_CASE_METHOD(DensFixture, "univScaledT", "[densities]")
 {
     // via dt.scaled(1.23, 3.6, 23.2, 1.7, log =T)
-    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, scaledTdof, true), -10.39272, PREC);
-    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, scaledTdof, false), 3.065496e-05, PREC);
+    REQUIRE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, scaledTdof, true) == Approx( -10.39272) );
+    REQUIRE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, scaledTdof, false) == Approx( 3.065496e-05) );
 
     // test broken ones
-    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, -1.0*scaledTSigma, scaledTdof, true), -1.0/0.0, PREC);
-    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, -1.0*scaledTSigma, scaledTdof, false), 0.0, PREC);
-    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, -scaledTdof, true), -1.0/0.0, PREC);
-    CHECK_CLOSE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, -scaledTdof, false), 0.0, PREC);
+    REQUIRE(rveval::evalScaledT<double>(1.23, scaledTMu, -1.0*scaledTSigma, scaledTdof, true) == -std::numeric_limits<double>::infinity()  );
+    REQUIRE(rveval::evalScaledT<double>(1.23, scaledTMu, -1.0*scaledTSigma, scaledTdof, false) == 0.0 );
+    REQUIRE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, -scaledTdof, true) == -std::numeric_limits<double>::infinity() );
+    REQUIRE(rveval::evalScaledT<double>(1.23, scaledTMu, scaledTSigma, -scaledTdof, false) == 0.0 );
 }
 
 
-TEST_FIXTURE(DensFixture, univNormCDFTest)
+TEST_CASE_METHOD(DensFixture, "univNormCDFTest", "[densities]")
 {
     // via R pnorm(.1)
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(.1), 0.5398278, PREC);
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(0.0), .5, PREC);
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(1.0/0.0), 1.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivStdNormCDF<double>(-1.0/0.0), 0.0, PREC);
+    REQUIRE(rveval::evalUnivStdNormCDF<double>(.1) == Approx( 0.5398278) );
+    REQUIRE(rveval::evalUnivStdNormCDF<double>(0.0) == Approx(.5) );
+    REQUIRE(rveval::evalUnivStdNormCDF<double>(1.0/0.0) == Approx(1.0));
+    REQUIRE(rveval::evalUnivStdNormCDF<double>(-1.0/0.0) == Approx( 0.0) );
 }
 
 
-TEST_FIXTURE(DensFixture, truncNormTest)
+TEST_CASE_METHOD(DensFixture, "truncNormTest", "[densities]")
 {
     // check bounds can be infinite
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, true),
-                rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, true), PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, false),
-                rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, false), PREC);
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, true) == Approx(
+                rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, true) ) );
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, false) == Approx(
+                rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, false)));
     // check support is good
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, .1, 20.0, false), 0.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, .1, 20.0, true), -1.0/0.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -20.0, -.1, false), 0.0, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -20.0, -.1, true), -1.0/0.0, PREC);
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, .1, 20.0, false) == 0.0);
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, .1, 20.0, true) == -std::numeric_limits<double>::infinity() );
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -20.0, -.1, false) == 0.0);
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -20.0, -.1, true) == -std::numeric_limits<double>::infinity() );
     // check a real evaluation comparing it to R's truncnorm::dtruncnorm(0, -5, 5, 0, 2)
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 2.0, -5.0, 5.0, false), 0.2019796, PREC);
-    CHECK_CLOSE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 2.0, -5.0, 5.0, true), -1.599589, PREC);
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 2.0, -5.0, 5.0, false) == Approx( 0.2019796) );
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 2.0, -5.0, 5.0, true) == Approx(-1.599589) );
 }
 
 
-TEST_FIXTURE(DensFixture, multivariateGaussianTest)
+TEST_CASE_METHOD(DensFixture, "multivariateGaussianTest", "[densities]")
 {
     // via R dmvnorm(c(.02, -.01),sigma=matrix(c(3,1,1,3),nrow=2))
     double num = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, true);    
-    CHECK_CLOSE(num,
-                -2.877717,
-                PREC);
+    REQUIRE(num == Approx(-2.877717) );
 
     double num2 = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, false);
-    CHECK_CLOSE(num2, 
-                0.05626309,
-                PREC);
+    REQUIRE(num2 == Approx(0.05626309) );
 
     double badNormLogDens = rveval::evalMultivNorm<bigdim,double>(x,mu,badCovMat,true);
     double badNormDens = rveval::evalMultivNorm<bigdim,double>(x,mu,badCovMat,false);
-    CHECK_CLOSE(-1.0/0.0, badNormLogDens, PREC);
-    CHECK_CLOSE(0.0, badNormDens, PREC);
+    REQUIRE(- std::numeric_limits<double>::infinity() ==  badNormLogDens);
+    REQUIRE(badNormDens == 0.0);
 }
 
 
-TEST_FIXTURE(DensFixture, multivariateTTest)
+TEST_CASE_METHOD(DensFixture, "multivariateTTest", "[densities]")
 {
     // via R dmvt(c(.02, -.01), c(0,0), sigma=matrix(c(3,1,1,3),nrow=2), 10)
     // reusing some of the multivariate normal variables, but the names are
     // a bit off..so I apologize
     double num = rveval::evalMultivT<bigdim,double>(x, mu, covMat, 3, true);    
-    CHECK_CLOSE(num,
-                -2.877796,
-                PREC);
+    REQUIRE(num == Approx( -2.877796 ));
 
     double num2 = rveval::evalMultivT<bigdim,double>(x, mu, covMat, 3, false);
-    CHECK_CLOSE(num2, 
-                0.05625863,
-                PREC);
+    REQUIRE(num2 == Approx(0.05625863));
 
     double badNormLogDens = rveval::evalMultivT<bigdim,double>(x,mu,badCovMat,3,true);
     double badNormDens = rveval::evalMultivT<bigdim,double>(x,mu,badCovMat,3,false);
-    CHECK_CLOSE(-1.0/0.0, badNormLogDens, PREC);
-    CHECK_CLOSE(0.0, badNormDens, PREC);
+    REQUIRE(badNormLogDens == - std::numeric_limits<double>::infinity());
+    REQUIRE(badNormDens == 0.0);
 }
 
 
-TEST_FIXTURE(DensFixture, multivNormWoodburyTest)
+TEST_CASE_METHOD(DensFixture, "multivNormWoodburyTest", "[densities]")
 {
     double normeval = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, true);
     double wbdanormeval = rveval::evalMultivNormWBDA<bigdim,smalldim,double>(x, mu, A, U, C, true);
-    CHECK_CLOSE(normeval, wbdanormeval, PREC);
+    REQUIRE(normeval == Approx( wbdanormeval));
                 
     double normeval2 = rveval::evalMultivNorm<bigdim,double>(x, mu, covMat, false);
     double wbdanormeval2 = rveval::evalMultivNormWBDA<bigdim,smalldim,double>(x, mu, A, U, C, false);
-    CHECK_CLOSE(normeval2, wbdanormeval2, PREC);
+    REQUIRE(normeval2 == Approx( wbdanormeval2) );
 }
 
 
-TEST_FIXTURE(DensFixture, univBeta)
+TEST_CASE_METHOD(DensFixture, "univBeta", "[densities]")
 {
     // via R dbeta(.5, .2, .3, F)
-    CHECK_CLOSE(rveval::evalUnivBeta<double>(.5, beta1p, beta2p, true),
-                -1.007776,
-                PREC);
+    REQUIRE(rveval::evalUnivBeta<double>(.5, beta1p, beta2p, true) == Approx( -1.007776) );
 
-    CHECK_CLOSE(rveval::evalUnivBeta<double>(.5, beta1p, beta2p, false),
-                0.3650299,
-                PREC);
+    REQUIRE(rveval::evalUnivBeta<double>(.5, beta1p, beta2p, false) == Approx( 0.3650299 ));
 
-    CHECK_EQUAL(rveval::evalUnivBeta<double>(-.5, beta1p, beta2p, true), -1.0/0.0);
+    REQUIRE(rveval::evalUnivBeta<double>(-.5, beta1p, beta2p, true) == -std::numeric_limits<double>::infinity());
 
-    CHECK_EQUAL(rveval::evalUnivBeta<double>(-.5, beta1p, beta2p, false), 0.0);
+    REQUIRE(rveval::evalUnivBeta<double>(-.5, beta1p, beta2p, false) == 0.0);
 }
 
 
-TEST_FIXTURE(DensFixture, invGammaTest)
+TEST_CASE_METHOD(DensFixture, "invGammaTest", "[densities]")
 {
-    CHECK_CLOSE(rveval::evalUnivInvGamma<double>(3.2, invgamma1p, invgamma2p, true),
-                -4.215113,
-                PREC);
+    REQUIRE(rveval::evalUnivInvGamma<double>(3.2, invgamma1p, invgamma2p, true) == Approx( -4.215113 ));
+    REQUIRE(rveval::evalUnivInvGamma<double>(3.2, invgamma1p, invgamma2p, false) == Approx( 0.01477065) );
                 
-    CHECK_CLOSE(rveval::evalUnivInvGamma<double>(3.2, invgamma1p, invgamma2p, false),
-                0.01477065,
-                PREC);
-                
-    CHECK_EQUAL(rveval::evalUnivInvGamma<double>(-3.2, invgamma1p, invgamma2p, true), -1.0/0.0); 
-   
-    CHECK_EQUAL(rveval::evalUnivInvGamma<double>(-3.2, invgamma1p, invgamma2p, false), 0.0);
+    REQUIRE(rveval::evalUnivInvGamma<double>(-3.2, invgamma1p, invgamma2p, true) == -std::numeric_limits<double>::infinity() ); 
+    REQUIRE(rveval::evalUnivInvGamma<double>(-3.2, invgamma1p, invgamma2p, false) == 0.0);
 }
 
 
-TEST_FIXTURE(DensFixture, halfNormalTest)
+TEST_CASE_METHOD(DensFixture, "halfNormalTest", "[densities]")
 {
     // fdrtool::dhalfnorm(.2, sqrt(pi/(2*1.5)))
-    CHECK_CLOSE(rveval::evalUnivHalfNorm<double>(.2, sigmaSquaredHN, true), -0.4418572400321429, PREC);
-    CHECK_CLOSE(rveval::evalUnivHalfNorm<double>(.2, sigmaSquaredHN, false), 0.6428414009228908, PREC);
-    CHECK_EQUAL(rveval::evalUnivHalfNorm<double>(-.2, sigmaSquaredHN, false), 0.0);
-    CHECK_EQUAL(rveval::evalUnivHalfNorm<double>(-.2, sigmaSquaredHN, true), -1.0/0.0);
+    REQUIRE(rveval::evalUnivHalfNorm<double>(.2, sigmaSquaredHN, true) == Approx( -0.4418572400321429));
+    REQUIRE(rveval::evalUnivHalfNorm<double>(.2, sigmaSquaredHN, false) == Approx(0.6428414009228908));
+    REQUIRE(rveval::evalUnivHalfNorm<double>(-.2, sigmaSquaredHN, false) == 0.0);
+    REQUIRE(rveval::evalUnivHalfNorm<double>(-.2, sigmaSquaredHN, true) ==  -std::numeric_limits<double>::infinity());
 }
 
 
-TEST_FIXTURE(DensFixture, ctsUniformTest)
+TEST_CASE_METHOD(DensFixture, "ctsUniformTest", "[densities]")
 {
-    CHECK_CLOSE(rveval::evalUniform<double>((lower+upper)/2.0, lower, upper, false), 1.0/(upper - lower), PREC);
-    CHECK_CLOSE(rveval::evalUniform<double>((lower+upper)/2.0, lower, upper, true), -std::log(upper-lower), PREC);
-    CHECK_EQUAL(rveval::evalUniform<double>(lower-.01, lower, upper, false), 0.0);
-    CHECK_EQUAL(rveval::evalUniform<double>(lower-.01, lower, upper, true), -1.0/0.0);
+    REQUIRE(rveval::evalUniform<double>((lower+upper)/2.0, lower, upper, false) == Approx( 1.0/(upper - lower)));
+    REQUIRE(rveval::evalUniform<double>((lower+upper)/2.0, lower, upper, true) == Approx(-std::log(upper-lower)) );
+    REQUIRE(rveval::evalUniform<double>(lower-.01, lower, upper, false) ==  0.0);
+    REQUIRE(rveval::evalUniform<double>(lower-.01, lower, upper, true) == -std::numeric_limits<double>::infinity());
 }
 
 
-TEST_FIXTURE(DensFixture, evalLogNormalTest)
+TEST_CASE_METHOD(DensFixture, "evalLogNormalTest", "[densities]")
 {
     // dlnorm(.2, .5, 5.3, T)
-    CHECK_CLOSE(rveval::evalLogNormal<double>(.2, lnMu, lnSigma, true), 
-                -1.056412288363436,
-                PREC);
-    CHECK_CLOSE(rveval::evalLogNormal<double>(.2, lnMu, lnSigma, false), 
-                0.3477010262745334,
-                PREC);
-    CHECK_EQUAL(rveval::evalLogNormal<double>(-2, lnMu, lnSigma, true),
-                -1.0/0.0);
-    CHECK_EQUAL(rveval::evalLogNormal<double>(-2, lnMu, lnSigma, false), 0.0);
-                
+    REQUIRE(rveval::evalLogNormal<double>(.2, lnMu, lnSigma, true) == Approx( -1.056412288363436));
+    REQUIRE(rveval::evalLogNormal<double>(.2, lnMu, lnSigma, false) == Approx(0.3477010262745334));
+    REQUIRE(rveval::evalLogNormal<double>(-2, lnMu, lnSigma, true) == -std::numeric_limits<double>::infinity());
+    REQUIRE(rveval::evalLogNormal<double>(-2, lnMu, lnSigma, false) == 0.0);
 }
 
 
-//TEST_FIXTURE(DensFixture, evalLogitNormalTest)
+//TEST_CASE_METHOD(DensFixture, evalLogitNormalTest)
 //{
 //    
 //}
 //
 //
-//TEST_FIXTURE(DensFixture, evalTwiceFisherNormalTest)
+//TEST_CASE_METHOD(DensFixture, evalTwiceFisherNormalTest)
 //{
 //    
 //}
 
 
-TEST_FIXTURE(DensFixture, evalBernoulliTest)
+TEST_CASE_METHOD(DensFixture, "evalBernoulliTest", "[densities]")
 {
     /// dbinom(1, 1, .001, T) 
-    CHECK_CLOSE(-6.907755, rveval::evalBernoulli(1, .001, true), PREC);
-    CHECK_CLOSE(0.001, rveval::evalBernoulli(1, .001, false), PREC);
+    REQUIRE(-6.907755, rveval::evalBernoulli(1, .001, true), PREC);
+    REQUIRE(0.001, rveval::evalBernoulli(1, .001, false), PREC);
     
-    CHECK_CLOSE(-1.0/0.0, rveval::evalBernoulli(-1, .5, true), PREC);
-    CHECK_CLOSE(0.0, rveval::evalBernoulli(1, 1.1, false), PREC);
+    REQUIRE(-1.0/0.0, rveval::evalBernoulli(-1, .5, true), PREC);
+    REQUIRE(0.0, rveval::evalBernoulli(1, 1.1, false), PREC);
 }
 
 
-TEST_FIXTURE(DensFixture, evalSkellamTest)
+TEST_CASE_METHOD(DensFixture, "evalSkellamTest", "[densities]")
 {
     /////////////////////////
     // when first arg is 0 //
     /////////////////////////
     // z < 7.75
     // dskellam(0, 1.0, .025, log = T)
-    CHECK_CLOSE(-1.000155, rveval::evalSkellam(0, 1.0, .025, true), PREC);
+    REQUIRE(Approx(-1.000155) == rveval::evalSkellam(0, 1.0, .025, true));
     // dskellam(0, 1.0, .025, log = F)
-    CHECK_CLOSE(0.3678226, rveval::evalSkellam(0, 1.0, .025, false), PREC);
+    REQUIRE( Approx(0.3678226) == rveval::evalSkellam(0, 1.0, .025, false));
     // z < 500
     // dskellam(0, 115.2, 114.3, log = T)
-    CHECK_CLOSE(-3.638105, rveval::evalSkellam(0, 115.2, 114.3, true), PREC);
+    REQUIRE( Approx(-3.638105) == rveval::evalSkellam(0, 115.2, 114.3, true));
     // dskellam(0, 115.2, 114.3, log = F)
-    CHECK_CLOSE(0.02630214, rveval::evalSkellam(0, 115.2, 114.3, false), PREC);
+    REQUIRE( Approx(0.02630214) == rveval::evalSkellam(0, 115.2, 114.3, false));
     // otherwise... 
     // dskellam(0, 400.0, 10.0, log = T)
-    CHECK_CLOSE(-286.8469, rveval::evalSkellam(0, 400.0, 10.0, true), PREC);
+    REQUIRE( Approx(-286.8469) ==  rveval::evalSkellam(0, 400.0, 10.0, true));
     // dskellam(0, 400.0, 10.0, log = F)
-    CHECK_CLOSE(2.654379e-125, rveval::evalSkellam(0, 400.0, 10.0, false), PREC);
+    REQUIRE( Approx(2.654379e-125) == rveval::evalSkellam(0, 400.0, 10.0, false));
  
     ///////////////////////////
     // when first arg is +-1 //
     ///////////////////////////
     // z < 7.75
     // dskellam(1, 1.0, .025, log = T)
-    CHECK_CLOSE(-1.012526, rveval::evalSkellam(1.0, 1.0, .025, true), PREC);
+    REQUIRE( Approx(-1.012526) == rveval::evalSkellam(1.0, 1.0, .025, true));
     // dskellam(1, 1.0, .025, log = F)
-    CHECK_CLOSE(0.363300132, rveval::evalSkellam(1.0, 1.0, .025, false), PREC);
+    REQUIRE( Approx(0.363300132) == rveval::evalSkellam(1.0, 1.0, .025, false));
     // dskellam(-1, 1.0, .025, log = T)
-    CHECK_CLOSE(-4.701405, rveval::evalSkellam(-1, 1.0, .025, true), PREC);
+    REQUIRE( Approx(-4.701405) == rveval::evalSkellam(-1, 1.0, .025, true));
     // dskellam(-1, 1.0, .025, log = F)
-    CHECK_CLOSE(0.009082504, rveval::evalSkellam(-1, 1.0, .025, false), PREC);
+    REQUIRE( Approx(0.009082504) == rveval::evalSkellam(-1, 1.0, .025, false));
     // z < 500
     // dskellam(1, 115.2, 114.3, log = T)
-    CHECK_CLOSE(-3.636367, rveval::evalSkellam(1, 115.2, 114.3, true), PREC);
+    REQUIRE( Approx(-3.636367) == rveval::evalSkellam(1, 115.2, 114.3, true));
     // dskellam(1, 115.2, 114.3, log = F)
-    CHECK_CLOSE(0.02634789, rveval::evalSkellam(1, 115.2, 114.3, false), PREC);
+    REQUIRE( Approx(0.02634789) ==  rveval::evalSkellam(1, 115.2, 114.3, false));
     // otherwise... 
     // dskellam(1, 400.0, 10.0, log = T)
-    CHECK_CLOSE(-285.0065, rveval::evalSkellam(1, 400.0, 10.0, true), PREC);
+    REQUIRE( Approx(-285.0065) == rveval::evalSkellam(1, 400.0, 10.0, true));
     // dskellam(1, 400.0, 10.0, log = F)
-    CHECK_CLOSE(1.672127e-124, rveval::evalSkellam(1, 400.0, 10.0, false), PREC);
+    REQUIRE( Approx(1.672127e-124) == rveval::evalSkellam(1, 400.0, 10.0, false));
 
     /////////////////////////////////////
     // two above are false and z > 100 //
     /////////////////////////////////////
     // dskellam(2, 100.0, 1.3, log = T)
-    CHECK_CLOSE(-76.72014, rveval::evalSkellam(2, 100.0, 1.3, true), PREC);
+    REQUIRE( Approx(-76.72014) rveval::evalSkellam(2, 100.0, 1.3, true));
     // dskellam(2, 100.0, 1.3, log = F)
-    CHECK_CLOSE(4.795877e-34, rveval::evalSkellam(2, 100.0, 1.3, false), PREC);
+    REQUIRE( Approx(4.795877e-34) == rveval::evalSkellam(2, 100.0, 1.3, false));
    
 
     ///////////////////
@@ -352,27 +324,26 @@ TEST_FIXTURE(DensFixture, evalSkellamTest)
     ///////////////////
  
     // dskellam(-3, .2, .3, log = F)
-    CHECK_CLOSE(0.002770575, rveval::evalSkellam(-3, .2, .3, false), PREC);
+    REQUIRE( Approx(0.002770575) == rveval::evalSkellam(-3, .2, .3, false));
 
     // dskellam(-3, .2, .3, log = T)
-    CHECK_CLOSE(-5.8887, rveval::evalSkellam(-3, .2, .3, true), PREC);
+    REQUIRE( Approx(-5.8887) == rveval::evalSkellam(-3, .2, .3, true));
     
     // dskellam(3, .2, .3, log = F)
-    CHECK_CLOSE(0.0008209112, rveval::evalSkellam(3, .2, .3, false), PREC);
+    REQUIRE( Approx(0.0008209112) == rveval::evalSkellam(3, .2, .3, false));
 
     // dskellam(3, .2, .3, log = T)
-    CHECK_CLOSE(-7.105096, rveval::evalSkellam(3, .2, .3, true), PREC);
+    REQUIRE( Approx(-7.105096) == rveval::evalSkellam(3, .2, .3, true));
 
     // out of bounds parameters    
-    CHECK_CLOSE(-1.0/0.0, rveval::evalSkellam(-1, .5, -.5, true), PREC);
-    CHECK_CLOSE(-1.0/0.0, rveval::evalSkellam(-1, -.5, .5, true), PREC);
-    CHECK_CLOSE(0.0, rveval::evalSkellam(-1, .5, -.5, false), PREC);
-    CHECK_CLOSE(0.0, rveval::evalSkellam(-1, -.5, .5, false), PREC);
-
+    REQUIRE(-std::numeric_limits<double>::infinity() == rveval::evalSkellam(-1, .5, -.5, true));
+    REQUIRE(-std::numeric_limits<double>::infinity() ==  rveval::evalSkellam(-1, -.5, .5, true));
+    REQUIRE(0.0 == rveval::evalSkellam(-1, .5, -.5, false));
+    REQUIRE(0.0 == rveval::evalSkellam(-1, -.5, .5, false));
 }
 
 
-TEST_FIXTURE(DensFixture, evalWishartTest)
+TEST_CASE_METHOD(DensFixture, "evalWishartTest", "[densities]")
 {
     // library(LaplacesDemon)
     // dwishart(matrix(c(2,-.3,-.3,4),2,2), 3, matrix(c(1,.1,.1,1),2,2), log=T)
@@ -381,26 +352,25 @@ TEST_FIXTURE(DensFixture, evalWishartTest)
     // 0.00378558516193494
 
     double goodLogDens =  rveval::evalWishart<2,double>(Omega, Sinv, 3, true);   
-    CHECK_CLOSE(-5.57655, goodLogDens, PREC);
+    REQUIRE( Approx(-5.57655) == goodLogDens);
     double goodDens = rveval::evalWishart<2,double>(Omega, Sinv, 3, false);
-    CHECK_CLOSE(0.003785, goodDens, PREC);
+    REQUIRE( Approx(0.003785) == goodDens);
     double badLogDens = rveval::evalWishart<2,double>(Omega, Sinv, 1, true);
-    CHECK_CLOSE(-1.0/0.0, badLogDens, PREC);
+    REQUIRE(-std::numeric_limits<double>::infinity() == badLogDens, PREC);
     double badDens = rveval::evalWishart<2,double>(Omega,Sinv, 1, false);
-    CHECK_CLOSE(0.0, badDens, PREC);
+    REQUIRE(0.0 == badDens);
     double badLogDens2 = rveval::evalWishart<2,double>(Omega, badCovMat, 3, true);
-    CHECK_CLOSE(-1.0/0.0, badLogDens2, PREC);
+    REQUIRE(-std::numeric_limits<double>::infinity() == badLogDens2, PREC);
     double badDens2 = rveval::evalWishart<2,double>(Omega, badCovMat, 3, false);
-    CHECK_CLOSE(0.0, badDens2, PREC);
+    REQUIRE(0.0 == badDens2);
     double badLogDens3 = rveval::evalWishart<2,double>(badCovMat, Sinv, 3, true);
     double badDens3 = rveval::evalWishart<2,double>(badCovMat,Sinv,3,false);
-    CHECK_CLOSE(-1.0/0.0, badLogDens3, PREC);
-    CHECK_CLOSE(0.0, badDens3, PREC);
-        
+    REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens3, PREC);
+    REQUIRE(0.0 == badDens3);
 }
 
 
-TEST_FIXTURE(DensFixture, evalInvWishart)
+TEST_CASE_METHOD(DensFixture, "evalInvWishart", "[densities]")
 {
     //library(LaplacesDemon)
     //dinvwishart(matrix(c(2,-.3,-.3,4),2,2), 3, matrix(c(1,.1,.1,1),2,2))
@@ -417,17 +387,13 @@ TEST_FIXTURE(DensFixture, evalInvWishart)
     double badLogDens3 = rveval::evalInvWishart<2,double>(Omega,S,1,true);
     double badDens3 = rveval::evalInvWishart<2,double>(Omega,S,1,false);
     
-    CHECK_CLOSE(-1.0/0.0, badLogDens, PREC);
-    CHECK_CLOSE(-1.0/0.0, badLogDens2, PREC);
-    CHECK_CLOSE(-1.0/0.0, badLogDens3, PREC);
-    CHECK_CLOSE(0.0, badDens, PREC);
-    CHECK_CLOSE(0.0, badDens2, PREC);
-    CHECK_CLOSE(0.0, badDens3, PREC);
+    REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens);
+    REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens2);
+    REQUIRE(-std::numeric_limits<double>::infinity() ==  badLogDens3);
+    REQUIRE(0.0 == badDens, PREC);
+    REQUIRE(0.0 == badDens2, PREC);
+    REQUIRE(0.0 == badDens3, PREC);
 
-    CHECK_CLOSE(-9.133543, goodLogDens, PREC);
-    CHECK_CLOSE(0.0001079824, goodDens, PREC);
-        
-        
+    REQUIRE( Approx(-9.133543) == goodLogDens);
+    REQUIRE( Approx(0.0001079824) == goodDens);
 }
-
-

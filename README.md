@@ -12,8 +12,7 @@ Once you have a certain model in mind, all you have to do is make it into a clas
 
 First, clone the repostory, and `cd` into the directory where everything is saved. Then run the following commands:
 
-    mkdir build
-    cd build/
+    mkdir build && cd build/
     cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr/local
     sudo cmake --build . --config Release --target install -- -j $(nproc)
 
