@@ -44,7 +44,3 @@ examples/Release
 examples/Debug
 examples/build
 
-# codelite stuff
-*.project
-*.txt
-*.mk

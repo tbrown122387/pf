@@ -1,5 +1,5 @@
 ---
-title: 'PF: A C++ Library for Fast Particle Filtering'
+title: 'A Short Introduction to PF: A C++ Library for Particle Filtering'
 tags:
   - particle filter
   - c++
@@ -14,6 +14,27 @@ date: 14 July 2020
 bibliography: paper.bib
 ---
 
+
+# Summary
+
+It takes time and effort to implement different particle filters well, and this is true for two reasons. First, the mathematical notation used to describe them can be complex. The second reason is that, even if they are correctly implemented, they can be quite slow, limiting the number of tasks that they would be feasible for. 
+
+The ``PF`` library, described in this short paper, addresses these two issues by providing **class and function templates** that offer fast implementations for a variety of particles filtering algorithms. Each of these algorithms are useful for a wide range of time series models. 
+
+In this library, each available particle filtering algorithm is provided as a class template. Once the data analyst has a specific state-space model in mind, he will pick which type(s) of particle filtering algorithm(s) to associate with that model. For each model-particle filter pair, he will write a class for his model that inherits from the particle filter's class. The details of each algorithm are abstracted away, and each algorithm's class template's required functions are pure virtual methods, meaning that the data analyst will not be able to omit any function that is required by the algorithm. Full documentation is available at [https://tbrown122387.github.io/pf/](https://tbrown122387.github.io/pf/).
+
+
+
+
+# Statement of Need
+
+This is by no means the first ``C++`` library to be offered that provides particle filter implementations. Other options include ``LibBi`` [@libbi], ``Biips`` [@todeschini2014biips], ``SMCTC`` [@Johansen:2009:JSSOBK:v30i06] and ``Nimble`` [@doi:10.1080/10618600.2016.1172487]. The goals of these software packages are different, though--users of these libraries write their models in a scripting language, and that model file gets parsed into ``C++`` code.
+
+``PF``, on the other hand, besides providing a different assortment of particle filters, does not provide a parser, nor does it interface with any interpeted language. It is designed for users that prefer to work in ``C++``. It can be useful for instantiating individual particle filters, but it is also designed in an object-oriented manner to facilitate the implementation of algorithms that update many particle filters in parallel. Some examples of opportunities include particle filters with parallelized resampling schemes  [@1453776,1309.2918], particle Markov chain Monte Carlo algorithms [@pmcmc], importance sampling "squared" [@issquared], and the particle swarm algorithm [@pswarm]. 
+
+The library is "header-only", which means it is comprised of only header files. As a result, it is easily added to other ``C++`` software projects. The only extra steps are `#include`-ing relevant headers, and pointing the compiler at the `include/pf/` directory. This directory stores all necessary code, although there there are unit tests and examples provided as well. 
+
+
 # Statement of Need
 
 Particle filters are recursive algorithms that are used in the analysis of state-space models, a particular class of time series models that feature latent random variables called "states", "signals", "memory" or "codes."  In many modeling tasks where these types of models are used, the state process represents some intuitive and physically-meaningful process.
@@ -24,23 +45,6 @@ Particle filters work by iterating over observed data in time, and storing a lar
 
 These new samples and weights set the stage for the second step: "resampling." Here, unweighted samples are drawn with replacement from the current collection of weighted samples. Samples with high weights are chosen with a higher probability, and samples with low weights are chosen with a low probability. In this way, samples with large weights tend to end up being duplicated, and samples with relatively small weights tend to be discarded.
 
-# Summary
-
-It takes time and effort to implement different particle filters well, and this is true for two reasons. First, the mathematical notation used to describe them can often be intimidating after a first glance. It is easier to obtain a first impression of how these strategies work from a high level view is, but being specific about individual sampled particles requires one to, at the very least, describe which distribution it targets and which index it's being stored at, and so indexes, superscripts, and superscripts with superscripts abound.
-
-Adding to the potential confusion is that there are many variants of the algorithms, and each algorithm is described in different ways by different authors. There are many different notational conventions followed: different letters in different languages represent different distributions and different quantities, some notation is measure-theoretic and some is not, and sometimes the description of the algorithm interchanges the order of the mutation/resampling steps.
-
-The second reason is that, if they are not carefully implemented, particle filters can be quite slow. To become familiar with the algorithms, it is instructive to write a first implementation in whatever language is familiar. However, a first implementation will likely be very slow, and slow particle filters will not be feasible for many data analysis tasks, particularly for ones that involve large, or high-speed data sets.
-
-This paper describes the ``PF`` library, the main purpose of which is to make use of **class and function templates** to offer fast implementations for a wide range of particles filters, which can all be used for wide ranges of time series models. Each particle filtering algorithm is provided as a class template with several pure virtual methods. Once a data analyst has a specific state-space model in mind, he will pick which types of particle filtering algorithms to associate with that model. For each model-particle filter pair, he writes a class for his model that inherits from the particle filter's class. Each algorithm requires the ability to evaluate and/or sample from different distributions, and so these are the pure virtual methods that the data analyst must provide.
-
-So, to be able to use ``PF``, one only needs to be able to specify the distributions of his statistical model. The implementational details of each particle filter are abstracted away. Full documentation is available at [https://tbrown122387.github.io/pf/](https://tbrown122387.github.io/pf/).
-
-This is by no means the first ``C++`` library to be offered that provides particle filter implementations. Other options include ``LibBi`` [@libbi], ``Biips`` [@todeschini2014biips], ``SMCTC`` [@Johansen:2009:JSSOBK:v30i06] and ``Nimble`` [@doi:10.1080/10618600.2016.1172487]. The goals of these software packages are different, though--users of these libraries write their models in a scripting language, and that model file gets parsed into ``C++`` code.
-
-``PF``, on the other hand, besides providing a different assortment of particle filters, does not provide a parser, nor does it interface with any interpeted language. It is designed for users that prefer to work in ``C++``. It can be useful for instantiating individual particle filters, but it is also designed in an object-oriented manner to facilitate the implementation of algorithms that update many particle filters in parallel. Some examples of opportunities include particle filters with parallelized resampling schemes  [@1453776,1309.2918], particle Markov chain Monte Carlo algorithms [@pmcmc], importance sampling "squared" [@issquared], and the particle swarm algorithm [@pswarm]. 
-
-The library is "header-only", which means it is comprised of only header files. As a result, it is easily added to other ``C++`` software projects. The only extra steps are `#include`-ing relevant headers, and pointing the compiler at the `include/pf/` directory. This directory stores all necessary code, although there there are unit tests and examples provided as well. 
 
 # State-Space Models
 
