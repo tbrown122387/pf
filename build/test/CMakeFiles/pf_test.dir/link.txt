@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -g -g   CMakeFiles/pf_test.dir/test-main.cpp.o CMakeFiles/pf_test.dir/test_resamplers.cpp.o CMakeFiles/pf_test.dir/test_rv_eval.cpp.o CMakeFiles/pf_test.dir/test_rv_samp.cpp.o  -o pf_test 
