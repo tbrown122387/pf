@@ -865,7 +865,7 @@ std::array<unsigned int, N> k_gen<N, float_t>::sample(const std::array<float_t, 
 
 
 
-} // namespace pf{
+} // namespace rv_samp
     
     
     
