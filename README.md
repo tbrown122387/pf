@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/130237492.svg)](https://zenodo.org/badge/latestdoi/130237492)
 
-This is a template library for particle filtering. Templated abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-Blackwellized particle filter, etc.), as well as non-abstract (but indeed templated) base classes for closed-form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.). 
+This is a template library for [particle filtering](https://en.wikipedia.org/wiki/Particle_filter). Templated abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the SISR filter, the Auxiliary Particle Filter, the Rao-Blackwellized particle filter), as well as non-abstract (but indeed templated) base classes for closed-form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.). 
 
 Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use.
 
