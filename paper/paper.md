@@ -17,9 +17,9 @@ bibliography: paper.bib
 
 # Summary
 
-The ``PF`` library provides **class and function templates** that offer fast implementations for a variety of particles filtering algorithms. Each of these algorithms are useful for a wide range of time series models. 
+The ``PF`` library provides **class and function templates** that offer fast implementations for a variety of particle filtering algorithms. Each of these algorithms are useful for a wide range of time series models. 
 
-In this library, each available particle filtering algorithm is provided as an abstract base class template. Once the data analyst has a specific state-space or hidden Markov model in mind, she will pick which type(s) of particle filtering algorithm(s) to associate with that model by including the appropriate header file. For each model-particle filter pair, she will write a class template for his model that inherits from the particle filter's base class template. 
+In this library, each available particle filtering algorithm is provided as an abstract base class template. Once the data analyst has a specific state-space or hidden Markov model in mind, she will pick which type(s) of particle filtering algorithm(s) to associate with that model by including the appropriate header file. For each model-particle filter pair, she will write a class template for her model that inherits from the particle filter's base class template. 
 
 The details of each algorithm are abstracted away, and each algorithm's class template's required functions are pure virtual methods, meaning that the data analyst will not be able to omit any function that is required by the algorithm. 
 
@@ -49,7 +49,7 @@ x_t = \phi x_{t-1} + \sigma z'_t.
 \end{eqnarray}
 The collection $\{z'_t\}_{t=1}^T$ are also assumed to be iid normal random variates. At time $1$, we assume the first state follows a mean zero normal distribution with $\sigma^2/(1-\phi^2)$. For simplicity, all of our proposal distributions are chosen to be the same as the state transitions.
 
-The file `examples/svol_sisr.h` provides a fully-worked example of writing a class template called `svol_sisr` for this model-algorithm pair. Any model-algorithm pair will make use of a resampler type (found in `include/pf/resamplers.h`), sampler functions (found in `include/pf/rv_samp.h`), and density evaluator functions (found in `include/pf/rv_eval.h`). Because you are writing a class template instead of a class, the decision of what to pass in as template parameters will be pushed back to the instantiation site. These template parameters are often changed quite frequently, so this design allows them to be changed only in one location of the project. 
+The file `examples/svol_sisr.h` provides an example of writing a class template called `svol_sisr` for this model-algorithm pair. Any model-algorithm pair will make use of a resampler type (found in `include/pf/resamplers.h`), sampler functions (found in `include/pf/rv_samp.h`), and density evaluator functions (found in `include/pf/rv_eval.h`). Because you are writing a class template instead of a class, the decision of what to pass in as template parameters will be pushed back to the instantiation site. These template parameters are often changed quite frequently, so this design allows them to be changed only in one location of the project. 
 Instantiating an object after the class template has been written is much easier than writing the class template itself. Just provide the template parameters and the constructor parameters in the correct order. For example,
 ```cpp
 using Mod = svol_sisr<5000,1,1,mn_resampler<5000,1,double>,double>;
