@@ -23,7 +23,7 @@ You may subsitute another directory for `/usr/local`, if you wish. This will als
 
 ### Option 2: Drag-and-drop `.h` files
 
-This is a header-only library, so there will be no extra building necessary. If you just want to copy the desired header files from `include/pf` into your own project, and build that project by itself, that's totally fine. There is no linking necessary, either. If you go this route, though, make sure to compile with C++17 enabled. Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/). Unit tests use the [Catch2](https://github.com/catchorg/Catch2) library.
+This is a header-only library, so there will be no extra building necessary. If you just want to copy the desired header files from `include/pf` into your own project, and build that project by itself, that's totally fine. There is no linking necessary, either. If you go this route, though, make sure to compile with C++17 enabled. Note, also, that this code all makes use of [Eigen v3.3](http://eigen.tuxfamily.org/) and [Boost v1.65.1](https://www.boost.org/). Unit tests use the [Catch2 v2.9.2](https://github.com/catchorg/Catch2) library.
 
 ## Examples
 
