@@ -31,7 +31,7 @@ State-space models describe a partially-observed Markov chain--they possess a hi
 
 Unfortunately, it takes time and effort to implement different particle filters well, and this is true for two reasons. First, the mathematical notation used to describe them can be complex. The second reason is that, even if they are correctly implemented, they can be quite slow, limiting the number of tasks that they would be feasible for. This library attempts to provide speed and abstraction to mitigate these two difficulties.
 
-Additionally, this software is designed in an object-oriented manner. This allows for individual particle filters to be used, and it facilitates the implementation of algorithms that update many particle filters, possibly in parallel. Some examples of opportunities include particle filters with parallelized resampling schemes  [@1453776,1309.2918], particle Markov chain Monte Carlo algorithms [@pmcmc], importance sampling "squared" [@issquared], and the particle swarm algorithm [@pswarm]. 
+Additionally, this software is designed in an object-oriented manner. This allows for individual particle filters to be used, and it facilitates the implementation of algorithms that update many particle filters through many iterations in a stateful way, possibly in parallel. Some examples of opportunities include particle filters with parallelized resampling schemes  [@1453776,1309.2918], particle Markov chain Monte Carlo algorithms [@pmcmc], importance sampling "squared" [@issquared], and the particle swarm algorithm [@pswarm]. 
 
 Finally, this library is "header-only." As a result, building your ``C++`` project is as simple as possible. The only required steps are `#include`-ing relevant headers, and pointing the compiler at the `include/pf/` directory. This directory stores all necessary code, although there there are unit tests and examples provided as well. 
 
@@ -57,7 +57,7 @@ Instantiating an object after the class template has been written is much easier
 using Mod = svol_sisr<5000,1,1,mn_resampler<5000,1,double>,double>;
 Mod sisrsvol(.91,.5,1.0);
 ```
-instantiates the object called `sisrsvol`, which performs the SISR algorithm for the stochastic volatility model using multinomial sampling on $5,000$ particles. It sets $\phi = .95$, $\beta = .5$ and $\sigma = 1$. 
+instantiates the object called `sisrsvol`, which performs the SISR algorithm for the stochastic volatility model using multinomial sampling on $5,000$ particles. It sets $\phi = .91$, $\beta = .5$ and $\sigma = 1$. 
 
 As (possibly real-time, streaming) data becomes available, updating the model is accomplished with the `filter` method. The call at each time point would look something like
 ```cpp
