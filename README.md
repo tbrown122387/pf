@@ -16,11 +16,14 @@ Once you have a certain model in mind, all you have to do is make it into a clas
     cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr/local
     sudo cmake --build . --config Release --target install --parallel
 
-You may subsitute another directory for `/usr/local`, if you wish.
+You may subsitute another directory for `/usr/local`, if you wish. This will also build unit tests that can be run with the following command (assuming you're still in `build/`):
+
+    ./test/pf_test
+
 
 ### Option 2: Drag-and-drop `.h` files
 
-This is a header-only library, so there is no building necessary. If you just want to copy the desired header files from `include/pf` into your own project, that's totally fine. There is no linking necessary. If you go that route, though, all you really need to do is to make sure to compile with C++17 enabled. Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/). Unit tests use the [Catch2](https://github.com/catchorg/Catch2) library.
+This is a header-only library, so there will be no extra building necessary. If you just want to copy the desired header files from `include/pf` into your own project, and build that project by itself, that's totally fine. There is no linking necessary, either. If you go this route, though, make sure to compile with C++17 enabled. Note, also, that this code all makes use of [Eigen](http://eigen.tuxfamily.org/) and [Boost](https://www.boost.org/). Unit tests use the [Catch2](https://github.com/catchorg/Catch2) library.
 
 ## Examples
 
