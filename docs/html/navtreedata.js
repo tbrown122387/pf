@@ -2,6 +2,7 @@ var NAVTREE =
 [
   [ "pf", "index.html", [
     [ "PF: a library for fast particle filtering!", "index.html", null ],
+    [ "paper", "md_paper_paper.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -23,7 +24,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classrbpf__hmm.html#a8b08a5af7f7ef6b0079c69ff0c6b485f"
+"classrbpf__hmm.html#a6caeb30aae73ee88f4131103dbf1f84b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

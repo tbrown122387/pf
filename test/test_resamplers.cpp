@@ -60,7 +60,7 @@ public:
                 m_vw[i] = 0.0;
             }else{
                 m_vparts[i] = ssv::Constant(1.0);
-                m_vw[i] = -1.0/0.0;
+                m_vw[i] = -std::numeric_limits<float_t>::infinity();
             }
         }
 
@@ -99,7 +99,7 @@ public:
             }else{
                 m_hmms[i] = hmm<DIMINNERMOD,DIMOBS,double>(m_initProbDistn2, m_initTransMat2);
                 m_rbpf_samps[i] = ssv::Constant(1.0);                
-                m_rbpf_logwts[i] = -1.0/0.0;
+                m_rbpf_logwts[i] = -std::numeric_limits<float_t>::infinity();
             }
         }
     }
@@ -127,7 +127,7 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts 2", "[resamplers]")
     arrayVec oneGoodSamp;
     arrayDouble oneGoodWeight;
     for(size_t i =0; i < NUMPARTICLES; ++i){
-        oneGoodWeight[i] = -1.0/0.0;
+        oneGoodWeight[i] = -std::numeric_limits<float_t>::infinity();
         ssv xt;
         xt(0) = i;
         oneGoodSamp[i] = xt;
@@ -203,7 +203,7 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_resid2" "[resamplers]")
     arrayVec oneGoodSamp;
     arrayDouble oneGoodWeight;
     for(size_t i =0; i < NUMPARTICLES; ++i){
-        oneGoodWeight[i] = -1.0/0.0;
+        oneGoodWeight[i] = -std::numeric_limits<float_t>::infinity();
         ssv xt;
         xt(0) = i;
         oneGoodSamp[i] = xt;
@@ -238,7 +238,7 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_stratif2", "[resamplers]")
     arrayVec oneGoodSamp;
     arrayDouble oneGoodWeight;
     for(size_t i =0; i < NUMPARTICLES; ++i){
-        oneGoodWeight[i] = -1.0/0.0;
+        oneGoodWeight[i] = -std::numeric_limits<float_t>::infinity();
         ssv xt;
         xt(0) = i;
         oneGoodSamp[i] = xt;
@@ -271,7 +271,7 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_systematic2", "[resamplers]")
     arrayVec oneGoodSamp;
     arrayDouble oneGoodWeight;
     for(size_t i =0; i < NUMPARTICLES; ++i){
-        oneGoodWeight[i] = -1.0/0.0;
+        oneGoodWeight[i] = -std::numeric_limits<float_t>::infinity();
         ssv xt;
         xt(0) = i;
         oneGoodSamp[i] = xt;

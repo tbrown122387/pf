@@ -3,6 +3,9 @@
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{classpf__base_a5c38fdea8b41026d6c5709be11065f0a}\label{classpf__base_a5c38fdea8b41026d6c5709be11065f0a}} 
+using {\bfseries float\+\_\+type} = float\+\_\+t
+\item 
 \mbox{\Hypertarget{classpf__base_ab468bc1a4c41a4ad7372281a1db7db8b}\label{classpf__base_ab468bc1a4c41a4ad7372281a1db7db8b}} 
 using {\bfseries osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
 \item 
@@ -27,8 +30,17 @@ virtual void \hyperlink{classpf__base_aec857789031fd938b7088faa3607707a}{filter}
 \mbox{\Hypertarget{classpf__base_a350df818820d6ab0fd6d413022b7f23b}\label{classpf__base_a350df818820d6ab0fd6d413022b7f23b}} 
 virtual float\+\_\+t \hyperlink{classpf__base_a350df818820d6ab0fd6d413022b7f23b}{get\+Log\+Cond\+Like} () const =0
 \begin{DoxyCompactList}\small\item\em the getter method that must be defined (for conditional log-\/likelihood) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf__base_a6fd0ef79ffb005b72045881875fcacb8}\label{classpf__base_a6fd0ef79ffb005b72045881875fcacb8}} 
+static constexpr unsigned int {\bfseries dim\+\_\+obs} = dimobs
+\item 
+\mbox{\Hypertarget{classpf__base_a0a13a058c19940f56d7f30ed5f910f7f}\label{classpf__base_a0a13a058c19940f56d7f30ed5f910f7f}} 
+static constexpr unsigned int {\bfseries dim\+\_\+state} = dimstate
+\end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}\end{DoxyCompactItemize}
+include/pf/\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}\end{DoxyCompactItemize}

@@ -33,11 +33,11 @@ Collaboration diagram for rvsamp\+:\+:Univ\+Norm\+Sampler$<$ float\+\_\+t $>$\+:
 \mbox{\Hypertarget{classrvsamp_1_1UnivNormSampler_ade55cded90f94c26d4dfc309cf894a37}\label{classrvsamp_1_1UnivNormSampler_ade55cded90f94c26d4dfc309cf894a37}} 
 \hyperlink{classrvsamp_1_1UnivNormSampler_ade55cded90f94c26d4dfc309cf894a37}{Univ\+Norm\+Sampler} ()
 \begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for standard Normal random variate generation. \end{DoxyCompactList}\item 
-\hyperlink{classrvsamp_1_1UnivNormSampler_abf9480e20a20e83f35933dcad1360117}{Univ\+Norm\+Sampler} (const float\+\_\+t \&mu, const float\+\_\+t \&sigma)
+\hyperlink{classrvsamp_1_1UnivNormSampler_a9a643fec11776028014be75163819807}{Univ\+Norm\+Sampler} (float\+\_\+t mu, float\+\_\+t sigma)
 \begin{DoxyCompactList}\small\item\em The user must supply both mean and std. dev. \end{DoxyCompactList}\item 
-void \hyperlink{classrvsamp_1_1UnivNormSampler_a77923ac7ff44866f2d6b50e75d97d119}{set\+Std\+Dev} (const float\+\_\+t \&sigma)
+void \hyperlink{classrvsamp_1_1UnivNormSampler_a251f76fd8e9aa078d16bc01e53406681}{set\+Std\+Dev} (float\+\_\+t sigma)
 \begin{DoxyCompactList}\small\item\em sets the standard deviation of the sampler. \end{DoxyCompactList}\item 
-void \hyperlink{classrvsamp_1_1UnivNormSampler_a9f9281d2cd88d82d251686ea9b9d4182}{set\+Mean} (const float\+\_\+t \&mu)
+void \hyperlink{classrvsamp_1_1UnivNormSampler_a3969ca7da7cbea29ba766b3a87713049}{set\+Mean} (float\+\_\+t mu)
 \begin{DoxyCompactList}\small\item\em sets the mean of the sampler. \end{DoxyCompactList}\item 
 float\+\_\+t \hyperlink{classrvsamp_1_1UnivNormSampler_a67416efdbb1569a068d5a5a4914e27a1}{sample} ()
 \begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -68,12 +68,12 @@ taylor
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classrvsamp_1_1UnivNormSampler_abf9480e20a20e83f35933dcad1360117}\label{classrvsamp_1_1UnivNormSampler_abf9480e20a20e83f35933dcad1360117}} 
+\mbox{\Hypertarget{classrvsamp_1_1UnivNormSampler_a9a643fec11776028014be75163819807}\label{classrvsamp_1_1UnivNormSampler_a9a643fec11776028014be75163819807}} 
 \index{rvsamp\+::\+Univ\+Norm\+Sampler@{rvsamp\+::\+Univ\+Norm\+Sampler}!Univ\+Norm\+Sampler@{Univ\+Norm\+Sampler}}
 \index{Univ\+Norm\+Sampler@{Univ\+Norm\+Sampler}!rvsamp\+::\+Univ\+Norm\+Sampler@{rvsamp\+::\+Univ\+Norm\+Sampler}}
 \subsubsection{\texorpdfstring{Univ\+Norm\+Sampler()}{UnivNormSampler()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
-\hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1UnivNormSampler}{Univ\+Norm\+Sampler} (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{mu,  }\item[{const float\+\_\+t \&}]{sigma }\end{DoxyParamCaption})}
+\hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1UnivNormSampler}{Univ\+Norm\+Sampler} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu,  }\item[{float\+\_\+t}]{sigma }\end{DoxyParamCaption})}
 
 
 
@@ -103,12 +103,12 @@ Draws a random number.
 \begin{DoxyReturn}{Returns}
 a random sample of type float\+\_\+t. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrvsamp_1_1UnivNormSampler_a9f9281d2cd88d82d251686ea9b9d4182}\label{classrvsamp_1_1UnivNormSampler_a9f9281d2cd88d82d251686ea9b9d4182}} 
+\mbox{\Hypertarget{classrvsamp_1_1UnivNormSampler_a3969ca7da7cbea29ba766b3a87713049}\label{classrvsamp_1_1UnivNormSampler_a3969ca7da7cbea29ba766b3a87713049}} 
 \index{rvsamp\+::\+Univ\+Norm\+Sampler@{rvsamp\+::\+Univ\+Norm\+Sampler}!set\+Mean@{set\+Mean}}
 \index{set\+Mean@{set\+Mean}!rvsamp\+::\+Univ\+Norm\+Sampler@{rvsamp\+::\+Univ\+Norm\+Sampler}}
 \subsubsection{\texorpdfstring{set\+Mean()}{setMean()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
-void \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Mean (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{mu }\end{DoxyParamCaption})}
+void \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Mean (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu }\end{DoxyParamCaption})}
 
 
 
@@ -119,12 +119,12 @@ sets the mean of the sampler.
 {\em mu} & the desired mean. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classrvsamp_1_1UnivNormSampler_a77923ac7ff44866f2d6b50e75d97d119}\label{classrvsamp_1_1UnivNormSampler_a77923ac7ff44866f2d6b50e75d97d119}} 
+\mbox{\Hypertarget{classrvsamp_1_1UnivNormSampler_a251f76fd8e9aa078d16bc01e53406681}\label{classrvsamp_1_1UnivNormSampler_a251f76fd8e9aa078d16bc01e53406681}} 
 \index{rvsamp\+::\+Univ\+Norm\+Sampler@{rvsamp\+::\+Univ\+Norm\+Sampler}!set\+Std\+Dev@{set\+Std\+Dev}}
 \index{set\+Std\+Dev@{set\+Std\+Dev}!rvsamp\+::\+Univ\+Norm\+Sampler@{rvsamp\+::\+Univ\+Norm\+Sampler}}
 \subsubsection{\texorpdfstring{set\+Std\+Dev()}{setStdDev()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
-void \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Std\+Dev (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{sigma }\end{DoxyParamCaption})}
+void \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Std\+Dev (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{sigma }\end{DoxyParamCaption})}
 
 
 
@@ -139,4 +139,4 @@ sets the standard deviation of the sampler.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}
+include/pf/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

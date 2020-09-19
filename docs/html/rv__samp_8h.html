@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pf: include/rv_samp.h File Reference</title>
+<title>pf: include/pf/rv_samp.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -94,14 +94,16 @@ $(document).ready(function(){initNavTree('rv__samp_8h.html','');});
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for rv_samp.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="rv__samp_8h__incl.png" border="0" usemap="#include_2rv__samp_8h" alt=""/></div>
+<div class="center"><img src="rv__samp_8h__incl.png" border="0" usemap="#include_2pf_2rv__samp_8h" alt=""/></div>
+<map name="include_2pf_2rv__samp_8h" id="include_2pf_2rv__samp_8h">
+</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="rv__samp_8h__dep__incl.png" border="0" usemap="#include_2rv__samp_8hdep" alt=""/></div>
-<map name="include_2rv__samp_8hdep" id="include_2rv__samp_8hdep">
-<area shape="rect" id="node2" href="auxiliary__pf_8h.html" title="A base class for Auxiliary Particle Filtering. Inherit from this if you want to use an APF for your s..." alt="" coords="5,80,149,107"/>
+<div class="center"><img src="rv__samp_8h__dep__incl.png" border="0" usemap="#include_2pf_2rv__samp_8hdep" alt=""/></div>
+<map name="include_2pf_2rv__samp_8hdep" id="include_2pf_2rv__samp_8hdep">
+<area shape="rect" id="node2" href="auxiliary__pf_8h.html" title="A base class for Auxiliary Particle Filtering. Inherit from this if you want to use an APF for your s..." alt="" coords="5,80,164,107"/>
 </map>
 </div>
 </div>
@@ -118,8 +120,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1UnivLogNormSampler.html">rvsamp::UnivLogNormSampler&lt; float_t &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a univariate Log-Normal distribution.  <a href="classrvsamp_1_1UnivLogNormSampler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1UnivGammaSampler.html">rvsamp::UnivGammaSampler&lt; float_t &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a univariate Gamma distribution.  <a href="classrvsamp_1_1UnivGammaSampler.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1UnivInvGammaSampler.html">rvsamp::UnivInvGammaSampler&lt; float_t &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a univariate Inverse Gamma distribution.  <a href="classrvsamp_1_1UnivInvGammaSampler.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html">rvsamp::TruncUnivNormSampler&lt; float_t &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructor ...  <a href="classrvsamp_1_1TruncUnivNormSampler.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a truncated univariate Normal distribution.  <a href="classrvsamp_1_1TruncUnivNormSampler.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1PoissonSampler.html">rvsamp::PoissonSampler&lt; float_t, int_t &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a Poisson distribution.  <a href="classrvsamp_1_1PoissonSampler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1BernSampler.html">rvsamp::BernSampler&lt; float_t, int_t &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class that performs sampling from a univariate Bernoulli distribution.  <a href="classrvsamp_1_1BernSampler.html#details">More...</a><br /></td></tr>
@@ -139,7 +150,10 @@ Classes</h2></td></tr>
 <p>Basically a wrapper for std::discrete_distribution&lt;&gt; outputs are in the rage (0,1,...N-1)</p>
 <p>Can sample from a distribution with fixed mean and covariance, fixed mean only, fixed covariance only, or nothing fixed.</p>
 <p>Samples from univariate Bernoulli distribution.</p>
+<p>Samples from univariate Poisson distribution.</p>
 <p>Samples from a truncated univariate Normal distribution using the acceptance rejection method. The proposal distribution used is a normal distribution with the same location and scale parameters as the target. As a result, this method will take a long time when the width of the support of the target is narrow.</p>
+<p>Samples from univariate Inverse Gamma distribution.</p>
+<p>Samples from univariate Gamma distribution.</p>
 <p>Samples from univariate Log-Normal distribution.</p>
 <p>Samples from univariate Normal distribution.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -153,7 +167,7 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="rv__samp_8h.html">rv_samp.h</a></li>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_5c8cbf40ccdbe6c9a21872809347eecb.html">pf</a></li><li class="navelem"><a class="el" href="rv__samp_8h.html">rv_samp.h</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>

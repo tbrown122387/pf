@@ -1,5 +1,5 @@
-\hypertarget{rv__samp_8h}{}\section{include/rv\+\_\+samp.h File Reference}
-\label{rv__samp_8h}\index{include/rv\+\_\+samp.\+h@{include/rv\+\_\+samp.\+h}}
+\hypertarget{rv__samp_8h}{}\section{include/pf/rv\+\_\+samp.h File Reference}
+\label{rv__samp_8h}\index{include/pf/rv\+\_\+samp.\+h@{include/pf/rv\+\_\+samp.\+h}}
 
 
 all rv samplers must inherit from this.  
@@ -8,18 +8,20 @@ all rv samplers must inherit from this.
 {\ttfamily \#include $<$chrono$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
 {\ttfamily \#include $<$random$>$}\newline
-Include dependency graph for rv\+\_\+samp.\+h\+:\nopagebreak
+Include dependency graph for rv\+\_\+samp.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=285pt]{rv__samp_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=188pt]{rv__samp_8h__dep__incl}
+\includegraphics[width=199pt]{rv__samp_8h__dep__incl}
 \end{center}
 \end{figure}
 \subsection*{Classes}
@@ -31,8 +33,14 @@ class \hyperlink{classrvsamp_1_1UnivNormSampler}{rvsamp\+::\+Univ\+Norm\+Sampler
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Normal distribution. \end{DoxyCompactList}\item 
 class \hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Log-\/\+Normal distribution. \end{DoxyCompactList}\item 
+class \hyperlink{classrvsamp_1_1UnivGammaSampler}{rvsamp\+::\+Univ\+Gamma\+Sampler$<$ float\+\_\+t $>$}
+\begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Gamma distribution. \end{DoxyCompactList}\item 
+class \hyperlink{classrvsamp_1_1UnivInvGammaSampler}{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$}
+\begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Inverse Gamma distribution. \end{DoxyCompactList}\item 
 class \hyperlink{classrvsamp_1_1TruncUnivNormSampler}{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}
-\begin{DoxyCompactList}\small\item\em Default-\/constructor ... \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A class that performs sampling from a truncated univariate Normal distribution. \end{DoxyCompactList}\item 
+class \hyperlink{classrvsamp_1_1PoissonSampler}{rvsamp\+::\+Poisson\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}
+\begin{DoxyCompactList}\small\item\em A class that performs sampling from a Poisson distribution. \end{DoxyCompactList}\item 
 class \hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}
 \begin{DoxyCompactList}\small\item\em A class that performs sampling from a univariate Bernoulli distribution. \end{DoxyCompactList}\item 
 class \hyperlink{classrvsamp_1_1MVNSampler}{rvsamp\+::\+M\+V\+N\+Sampler$<$ dim, float\+\_\+t $>$}
@@ -52,7 +60,13 @@ Can sample from a distribution with fixed mean and covariance, fixed mean only, 
 
 Samples from univariate Bernoulli distribution.
 
+Samples from univariate Poisson distribution.
+
 Samples from a truncated univariate Normal distribution using the acceptance rejection method. The proposal distribution used is a normal distribution with the same location and scale parameters as the target. As a result, this method will take a long time when the width of the support of the target is narrow.
+
+Samples from univariate Inverse Gamma distribution.
+
+Samples from univariate Gamma distribution.
 
 Samples from univariate Log-\/\+Normal distribution.
 

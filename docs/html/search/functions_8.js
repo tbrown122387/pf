@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['mn_5fresamp_5ffast1',['mn_resamp_fast1',['../classmn__resamp__fast1.html#ac59dde1e16dc40fc173e81edd4b5c3b9',1,'mn_resamp_fast1']]],
   ['mn_5fresampler',['mn_resampler',['../classmn__resampler.html#a016a00570c30806a0fdad25385395f95',1,'mn_resampler']]],
   ['mn_5fresampler_5frbpf',['mn_resampler_rbpf',['../classmn__resampler__rbpf.html#acfefe5df6a03b0be01b34477b844a486',1,'mn_resampler_rbpf']]],
   ['multivgamfilter',['multivGamFilter',['../classmultivGamFilter.html#a31e576702f6e72f43744d453b2bc6329',1,'multivGamFilter']]],

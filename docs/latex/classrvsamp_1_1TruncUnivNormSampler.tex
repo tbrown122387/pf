@@ -2,7 +2,7 @@
 \label{classrvsamp_1_1TruncUnivNormSampler}\index{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}}
 
 
-Default-\/constructor ...  
+A class that performs sampling from a truncated univariate Normal distribution.  
 
 
 
@@ -30,7 +30,7 @@ Collaboration diagram for rvsamp\+:\+:Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classrvsamp_1_1TruncUnivNormSampler_a937288fd46dcfef2f88de8081bb13752}{Trunc\+Univ\+Norm\+Sampler} (const float\+\_\+t \&mu, const float\+\_\+t \&sigma, const float\+\_\+t \&lower, const float\+\_\+t \&upper)
+\hyperlink{classrvsamp_1_1TruncUnivNormSampler_af014c58aa1ed6bcd955f2b6c4a1a236c}{Trunc\+Univ\+Norm\+Sampler} (float\+\_\+t mu, float\+\_\+t sigma, float\+\_\+t lower, float\+\_\+t upper)
 \begin{DoxyCompactList}\small\item\em The user must supply both mean and std. dev. \end{DoxyCompactList}\item 
 float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler_a2d6a8f2053e4ed0806718e6749288dce}{sample} ()
 \begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -59,34 +59,20 @@ float\+\_\+t \hyperlink{classrvsamp_1_1TruncUnivNormSampler_a5081f5dfd44015a5af3
 \subsubsection*{template$<$typename float\+\_\+t$>$\newline
 class rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}
 
-Default-\/constructor ... 
+A class that performs sampling from a truncated univariate Normal distribution. 
 
-! A class that performs sampling from a univariate Gamma distribution. $\ast$$\ast$ The user must supply both mu and sigma. 
-\begin{DoxyParams}{Parameters}
-{\em mu} & a location parameter for the logarithm of the sample. \\
-\hline
-{\em sigma} & a positive scale parameter for the logarithm of the sample. sets the scale parameter of the logged random variable. \\
-\hline
-{\em sigma} & the desired parameter. sets the location parameter of the logged random variable. \\
-\hline
-{\em mu} & the desired parameter. draws a random number. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a random sample of type float\+\_\+t.\+makes normal random variates mu sigma A class that performs sampling from a truncated univariate Normal distribution.
-\end{DoxyReturn}
 \begin{DoxyAuthor}{Author}
 taylor 
 \end{DoxyAuthor}
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_a937288fd46dcfef2f88de8081bb13752}\label{classrvsamp_1_1TruncUnivNormSampler_a937288fd46dcfef2f88de8081bb13752}} 
+\mbox{\Hypertarget{classrvsamp_1_1TruncUnivNormSampler_af014c58aa1ed6bcd955f2b6c4a1a236c}\label{classrvsamp_1_1TruncUnivNormSampler_af014c58aa1ed6bcd955f2b6c4a1a236c}} 
 \index{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}!Trunc\+Univ\+Norm\+Sampler@{Trunc\+Univ\+Norm\+Sampler}}
 \index{Trunc\+Univ\+Norm\+Sampler@{Trunc\+Univ\+Norm\+Sampler}!rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler@{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}}
 \subsubsection{\texorpdfstring{Trunc\+Univ\+Norm\+Sampler()}{TruncUnivNormSampler()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
-\hyperlink{classrvsamp_1_1TruncUnivNormSampler}{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1TruncUnivNormSampler}{Trunc\+Univ\+Norm\+Sampler} (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{mu,  }\item[{const float\+\_\+t \&}]{sigma,  }\item[{const float\+\_\+t \&}]{lower,  }\item[{const float\+\_\+t \&}]{upper }\end{DoxyParamCaption})}
+\hyperlink{classrvsamp_1_1TruncUnivNormSampler}{rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1TruncUnivNormSampler}{Trunc\+Univ\+Norm\+Sampler} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu,  }\item[{float\+\_\+t}]{sigma,  }\item[{float\+\_\+t}]{lower,  }\item[{float\+\_\+t}]{upper }\end{DoxyParamCaption})}
 
 
 
@@ -124,4 +110,4 @@ a random sample of type float\+\_\+t.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}
+include/pf/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

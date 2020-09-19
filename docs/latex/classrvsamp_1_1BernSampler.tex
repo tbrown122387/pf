@@ -33,9 +33,9 @@ Collaboration diagram for rvsamp\+:\+:Bern\+Sampler$<$ float\+\_\+t, int\+\_\+t 
 \mbox{\Hypertarget{classrvsamp_1_1BernSampler_a85b39f1940da6d56a0d7923f684bdb5f}\label{classrvsamp_1_1BernSampler_a85b39f1940da6d56a0d7923f684bdb5f}} 
 \hyperlink{classrvsamp_1_1BernSampler_a85b39f1940da6d56a0d7923f684bdb5f}{Bern\+Sampler} ()
 \begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for Bernoulli random variate generation with p = .5. \end{DoxyCompactList}\item 
-\hyperlink{classrvsamp_1_1BernSampler_a18658e918b5bcd5cefdd900ded068686}{Bern\+Sampler} (const float\+\_\+t \&p)
+\hyperlink{classrvsamp_1_1BernSampler_a2cc92da7edf3b4348e01e7a1cab59fe2}{Bern\+Sampler} (float\+\_\+t p)
 \begin{DoxyCompactList}\small\item\em Constructs Bernoulli sampler with user-\/specified p. \end{DoxyCompactList}\item 
-void \hyperlink{classrvsamp_1_1BernSampler_ab61c1b21be5d7422fec4ea95be91c8cc}{setP} (const float\+\_\+t \&p)
+void \hyperlink{classrvsamp_1_1BernSampler_a1cd648e7141ee9b3a50f67256601a140}{setP} (float\+\_\+t p)
 \begin{DoxyCompactList}\small\item\em sets the parameter p. \end{DoxyCompactList}\item 
 int\+\_\+t \hyperlink{classrvsamp_1_1BernSampler_a2520daff5a896b58073d6756758d1323}{sample} ()
 \begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -63,12 +63,12 @@ taylor
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classrvsamp_1_1BernSampler_a18658e918b5bcd5cefdd900ded068686}\label{classrvsamp_1_1BernSampler_a18658e918b5bcd5cefdd900ded068686}} 
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_a2cc92da7edf3b4348e01e7a1cab59fe2}\label{classrvsamp_1_1BernSampler_a2cc92da7edf3b4348e01e7a1cab59fe2}} 
 \index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}!Bern\+Sampler@{Bern\+Sampler}}
 \index{Bern\+Sampler@{Bern\+Sampler}!rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
 \subsubsection{\texorpdfstring{Bern\+Sampler()}{BernSampler()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t , typename int\+\_\+t $>$ \\
-\hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler}$<$ float\+\_\+t, int\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1BernSampler}{Bern\+Sampler} (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{p }\end{DoxyParamCaption})}
+\hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler}$<$ float\+\_\+t, int\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1BernSampler}{Bern\+Sampler} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{p }\end{DoxyParamCaption})}
 
 
 
@@ -94,14 +94,14 @@ int\+\_\+t \hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler}$<$ 
 Draws a random number. 
 
 \begin{DoxyReturn}{Returns}
-a random sample of type float\+\_\+t. 
+a random sample of type int\+\_\+t. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrvsamp_1_1BernSampler_ab61c1b21be5d7422fec4ea95be91c8cc}\label{classrvsamp_1_1BernSampler_ab61c1b21be5d7422fec4ea95be91c8cc}} 
+\mbox{\Hypertarget{classrvsamp_1_1BernSampler_a1cd648e7141ee9b3a50f67256601a140}\label{classrvsamp_1_1BernSampler_a1cd648e7141ee9b3a50f67256601a140}} 
 \index{rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}!setP@{setP}}
 \index{setP@{setP}!rvsamp\+::\+Bern\+Sampler@{rvsamp\+::\+Bern\+Sampler}}
 \subsubsection{\texorpdfstring{set\+P()}{setP()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t , typename int\+\_\+t $>$ \\
-void \hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler}$<$ float\+\_\+t, int\+\_\+t $>$\+::setP (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{p }\end{DoxyParamCaption})}
+void \hyperlink{classrvsamp_1_1BernSampler}{rvsamp\+::\+Bern\+Sampler}$<$ float\+\_\+t, int\+\_\+t $>$\+::setP (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{p }\end{DoxyParamCaption})}
 
 
 
@@ -116,4 +116,4 @@ sets the parameter p.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}
+include/pf/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

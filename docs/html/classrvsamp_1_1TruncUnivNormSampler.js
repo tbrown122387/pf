@@ -1,6 +1,6 @@
 var classrvsamp_1_1TruncUnivNormSampler =
 [
-    [ "TruncUnivNormSampler", "classrvsamp_1_1TruncUnivNormSampler.html#a937288fd46dcfef2f88de8081bb13752", null ],
+    [ "TruncUnivNormSampler", "classrvsamp_1_1TruncUnivNormSampler.html#af014c58aa1ed6bcd955f2b6c4a1a236c", null ],
     [ "sample", "classrvsamp_1_1TruncUnivNormSampler.html#a2d6a8f2053e4ed0806718e6749288dce", null ],
     [ "m_lower", "classrvsamp_1_1TruncUnivNormSampler.html#a6405f385e9fb923d5aeae60324b745c1", null ],
     [ "m_mu", "classrvsamp_1_1TruncUnivNormSampler.html#a7c1024d6d70fec2999d611512f4c30b4", null ],

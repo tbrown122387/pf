@@ -1,0 +1,116 @@
+\hypertarget{classmn__resamp__fast1}{}\section{mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$ Class Template Reference}
+\label{classmn__resamp__fast1}\index{mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$@{mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}}
+
+
+{\ttfamily \#include $<$resamplers.\+h$>$}
+
+
+
+Inheritance diagram for mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classmn__resamp__fast1__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classmn__resamp__fast1__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classmn__resamp__fast1_a262ade482db1a5205579fb30dd39335a}{ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+using \hyperlink{classmn__resamp__fast1_af55a3279b6b865cb2656ea4e7e832136}{array\+Vec} = std\+::array$<$ \hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv}, nparts $>$
+\item 
+using \hyperlink{classmn__resamp__fast1_a9c95e7078cc9709024031bac44b431d6}{array\+Float} = std\+::array$<$ float\+\_\+t, nparts $>$
+\item 
+using \hyperlink{classmn__resamp__fast1_a8bf919fd596ab39fccbe152f5a742022}{array\+Int} = std\+::array$<$ unsigned int, nparts $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmn__resamp__fast1_ac59dde1e16dc40fc173e81edd4b5c3b9}\label{classmn__resamp__fast1_ac59dde1e16dc40fc173e81edd4b5c3b9}} 
+\hyperlink{classmn__resamp__fast1_ac59dde1e16dc40fc173e81edd4b5c3b9}{mn\+\_\+resamp\+\_\+fast1} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. Only option available. \end{DoxyCompactList}\item 
+void \hyperlink{classmn__resamp__fast1_a398e64faa29bafd345c0258ca90d489c}{resamp\+Log\+Wts} (\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&old\+Parts, \hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&old\+Log\+Un\+Norm\+Wts)
+\begin{DoxyCompactList}\small\item\em resamples particles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t$>$\newline
+class mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classmn__resamp__fast1_a9c95e7078cc9709024031bac44b431d6}\label{classmn__resamp__fast1_a9c95e7078cc9709024031bac44b431d6}} 
+\index{mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}!array\+Float@{array\+Float}}
+\index{array\+Float@{array\+Float}!mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}}
+\subsubsection{\texorpdfstring{array\+Float}{arrayFloat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classmn__resamp__fast1}{mn\+\_\+resamp\+\_\+fast1}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} =  std\+::array$<$float\+\_\+t,nparts$>$}
+
+type alias for array of float\+\_\+ts \mbox{\Hypertarget{classmn__resamp__fast1_a8bf919fd596ab39fccbe152f5a742022}\label{classmn__resamp__fast1_a8bf919fd596ab39fccbe152f5a742022}} 
+\index{mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}!array\+Int@{array\+Int}}
+\index{array\+Int@{array\+Int}!mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}}
+\subsubsection{\texorpdfstring{array\+Int}{arrayInt}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classmn__resamp__fast1}{mn\+\_\+resamp\+\_\+fast1}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classmn__resamp__fast1_a8bf919fd596ab39fccbe152f5a742022}{array\+Int} =  std\+::array$<$unsigned int,nparts$>$}
+
+type alias for array of integers \mbox{\Hypertarget{classmn__resamp__fast1_af55a3279b6b865cb2656ea4e7e832136}\label{classmn__resamp__fast1_af55a3279b6b865cb2656ea4e7e832136}} 
+\index{mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}!array\+Vec@{array\+Vec}}
+\index{array\+Vec@{array\+Vec}!mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}}
+\subsubsection{\texorpdfstring{array\+Vec}{arrayVec}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classmn__resamp__fast1}{mn\+\_\+resamp\+\_\+fast1}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} =  std\+::array$<$\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv}, nparts$>$}
+
+type alias for array of Eigen Matrices \mbox{\Hypertarget{classmn__resamp__fast1_a262ade482db1a5205579fb30dd39335a}\label{classmn__resamp__fast1_a262ade482db1a5205579fb30dd39335a}} 
+\index{mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}!ssv@{ssv}}
+\index{ssv@{ssv}!mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}}
+\subsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \hyperlink{classmn__resamp__fast1}{mn\+\_\+resamp\+\_\+fast1}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
+
+type alias for linear algebra stuff 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmn__resamp__fast1_a398e64faa29bafd345c0258ca90d489c}\label{classmn__resamp__fast1_a398e64faa29bafd345c0258ca90d489c}} 
+\index{mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}!resamp\+Log\+Wts@{resamp\+Log\+Wts}}
+\index{resamp\+Log\+Wts@{resamp\+Log\+Wts}!mn\+\_\+resamp\+\_\+fast1@{mn\+\_\+resamp\+\_\+fast1}}
+\subsubsection{\texorpdfstring{resamp\+Log\+Wts()}{resampLogWts()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+void \hyperlink{classmn__resamp__fast1}{mn\+\_\+resamp\+\_\+fast1}$<$ nparts, dimx, float\+\_\+t $>$\+::resamp\+Log\+Wts (\begin{DoxyParamCaption}\item[{\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&}]{old\+Parts,  }\item[{\hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&}]{old\+Log\+Un\+Norm\+Wts }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+resamples particles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\+Parts} & the old particles \\
+\hline
+{\em old\+Log\+Un\+Norm\+Wts} & the old log unnormalized weights \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classrbase_aff0f6f88fd4656e67f5ebc870f10dd44}{rbase$<$ nparts, dimx, float\+\_\+t $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\hyperlink{resamplers_8h}{resamplers.\+h}\end{DoxyCompactItemize}

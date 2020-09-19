@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('classrvsamp_1_1TruncUnivNormSampler.ht
 </div><!--header-->
 <div class="contents">
 
-<p>Default-constructor ...  
+<p>A class that performs sampling from a truncated univariate Normal distribution.  
  <a href="classrvsamp_1_1TruncUnivNormSampler.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="rv__samp_8h_source.html">rv_samp.h</a>&gt;</code></p>
@@ -111,9 +111,9 @@ Collaboration diagram for rvsamp::TruncUnivNormSampler&lt; float_t &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a937288fd46dcfef2f88de8081bb13752"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#a937288fd46dcfef2f88de8081bb13752">TruncUnivNormSampler</a> (const float_t &amp;mu, const float_t &amp;sigma, const float_t &amp;lower, const float_t &amp;upper)</td></tr>
-<tr class="memdesc:a937288fd46dcfef2f88de8081bb13752"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user must supply both mean and std. dev.  <a href="#a937288fd46dcfef2f88de8081bb13752">More...</a><br /></td></tr>
-<tr class="separator:a937288fd46dcfef2f88de8081bb13752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af014c58aa1ed6bcd955f2b6c4a1a236c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#af014c58aa1ed6bcd955f2b6c4a1a236c">TruncUnivNormSampler</a> (float_t mu, float_t sigma, float_t lower, float_t upper)</td></tr>
+<tr class="memdesc:af014c58aa1ed6bcd955f2b6c4a1a236c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user must supply both mean and std. dev.  <a href="#af014c58aa1ed6bcd955f2b6c4a1a236c">More...</a><br /></td></tr>
+<tr class="separator:af014c58aa1ed6bcd955f2b6c4a1a236c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d6a8f2053e4ed0806718e6749288dce"><td class="memItemLeft" align="right" valign="top">float_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html#a2d6a8f2053e4ed0806718e6749288dce">sample</a> ()</td></tr>
 <tr class="memdesc:a2d6a8f2053e4ed0806718e6749288dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a random number.  <a href="#a2d6a8f2053e4ed0806718e6749288dce">More...</a><br /></td></tr>
 <tr class="separator:a2d6a8f2053e4ed0806718e6749288dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,21 +158,11 @@ std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div class="textblock"><h3>template&lt;typename float_t&gt;<br />
 class rvsamp::TruncUnivNormSampler&lt; float_t &gt;</h3>
 
-<p>Default-constructor ... </p>
-<p>! A class that performs sampling from a univariate Gamma distribution. ** The user must supply both mu and sigma. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mu</td><td>a location parameter for the logarithm of the sample. </td></tr>
-    <tr><td class="paramname">sigma</td><td>a positive scale parameter for the logarithm of the sample. sets the scale parameter of the logged random variable. </td></tr>
-    <tr><td class="paramname">sigma</td><td>the desired parameter. sets the location parameter of the logged random variable. </td></tr>
-    <tr><td class="paramname">mu</td><td>the desired parameter. draws a random number. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a random sample of type float_t.makes normal random variates mu sigma A class that performs sampling from a truncated univariate Normal distribution.</dd></dl>
+<p>A class that performs sampling from a truncated univariate Normal distribution. </p>
 <dl class="section author"><dt>Author</dt><dd>taylor </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a937288fd46dcfef2f88de8081bb13752"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a937288fd46dcfef2f88de8081bb13752">&#9670;&nbsp;</a></span>TruncUnivNormSampler()</h2>
+<a id="af014c58aa1ed6bcd955f2b6c4a1a236c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af014c58aa1ed6bcd955f2b6c4a1a236c">&#9670;&nbsp;</a></span>TruncUnivNormSampler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,25 +172,25 @@ template&lt;typename float_t &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html">rvsamp::TruncUnivNormSampler</a>&lt; float_t &gt;::<a class="el" href="classrvsamp_1_1TruncUnivNormSampler.html">TruncUnivNormSampler</a> </td>
           <td>(</td>
-          <td class="paramtype">const float_t &amp;&#160;</td>
+          <td class="paramtype">float_t&#160;</td>
           <td class="paramname"><em>mu</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const float_t &amp;&#160;</td>
+          <td class="paramtype">float_t&#160;</td>
           <td class="paramname"><em>sigma</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const float_t &amp;&#160;</td>
+          <td class="paramtype">float_t&#160;</td>
           <td class="paramname"><em>lower</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const float_t &amp;&#160;</td>
+          <td class="paramtype">float_t&#160;</td>
           <td class="paramname"><em>upper</em>&#160;</td>
         </tr>
         <tr>
@@ -248,7 +238,7 @@ template&lt;typename float_t &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/<a class="el" href="rv__samp_8h_source.html">rv_samp.h</a></li>
+<li>include/pf/<a class="el" href="rv__samp_8h_source.html">rv_samp.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

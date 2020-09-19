@@ -15,11 +15,12 @@ var hierarchy =
     [ "mn_resampler_rbpf< nparts, dimsampledx, cfModT, float_t >", "classmn__resampler__rbpf.html", null ],
     [ "pf_base< float_t, dimobs, dimstate >", "classpf__base.html", null ],
     [ "pf_base< float_t, dimy, dimx >", "classpf__base.html", [
-      [ "APF< nparts, dimx, dimy, resamp_t, float_t >", "classAPF.html", null ],
-      [ "BSFilter< nparts, dimx, dimy, resamp_t, float_t >", "classBSFilter.html", null ],
-      [ "SISRFilter< nparts, dimx, dimy, resamp_t, float_t >", "classSISRFilter.html", null ]
+      [ "APF< nparts, dimx, dimy, resamp_t, float_t, debug >", "classAPF.html", null ],
+      [ "BSFilter< nparts, dimx, dimy, resamp_t, float_t, debug >", "classBSFilter.html", null ],
+      [ "SISRFilter< nparts, dimx, dimy, resamp_t, float_t, debug >", "classSISRFilter.html", null ]
     ] ],
     [ "rbase< nparts, dimx, float_t >", "classrbase.html", [
+      [ "mn_resamp_fast1< nparts, dimx, float_t >", "classmn__resamp__fast1.html", null ],
       [ "mn_resampler< nparts, dimx, float_t >", "classmn__resampler.html", null ],
       [ "resid_resampler< nparts, dimx, float_t >", "classresid__resampler.html", null ],
       [ "stratif_resampler< nparts, dimx, float_t >", "classstratif__resampler.html", null ],
@@ -37,8 +38,11 @@ var hierarchy =
       [ "rvsamp::BernSampler< float_t, int_t >", "classrvsamp_1_1BernSampler.html", null ],
       [ "rvsamp::k_gen< N, float_t >", "classrvsamp_1_1k__gen.html", null ],
       [ "rvsamp::MVNSampler< dim, float_t >", "classrvsamp_1_1MVNSampler.html", null ],
+      [ "rvsamp::PoissonSampler< float_t, int_t >", "classrvsamp_1_1PoissonSampler.html", null ],
       [ "rvsamp::TruncUnivNormSampler< float_t >", "classrvsamp_1_1TruncUnivNormSampler.html", null ],
       [ "rvsamp::UniformSampler< float_t >", "classrvsamp_1_1UniformSampler.html", null ],
+      [ "rvsamp::UnivGammaSampler< float_t >", "classrvsamp_1_1UnivGammaSampler.html", null ],
+      [ "rvsamp::UnivInvGammaSampler< float_t >", "classrvsamp_1_1UnivInvGammaSampler.html", null ],
       [ "rvsamp::UnivLogNormSampler< float_t >", "classrvsamp_1_1UnivLogNormSampler.html", null ],
       [ "rvsamp::UnivNormSampler< float_t >", "classrvsamp_1_1UnivNormSampler.html", null ]
     ] ]

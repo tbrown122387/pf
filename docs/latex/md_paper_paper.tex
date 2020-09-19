@@ -1,0 +1,38 @@
+
+
+ title\+: \textquotesingle{}A Short Introduction to PF\+: A C++ Library for Particle Filtering\textquotesingle{} tags\+:
+\begin{DoxyItemize}
+\item particle filter
+\item c++ authors\+:
+\item name\+: Taylor R. Brown orcid\+: 0000-\/0003-\/4972-\/6251 affiliation\+: 1 affiliations\+:
+\end{DoxyItemize}
+
+name\+: Department of Statistics, University of Virginia, PO Box 400135, Charlottesvilla, VA 22904, U\+SA index\+: 1 date\+: 14 July 2020 \subsection*{bibliography\+: paper.\+bib }
+
+\section*{Summary}
+
+The {\ttfamily PF} library provides {\bfseries class and function templates} that offer fast implementations for a variety of particle filtering algorithms. Each of these algorithms are useful for a wide range of time series models.
+
+In this library, each available particle filtering algorithm is provided as an abstract base class template. Once the data analyst has a specific state-\/space or hidden Markov model in mind, she will pick which type(s) of particle filtering algorithm(s) to associate with that model by including the appropriate header file. For each model-\/particle filter pair, she will write a class template for her model that inherits from the particle filter\textquotesingle{}s base class template.
+
+The details of each algorithm are abstracted away, and each algorithm\textquotesingle{}s class template\textquotesingle{}s required functions are pure virtual methods, meaning that the data analyst will not be able to omit any function that is required by the algorithm.
+
+This is by no means the first {\ttfamily C++} library to be offered that provides particle filter implementations. Other options include {\ttfamily Lib\+Bi} \mbox{[}\mbox{]}, {\ttfamily Biips} \mbox{[}\mbox{]}, {\ttfamily S\+M\+C\+TC} \mbox{[}\+:2009\+:J\+S\+S\+O\+BK\+:v30i06\mbox{]} and {\ttfamily Nimble} \mbox{[}\+:10.\+1080/10618600.2016.\+1172487\mbox{]}. The goals of these software packages are different, though--users of these libraries write their models in a scripting language, and that model file gets parsed into {\ttfamily C++} code. This library is designed for users that prefer to work in {\ttfamily C++} directly.
+
+\section*{Statement of Need}
+
+State-\/space models describe a partially-\/observed Markov chain--they possess a hidden/latent variable at each time point, in addition to an observed variable. {\ttfamily Filtering\char`\"{} is defined as obtaining the distributions of each unobserved state/code random variable, conditioning on all of the observed information up to that point in time.$<$/tt$>$\+Particle filters\char`\"{} are a class of algorithms that approximate this sequence of distributions with weighted samples (termed particles). Filtering is a useful tool for a variety of applications in a variety of fields, but it should also be mentioned that they can be used for real-\/time forecasting with only minor modifications, and they are critical component of more advanced parameter estimation algorithms.}
+
+{\ttfamily Unfortunately, it takes time and effort to implement different particle filters well, and this is true for two reasons. First, the mathematical notation used to describe them can be complex. The second reason is that, even if they are correctly implemented, they can be quite slow, limiting the number of tasks that they would be feasible for. This library attempts to provide speed and abstraction to mitigate these two difficulties.}
+
+{\ttfamily Additionally, this software is designed in an object-\/oriented manner. This allows for individual particle filters to be used in isolation, and it also facilitates the implementation of more complicated algorithms that update many particle filters through many iterations in a stateful way, possibly in parallel. For this second class of algorithms, there are usually two necessary loops\+: the {\ttfamily outer\char`\"{} loop that loops over time, and the$<$/tt$>$inner\char`\"{} loop that iterates over each distinct particle filter. Without an object-\/oriented design, there would be a third loop, which loops over all particle samples in each particle filter. Some examples of opportunities include particle filters with parallelized resampling schemes \mbox{[}@1453776,1309.\+2918\mbox{]}, particle Markov chain Monte Carlo algorithms \mbox{[}\mbox{]}, importance sampling \char`\"{}squared\char`\"{} \mbox{[}\mbox{]}, and the particle swarm algorithm \mbox{[}\mbox{]}.}}
+
+{\ttfamily {\ttfamily Finally, this library is \char`\"{}header-\/only.\char`\"{} As a result, building your {\ttfamily C++} project is as simple as possible. The only required steps are {\ttfamily \#include}-\/ing relevant headers, and pointing the compiler at the {\ttfamily include/pf/} directory. This directory stores all necessary code, although there there are unit tests and examples provided as well.}}
+
+{\ttfamily {\ttfamily \section*{Example}}}
+
+{\ttfamily {\ttfamily }}
+
+{\ttfamily {\ttfamily A fully-\/worked example is provided along with this software available at \href{https://github.com/tbrown122387/pf}{\tt https\+://github.\+com/tbrown122387/pf}. This example considers modeling a financial time series with a simple stochastic volatility model \mbox{[}\mbox{]} with three parameters\+: \$, \$ and \$\$. For this model, the observable rate of return \$y\+\_\+t\$ is normally distributed after conditioning on the contemporaneous state random variable \$x\+\_\+t\$. The mean parameter of this normal distribution will remain fixed at \$0\$. However, the scale of this distribution will vary with the evolving \$x\+\_\+t\$. When \$x\+\_\+t\$ is relatively high, the returns will have a high conditional variance and be \char`\"{}volatile.\char`\"{} When \$x\+\_\+t\$ is low, the returns will be much less volatile.}}
+
+{\ttfamily {\ttfamily The observation equation is \{eqnarray\} y\+\_\+t =  e$^\wedge$\{x\+\_\+t/2\} z\+\_\+t \{eqnarray\} where \$z\+\_\+t }}

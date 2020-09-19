@@ -33,11 +33,11 @@ Collaboration diagram for rvsamp\+:\+:Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $
 \mbox{\Hypertarget{classrvsamp_1_1UnivLogNormSampler_aa31a7d6a486257b4a8404b74c7887b11}\label{classrvsamp_1_1UnivLogNormSampler_aa31a7d6a486257b4a8404b74c7887b11}} 
 \hyperlink{classrvsamp_1_1UnivLogNormSampler_aa31a7d6a486257b4a8404b74c7887b11}{Univ\+Log\+Norm\+Sampler} ()
 \begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for standard Normal random variate generation. \end{DoxyCompactList}\item 
-\hyperlink{classrvsamp_1_1UnivLogNormSampler_a679213457584e98a7dc205a9b7d6a0cd}{Univ\+Log\+Norm\+Sampler} (const float\+\_\+t \&mu, const float\+\_\+t \&sigma)
+\hyperlink{classrvsamp_1_1UnivLogNormSampler_acdec4ea77c92dad9603a49201997d4b7}{Univ\+Log\+Norm\+Sampler} (float\+\_\+t mu, float\+\_\+t sigma)
 \begin{DoxyCompactList}\small\item\em The user must supply both mu and sigma. \end{DoxyCompactList}\item 
-void \hyperlink{classrvsamp_1_1UnivLogNormSampler_a21bdbf5f20b327f5905605dd0357c8b8}{set\+Sigma} (const float\+\_\+t \&sigma)
+void \hyperlink{classrvsamp_1_1UnivLogNormSampler_a17c3147be7048605a457297f44a0d269}{set\+Sigma} (float\+\_\+t sigma)
 \begin{DoxyCompactList}\small\item\em sets the scale parameter of the logged random variable. \end{DoxyCompactList}\item 
-void \hyperlink{classrvsamp_1_1UnivLogNormSampler_a43c00fb2c560c1444ccdee13060c5153}{set\+Mu} (const float\+\_\+t \&mu)
+void \hyperlink{classrvsamp_1_1UnivLogNormSampler_af4d1a62b0cb1143290cac22922755a95}{set\+Mu} (float\+\_\+t mu)
 \begin{DoxyCompactList}\small\item\em sets the location parameter of the logged random variable. \end{DoxyCompactList}\item 
 float\+\_\+t \hyperlink{classrvsamp_1_1UnivLogNormSampler_a816c87875ed08b4b90f9fbe3fd4bda88}{sample} ()
 \begin{DoxyCompactList}\small\item\em draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -68,12 +68,12 @@ taylor
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classrvsamp_1_1UnivLogNormSampler_a679213457584e98a7dc205a9b7d6a0cd}\label{classrvsamp_1_1UnivLogNormSampler_a679213457584e98a7dc205a9b7d6a0cd}} 
+\mbox{\Hypertarget{classrvsamp_1_1UnivLogNormSampler_acdec4ea77c92dad9603a49201997d4b7}\label{classrvsamp_1_1UnivLogNormSampler_acdec4ea77c92dad9603a49201997d4b7}} 
 \index{rvsamp\+::\+Univ\+Log\+Norm\+Sampler@{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}!Univ\+Log\+Norm\+Sampler@{Univ\+Log\+Norm\+Sampler}}
 \index{Univ\+Log\+Norm\+Sampler@{Univ\+Log\+Norm\+Sampler}!rvsamp\+::\+Univ\+Log\+Norm\+Sampler@{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}}
 \subsubsection{\texorpdfstring{Univ\+Log\+Norm\+Sampler()}{UnivLogNormSampler()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
-\hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1UnivLogNormSampler}{Univ\+Log\+Norm\+Sampler} (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{mu,  }\item[{const float\+\_\+t \&}]{sigma }\end{DoxyParamCaption})}
+\hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1UnivLogNormSampler}{Univ\+Log\+Norm\+Sampler} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu,  }\item[{float\+\_\+t}]{sigma }\end{DoxyParamCaption})}
 
 
 
@@ -103,12 +103,12 @@ draws a random number.
 \begin{DoxyReturn}{Returns}
 a random sample of type float\+\_\+t. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrvsamp_1_1UnivLogNormSampler_a43c00fb2c560c1444ccdee13060c5153}\label{classrvsamp_1_1UnivLogNormSampler_a43c00fb2c560c1444ccdee13060c5153}} 
+\mbox{\Hypertarget{classrvsamp_1_1UnivLogNormSampler_af4d1a62b0cb1143290cac22922755a95}\label{classrvsamp_1_1UnivLogNormSampler_af4d1a62b0cb1143290cac22922755a95}} 
 \index{rvsamp\+::\+Univ\+Log\+Norm\+Sampler@{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}!set\+Mu@{set\+Mu}}
 \index{set\+Mu@{set\+Mu}!rvsamp\+::\+Univ\+Log\+Norm\+Sampler@{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}}
 \subsubsection{\texorpdfstring{set\+Mu()}{setMu()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
-void \hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Mu (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{mu }\end{DoxyParamCaption})}
+void \hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Mu (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu }\end{DoxyParamCaption})}
 
 
 
@@ -119,12 +119,12 @@ sets the location parameter of the logged random variable.
 {\em mu} & the desired parameter. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classrvsamp_1_1UnivLogNormSampler_a21bdbf5f20b327f5905605dd0357c8b8}\label{classrvsamp_1_1UnivLogNormSampler_a21bdbf5f20b327f5905605dd0357c8b8}} 
+\mbox{\Hypertarget{classrvsamp_1_1UnivLogNormSampler_a17c3147be7048605a457297f44a0d269}\label{classrvsamp_1_1UnivLogNormSampler_a17c3147be7048605a457297f44a0d269}} 
 \index{rvsamp\+::\+Univ\+Log\+Norm\+Sampler@{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}!set\+Sigma@{set\+Sigma}}
 \index{set\+Sigma@{set\+Sigma}!rvsamp\+::\+Univ\+Log\+Norm\+Sampler@{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}}
 \subsubsection{\texorpdfstring{set\+Sigma()}{setSigma()}}
 {\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
-void \hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Sigma (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{sigma }\end{DoxyParamCaption})}
+void \hyperlink{classrvsamp_1_1UnivLogNormSampler}{rvsamp\+::\+Univ\+Log\+Norm\+Sampler}$<$ float\+\_\+t $>$\+::set\+Sigma (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{sigma }\end{DoxyParamCaption})}
 
 
 
@@ -139,4 +139,4 @@ sets the scale parameter of the logged random variable.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}
+include/pf/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

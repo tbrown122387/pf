@@ -1,5 +1,5 @@
-\hypertarget{classBSFilter}{}\section{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$ Class Template Reference}
-\label{classBSFilter}\index{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$@{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$}}
+\hypertarget{classBSFilter}{}\section{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$ Class Template Reference}
+\label{classBSFilter}\index{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$@{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}}
 
 
 A base class for the bootstrap particle filter.  
@@ -11,88 +11,95 @@ A base class for the bootstrap particle filter.
 
 
 
-Inheritance diagram for B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+:\nopagebreak
+Inheritance diagram for B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=209pt]{classBSFilter__inherit__graph}
+\includegraphics[width=198pt]{classBSFilter__inherit__graph}
 \end{center}
 \end{figure}
 
 
-Collaboration diagram for B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+:\nopagebreak
+Collaboration diagram for B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=209pt]{classBSFilter__coll__graph}
+\includegraphics[width=198pt]{classBSFilter__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+using \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
 \item 
-using \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
+using \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
 \item 
-using \hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+using \hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
 \item 
-using \hyperlink{classBSFilter_a0afe61a08de8d178647b23beae9eef16}{array\+States} = std\+::array$<$ \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv}, nparts $>$
+using \hyperlink{classBSFilter_a1d6f4a7ba66dda970cd6ea68a70fd641}{array\+States} = std\+::array$<$ \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv}, nparts $>$
 \item 
-using \hyperlink{classBSFilter_a14a572439ddfe7d2b4157d4c91617981}{array\+Float} = std\+::array$<$ float\+\_\+t, nparts $>$
+using \hyperlink{classBSFilter_af495dadc972ef1f8d776fe1716177aee}{array\+Float} = std\+::array$<$ float\+\_\+t, nparts $>$
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classBSFilter_a49614246ae7b55b04b9e232cd4fb6bc1}{B\+S\+Filter} (const unsigned int \&rs=1)
+\hyperlink{classBSFilter_ab4cab4322cfd2f3f2ed1d4d9b8d058f7}{B\+S\+Filter} (const unsigned int \&rs=1)
 \begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBSFilter_a29848932b9da3b16de1b3c99735de478}\label{classBSFilter_a29848932b9da3b16de1b3c99735de478}} 
-virtual \hyperlink{classBSFilter_a29848932b9da3b16de1b3c99735de478}{$\sim$\+B\+S\+Filter} ()
+\mbox{\Hypertarget{classBSFilter_a73ee518e89b539464a09430ef541ea7f}\label{classBSFilter_a73ee518e89b539464a09430ef541ea7f}} 
+virtual \hyperlink{classBSFilter_a73ee518e89b539464a09430ef541ea7f}{$\sim$\+B\+S\+Filter} ()
 \begin{DoxyCompactList}\small\item\em The (virtual) destructor. \end{DoxyCompactList}\item 
-float\+\_\+t \hyperlink{classBSFilter_a6ab6ad2b7b5bd26d8f57af71e560f0a7}{get\+Log\+Cond\+Like} () const
+float\+\_\+t \hyperlink{classBSFilter_a9cc91baeaaa2a22bff48d82157c86ec5}{get\+Log\+Cond\+Like} () const
 \begin{DoxyCompactList}\small\item\em Returns the most recent (log-\/) conditiona likelihood. \end{DoxyCompactList}\item 
-void \hyperlink{classBSFilter_a651d0228e8477c0ca7d522cd72908a57}{filter} (const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&data, const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat}(const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat}(const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&)$>$ $>$())
+void \hyperlink{classBSFilter_a76a59b050d0cc0397b1f594a0a1c22ac}{filter} (const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&data, const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat}(const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&)$>$ $>$ \&fs=std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat}(const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&)$>$ $>$())
 \begin{DoxyCompactList}\small\item\em updates filtering distribution on a new datapoint. Optionally stores expectations of functionals. \end{DoxyCompactList}\item 
-auto \hyperlink{classBSFilter_af0750c5880c1e5254cfd18157a623915}{get\+Expectations} () const -\/$>$ std\+::vector$<$ \hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat} $>$
+auto \hyperlink{classBSFilter_a837a9dc83c07195fb96b4228dc8e41fe}{get\+Expectations} () const -\/$>$ std\+::vector$<$ \hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat} $>$
 \begin{DoxyCompactList}\small\item\em return all stored expectations (taken with respect to \$p(x\+\_\+t$\vert$y\+\_\+\{1\+:t\})\$ \end{DoxyCompactList}\item 
-virtual float\+\_\+t \hyperlink{classBSFilter_ac219cb7510becb1be18dbb0b66b4c2c5}{log\+Mu\+Ev} (const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&x1)=0
+virtual float\+\_\+t \hyperlink{classBSFilter_a460a1a2f97a5d1088a95f6b766e9dc56}{log\+Mu\+Ev} (const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&x1)=0
 \begin{DoxyCompactList}\small\item\em Calculate mu\+Ev or logmu\+Ev. \end{DoxyCompactList}\item 
-virtual \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \hyperlink{classBSFilter_a457b10ec9f21aed47c2754b362a6859d}{q1\+Samp} (const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&y1)=0
+virtual \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \hyperlink{classBSFilter_a82185282cbc7ddf5983933ccd7705577}{q1\+Samp} (const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&y1)=0
 \begin{DoxyCompactList}\small\item\em Samples from time 1 proposal. \end{DoxyCompactList}\item 
-virtual float\+\_\+t \hyperlink{classBSFilter_accd0c37510c408075939531766363390}{log\+Q1\+Ev} (const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&x1, const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&y1)=0
+virtual float\+\_\+t \hyperlink{classBSFilter_a81321d8ca9960ea4102c6fe3dc7b7636}{log\+Q1\+Ev} (const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&x1, const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&y1)=0
 \begin{DoxyCompactList}\small\item\em Calculate q1\+Ev or log q1\+Ev. \end{DoxyCompactList}\item 
-virtual float\+\_\+t \hyperlink{classBSFilter_ae7ef5c414525879235f1e3b72833ced5}{log\+G\+Ev} (const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&yt, const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&xt)=0
+virtual float\+\_\+t \hyperlink{classBSFilter_a1cf2ed5153756a015384d459e72a57de}{log\+G\+Ev} (const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&yt, const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&xt)=0
 \begin{DoxyCompactList}\small\item\em Calculate g\+Ev or log\+G\+Ev. \end{DoxyCompactList}\item 
-virtual \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \hyperlink{classBSFilter_a72ec2cf2887b3d236f5bc54cc5c5df95}{f\+Samp} (const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&xtm1)=0
+virtual \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \hyperlink{classBSFilter_ac97a15ea8002b48e56d94c8de699caa2}{f\+Samp} (const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&xtm1)=0
 \begin{DoxyCompactList}\small\item\em Sample from the state transition distribution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr unsigned int \hyperlink{classBSFilter_a2a6b1e1870c1a4f3e7ca0b721b697ce2}{num\+\_\+particles} = nparts
+\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classBSFilter_acb5460829dc8215ce2917a24850da444}\label{classBSFilter_acb5460829dc8215ce2917a24850da444}} 
-\hyperlink{classBSFilter_a0afe61a08de8d178647b23beae9eef16}{array\+States} \hyperlink{classBSFilter_acb5460829dc8215ce2917a24850da444}{m\+\_\+particles}
+\mbox{\Hypertarget{classBSFilter_a52dde1eb7fe247f783f4f2e5388f86ac}\label{classBSFilter_a52dde1eb7fe247f783f4f2e5388f86ac}} 
+\hyperlink{classBSFilter_a1d6f4a7ba66dda970cd6ea68a70fd641}{array\+States} \hyperlink{classBSFilter_a52dde1eb7fe247f783f4f2e5388f86ac}{m\+\_\+particles}
 \begin{DoxyCompactList}\small\item\em particle samples \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBSFilter_a87e73c82920c3d40b63b544f91b546dd}\label{classBSFilter_a87e73c82920c3d40b63b544f91b546dd}} 
-\hyperlink{classBSFilter_a14a572439ddfe7d2b4157d4c91617981}{array\+Float} \hyperlink{classBSFilter_a87e73c82920c3d40b63b544f91b546dd}{m\+\_\+log\+Un\+Norm\+Weights}
+\mbox{\Hypertarget{classBSFilter_a06b115e9578557bbef4064e43b1afbbe}\label{classBSFilter_a06b115e9578557bbef4064e43b1afbbe}} 
+\hyperlink{classBSFilter_af495dadc972ef1f8d776fe1716177aee}{array\+Float} \hyperlink{classBSFilter_a06b115e9578557bbef4064e43b1afbbe}{m\+\_\+log\+Un\+Norm\+Weights}
 \begin{DoxyCompactList}\small\item\em particle unnormalized weights \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBSFilter_a2ff792d36cac3dfb67fad4fb1f49f63c}\label{classBSFilter_a2ff792d36cac3dfb67fad4fb1f49f63c}} 
-unsigned int \hyperlink{classBSFilter_a2ff792d36cac3dfb67fad4fb1f49f63c}{m\+\_\+now}
+\mbox{\Hypertarget{classBSFilter_adf89ebde89f4ab2d5aa7754042481345}\label{classBSFilter_adf89ebde89f4ab2d5aa7754042481345}} 
+unsigned int \hyperlink{classBSFilter_adf89ebde89f4ab2d5aa7754042481345}{m\+\_\+now}
 \begin{DoxyCompactList}\small\item\em time point \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBSFilter_a488e36bdbc661d121664ca352ef942e8}\label{classBSFilter_a488e36bdbc661d121664ca352ef942e8}} 
-float\+\_\+t \hyperlink{classBSFilter_a488e36bdbc661d121664ca352ef942e8}{m\+\_\+log\+Last\+Cond\+Like}
+\mbox{\Hypertarget{classBSFilter_a4aca072edced8670e55023a47ffd551a}\label{classBSFilter_a4aca072edced8670e55023a47ffd551a}} 
+float\+\_\+t \hyperlink{classBSFilter_a4aca072edced8670e55023a47ffd551a}{m\+\_\+log\+Last\+Cond\+Like}
 \begin{DoxyCompactList}\small\item\em log p(y\+\_\+t$\vert$y\+\_\+\{1\+:t-\/1\}) or log p(y1) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBSFilter_aab4d679d34466613de7b95c3e9411493}\label{classBSFilter_aab4d679d34466613de7b95c3e9411493}} 
-resamp\+\_\+t \hyperlink{classBSFilter_aab4d679d34466613de7b95c3e9411493}{m\+\_\+resampler}
+\mbox{\Hypertarget{classBSFilter_aff77ccb7698f098b7d88781a20cef538}\label{classBSFilter_aff77ccb7698f098b7d88781a20cef538}} 
+resamp\+\_\+t \hyperlink{classBSFilter_aff77ccb7698f098b7d88781a20cef538}{m\+\_\+resampler}
 \begin{DoxyCompactList}\small\item\em resampler object \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBSFilter_afc613fc34025a80b7745ae1e191c78c0}\label{classBSFilter_afc613fc34025a80b7745ae1e191c78c0}} 
-std\+::vector$<$ \hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat} $>$ \hyperlink{classBSFilter_afc613fc34025a80b7745ae1e191c78c0}{m\+\_\+expectations}
+\mbox{\Hypertarget{classBSFilter_ad36944944fce5d23663245c8cc0a296a}\label{classBSFilter_ad36944944fce5d23663245c8cc0a296a}} 
+std\+::vector$<$ \hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat} $>$ \hyperlink{classBSFilter_ad36944944fce5d23663245c8cc0a296a}{m\+\_\+expectations}
 \begin{DoxyCompactList}\small\item\em expectations E\mbox{[}h(x\+\_\+t) $\vert$ y\+\_\+\{1\+:t\}\mbox{]} for user defined \char`\"{}h\char`\"{}s \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBSFilter_a3ae16f95c62e798c64150d3bb1451c9c}\label{classBSFilter_a3ae16f95c62e798c64150d3bb1451c9c}} 
-unsigned int \hyperlink{classBSFilter_a3ae16f95c62e798c64150d3bb1451c9c}{m\+\_\+resamp\+Sched}
+\mbox{\Hypertarget{classBSFilter_a1962760bd541b6dbea7da7c5572f60e0}\label{classBSFilter_a1962760bd541b6dbea7da7c5572f60e0}} 
+unsigned int \hyperlink{classBSFilter_a1962760bd541b6dbea7da7c5572f60e0}{m\+\_\+resamp\+Sched}
 \begin{DoxyCompactList}\small\item\em resampling schedule (e.\+g. resample every \+\_\+\+\_\+ time points) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t, typename float\+\_\+t$>$\newline
-class B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t, typename float\+\_\+t, bool debug = false$>$\newline
+class B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}
 
 A base class for the bootstrap particle filter. 
 
@@ -102,50 +109,50 @@ taylor
 
 
 \subsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classBSFilter_a14a572439ddfe7d2b4157d4c91617981}\label{classBSFilter_a14a572439ddfe7d2b4157d4c91617981}} 
+\mbox{\Hypertarget{classBSFilter_af495dadc972ef1f8d776fe1716177aee}\label{classBSFilter_af495dadc972ef1f8d776fe1716177aee}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!array\+Float@{array\+Float}}
 \index{array\+Float@{array\+Float}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{array\+Float}{arrayFloat}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilter_a14a572439ddfe7d2b4157d4c91617981}{array\+Float} =  std\+::array$<$float\+\_\+t, nparts$>$}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::\hyperlink{classBSFilter_af495dadc972ef1f8d776fe1716177aee}{array\+Float} =  std\+::array$<$float\+\_\+t, nparts$>$}
 
-type alias for array of floating points \mbox{\Hypertarget{classBSFilter_a0afe61a08de8d178647b23beae9eef16}\label{classBSFilter_a0afe61a08de8d178647b23beae9eef16}} 
+type alias for array of floating points \mbox{\Hypertarget{classBSFilter_a1d6f4a7ba66dda970cd6ea68a70fd641}\label{classBSFilter_a1d6f4a7ba66dda970cd6ea68a70fd641}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!array\+States@{array\+States}}
 \index{array\+States@{array\+States}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{array\+States}{arrayStates}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilter_a0afe61a08de8d178647b23beae9eef16}{array\+States} =  std\+::array$<$\hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv}, nparts$>$}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::\hyperlink{classBSFilter_a1d6f4a7ba66dda970cd6ea68a70fd641}{array\+States} =  std\+::array$<$\hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv}, nparts$>$}
 
-type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}\label{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}} 
+type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}\label{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!Mat@{Mat}}
 \index{Mat@{Mat}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{Mat}{Mat}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat} =  Eigen\+::\+Matrix$<$float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic$>$}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::\hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat} =  Eigen\+::\+Matrix$<$float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic$>$}
 
-type alias for dynamically sized matrix \mbox{\Hypertarget{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}\label{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}} 
+type alias for dynamically sized matrix \mbox{\Hypertarget{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}\label{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!osv@{osv}}
 \index{osv@{osv}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{osv}{osv}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} =  Eigen\+::\+Matrix$<$float\+\_\+t, dimy, 1$>$}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::\hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} =  Eigen\+::\+Matrix$<$float\+\_\+t, dimy, 1$>$}
 
-\char`\"{}obs size vector\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}\label{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}} 
+\char`\"{}obs size vector\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}\label{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!ssv@{ssv}}
 \index{ssv@{ssv}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{ssv}{ssv}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t, dimx, 1$>$}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+using \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::\hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t, dimx, 1$>$}
 
 \char`\"{}state size vector\char`\"{} type alias for linear algebra stuff 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classBSFilter_a49614246ae7b55b04b9e232cd4fb6bc1}\label{classBSFilter_a49614246ae7b55b04b9e232cd4fb6bc1}} 
+\mbox{\Hypertarget{classBSFilter_ab4cab4322cfd2f3f2ed1d4d9b8d058f7}\label{classBSFilter_ab4cab4322cfd2f3f2ed1d4d9b8d058f7}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!B\+S\+Filter@{B\+S\+Filter}}
 \index{B\+S\+Filter@{B\+S\+Filter}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{B\+S\+Filter()}{BSFilter()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-\hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::\hyperlink{classBSFilter}{B\+S\+Filter} (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{rs = {\ttfamily 1} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug$>$ \\
+\hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::\hyperlink{classBSFilter}{B\+S\+Filter} (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{rs = {\ttfamily 1} }\end{DoxyParamCaption})}
 
 
 
@@ -159,12 +166,12 @@ The constructor.
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classBSFilter_a651d0228e8477c0ca7d522cd72908a57}\label{classBSFilter_a651d0228e8477c0ca7d522cd72908a57}} 
+\mbox{\Hypertarget{classBSFilter_a76a59b050d0cc0397b1f594a0a1c22ac}\label{classBSFilter_a76a59b050d0cc0397b1f594a0a1c22ac}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!filter@{filter}}
 \index{filter@{filter}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{filter()}{filter()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-void \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::filter (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&}]{data,  }\item[{const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat}(const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&)$>$ $>$ \&}]{fs = {\ttfamily std\+:\+:vector$<$std\+:\+:function$<$const~\hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat}(const~\hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv}\&)$>$~$>$()} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug$>$ \\
+void \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::filter (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&}]{data,  }\item[{const std\+::vector$<$ std\+::function$<$ const \hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat}(const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&)$>$ $>$ \&}]{fs = {\ttfamily std\+:\+:vector$<$std\+:\+:function$<$const~\hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat}(const~\hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv}\&)$>$~$>$()} }\end{DoxyParamCaption})}
 
 
 
@@ -177,14 +184,12 @@ updates filtering distribution on a new datapoint. Optionally stores expectation
 {\em fs} & a vector of functions if you want to calculate expectations. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000001}{Todo}]\+: work in support for effective sample size stuff. \end{DoxyRefDesc}
-\mbox{\Hypertarget{classBSFilter_a72ec2cf2887b3d236f5bc54cc5c5df95}\label{classBSFilter_a72ec2cf2887b3d236f5bc54cc5c5df95}} 
+\mbox{\Hypertarget{classBSFilter_ac97a15ea8002b48e56d94c8de699caa2}\label{classBSFilter_ac97a15ea8002b48e56d94c8de699caa2}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!f\+Samp@{f\+Samp}}
 \index{f\+Samp@{f\+Samp}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{f\+Samp()}{fSamp()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-virtual \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::f\+Samp (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&}]{xtm1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+virtual \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::f\+Samp (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&}]{xtm1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -198,12 +203,12 @@ Sample from the state transition distribution.
 \begin{DoxyReturn}{Returns}
 the sample as a Vec 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBSFilter_af0750c5880c1e5254cfd18157a623915}\label{classBSFilter_af0750c5880c1e5254cfd18157a623915}} 
+\mbox{\Hypertarget{classBSFilter_a837a9dc83c07195fb96b4228dc8e41fe}\label{classBSFilter_a837a9dc83c07195fb96b4228dc8e41fe}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!get\+Expectations@{get\+Expectations}}
 \index{get\+Expectations@{get\+Expectations}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{get\+Expectations()}{getExpectations()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-auto \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::get\+Expectations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$ std\+::vector$<$\hyperlink{classBSFilter_a8ec8e8477e12686e706e7d7aa5c2971c}{Mat}$>$}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug$>$ \\
+auto \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::get\+Expectations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$ std\+::vector$<$\hyperlink{classBSFilter_a190a71c131060b131c11ebe2c3fefbeb}{Mat}$>$}
 
 
 
@@ -212,12 +217,12 @@ return all stored expectations (taken with respect to \$p(x\+\_\+t$\vert$y\+\_\+
 \begin{DoxyReturn}{Returns}
 return a std\+::vector$<$\+Mat$>$ of expectations. How many depends on how many callbacks you gave to 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBSFilter_a6ab6ad2b7b5bd26d8f57af71e560f0a7}\label{classBSFilter_a6ab6ad2b7b5bd26d8f57af71e560f0a7}} 
+\mbox{\Hypertarget{classBSFilter_a9cc91baeaaa2a22bff48d82157c86ec5}\label{classBSFilter_a9cc91baeaaa2a22bff48d82157c86ec5}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}}
 \index{get\+Log\+Cond\+Like@{get\+Log\+Cond\+Like}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{get\+Log\+Cond\+Like()}{getLogCondLike()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug$>$ \\
+float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -230,12 +235,12 @@ log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\})
 
 Implements \hyperlink{classpf__base_a350df818820d6ab0fd6d413022b7f23b}{pf\+\_\+base$<$ float\+\_\+t, dimy, dimx $>$}.
 
-\mbox{\Hypertarget{classBSFilter_ae7ef5c414525879235f1e3b72833ced5}\label{classBSFilter_ae7ef5c414525879235f1e3b72833ced5}} 
+\mbox{\Hypertarget{classBSFilter_a1cf2ed5153756a015384d459e72a57de}\label{classBSFilter_a1cf2ed5153756a015384d459e72a57de}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!log\+G\+Ev@{log\+G\+Ev}}
 \index{log\+G\+Ev@{log\+G\+Ev}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{log\+G\+Ev()}{logGEv()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-virtual float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::log\+G\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&}]{yt,  }\item[{const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&}]{xt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+virtual float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::log\+G\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&}]{yt,  }\item[{const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&}]{xt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -251,12 +256,12 @@ Calculate g\+Ev or log\+G\+Ev.
 \begin{DoxyReturn}{Returns}
 the density or log-\/density evaluation 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBSFilter_ac219cb7510becb1be18dbb0b66b4c2c5}\label{classBSFilter_ac219cb7510becb1be18dbb0b66b4c2c5}} 
+\mbox{\Hypertarget{classBSFilter_a460a1a2f97a5d1088a95f6b766e9dc56}\label{classBSFilter_a460a1a2f97a5d1088a95f6b766e9dc56}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!log\+Mu\+Ev@{log\+Mu\+Ev}}
 \index{log\+Mu\+Ev@{log\+Mu\+Ev}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{log\+Mu\+Ev()}{logMuEv()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-virtual float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::log\+Mu\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&}]{x1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+virtual float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::log\+Mu\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&}]{x1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -270,12 +275,12 @@ Calculate mu\+Ev or logmu\+Ev.
 \begin{DoxyReturn}{Returns}
 the density or log-\/density evaluation 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBSFilter_accd0c37510c408075939531766363390}\label{classBSFilter_accd0c37510c408075939531766363390}} 
+\mbox{\Hypertarget{classBSFilter_a81321d8ca9960ea4102c6fe3dc7b7636}\label{classBSFilter_a81321d8ca9960ea4102c6fe3dc7b7636}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!log\+Q1\+Ev@{log\+Q1\+Ev}}
 \index{log\+Q1\+Ev@{log\+Q1\+Ev}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{log\+Q1\+Ev()}{logQ1Ev()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-virtual float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::log\+Q1\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \&}]{x1,  }\item[{const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&}]{y1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+virtual float\+\_\+t \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::log\+Q1\+Ev (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \&}]{x1,  }\item[{const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&}]{y1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -291,12 +296,12 @@ Calculate q1\+Ev or log q1\+Ev.
 \begin{DoxyReturn}{Returns}
 the density or log-\/density evaluation 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBSFilter_a457b10ec9f21aed47c2754b362a6859d}\label{classBSFilter_a457b10ec9f21aed47c2754b362a6859d}} 
+\mbox{\Hypertarget{classBSFilter_a82185282cbc7ddf5983933ccd7705577}\label{classBSFilter_a82185282cbc7ddf5983933ccd7705577}} 
 \index{B\+S\+Filter@{B\+S\+Filter}!q1\+Samp@{q1\+Samp}}
 \index{q1\+Samp@{q1\+Samp}!B\+S\+Filter@{B\+S\+Filter}}
 \subsubsection{\texorpdfstring{q1\+Samp()}{q1Samp()}}
-{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t $>$ \\
-virtual \hyperlink{classBSFilter_a0b5bc93957fb6b6b1282f31fa2e01c3c}{ssv} \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t $>$\+::q1\+Samp (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_ad8512328484d7c7bd7a3b7a9481d7f37}{osv} \&}]{y1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+virtual \hyperlink{classBSFilter_ad2341b982bcdabc798d7ed0f327d28f7}{ssv} \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::q1\+Samp (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSFilter_a9a4da560f11a6e2d35ffe693de54826b}{osv} \&}]{y1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -312,6 +317,16 @@ the sample as a Vec
 \end{DoxyReturn}
 
 
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classBSFilter_a2a6b1e1870c1a4f3e7ca0b721b697ce2}\label{classBSFilter_a2a6b1e1870c1a4f3e7ca0b721b697ce2}} 
+\index{B\+S\+Filter@{B\+S\+Filter}!num\+\_\+particles@{num\+\_\+particles}}
+\index{num\+\_\+particles@{num\+\_\+particles}!B\+S\+Filter@{B\+S\+Filter}}
+\subsubsection{\texorpdfstring{num\+\_\+particles}{num\_particles}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimy, typename resamp\+\_\+t , typename float\+\_\+t , bool debug = false$>$ \\
+constexpr unsigned int \hyperlink{classBSFilter}{B\+S\+Filter}$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$\+::num\+\_\+particles = nparts\hspace{0.3cm}{\ttfamily [static]}}
+
+the number of particles 
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{bootstrap__filter_8h}{bootstrap\+\_\+filter.\+h}\end{DoxyCompactItemize}
+include/pf/\hyperlink{bootstrap__filter_8h}{bootstrap\+\_\+filter.\+h}\end{DoxyCompactItemize}

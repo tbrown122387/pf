@@ -84,13 +84,33 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a href="https://zenodo.org/badge/latestdoi/130237492"></a></p>
-<p>This is a template library for fast particle filtering. Templated abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-Blackwellized particle filter, etc.), as well as non-abstract (but indeed templated) base classes for closed form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.).</p>
-<p>Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use!</p>
+<p>This is a template library for <a href="https://en.wikipedia.org/wiki/Particle_filter">particle filtering</a>. Templated abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the SISR filter, the Auxiliary Particle Filter, the Rao-Blackwellized particle filter), as well as non-abstract (but indeed templated) base classes for closed-form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.).</p>
+<p>Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use.</p>
+<h2>Dependencies</h2>
+<p>This code makes use of the following libraries:</p>
+<ul>
+<li><a href="http://eigen.tuxfamily.org/">Eigen v3.3</a></li>
+<li><a href="https://www.boost.org/">Boost v1.65.1</a></li>
+<li><a href="https://github.com/catchorg/Catch2">Catch2 v2.9.2</a></li>
+</ul>
+<p>Also, your compiler must enable C++17.</p>
 <h2>Installation</h2>
-<p>This is a header-only library, so there is no building necessary. When you use it in another project, make sure to compile with C++11 enabled (<code>-std=c++11</code>), and to include the <code>include</code> directory of this project.</p>
-<p>Note, also, that this code all makes use of <a href="http://eigen.tuxfamily.org/">Eigen</a> and <a href="https://www.boost.org/">Boost</a>.</p>
+<h3>Option 1: Install from Github</h3>
+<p><code>git clone</code> this Github repostory, <code>cd</code> into the directory where everything is saved, then run the following commands: </p><pre class="fragment">mkdir build &amp;&amp; cd build/
+cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr/local
+sudo cmake --build . --config Release --target install --parallel
+</pre><p>You may subsitute another directory for <code>/usr/local</code>, if you wish. This will also build unit tests that can be run with the following command (assuming you're still in <code>build/</code>): </p><pre class="fragment">./test/pf_test
+</pre><h3>Option 2: Drag-and-drop <code>.h</code> files</h3>
+<p>This is a header-only library, so there will be no extra building necessary. If you just want to copy the desired header files from <code>include/pf</code> into your own project, and build that project by itself, that's totally fine. There is no linking necessary, either. If you go this route, though, make sure to compile with C++17 enabled. Note, also, that this code all makes use of <a href="http://eigen.tuxfamily.org/">Eigen v3.3</a> and <a href="https://www.boost.org/">Boost v1.65.1</a>. Unit tests use the <a href="https://github.com/catchorg/Catch2">Catch2 v2.9.2</a> library.</p>
 <h2>Examples</h2>
-<p>Don't know how to use this? Check out the <a href="https://github.com/tbrown122387/pf/tree/master/examples"><code>examples</code></a> directory! Check <code>pf/examples/Makefile</code> to make sure it jives with your directories, and then run <code>make</code>. After that, run <code>./examples ./data/svol_y_data.csv</code> and you'll see the filtering output from <code>examples/svol_comparison.cpp</code>.</p>
+<p>Don't know how to use this? No problem. Check out the <a href="https://github.com/tbrown122387/pf/tree/master/examples"><code>examples</code></a> sub-directory. This is a stand-alone cmake project, so you can just copy this sub-directory anywhere you like, and start editing.</p>
+<p>For example, copy to <code>Desktop</code> and have at it: </p><pre class="fragment">cp -r ~/pf/examples/ ~/Desktop/
+cd Desktop/examples/
+mkdir build &amp;&amp; cd build
+cmake ..
+make
+</pre><h2>Paper</h2>
+<p>A full-length tutorial paper is available <a href="https://arxiv.org/abs/2001.10451">here.</a></p>
 <h2>Citation</h2>
 <p>Click the "DOI" link above. Or, if you're impatient, click <a href="https://zenodo.org/record/2633289/export/hx">'here'</a> for a Bibtex citation. </p>
 </div></div><!-- contents -->

@@ -1,5 +1,6 @@
 var classpf__base =
 [
+    [ "float_type", "classpf__base.html#a5c38fdea8b41026d6c5709be11065f0a", null ],
     [ "func", "classpf__base.html#ae409bcfbd5e1bc542134c4e9b6dce6c3", null ],
     [ "funcs", "classpf__base.html#a0c328d66f991393ec0f1a082d5cbf4a6", null ],
     [ "Mat", "classpf__base.html#a6b7fbe89aa5e34880ad81a5f48e82a04", null ],

@@ -1,0 +1,104 @@
+\hypertarget{classrvsamp_1_1UnivInvGammaSampler}{}\section{rvsamp\+:\+:Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$ Class Template Reference}
+\label{classrvsamp_1_1UnivInvGammaSampler}\index{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$@{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$}}
+
+
+A class that performs sampling from a univariate Inverse Gamma distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for rvsamp\+:\+:Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classrvsamp_1_1UnivInvGammaSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for rvsamp\+:\+:Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classrvsamp_1_1UnivInvGammaSampler__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrvsamp_1_1UnivInvGammaSampler_abb7dbe2cde9fd88880a86765b609d5ac}\label{classrvsamp_1_1UnivInvGammaSampler_abb7dbe2cde9fd88880a86765b609d5ac}} 
+\hyperlink{classrvsamp_1_1UnivInvGammaSampler_abb7dbe2cde9fd88880a86765b609d5ac}{Univ\+Inv\+Gamma\+Sampler} ()
+\begin{DoxyCompactList}\small\item\em Default-\/constructor ... \end{DoxyCompactList}\item 
+\hyperlink{classrvsamp_1_1UnivInvGammaSampler_a90cc04cdd50c15b4795b4f70dbb9dcb5}{Univ\+Inv\+Gamma\+Sampler} (float\+\_\+t alpha, float\+\_\+t beta)
+\item 
+float\+\_\+t \hyperlink{classrvsamp_1_1UnivInvGammaSampler_a5d477f520d0a5069c5fcda5a1952cead}{sample} ()
+\begin{DoxyCompactList}\small\item\em draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrvsamp_1_1UnivInvGammaSampler_ab0ff81a383579c8a6e7f56355270dffe}\label{classrvsamp_1_1UnivInvGammaSampler_ab0ff81a383579c8a6e7f56355270dffe}} 
+std\+::gamma\+\_\+distribution$<$ float\+\_\+t $>$ \hyperlink{classrvsamp_1_1UnivInvGammaSampler_ab0ff81a383579c8a6e7f56355270dffe}{m\+\_\+gamma\+\_\+gen}
+\begin{DoxyCompactList}\small\item\em makes gamma random variates that we take the reciprocal of \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrvsamp_1_1UnivInvGammaSampler_aa60b481c19676ef21c183858a81f27cf}\label{classrvsamp_1_1UnivInvGammaSampler_aa60b481c19676ef21c183858a81f27cf}} 
+float\+\_\+t \hyperlink{classrvsamp_1_1UnivInvGammaSampler_aa60b481c19676ef21c183858a81f27cf}{m\+\_\+alpha}
+\begin{DoxyCompactList}\small\item\em mu \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrvsamp_1_1UnivInvGammaSampler_a6f6a37c5adc270be1b83005949d88619}\label{classrvsamp_1_1UnivInvGammaSampler_a6f6a37c5adc270be1b83005949d88619}} 
+float\+\_\+t \hyperlink{classrvsamp_1_1UnivInvGammaSampler_a6f6a37c5adc270be1b83005949d88619}{m\+\_\+beta}
+\begin{DoxyCompactList}\small\item\em sigma \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t$>$\newline
+class rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$}
+
+A class that performs sampling from a univariate Inverse Gamma distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classrvsamp_1_1UnivInvGammaSampler_a90cc04cdd50c15b4795b4f70dbb9dcb5}\label{classrvsamp_1_1UnivInvGammaSampler_a90cc04cdd50c15b4795b4f70dbb9dcb5}} 
+\index{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler@{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler}!Univ\+Inv\+Gamma\+Sampler@{Univ\+Inv\+Gamma\+Sampler}}
+\index{Univ\+Inv\+Gamma\+Sampler@{Univ\+Inv\+Gamma\+Sampler}!rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler@{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler}}
+\subsubsection{\texorpdfstring{Univ\+Inv\+Gamma\+Sampler()}{UnivInvGammaSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+\hyperlink{classrvsamp_1_1UnivInvGammaSampler}{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler}$<$ float\+\_\+t $>$\+::\hyperlink{classrvsamp_1_1UnivInvGammaSampler}{Univ\+Inv\+Gamma\+Sampler} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{alpha,  }\item[{float\+\_\+t}]{beta }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em alpha} & a positive shape parameter. \\
+\hline
+{\em beta} & a positive scale parameter. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classrvsamp_1_1UnivInvGammaSampler_a5d477f520d0a5069c5fcda5a1952cead}\label{classrvsamp_1_1UnivInvGammaSampler_a5d477f520d0a5069c5fcda5a1952cead}} 
+\index{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler@{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler}!sample@{sample}}
+\index{sample@{sample}!rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler@{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler}}
+\subsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+float\+\_\+t \hyperlink{classrvsamp_1_1UnivInvGammaSampler}{rvsamp\+::\+Univ\+Inv\+Gamma\+Sampler}$<$ float\+\_\+t $>$\+::sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}\end{DoxyCompactItemize}

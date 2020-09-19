@@ -123,16 +123,16 @@ TEST_CASE_METHOD(DensFixture, "univNormCDFTest", "[densities]")
     REQUIRE(rveval::evalUnivStdNormCDF<double>(.1) == Approx( 0.5398278) );
     REQUIRE(rveval::evalUnivStdNormCDF<double>(0.0) == Approx(.5) );
     REQUIRE(rveval::evalUnivStdNormCDF<double>(1.0/0.0) == Approx(1.0));
-    REQUIRE(rveval::evalUnivStdNormCDF<double>(-1.0/0.0) == Approx( 0.0) );
+    REQUIRE(rveval::evalUnivStdNormCDF<double>(-std::numeric_limits<float_t>::infinity()) == Approx( 0.0) );
 }
 
 
 TEST_CASE_METHOD(DensFixture, "truncNormTest", "[densities]")
 {
     // check bounds can be infinite
-    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, true) == Approx(
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -std::numeric_limits<float_t>::infinity(), std::numeric_limits<float_t>::infinity(), true) == Approx(
                 rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, true) ) );
-    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -1.0/0.0, 1.0/0.0, false) == Approx(
+    REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, -std::numeric_limits<float_t>::infinity(), std::numeric_limits<float_t>::infinity(), false) == Approx(
                 rveval::evalUnivNorm<double>(0.0, 0.0, 1.0, false)));
     // check support is good
     REQUIRE(rveval::evalUnivTruncNorm<double>(0.0, 0.0, 1.0, .1, 20.0, false) == 0.0);

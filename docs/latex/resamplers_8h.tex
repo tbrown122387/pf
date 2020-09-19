@@ -1,5 +1,5 @@
-\hypertarget{resamplers_8h}{}\section{include/resamplers.h File Reference}
-\label{resamplers_8h}\index{include/resamplers.\+h@{include/resamplers.\+h}}
+\hypertarget{resamplers_8h}{}\section{include/pf/resamplers.h File Reference}
+\label{resamplers_8h}\index{include/pf/resamplers.\+h@{include/pf/resamplers.\+h}}
 
 
 all resamplers must inherit from this. This will enforce certain structure that are assumed by all particle filters.  
@@ -11,7 +11,8 @@ all resamplers must inherit from this. This will enforce certain structure that 
 {\ttfamily \#include $<$numeric$>$}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
-Include dependency graph for resamplers.\+h\+:\nopagebreak
+Include dependency graph for resamplers.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -32,11 +33,15 @@ class \hyperlink{classresid__resampler}{resid\+\_\+resampler$<$ nparts, dimx, fl
 class \hyperlink{classstratif__resampler}{stratif\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
 \item 
 class \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+\item 
+class \hyperlink{classmn__resamp__fast1}{mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 all resamplers must inherit from this. This will enforce certain structure that are assumed by all particle filters. 
+
+Class that performs multinomial resampling for \char`\"{}standard\char`\"{} models. For justification, see page 244 of \char`\"{}\+Inference in Hidden Markov Models\char`\"{}.
 
 Class that performs systematic resampling on \char`\"{}standard\char`\"{} models.
 

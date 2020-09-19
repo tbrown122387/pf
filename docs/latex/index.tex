@@ -1,18 +1,55 @@
 \href{https://zenodo.org/badge/latestdoi/130237492}{\tt }
 
-This is a template library for fast particle filtering. Templated abstract base classes for different particle filters are provided (e.\+g. the Bootstrap Filter, the Auxiliary Particle Filter, Rao-\/\+Blackwellized particle filter, etc.), as well as non-\/abstract (but indeed templated) base classes for closed form filtering algorithms (e.\+g. Kalman Filter, Hidden Markov Model filter, etc.).
+This is a template library for \href{https://en.wikipedia.org/wiki/Particle_filter}{\tt particle filtering}. Templated abstract base classes for different particle filters are provided (e.\+g. the Bootstrap Filter, the S\+I\+SR filter, the Auxiliary Particle Filter, the Rao-\/\+Blackwellized particle filter), as well as non-\/abstract (but indeed templated) base classes for closed-\/form filtering algorithms (e.\+g. Kalman Filter, Hidden Markov Model filter, etc.).
 
-Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use!
+Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use.
+
+\subsection*{Dependencies}
+
+This code makes use of the following libraries\+:
+
+
+\begin{DoxyItemize}
+\item \href{http://eigen.tuxfamily.org/}{\tt Eigen v3.\+3}
+\item \href{https://www.boost.org/}{\tt Boost v1.\+65.\+1}
+\item \href{https://github.com/catchorg/Catch2}{\tt Catch2 v2.\+9.\+2}
+\end{DoxyItemize}
+
+Also, your compiler must enable C++17.
 
 \subsection*{Installation}
 
-This is a header-\/only library, so there is no building necessary. When you use it in another project, make sure to compile with C++11 enabled ({\ttfamily -\/std=c++11}), and to include the {\ttfamily include} directory of this project.
+\subsubsection*{Option 1\+: Install from Github}
 
-Note, also, that this code all makes use of \href{http://eigen.tuxfamily.org/}{\tt Eigen} and \href{https://www.boost.org/}{\tt Boost}.
+{\ttfamily git clone} this Github repostory, {\ttfamily cd} into the directory where everything is saved, then run the following commands\+: \begin{DoxyVerb}mkdir build && cd build/
+cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr/local
+sudo cmake --build . --config Release --target install --parallel
+\end{DoxyVerb}
+
+
+You may subsitute another directory for {\ttfamily /usr/local}, if you wish. This will also build unit tests that can be run with the following command (assuming you\textquotesingle{}re still in {\ttfamily build/})\+: \begin{DoxyVerb}./test/pf_test
+\end{DoxyVerb}
+
+
+\subsubsection*{Option 2\+: Drag-\/and-\/drop {\ttfamily .h} files}
+
+This is a header-\/only library, so there will be no extra building necessary. If you just want to copy the desired header files from {\ttfamily include/pf} into your own project, and build that project by itself, that\textquotesingle{}s totally fine. There is no linking necessary, either. If you go this route, though, make sure to compile with C++17 enabled. Note, also, that this code all makes use of \href{http://eigen.tuxfamily.org/}{\tt Eigen v3.\+3} and \href{https://www.boost.org/}{\tt Boost v1.\+65.\+1}. Unit tests use the \href{https://github.com/catchorg/Catch2}{\tt Catch2 v2.\+9.\+2} library.
 
 \subsection*{Examples}
 
-Don\textquotesingle{}t know how to use this? Check out the \href{https://github.com/tbrown122387/pf/tree/master/examples}{\tt {\ttfamily examples}} directory! Check {\ttfamily pf/examples/\+Makefile} to make sure it jives with your directories, and then run {\ttfamily make}. After that, run {\ttfamily ./examples ./data/svol\+\_\+y\+\_\+data.csv} and you\textquotesingle{}ll see the filtering output from {\ttfamily examples/svol\+\_\+comparison.\+cpp}.
+Don\textquotesingle{}t know how to use this? No problem. Check out the \href{https://github.com/tbrown122387/pf/tree/master/examples}{\tt {\ttfamily examples}} sub-\/directory. This is a stand-\/alone cmake project, so you can just copy this sub-\/directory anywhere you like, and start editing.
+
+For example, copy to {\ttfamily Desktop} and have at it\+: \begin{DoxyVerb}cp -r ~/pf/examples/ ~/Desktop/
+cd Desktop/examples/
+mkdir build && cd build
+cmake ..
+make
+\end{DoxyVerb}
+
+
+\subsection*{Paper}
+
+A full-\/length tutorial paper is available \href{https://arxiv.org/abs/2001.10451}{\tt here.}
 
 \subsection*{Citation}
 
