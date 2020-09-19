@@ -203,7 +203,7 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
         // try to iterate over particles all at once
         ssv newSamp;
         arrayfloat_t oldLogUnNormWts = m_logUnNormWeights;
-        float_t maxOldLogUnNormWts(-1.0/0.0);
+        float_t maxOldLogUnNormWts(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii)
         {
 

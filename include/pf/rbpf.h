@@ -216,7 +216,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
         // update
         sssv newX2Samp;
         float_t sumexpdenom(0.0);
-        float_t m1(-1.0/0.0); // for revised log weights
+        float_t m1(-std::numeric_limits<float_t>::infinity()); // for revised log weights
         float_t m2 = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(size_t ii = 0; ii < nparts; ++ii){
             
@@ -272,7 +272,7 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
         // initialize and update the closed-form mods        
         nsssv tmpProbs;
         nsssMat tmpTransMat;
-        float_t m1(-1.0/0.0);
+        float_t m1(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii){
             
             m_p_samps[ii] = q1Samp(data); 
@@ -500,7 +500,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
         // update
         sssv newX2Samp;
         float_t sumexpdenom(0.0);
-        float_t m1(-1.0/0.0); // for revised log weights
+        float_t m1(-std::numeric_limits<float_t>::infinity()); // for revised log weights
         float_t m2 = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(size_t ii = 0; ii < nparts; ++ii){
             
@@ -553,7 +553,7 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
         // initialize and update the closed-form mods        
         nsssv tmpProbs;
         nsssMat tmpTransMat;
-        float_t m1(-1.0/0.0);
+        float_t m1(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii){
             
             m_p_samps[ii] = muSamp(); 
@@ -820,7 +820,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
         
         // update
         sssv newX2Samp;
-        float_t m1(-1.0/0.0); // for updated weights
+        float_t m1(-std::numeric_limits<float_t>::infinity()); // for updated weights
         float_t m2 = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         float_t sumexpdenom(0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
@@ -876,7 +876,7 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
         // initialize and update the closed-form mods      
         nsssv tmpMean;
         nsssMat tmpVar;
-        float_t m1(-1.0/0.0);
+        float_t m1(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii){
             m_p_samps[ii] = q1Samp(data); 
             tmpMean = initKalmanMean(m_p_samps[ii]);
@@ -1102,7 +1102,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
         
         // update
         sssv newX2Samp;
-        float_t m1(-1.0/0.0); // for updated weights
+        float_t m1(-std::numeric_limits<float_t>::infinity()); // for updated weights
         float_t m2 = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         float_t sumexpdenom(0.0);
         for(size_t ii = 0; ii < nparts; ++ii){
@@ -1159,7 +1159,7 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
         // initialize and update the closed-form mods      
         nsssv tmpMean;
         nsssMat tmpVar;
-        float_t m1(-1.0/0.0);
+        float_t m1(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii){
             m_p_samps[ii] = muSamp(data); 
             tmpMean = initKalmanMean(m_p_samps[ii]);

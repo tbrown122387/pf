@@ -164,7 +164,7 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
        
         // try to iterate over particles all at once
         ssv newSamp;
-        float_t maxOldLogUnNormWts(-1.0/0.0);
+        float_t maxOldLogUnNormWts(-std::numeric_limits<float_t>::infinity());
         arrayFloat oldLogUnNormWts = m_logUnNormWeights;
         for(size_t ii = 0; ii < nparts; ++ii)
         {
