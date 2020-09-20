@@ -38,7 +38,9 @@ using \hyperlink{classstratif__resampler_a6feed5616bbd45f1bcf155fdf6348e19}{arra
 \item 
 \mbox{\Hypertarget{classstratif__resampler_a76e8fbfaec214060f0644d5a076c2b2a}\label{classstratif__resampler_a76e8fbfaec214060f0644d5a076c2b2a}} 
 \hyperlink{classstratif__resampler_a76e8fbfaec214060f0644d5a076c2b2a}{stratif\+\_\+resampler} ()=default
-\begin{DoxyCompactList}\small\item\em Default constructor. Only option available. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classstratif__resampler_acb18d2ea4d0c2025c2bdb58c3b6ddf4b}{stratif\+\_\+resampler} (unsigned long seed)
+\begin{DoxyCompactList}\small\item\em Constructor that sets the seed. \end{DoxyCompactList}\item 
 void \hyperlink{classstratif__resampler_a2588147563bf3fe598e262cae7e125e6}{resamp\+Log\+Wts} (\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&old\+Parts, \hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&old\+Log\+Un\+Norm\+Wts)
 \begin{DoxyCompactList}\small\item\em resamples particles. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
@@ -86,6 +88,25 @@ type alias for array of Eigen Matrices \mbox{\Hypertarget{classstratif__resample
 using \hyperlink{classstratif__resampler}{stratif\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
 
 type alias for linear algebra stuff 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classstratif__resampler_acb18d2ea4d0c2025c2bdb58c3b6ddf4b}\label{classstratif__resampler_acb18d2ea4d0c2025c2bdb58c3b6ddf4b}} 
+\index{stratif\+\_\+resampler@{stratif\+\_\+resampler}!stratif\+\_\+resampler@{stratif\+\_\+resampler}}
+\index{stratif\+\_\+resampler@{stratif\+\_\+resampler}!stratif\+\_\+resampler@{stratif\+\_\+resampler}}
+\subsubsection{\texorpdfstring{stratif\+\_\+resampler()}{stratif\_resampler()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+\hyperlink{classstratif__resampler}{stratif\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classstratif__resampler}{stratif\+\_\+resampler} (\begin{DoxyParamCaption}\item[{unsigned long}]{seed }\end{DoxyParamCaption})}
+
+
+
+Constructor that sets the seed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em seed} & \\
+\hline
+\end{DoxyParams}
+
 
 \subsection{Member Function Documentation}
 \mbox{\Hypertarget{classstratif__resampler_a2588147563bf3fe598e262cae7e125e6}\label{classstratif__resampler_a2588147563bf3fe598e262cae7e125e6}} 

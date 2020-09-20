@@ -38,7 +38,9 @@ using \hyperlink{classresid__resampler_a2ca1138b2d0fcad22c3720c83e56fc47}{array\
 \item 
 \mbox{\Hypertarget{classresid__resampler_a7b3ebcc490d296b4ad9747c369b92f67}\label{classresid__resampler_a7b3ebcc490d296b4ad9747c369b92f67}} 
 \hyperlink{classresid__resampler_a7b3ebcc490d296b4ad9747c369b92f67}{resid\+\_\+resampler} ()=default
-\begin{DoxyCompactList}\small\item\em Default constructor. Only option available. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classresid__resampler_a7c5a27732c78f6d30919ec4135f99228}{resid\+\_\+resampler} (unsigned long seed)
+\begin{DoxyCompactList}\small\item\em Constructor that sets the seed. \end{DoxyCompactList}\item 
 void \hyperlink{classresid__resampler_ae6957cd1e080ac4313e6b0bc5ae9aa96}{resamp\+Log\+Wts} (\hyperlink{classrbase_aa12fc826befa6ba0647b5f59ebc396ee}{array\+Vec} \&old\+Parts, \hyperlink{classrbase_a6f76bef853e508cb5b6f546d231b06f5}{array\+Float} \&old\+Log\+Un\+Norm\+Wts)
 \begin{DoxyCompactList}\small\item\em resamples particles. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
@@ -86,6 +88,25 @@ type alias for array of Eigen Matrices \mbox{\Hypertarget{classresid__resampler_
 using \hyperlink{classresid__resampler}{resid\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classrbase_ae20e0b8df15aa109252f57ecbf1f20f8}{ssv} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
 
 type alias for linear algebra stuff 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classresid__resampler_a7c5a27732c78f6d30919ec4135f99228}\label{classresid__resampler_a7c5a27732c78f6d30919ec4135f99228}} 
+\index{resid\+\_\+resampler@{resid\+\_\+resampler}!resid\+\_\+resampler@{resid\+\_\+resampler}}
+\index{resid\+\_\+resampler@{resid\+\_\+resampler}!resid\+\_\+resampler@{resid\+\_\+resampler}}
+\subsubsection{\texorpdfstring{resid\+\_\+resampler()}{resid\_resampler()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+\hyperlink{classresid__resampler}{resid\+\_\+resampler}$<$ nparts, dimx, float\+\_\+t $>$\+::\hyperlink{classresid__resampler}{resid\+\_\+resampler} (\begin{DoxyParamCaption}\item[{unsigned long}]{seed }\end{DoxyParamCaption})}
+
+
+
+Constructor that sets the seed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em seed} & \\
+\hline
+\end{DoxyParams}
+
 
 \subsection{Member Function Documentation}
 \mbox{\Hypertarget{classresid__resampler_ae6957cd1e080ac4313e6b0bc5ae9aa96}\label{classresid__resampler_ae6957cd1e080ac4313e6b0bc5ae9aa96}} 

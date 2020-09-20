@@ -38,7 +38,15 @@ public:
      * @brief The default constructor gets called by default, and it sets the seed with the clock. 
      */
     rbase();
-    
+
+
+    /**
+     * @brief The constructor that sets the seed deterministically. 
+     * @param seed the seed 
+     */
+    rbase(unsigned long seed);
+
+
     /**
      * @brief Function to resample from log unnormalized weights
      * @param oldParts
@@ -61,6 +69,14 @@ rbase<nparts, dimx, float_t>::rbase()
                                            )}
 {
 }
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+rbase<nparts, dimx, float_t>::rbase(unsigned long seed) 
+        : m_gen{static_cast<std::uint32_t>(seed)}
+{
+}
+
 
 
 /**
@@ -87,9 +103,16 @@ public:
     using arrayInt = std::array<unsigned int,nparts>;
 
     /**
-     * @brief Default constructor. Only option available.
+     * @brief Default constructor. 
      */
     mn_resampler() = default;
+
+
+    /**
+     * @brief Constructor that sets the seed.
+     * @param seed
+     */
+    mn_resampler(unsigned long seed);
     
     
     /**
@@ -100,6 +123,13 @@ public:
     void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
 };
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+mn_resampler<nparts, dimx, float_t>::mn_resampler(unsigned long seed)
+    : rbase<nparts, dimx, float_t>(seed)
+{
+}
 
 
 template<size_t nparts, size_t dimx, typename float_t>
@@ -146,7 +176,7 @@ void mn_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, array
  * @tparam float_t the type of floating point number
  */
 template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t>
-class mn_resampler_rbpf
+class mn_resampler_rbpf 
 {
 public:
 
@@ -160,11 +190,17 @@ public:
     using arrayMod = std::array<cfModT,nparts>;
 
     /**
-     * @brief Default constructor. Only option available.
+     * @brief Default constructor. 
      */
     mn_resampler_rbpf();
     
-    
+ 
+    /**
+     * @brief Default constructor. 
+     */
+    mn_resampler_rbpf(unsigned long seed);
+
+
     /**
      * @brief resamples particles.
      * @param oldMods the old closed-form models
@@ -172,12 +208,12 @@ public:
      * @param oldLogUnNormWts the old log unnormalized weights
      */
     void resampLogWts(arrayMod &oldMods, arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
-    
+
+
 private:
 
     /** @brief prng */
     std::mt19937 m_gen;
-
 };
 
 
@@ -186,6 +222,13 @@ mn_resampler_rbpf<nparts, dimsampledx, cfModT,float_t>::mn_resampler_rbpf()
     : m_gen{static_cast<std::uint32_t>(
                     std::chrono::high_resolution_clock::now().time_since_epoch().count()
                                            )}
+{
+}
+
+
+template<size_t nparts, size_t dimsampledx, typename cfModT, typename float_t>
+mn_resampler_rbpf<nparts, dimsampledx, cfModT,float_t>::mn_resampler_rbpf(unsigned long seed)
+    : m_gen{ static_cast<std::uint32_t>(seed) }
 {
 }
 
@@ -247,11 +290,18 @@ public:
 
 
     /**
-     * @brief Default constructor. Only option available.
+     * @brief Default constructor.
      */
     resid_resampler() = default;
     
-    
+ 
+    /**
+     * @brief Constructor that sets the seed.
+     * @param seed
+     */
+    resid_resampler(unsigned long seed);
+   
+
     /**
      * @brief resamples particles.
      * @param oldParts the old particles
@@ -260,6 +310,13 @@ public:
     void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
 };
+
+    
+template<size_t nparts, size_t dimx, typename float_t>
+resid_resampler<nparts, dimx, float_t>::resid_resampler(unsigned long seed)
+    : rbase<nparts, dimx, float_t>(seed)
+{
+}
 
 
 template<size_t nparts, size_t dimx, typename float_t>
@@ -342,11 +399,18 @@ public:
 
 
     /**
-     * @brief Default constructor. Only option available.
+     * @brief Default constructor. 
      */
     stratif_resampler() = default;
     
-    
+ 
+    /**
+     * @brief Constructor that sets the seed
+     * @param seed 
+     */
+    stratif_resampler(unsigned long seed);
+  
+
     /**
      * @brief resamples particles.
      * @param oldParts the old particles
@@ -355,6 +419,13 @@ public:
     void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
 };
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+stratif_resampler<nparts, dimx, float_t>::stratif_resampler(unsigned long seed)
+    : rbase<nparts, dimx, float_t>(seed)
+{
+}
 
 
 template<size_t nparts, size_t dimx, typename float_t>
@@ -434,11 +505,18 @@ public:
 
 
     /**
-     * @brief Default constructor. Only option available.
+     * @brief Default constructor. 
      */
     systematic_resampler() = default;
     
-    
+
+    /**
+     * @brief Constructor that sets the seed.
+     * @param seed.
+     */
+    systematic_resampler(unsigned long seed);
+
+
     /**
      * @brief resamples particles.
      * @param oldParts the old particles
@@ -447,6 +525,13 @@ public:
     void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
 };
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+systematic_resampler<nparts, dimx, float_t>::systematic_resampler(unsigned long seed)
+    : rbase<nparts, dimx, float_t>(seed)
+{
+}
 
 
 template<size_t nparts, size_t dimx, typename float_t>
@@ -524,11 +609,17 @@ public:
     using arrayInt = std::array<unsigned int,nparts>;
 
     /**
-     * @brief Default constructor. Only option available.
+     * @brief Default constructor. 
      */
     mn_resamp_fast1() = default;
     
-    
+ 
+    /**
+     * @brief Default constructor. 
+     */
+    mn_resamp_fast1(unsigned long seed);
+
+
     /**
      * @brief resamples particles.
      * @param oldParts the old particles
@@ -537,6 +628,13 @@ public:
     void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts);
     
 };
+
+
+template<size_t nparts, size_t dimx, typename float_t>
+mn_resamp_fast1<nparts, dimx, float_t>:: mn_resamp_fast1(unsigned long seed)
+    : rbase<nparts, dimx, float_t>(seed)
+{
+}
 
 
 template<size_t nparts, size_t dimx, typename float_t>
