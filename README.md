@@ -16,6 +16,7 @@ This code makes use of the following libraries:
 
 Also, your compiler must enable C++17. 
 
+
 ## Installation
 
 ### Option 1: Install from Github
@@ -30,6 +31,7 @@ You may subsitute another directory for `/usr/local`, if you wish. This will als
 
     ./test/pf_test
 
+Note: for this to method work, you will need to install Catch2 "system wide" so that its `*.cmake` files are installed as well. To do this, [click here](https://github.com/catchorg/Catch2/blob/master/docs/cmake-integration.md#installing-catch2-from-git-repository). 
 
 ### Option 2: Drag-and-drop `.h` files
 
@@ -48,9 +50,6 @@ For example, copy to `Desktop` and have at it:
     cmake ..
     make
 
-## Contributing
-
-Want to contribute to this project? Great! Click [here](CONTRIBUTING.md) for details on how to do that.
 
 ## Paper
 
