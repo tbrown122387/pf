@@ -50,6 +50,9 @@ For example, copy to `Desktop` and have at it:
     cmake ..
     make
 
+## Contributing
+
+Want to contribute to this project? Great! Click [here](CONTRIBUTING.md) for details on how to do that.
 
 ## Paper
 
