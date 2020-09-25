@@ -6,7 +6,7 @@
 
 #### **Did you find a bug?**
 
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/tbrown122387/pf/issues).
+* **Ensure the bug was not already reported** by searching on GitHub under [issues](https://github.com/tbrown122387/pf/issues).
 
 * If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/tbrown122387/pf/issues/new) and label it as a "bug." 
 
@@ -32,7 +32,7 @@
 
 #### **Do you want to contribute to the documentation?**
 
-* Awesome! Documentation is automatically generated with [Doxygen.](https://www.doxygen.nl/manual/docblocks.html), so most of that work will involve editing comments in header files.
+* Awesome! Documentation is automatically generated with [Doxygen](https://www.doxygen.nl/manual/docblocks.html). Please peruse that site to get tips on how to write the specially formatted comments. 
 
 * Running `doxygen Doxyfile` will generate all files in `docs/`
  
