@@ -18,7 +18,7 @@
 
 * Ensure the PR description clearly describes the problem and solution. Include the relevant issue number if applicable.
 
-* Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of Rails will generally not be accepted.
+* Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of `pf` will generally not be accepted.
 
 #### **Do you intend to add a new feature or change an existing one?**
 
