@@ -1,5 +1,6 @@
 # PF: a library for fast particle filtering!
 
+![GitHub All Releases](https://img.shields.io/github/downloads/tbrown122387/pf/total)
 [![DOI](https://zenodo.org/badge/130237492.svg)](https://zenodo.org/badge/latestdoi/130237492)
 
 This is a template library for [particle filtering](https://en.wikipedia.org/wiki/Particle_filter). Templated abstract base classes for different particle filters are provided (e.g. the Bootstrap Filter, the SISR filter, the Auxiliary Particle Filter, the Rao-Blackwellized particle filter), as well as non-abstract (but indeed templated) base classes for closed-form filtering algorithms (e.g. Kalman Filter, Hidden Markov Model filter, etc.). 
