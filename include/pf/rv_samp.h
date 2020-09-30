@@ -35,7 +35,6 @@ protected:
 };
 
 
-
 //! A class that performs sampling from a univariate Normal distribution.
 /**
 * @class UnivNormSampler
@@ -137,6 +136,63 @@ template<typename float_t>
 float_t UnivNormSampler<float_t>::sample()
 {
     return m_mu + m_sigma * m_z_gen(m_rng);
+}
+
+
+//! A class that performs sampling from Student's T distribution.
+/**
+* @class UnivStudTSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from from Student's T distribution.
+*/
+template<typename float_t>
+class UnivStudTSampler : public rvsamp_base
+{
+    
+public:
+
+
+    /**
+     * @brief Default-construction is deleted.
+     */
+    UnivStudTSampler() = delete;
+
+
+     /**
+      * @brief The user must supply the degrees of freedom parameter.
+      * @param dof the degrees of freedom that are desired.
+      */
+    UnivStudTSampler(float_t dof);
+
+
+     /**
+      * @brief Draws a random number.
+      * @return a random sample of type float_t.
+      */
+    float_t sample();    
+    
+
+private:
+
+    /** @brief makes t random variates */
+    std::student_t_distribution<float_t> m_t_gen;
+    
+};
+
+
+template<typename float_t>
+UnivStudTSampler<float_t>::UnivStudTSampler(float_t dof)
+    : rvsamp_base()
+    , m_t_gen(dof)
+{
+}
+
+
+template<typename float_t>
+float_t UnivStudTSampler<float_t>::sample()
+{
+    return m_t_gen(m_rng);
 }
 
 
