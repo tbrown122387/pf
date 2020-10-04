@@ -8,7 +8,7 @@ authors:
     orcid: 0000-0003-4972-6251
     affiliation: 1
 affiliations:
- - name: Department of Statistics, University of Virginia, PO Box 400135, Charlottesvilla, VA 22904, USA
+ - name: Department of Statistics, University of Virginia, PO Box 400135, Charlottesville, VA 22904, USA
    index: 1
 date: 14 July 2020
 bibliography: paper.bib
