@@ -20,7 +20,7 @@ Also, your compiler must enable C++17.
 
 ## Installation
 
-### Option 1: Install from Github
+### Option 1: Install with `CMake` 
 
 `git clone` this Github repostory, `cd` into the directory where everything is saved, then run the following commands:
 

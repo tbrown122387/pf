@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 {
 
     // choose your resampler
-    //using multinomialR = mn_resampler        <numparts,dimstate,FLOATTYPE>;
+    //using multinomialR = mn_resampler<numparts,dimstate,FLOATTYPE>;
     using fastMultinomR= mn_resamp_fast1<numparts,dimstate,FLOATTYPE>;
 
     // model parameters 
@@ -51,11 +51,6 @@ int main(int argc, char** argv)
     for(size_t row = 0; row < data.size(); ++row){
         mod.filter(data[row], v); 
         std::cout << mod.getExpectations()[0] << "\n";
-//        std::cout << bssvol1.getExpectations()[0] << ", ";
-//        std::cout << bssvol2.getExpectations()[0] << ", ";
-//        std::cout << bssvol3.getExpectations()[0] << ", ";
-//        std::cout << bssvol4.getExpectations()[0] << ", ";
-//        std::cout << bssvol5.getExpectations()[0] << "\n";
     }
    
    return 1; 

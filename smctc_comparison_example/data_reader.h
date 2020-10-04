@@ -8,11 +8,7 @@
 #include <iostream>
 
 
-// a function to read in data from a csv file
 // this csv file must not have a header
-// probably a lot of better functions out there,
-// but I didn't want to add a dependency for
-// this one example. sorry...
 template<typename float_t, size_t dimobs>
 std::vector<Eigen::Matrix<float_t,dimobs,1> > readInData(const std::string &fileLoc, char delim)
 {

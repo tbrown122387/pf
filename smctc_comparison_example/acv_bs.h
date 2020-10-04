@@ -19,30 +19,25 @@ public:
     using osm = Eigen::Matrix<float_t, dimy, dimy>;
     using esm = Eigen::Matrix<float_t, dimy,dimx>; // emission sized matrix
 
-    // parameters (TODO remove some)
+    // parameters that need to be stored 
     float_t m_var_s0;
     float_t m_var_u0;
-//    float_t m_var_s;
-//    float_t m_var_u;
-//    float_t m_scale_y;
     float_t m_nu_y;
-//    float_t Delta;
 
-    // higher-level parameters
-    //ssm m_state_error_cov;
+    // higher-level parameters that need to be stored
     ssm m_A;
     esm m_B;
     osm m_obs_shape_mat;
 
-    // use this for samplign
-    rvsamp::UnivNormSampler<float_t> m_stdNormSampler; // for sampling 
+    // use these objects for sampling 
+    rvsamp::UnivNormSampler<float_t> m_stdNormSampler;  
     rvsamp::UnivStudTSampler<float_t> m_t_sampler;
     rvsamp::MVNSampler<dimx,float_t> m_state_error_sampler;
 
-    // ctor
+    // the constructor
     acv_bs(float_t var_s0, float_t var_u0, float_t var_s, float_t var_u, float_t scale_y, float_t nu_y, float_t Delta);
     
-    // required by bootstrap filter base class
+    // methods that are required by this algorithm's abstract base class (template)
     float_t logQ1Ev(const ssv &x1, const osv &y1);
     float_t logMuEv(const ssv &x1);
     float_t logGEv(const osv &yt, const ssv &xt);
