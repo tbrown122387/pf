@@ -27,7 +27,7 @@ This is by no means the first ``C++`` library to be offered that provides partic
 
 # Statement of Need
 
-State-space models describe a partially-observed Markov chain $\{(x_t,y_t)\}_{t \ge 1}$ that possess a hidden/latent variable at each time point (denoted by $x_t$), in addition to an observed variable (denoted by $y_t$). "Filtering" is defined as obtaining the distribution of each unobserved state/code random variable, conditioning on all of the observed information up to that point in time. In other words, it is the task of finding 
+State-space models describe a partially-observed Markov chain $\{(x_t,y_t)\}_{t \ge 1}$ that possesses a hidden/latent variable at each time point (denoted by $x_t$), as well as an observed variable (denoted by $y_t$). "Filtering" is defined as obtaining the distribution of each unobserved state/code random variable, conditioning on all of the observed information up to that point in time. In other words, it is the task of finding 
 \begin{eqnarray}
 p(x_t \mid y_t, y_{t-1}, \ldots, y_1).
 \end{eqnarray}
