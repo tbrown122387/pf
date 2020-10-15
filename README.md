@@ -1,6 +1,5 @@
 # PF: a library for fast particle filtering!
 
-![GitHub All Releases](https://img.shields.io/github/downloads/tbrown122387/pf/total)
 [![DOI](https://zenodo.org/badge/130237492.svg)](https://zenodo.org/badge/latestdoi/130237492)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02599/status.svg)](https://doi.org/10.21105/joss.02599)
 
