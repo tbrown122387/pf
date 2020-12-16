@@ -81,7 +81,7 @@ public:
 
         // iterate over all parameter values/models
         std::vector<Mat> tmp_expecs_given_theta;
-        unsigned int num_samples = m_mods_and_funcs.size();
+        unsigned int num_samples = m_mods.size();
         float_t Ntheta = static_cast<float_t>(num_samples);
         for(size_t i = 0; i < num_samples; ++i) {
             
