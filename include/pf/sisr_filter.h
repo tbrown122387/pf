@@ -247,8 +247,8 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
             float_t denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
-                denom += std::exp(m_logUnNormWeights[prtcl]);
+                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - maxNumer );
+                denom += std::exp(m_logUnNormWeights[prtcl] - maxNumer);
             }
             m_expectations[fId] = numer/denom;
 
@@ -305,8 +305,8 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
             float_t denom(0.0);
 
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl]);
-                denom += std::exp(m_logUnNormWeights[prtcl]);
+                numer += h(m_particles[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - max);
+                denom += std::exp(m_logUnNormWeights[prtcl] - max);
             }
             m_expectations[fId] = numer/denom;
 
