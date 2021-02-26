@@ -51,6 +51,8 @@ For example, copy to `Desktop` and have at it:
     cmake ..
     make
 
+If there are no error messages, you will have an executable named `pf_example` in that same directory. Running it without command line arguments will prompt you for arguments and tell you how it can be used.
+
 ## Contributing
 
 Want to contribute to this project? Great! Click [here](CONTRIBUTING.md) for details on how to do that.
