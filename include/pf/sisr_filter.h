@@ -133,7 +133,7 @@ public:
      */
     virtual float_t logQEv (const ssv &xt, const ssv &xtm1, const osv &yt ) = 0;    
     
-private:
+protected:
 
     /** @brief particle samples */
     arrayStates m_particles;

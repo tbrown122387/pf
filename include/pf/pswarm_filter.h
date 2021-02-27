@@ -1,32 +1,58 @@
-#ifndef PARTICLE_SWARM_H
-#define PARTICLE_SWARM_H
+#ifndef PSWARM_FILTER_H
+#define PSWARM_FILTER_H
+
+#include "pf_base.h"
 
 #include <functional>
 #include <tuple>
+#include <type_traits>
 
 
 //TODO parallel version
 /**
- * @brief object that implements a "particle swarm" (see https://arxiv.org/abs/2006.15396)
- * For simplicity, simulates from the model's parameter prior. 
+ * @brief object that implements a "particle swarm filter" (see https://arxiv.org/abs/2006.15396)
+ * For simplicity, this class assumes model/parameters are drawn from the parameter prior, and that
+ * this is implemented outside of this class. Once you sample parameters and construct a model, that
+ * model is added to this container class via addModelFuncsPair(). // TODO add prior/paramsample weights
+ * to be passed in as well. 
  * @tparam represents a specific parametric model that has inherited from a pf base class template.
  * @tparam number of functions we want to filter. Each filter func represents the h in E[h(xt)|y_1:t]. 
  */
-template<typename ModType, size_t n_filt_funcs>
+template<typename ModType, size_t n_filt_funcs, size_t nparts, size_t dimy, size_t dimx>
 class Swarm {
 
 public:
-    using float_t   = typename ModType::float_type;
-    using osv       = typename ModType::osv;
-    using ssv       = typename ModType::ssv;
-    using Mat       = typename ModType::Mat;
-    using filt_func = std::function<const Mat(const ssv&)>;
+
+    /* the floating point number type */
+    using float_t    = typename ModType::float_type;
+
+    /* assert that ModType is a proper particle filter model */
+    static_assert(std::is_base_of<pf_base<float_t,dimy,dimx>, ModType>::value, 
+            "ModType must inherit from a particle filter class.");
+
+    /* the observation sized vector */
+    using osv        = typename ModType::osv;
+
+    /* the state sized vector */
+    using ssv        = typename ModType::ssv;
+    
+    /* the Matrix type of the underlying model*/
+    using Mat        = typename ModType::Mat;
+
+    /* the function that performs filtering on each model */
+    using filt_func  = std::function<const Mat(const ssv&)>;
+
+    /* a collection of observation samples, indexed by param,time, then state particle */ 
+    using obsSamples = std::vector<std::vector<std::array<osv, nparts>>>;
+
+private:   
 
 
-private:    
-    /* a model and a vector of functions for each model/parameter */
+    /* a collection of models each with a randomly chosen parameter and a vector of functions for each model/parameter */
     std::vector<ModType>   m_mods;
-    std::vector<filt_func> m_funcs;
+
+    /* a vector of functions for each model (these functions may depend on the model's parameter)  */
+    std::vector<std::vector<filt_func>> m_funcs;
 
     /* log p(y_t+1 | y_{1:t}) */
     float_t m_log_cond_like;
@@ -37,7 +63,7 @@ private:
     /* keep track of the number of observations seen in time */
     unsigned int m_num_obs;
 
-    // TODO: maybe consider storing the entire evidence because it's a sum of products
+    // TODO: maybe consider storing the entire evidence because it's a sum of products like IS^2 algorithm
 
 public:
 
@@ -47,26 +73,28 @@ public:
      * Because we are calling the default constructor on each element, they are 0x0 before
      * any data is seen. Perhaps you can back out the dimension earlier to de-complicate thigns
      */
-    Swarm<ModType, n_filt_funcs>() : m_num_obs(0) {  m_expectations.resize(n_filt_funcs); } 
+    Swarm() : m_num_obs(0) { m_expectations.resize(n_filt_funcs); } 
 
 
     // can this be done at arbitrary times?
-    // TODO: pass b y reference! 
-    void addModelFuncsPair(ModType mod, std::vector<filt_func> funcs) {
-        if(funcs.size() == n_filt_funcs) {
+    // TODO: pass b y reference!
+    /**
+     * @brief adds a model with a randomly sampled parameter to the container.
+     * @param mod the randomly-sampled model
+     */ 
+    void addModelFuncsPair(ModType mod, std::vector<filt_func> funcVec) {
+        if(funcVec.size() == n_filt_funcs){
+            m_funcs.push_back(funcVec);
             m_mods.push_back(mod);
-
-            // only add functions if it's the first iteration.
-            // we are assuming that the same functions apply for all models and all times
-            if(m_funcs.empty()) m_funcs = funcs;  
-        }else {
-            throw std::invalid_argument("number of filter funcs should correspond with template parameter \n");
+        }else{
+            throw std::invalid_argument("funcVec needs to be the right length.");
         }
     }
     
     
     /**
      * @brief update the model on a new time point's observation
+     * @param the most recent observation
      */
     void update(const osv& yt)  {
        
@@ -88,7 +116,7 @@ public:
             // update a model on new data
             // first is the model
             // second is the vector<func>
-            m_mods[i].filter(yt, m_funcs);
+            m_mods[i].filter(yt, m_funcs[i]);
 
             // update the conditional likelihood 
             m_log_cond_like += m_mods[i].getLogCondLike();
@@ -114,11 +142,33 @@ public:
         // increment number of observations seen
         ++m_num_obs;
     }
-   
-    /* get log p(y_t+1 | y_0:t, M) */
+  
+
+    /**
+     * @brief simulates future observation paths.
+     * The index ordering is param,time,particle
+     * @param the number of steps into the future you want to simulate observations
+     */
+    obsSamples simFutureObs(unsigned int num_future_steps){
+        obsSamples returnMe;
+        for(size_t paramSamp = 0; paramSamp < m_mods.size(); ++paramSamp){
+            returnMe.push_back(this->sim_future_obs(num_future_steps));
+        }
+        return returnMe; 
+    }
+
+
+    /**
+     * @brief get the log of the approx. to the conditional "evidence" log p(y_t+1 | y_0:t, M) 
+     * @return the floating point number
+     */
     float_t getLogCondLike() const { return m_log_cond_like; }
 
-    /* getter of expectations */
+
+    /**
+     * @brief get the current expectation approx.s E[h(x_t)|y_{1:t}] 
+     * @return a vector of Eigen::Mats
+     */
     std::vector<Mat> getExpectations() const { return m_expectations; }
 
 private:
@@ -137,4 +187,4 @@ private:
 
 
 
-#endif // PARTICLE_SWARM_H
+#endif // PSWARM_FILTER_H
