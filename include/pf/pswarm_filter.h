@@ -152,7 +152,7 @@ public:
     obsSamples simFutureObs(unsigned int num_future_steps){
         obsSamples returnMe;
         for(size_t paramSamp = 0; paramSamp < m_mods.size(); ++paramSamp){
-            returnMe.push_back(this->sim_future_obs(num_future_steps));
+            returnMe.push_back(m_mods[paramSamp].sim_future_obs(num_future_steps));
         }
         return returnMe; 
     }
