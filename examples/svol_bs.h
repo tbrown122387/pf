@@ -12,6 +12,7 @@
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>
 class svol_bs : public BSFilter<nparts, dimx, dimy, resampT, float_t>
               , public ForwardMod<dimx,dimy,float_t>
+              , public FutureSimulator<dimx,dimy,float_t,nparts>
 {
 public:
     using ssv = Eigen::Matrix<float_t, dimx, 1>;
@@ -38,7 +39,9 @@ public:
     // required by ForwardMod<> base class
     auto muSamp() -> ssv;
     auto gSamp(const ssv &xt) -> osv;
-    
+
+    // required by FutureSimulator base class
+    std::array<ssv,nparts> get_uwtd_samps() const;
 };
 
 
@@ -111,5 +114,11 @@ float_t svol_bs<nparts, dimx, dimy, resampT, float_t>::logQ1Ev(const ssv &x1samp
     return rveval::evalUnivNorm<float_t>(x1samp(0), 0.0, m_sigma/std::sqrt(1.0 - m_phi*m_phi), true);
 }
 
+
+template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>    
+auto svol_bs<nparts, dimx, dimy, resampT, float_t>::get_uwtd_samps() const -> std::array<ssv,nparts> 
+{
+    return this->m_particles;
+}
 
 #endif //SVOL_BS_H
