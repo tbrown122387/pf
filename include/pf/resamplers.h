@@ -679,7 +679,7 @@ void mn_resamp_fast1<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, ar
     for(size_t i = 0; i < nparts; ++i){
         uniform_order_stat += exponentials[i]/G; // add a spacing E_i/G
         do {
-            if( one_less_summand < uniform_order_stat <= running_sum_normalized_weights ) {
+            if( (one_less_summand < uniform_order_stat) && (uniform_order_stat <= running_sum_normalized_weights) ) {
                 // select index idx
                 tmpPartics[i] = oldParts[idx];
                 break;
