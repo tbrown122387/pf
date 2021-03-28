@@ -213,7 +213,7 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
             
             // sample and get weight adjustments
             newSamp = qSamp(m_particles[ii], data);
-            m_logUnNormWeights[ii]  = logFEv(newSamp, m_particles[ii]);
+            m_logUnNormWeights[ii] += logFEv(newSamp, m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(data, newSamp);
             m_logUnNormWeights[ii] -= logQEv(newSamp, m_particles[ii], data);
 
@@ -275,7 +275,7 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
         {
             // sample particles
             m_particles[ii] = q1Samp(data);
-            m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
+            m_logUnNormWeights[ii] += logMuEv(m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
 

@@ -174,7 +174,7 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
             
             // sample and get weight adjustments
             newSamp = fSamp(m_particles[ii]);
-            m_logUnNormWeights[ii] = logGEv(dat, newSamp);
+            m_logUnNormWeights[ii] += logGEv(dat, newSamp);
 
             // overwrite stuff
             m_particles[ii] = newSamp;
@@ -230,7 +230,7 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
         {
             // sample particles
             m_particles[ii] = q1Samp(dat);
-            m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
+            m_logUnNormWeights[ii] += logMuEv(m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(dat, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], dat);
 
