@@ -668,7 +668,7 @@ void mn_resamp_fast1<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, ar
         exponentials[i] = -std::log(u_sampler(this->m_gen));   
         G += exponentials[i];
     }
-    G+= std::log(u_sampler(this->m_gen)); // E_{N+1}
+    G -= std::log(u_sampler(this->m_gen)); // E_{N+1}
 
     // see Fig 7.15 in IHMM on page 243
     arrayVec tmpPartics = oldParts;                // the new particles 
