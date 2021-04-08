@@ -29,7 +29,7 @@ namespace filters {
   * @tparam resamp_t the resampler type
   */
 template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug=false>
-class APF : public pf_base<float_t, dimy, dimx>
+class APF : public bases::pf_base<float_t, dimy, dimx>
 {
 public:
 

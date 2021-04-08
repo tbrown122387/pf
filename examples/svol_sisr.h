@@ -5,6 +5,11 @@
 #include <pf/rv_eval.h> // for evaluating densities and pmfs
 #include <pf/rv_samp.h> // for sampling random numbers
 
+
+using namespace pf;
+using namespace pf::filters;
+
+
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>
 class svol_sisr : public SISRFilter<nparts, dimx, dimy, resampT,float_t>
 {

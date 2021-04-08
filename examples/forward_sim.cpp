@@ -14,6 +14,8 @@
 #define FLOATTYPE float // choose float (faster) or double (slower)
 
 
+using namespace pf::resamplers;
+
 void forward_sim()
 {
     // "state size vector"

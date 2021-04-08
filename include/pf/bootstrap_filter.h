@@ -24,7 +24,7 @@ namespace filters {
  * @tparam resamp_t the type of resampler
  */
 template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug=false>
-class BSFilter : public pf_base<float_t, dimy, dimx>
+class BSFilter : public bases::pf_base<float_t, dimy, dimx>
 {
 public:
 

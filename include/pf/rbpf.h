@@ -29,7 +29,7 @@ namespace filters {
  * @tparam resamp_t the resampler type (e.g. multinomial, etc.)
  */
 template<size_t nparts, size_t dimnss,size_t dimss,size_t dimy,typename resamp_t, typename float_t >
-class rbpf_hmm : public rbpf_base<float_t, dimss, dimnss, dimy >
+class rbpf_hmm : public bases::rbpf_base<float_t, dimss, dimnss, dimy >
 {
 public:
 
@@ -355,7 +355,7 @@ auto rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() cons
  * @tparam resamp_t the resampler type (e.g. multinomial, etc.)
  */
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-class rbpf_hmm_bs : public rbpf_base<float_t,dimss,dimnss,dimy>
+class rbpf_hmm_bs : public bases::rbpf_base<float_t,dimss,dimnss,dimy>
 {
 public:
 
@@ -636,7 +636,7 @@ auto rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() c
  * @tparam resamp_t the resampler type
  */
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-class rbpf_kalman : public rbpf_base<float_t,dimss,dimnss,dimy>
+class rbpf_kalman : public bases::rbpf_base<float_t,dimss,dimnss,dimy>
 {
 
 public:
@@ -960,7 +960,7 @@ auto rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() c
  * @tparam resamp_t the resampler type
  */
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-class rbpf_kalman_bs : public rbpf_base<float_t,dimss,dimnss,dimy>
+class rbpf_kalman_bs : public bases::rbpf_base<float_t,dimss,dimnss,dimy>
 {
 
 public:

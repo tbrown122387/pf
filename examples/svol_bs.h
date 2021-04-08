@@ -9,6 +9,10 @@
 #include <pf/rv_eval.h> // for evaluating densities and pmfs
 
 
+using namespace pf;
+using namespace pf::filters;
+using namespace pf::bases;
+
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>
 class svol_bs : public BSFilter<nparts, dimx, dimy, resampT, float_t>
               , public ForwardMod<dimx,dimy,float_t>

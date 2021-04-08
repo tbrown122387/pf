@@ -5,45 +5,13 @@
 #include <math.h>       /* log */
 
 #include "rv_eval.h"
-
+#include "pf_base.h"
 
 namespace pf {
 
 namespace filters {
 
-//! Abstract Base Class for all closed-form filters.
-/**
- * @class cf_filter
- * @author taylor
- * @file cf_filters.h
- * @brief forces structure on the closed-form filters.
- */
-template<size_t dimstate, size_t dimobs, typename float_t>
-class cf_filter{
 
-public:
-    
-    /** "state size vector" type alias for linear algebra stuff */
-    using ssv = Eigen::Matrix<float_t,dimstate,1>;
-    /** "observation size vector" type alias for linear algebra stuff */
-    using osv = Eigen::Matrix<float_t,dimstate,1>;
-    
-    /**
-     * @brief The (virtual) destructor.
-     */
-    virtual ~cf_filter();
-    
-    
-    /**
-     * @brief returns the log of the most recent conditional likelihood
-     * @return log p(y_t | y_{1:t-1}) or log p(y_1)
-     */
-    virtual float_t getLogCondLike() const = 0;
-};
-
-
-template<size_t dimstate, size_t dimobs, typename float_t>
-cf_filter<dimstate,dimobs,float_t>::~cf_filter() {}
 
 
 //! A class template for Kalman filtering.
@@ -54,7 +22,7 @@ cf_filter<dimstate,dimobs,float_t>::~cf_filter() {}
  * @brief Inherit from this for a model that admits Kalman filtering.
  */
 template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-class kalman : public cf_filter<dimstate, dimobs, float_t> {
+class kalman : public bases::cf_filter<dimstate, dimobs, float_t> {
 
 public:    
     
@@ -226,7 +194,7 @@ private:
 
 template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
 kalman<dimstate,dimobs,diminput,float_t>::kalman() 
-        : cf_filter<dimstate,dimobs,float_t>()
+        : bases::cf_filter<dimstate,dimobs,float_t>()
         , m_predMean(ssv::Zero())
         , m_predVar(ssMat::Zero()) 
         , m_fresh(true)
@@ -237,7 +205,7 @@ kalman<dimstate,dimobs,diminput,float_t>::kalman()
 
 template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
 kalman<dimstate,dimobs,diminput,float_t>::kalman(const ssv &initStateMean, const ssMat &initStateVar) 
-        : cf_filter<dimstate,dimobs,float_t>()
+        : bases::cf_filter<dimstate,dimobs,float_t>()
         , m_predMean(initStateMean)
         , m_predVar(initStateVar) 
         , m_fresh(true)
@@ -363,7 +331,7 @@ auto kalman<dimstate,dimobs,diminput,float_t>::getPredYVar(
  * @brief Inherit from this for a model that admits HMM filtering.
  */
 template<size_t dimstate, size_t dimobs, typename float_t>
-class hmm : public cf_filter<dimstate,dimobs,float_t>
+class hmm : public bases::cf_filter<dimstate,dimobs,float_t>
 {
 
 public:
@@ -442,7 +410,7 @@ private:
 
 template<size_t dimstate, size_t dimobs, typename float_t>
 hmm<dimstate,dimobs,float_t>::hmm() 
-    : cf_filter<dimstate,dimobs,float_t>::cf_filter()
+    : bases::cf_filter<dimstate,dimobs,float_t>::cf_filter()
     , m_filtVec(ssv::Zero())
     , m_transMatTranspose(ssMat::Zero())
     , m_lastCondLike(0.0)
@@ -453,7 +421,7 @@ hmm<dimstate,dimobs,float_t>::hmm()
 
 template<size_t dimstate, size_t dimobs, typename float_t>
 hmm<dimstate,dimobs,float_t>::hmm(const ssv &initStateDistr, const ssMat &transMat) 
-    : cf_filter<dimstate,dimobs,float_t>()
+    : bases::cf_filter<dimstate,dimobs,float_t>()
     , m_filtVec(initStateDistr)
     , m_transMatTranspose(transMat.transpose())
     , m_lastCondLike(0.0)
@@ -513,7 +481,7 @@ void hmm<dimstate,dimobs,float_t>::update(const ssv &condDensVec)
  * @brief Inherit from this for a model that admits Gamma filtering.
  */
 template<size_t dim_pred, typename float_t>
-class gamFilter : public cf_filter<1,1,float_t>
+class gamFilter : public bases::cf_filter<1,1,float_t>
 {
 
 public:
@@ -600,7 +568,7 @@ private:
 
 template<size_t dim_pred, typename float_t>
 gamFilter<dim_pred,float_t>::gamFilter(const float_t &nOneTilde, const float_t &dOneTilde)
-    : cf_filter<1,1,float_t>()
+    : bases::cf_filter<1,1,float_t>()
     , m_lastLogCondLike(0.0)
     , m_fresh(true)
 {
@@ -664,7 +632,7 @@ void gamFilter<dim_pred,float_t>::update(const float_t& yt, const psv &xt, const
  * @brief Inherit from this for a model that admits Gamma filtering.
  */
 template<size_t dim_obs, size_t dim_pred, typename float_t>
-class multivGamFilter : public cf_filter<1,dim_obs,float_t>
+class multivGamFilter : public bases::cf_filter<1,dim_obs,float_t>
 {
 
 public:
@@ -767,7 +735,7 @@ private:
 
 template<size_t dim_obs, size_t dim_pred, typename float_t>
 multivGamFilter<dim_obs,dim_pred,float_t>::multivGamFilter(const float_t &nOneTilde, const float_t &dOneTilde)
-    : cf_filter<1,dim_obs,float_t>()
+    : bases::cf_filter<1,dim_obs,float_t>()
     , m_lastLogCondLike(0.0)
     , m_fresh(true)
 {

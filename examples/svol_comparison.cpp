@@ -8,13 +8,14 @@
 #include "svol_apf.h" // apf filter for svol
 #include "svol_sisr.h" // sisr filter for svol
 
+
 // some template parameters
 #define dimstate 1
 #define dimobs   1
 #define numparts 100
 #define FLOATTYPE float // choose float (faster) or double (slower)
 
-
+using namespace pf::resamplers;
 
 void run_svol_comparison(const std::string &csv)
 {

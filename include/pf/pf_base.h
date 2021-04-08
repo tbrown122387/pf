@@ -390,6 +390,42 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int n
     return allFutures; 
 }
 
+
+//! Abstract Base Class for all closed-form filters.
+/**
+ * @class cf_filter
+ * @author taylor
+ * @file cf_filters.h
+ * @brief forces structure on the closed-form filters.
+ */
+template<size_t dimstate, size_t dimobs, typename float_t>
+class cf_filter{
+
+public:
+    
+    /** "state size vector" type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<float_t,dimstate,1>;
+    /** "observation size vector" type alias for linear algebra stuff */
+    using osv = Eigen::Matrix<float_t,dimstate,1>;
+    
+    /**
+     * @brief The (virtual) destructor.
+     */
+    virtual ~cf_filter();
+    
+    
+    /**
+     * @brief returns the log of the most recent conditional likelihood
+     * @return log p(y_t | y_{1:t-1}) or log p(y_1)
+     */
+    virtual float_t getLogCondLike() const = 0;
+};
+
+
+template<size_t dimstate, size_t dimobs, typename float_t>
+cf_filter<dimstate,dimobs,float_t>::~cf_filter() {}
+
+
 } // namespace bases
 } // namespace pf
 #endif // PF_BASE_H

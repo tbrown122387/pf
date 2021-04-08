@@ -6,6 +6,8 @@
 #include <pf/rv_eval.h> // for evaluating densities and pmfs
 #include <pf/rv_samp.h> // for sampling random numbers
 
+using namespace pf::filters;
+using namespace pf;
 
 template<size_t nparts, size_t dimx, size_t dimy, typename resampT, typename float_t>
 class svol_apf : public APF<nparts,dimx,dimy,resampT,float_t>

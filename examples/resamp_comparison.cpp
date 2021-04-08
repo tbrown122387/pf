@@ -12,6 +12,8 @@
 #define numparts 5000
 #define FLOATTYPE float // choose float (faster) or double (slower)
 
+using namespace pf::resamplers;
+
 
 void run_resamp_comparison(const std::string &csv)
 {
