@@ -31,7 +31,7 @@ namespace filters {
 template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug=false>
 class APF : public bases::pf_base<float_t, dimy, dimx>
 {
-public:
+private:
 
     /** "state size vector" type alias for linear algebra stuff */
     using ssv = Eigen::Matrix<float_t,dimx,1>;
@@ -45,8 +45,6 @@ public:
     using arrayVec = std::array<ssv, nparts>;
     /** type alias for array of unsigned ints */
     using arrayUInt = std::array<unsigned int, nparts>;
-    /** the number of particles */
-    static constexpr unsigned int num_particles = nparts;
 
 public:
 

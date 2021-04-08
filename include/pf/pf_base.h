@@ -39,12 +39,12 @@ public:
     using func = std::function<const Mat(const ssv&)>;
     
     /* functions  */
-    using funcs = std::vector<func>;
+    using func_vec = std::vector<func>;
 
-    /* the dimension of each observation vector */
+    /* the dimension of each observation vector (allows indirect access to template parameters)*/
     static constexpr unsigned int dim_obs = dimobs;
 
-    /* the dimension of the state vector */
+    /* the dimension of the state vector (allows indirect access to template parameters)*/
     static constexpr unsigned int dim_state = dimstate;
 
 
@@ -53,7 +53,7 @@ public:
      * @param data the most recent observation 
      * @param filter functions whose expected value approx. is computed at each time step
      */ 
-    virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0;
+    virtual void filter(const osv &data, const func_vec& fs = func_vec() ) = 0;
 
 
     /**
@@ -99,7 +99,7 @@ public:
     using func  = std::function<const Mat(const nsssv&, const sssv&)>;
     
     /* functions */
-    using funcs = std::vector<func>;
+    using func_vec = std::vector<func>;
 
     /* the size of the sampled state portion */
     static constexpr unsigned int dim_sampled_state = dim_s_state;
@@ -116,7 +116,7 @@ public:
      * @param data the most recent observation 
      * @param filter functions whose expected value approx. is computed at each time step
      */
-    virtual void filter(const osv &data, const funcs& fs = funcs() ) = 0;
+    virtual void filter(const osv &data, const func_vec& fs = func_vec() ) = 0;
 
 
     /**

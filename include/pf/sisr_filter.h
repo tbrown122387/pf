@@ -25,7 +25,7 @@ namespace filters {
 template<size_t nparts, size_t dimx, size_t dimy, typename resamp_t, typename float_t, bool debug=false>
 class SISRFilter : public bases::pf_base<float_t, dimy, dimx>
 {
-public:
+private:
 
     /** "state size vector" type alias for linear algebra stuff */
     using ssv         = Eigen::Matrix<float_t, dimx, 1>; 
@@ -37,9 +37,8 @@ public:
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of float_ts */
     using arrayfloat_t = std::array<float_t, nparts>;
-     /** the number of particles */
-    static constexpr unsigned int num_particles = nparts;
    
+public:
 
     /**
      * @brief The (one and only) constructor.
