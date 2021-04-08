@@ -11,6 +11,10 @@
 #include "rv_samp.h" // for k_generator
 
 
+namespace pf {
+
+namespace filters {
+
 //! A base-class for Auxiliary Particle Filtering. Filtering only, no smoothing.
  /**
   * @class APF
@@ -355,5 +359,7 @@ auto APF<nparts, dimx, dimy, resamp_t, float_t, debug>::getExpectations() const 
     return m_expectations;
 }
 
+} // namespace filters 
+} // namespace pf
 #endif //APF_H
 

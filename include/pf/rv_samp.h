@@ -5,6 +5,9 @@
 #include <Eigen/Dense> //linear algebra stuff
 #include <random>
 
+
+namespace pf {
+
 namespace rvsamp{
 
 
@@ -923,6 +926,7 @@ std::array<unsigned int, N> k_gen<N, float_t>::sample(const std::array<float_t, 
 
 } // namespace rv_samp
     
+} // namespace pf
     
     
 #endif // RV_SAMP_H

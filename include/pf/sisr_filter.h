@@ -6,6 +6,11 @@
 
 #include "pf_base.h"
 
+
+namespace pf {
+
+namespace filters {
+
 //! A base class for the Sequential Important Sampling with Resampling (SISR).
 /**
  * @class SISRFilter
@@ -328,10 +333,7 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
 }
 
 
-
-
-
-
-
+} // namespace filters
+} //namespace pf
 
 #endif //SISR_FILTER_H

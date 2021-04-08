@@ -7,6 +7,10 @@
 #include "rv_eval.h"
 
 
+namespace pf {
+
+namespace filters {
+
 //! Abstract Base Class for all closed-form filters.
 /**
  * @class cf_filter
@@ -838,7 +842,8 @@ auto multivGamFilter<dim_obs,dim_pred,float_t>::getFcastCov(const psv &xtp1, con
         return Sigma * delta * m_filtVec(1) / (delta * m_filtVec(0) - 2.0);
 }
 
+} // namespace filters
 
-
+} //namespace pf
 
 #endif //CF_FILTERS_H

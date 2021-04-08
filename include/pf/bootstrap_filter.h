@@ -6,7 +6,11 @@
 #include <Eigen/Dense>
 
 #include "pf_base.h"
-    
+
+
+namespace pf {
+
+namespace filters {
 
 //! A base class for the bootstrap particle filter.
 /**
@@ -297,6 +301,7 @@ auto BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::getExpectations() c
     return m_expectations;
 }
 
-
+} // namespace filters
+} // namespace pf 
 
 #endif // BOOTSTRAP_FILTER_H

@@ -8,6 +8,9 @@
 #define DIMINNERMOD  2
 #define DIMOBS       1
 
+using namespace pf::resamplers;
+using namespace pf::filters;
+
 class MRFixture
 {
 public:

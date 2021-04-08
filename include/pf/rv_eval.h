@@ -7,6 +7,8 @@
 #include "boost/math/special_functions.hpp"
 
 
+namespace pf {
+
 namespace rveval{
     
 ////////////////////////////////////////////////
@@ -1259,5 +1261,6 @@ float_t evalInvWishart(const Eigen::Matrix<float_t,dim,dim> &X,
 
 } //namespace rveval
 
+} //namespace pf
 
 #endif //RV_EVAL_H

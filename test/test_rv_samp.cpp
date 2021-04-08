@@ -5,6 +5,9 @@
 #define bigdim 2
 #define smalldim 1
 
+
+using namespace pf;
+
 class SampFixture
 {
 public:

@@ -9,6 +9,10 @@
 #include <Eigen/Dense>
 
 
+namespace pf {
+
+namespace resamplers {
+
 //! Base class for all resampler types.
 /**
  * @class rbase
@@ -696,5 +700,8 @@ void mn_resamp_fast1<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, ar
     oldParts = std::move(tmpPartics);
     std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0);  
 }
+
+} // namespace resamplers
+} //namespace pf
 
 #endif // RESAMPLERS_H

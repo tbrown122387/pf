@@ -7,6 +7,10 @@
 #include <Eigen/Dense>
 
 
+namespace pf {
+
+namespace bases {
+
 /**
  * @author t
  * @file pf_base.h
@@ -386,4 +390,6 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int n
     return allFutures; 
 }
 
+} // namespace bases
+} // namespace pf
 #endif // PF_BASE_H

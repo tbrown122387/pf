@@ -11,6 +11,11 @@
 #include "cf_filters.h" // for closed form filter objects
 
 
+namespace pf {
+
+namespace filters {
+
+
 //! Rao-Blackwellized/Marginal Particle Filter with inner HMMs
 /**
  * @class rbpf_hmm
@@ -1223,5 +1228,7 @@ auto rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations(
     return m_expectations;
 }
 
+} //namespace filters
+} //namespace pf
 
 #endif //RBPF_H
