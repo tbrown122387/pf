@@ -27,16 +27,16 @@ public:
     using float_type = float_t;
 
     /* expose observation-sized vector type to users  */
-    using observation_sized_vector = Eigen::Matrix<float_t,dimobs,1>;
+    using obs_sized_vec = Eigen::Matrix<float_t,dimobs,1>;
 
     /* expose state-sized vector type to users */
-    using state_sized_vector = Eigen::Matrix<float_t,dimstate,1>;
+    using state_sized_vec = Eigen::Matrix<float_t,dimstate,1>;
     
     /* expose state-sized vector to users */
     using dynamic_matrix = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     
     /* a function  */
-    using func = std::function<const dynamic_matrix(const state_sized_vector&)>;
+    using func = std::function<const dynamic_matrix(const state_sized_vec&)>;
     
     /* functions  */
     using func_vec = std::vector<func>;
@@ -53,7 +53,7 @@ public:
      * @param data the most recent observation 
      * @param filter functions whose expected value approx. is computed at each time step
      */ 
-    virtual void filter(const observation_sized_vector &data, const func_vec& fs = func_vec() ) = 0;
+    virtual void filter(const obs_sized_vec &data, const func_vec& fs = func_vec() ) = 0;
 
 
     /**
@@ -84,19 +84,19 @@ class rbpf_base {
 public:
 
     /* expose observation-sized vector type to users  */
-    using observation_sized_vector = Eigen::Matrix<float_t,dimobs,1>;
+    using obs_sized_vec = Eigen::Matrix<float_t,dimobs,1>;
     
     /* expose sampled-state-size vector type to users */
-    using sampled_state_sized_vector  = Eigen::Matrix<float_t,dim_s_state,1>;
+    using sampled_state_sized_vec  = Eigen::Matrix<float_t,dim_s_state,1>;
     
     /* expose not-sampled-state-sized vector type to users */
-    using not_sampled_state_sized_vector = Eigen::Matrix<float_t,dim_ns_state,1>;
+    using not_sampled_state_sized_vec = Eigen::Matrix<float_t,dim_ns_state,1>;
     
     /* expose state-sized vector to users */
     using dynamic_matrix = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     
     /* a function */
-    using func  = std::function<const dynamic_matrix(const not_sampled_state_sized_vector&, const sampled_state_sized_vector&)>;
+    using func  = std::function<const dynamic_matrix(const not_sampled_state_sized_vec&, const sampled_state_sized_vec&)>;
     
     /* functions */
     using func_vec = std::vector<func>;
@@ -116,7 +116,7 @@ public:
      * @param data the most recent observation 
      * @param filter functions whose expected value approx. is computed at each time step
      */
-    virtual void filter(const observation_sized_vector &data, const func_vec& fs = func_vec() ) = 0;
+    virtual void filter(const obs_sized_vec &data, const func_vec& fs = func_vec() ) = 0;
 
 
     /**
@@ -134,16 +134,18 @@ public:
  */
 template<size_t dimx, size_t dimy, typename float_t>
 class ForwardMod {
+private:
+
+    /* expose observation-sized vector type to users (private because they clash with pf_base) */
+    using obs_sized_vec = Eigen::Matrix<float_t,dimy,1>;
+
+    /* expose state-sized vector type to users (private because they clash with pf_base) */
+    using state_sized_vec = Eigen::Matrix<float_t,dimx,1>;
+
 public:
 
-    /* expose observation-sized vector type to users  */
-    using observation_sized_vector = Eigen::Matrix<float_t,dimy,1>;
-
-    /* expose state-sized vector type to users */
-    using state_sized_vector = Eigen::Matrix<float_t,dimx,1>;
-
     /* a pair of paths (xts first, yts second) */
-    using aPair = std::pair<std::vector<state_sized_vector>, std::vector<observation_sized_vector> >;
+    using aPair = std::pair<std::vector<state_sized_vec>, std::vector<obs_sized_vec> >;
 
 
     /**
@@ -156,29 +158,29 @@ public:
      * @brief samples from the first time's state distribution
      * @return a state-sized vector for the x1 sample
      */
-    virtual state_sized_vector muSamp()                = 0;
+    virtual state_sized_vec muSamp()                = 0;
 
 
     /**
      * @brief returns a sample from the latent Markov transition
      * @return a state-sized vector for the xt sample
      */
-    virtual state_sized_vector fSamp (const state_sized_vector &xtm1) = 0;
+    virtual state_sized_vec fSamp (const state_sized_vec &xtm1) = 0;
 
 
     /**
      * @brief returns a sample for the observed series 
      * @return 
      */
-    virtual observation_sized_vector gSamp (const state_sized_vector &xt)   = 0;
+    virtual obs_sized_vec gSamp (const state_sized_vec &xt)   = 0;
 };
 
 
 template<size_t dimx, size_t dimy, typename float_t>
 auto ForwardMod<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
 
-    std::vector<state_sized_vector> xs;
-    std::vector<observation_sized_vector> ys;
+    std::vector<state_sized_vec> xs;
+    std::vector<obs_sized_vec> ys;
 
     // time 1
     xs.push_back(this->muSamp());
@@ -205,25 +207,26 @@ auto ForwardMod<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
  */
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
 class FutureSimulator {
-public:
+private:
 
-    /* expose observation-sized vector type to users  */
-    using observation_sized_vector = Eigen::Matrix<float_t,dimy,1>;
+    /* expose observation-sized vector type to users  (private because they clash with pf_base) */
+    using obs_sized_vec = Eigen::Matrix<float_t,dimy,1>;
 
     /* expose state-sized vector type to users */
-    using state_sized_vector = Eigen::Matrix<float_t,dimx,1>;
+    using state_sized_vec = Eigen::Matrix<float_t,dimx,1>;
 
+public:
     /* one time point's pair of of nparts states and nparts observations  */
-    using timePair = std::pair<std::array<state_sized_vector, nparts>, std::array<observation_sized_vector, nparts> >;
+    using timePair = std::pair<std::array<state_sized_vec, nparts>, std::array<obs_sized_vec, nparts> >;
 
     /* many path pairs. time, (state/obs), particle */
     using manyPairs = std::vector<timePair>;
 
     /* observation paths (time, particle) */
-    using obsPaths = std::vector<std::array<observation_sized_vector, nparts> >;
+    using obsPaths = std::vector<std::array<obs_sized_vec, nparts> >;
 
     /* many state paths (time, particle) */
-    using statePaths = std::vector<std::array<state_sized_vector, nparts> >;
+    using statePaths = std::vector<std::array<state_sized_vec, nparts> >;
 
 
     /**
@@ -253,21 +256,21 @@ public:
     /**
      * @brief gets the most recent unweighted samples, to be fed into sim_future()
      */
-    virtual std::array<state_sized_vector,nparts> get_uwtd_samps() const = 0;
+    virtual std::array<state_sized_vec,nparts> get_uwtd_samps() const = 0;
 
 
     /**
      * @brief returns a sample from the latent Markov transition
      * @return a state-sized vector for the xt sample
      */
-    virtual state_sized_vector fSamp (const state_sized_vector &xtm1) = 0;
+    virtual state_sized_vec fSamp (const state_sized_vec &xtm1) = 0;
 
 
     /**
      * @brief returns a sample for the observed series 
      * @return 
      */
-    virtual observation_sized_vector gSamp (const state_sized_vector &xt)   = 0;
+    virtual obs_sized_vec gSamp (const state_sized_vec &xt)   = 0;
 };
 
 
@@ -278,10 +281,10 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time
     manyPairs allFutures;
 
     // stuff that gets changed every time loop
-    std::array<state_sized_vector, nparts> states;
-    std::array<observation_sized_vector, nparts> observations;
-    std::array<state_sized_vector,nparts> past_states;
-    std::array<state_sized_vector, nparts> first_states = this->get_uwtd_samps();
+    std::array<state_sized_vec, nparts> states;
+    std::array<obs_sized_vec, nparts> observations;
+    std::array<state_sized_vec,nparts> past_states;
+    std::array<state_sized_vec, nparts> first_states = this->get_uwtd_samps();
 
     // iterate over time
     for(unsigned int i = 0; i < num_time_steps; ++i){
@@ -318,10 +321,10 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_obs(unsigned int num_
     obsPaths allFutures;
 
     // stuff that gets changed every time loop
-    std::array<state_sized_vector, nparts> states;
-    std::array<observation_sized_vector, nparts> observations;
-    std::array<state_sized_vector,nparts> past_states;
-    std::array<state_sized_vector, nparts> first_states = this->get_uwtd_samps();
+    std::array<state_sized_vec, nparts> states;
+    std::array<obs_sized_vec, nparts> observations;
+    std::array<state_sized_vec,nparts> past_states;
+    std::array<state_sized_vec, nparts> first_states = this->get_uwtd_samps();
 
     // iterate over time
     for(unsigned int i = 0; i < num_time_steps; ++i){
@@ -358,10 +361,10 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int n
     statePaths allFutures;
 
     // stuff that gets changed every time loop
-    std::array<state_sized_vector, nparts> states;
-    std::array<observation_sized_vector, nparts> observations;
-    std::array<state_sized_vector,nparts> past_states;
-    std::array<state_sized_vector, nparts> first_states = this->get_uwtd_samps();
+    std::array<state_sized_vec, nparts> states;
+    std::array<obs_sized_vec, nparts> observations;
+    std::array<state_sized_vec,nparts> past_states;
+    std::array<state_sized_vec, nparts> first_states = this->get_uwtd_samps();
 
     // iterate over time
     for(unsigned int i = 0; i < num_time_steps; ++i){
@@ -404,10 +407,10 @@ class cf_filter{
 public:
     
     /* expose observation-sized vector type to users  */
-    using observation_sized_vector = Eigen::Matrix<float_t,dimobs,1>;
+    using obs_sized_vec = Eigen::Matrix<float_t,dimobs,1>;
 
     /* expose state-sized vector type to users */
-    using state_sized_vector = Eigen::Matrix<float_t,dimstate,1>;
+    using state_sized_vec = Eigen::Matrix<float_t,dimstate,1>;
     
     /**
      * @brief The (virtual) destructor.
