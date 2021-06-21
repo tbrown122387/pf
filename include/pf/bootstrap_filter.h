@@ -232,7 +232,7 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
         {
             // sample particles
             m_particles[ii] = q1Samp(dat);
-            m_logUnNormWeights[ii] += logMuEv(m_particles[ii]);
+            m_logUnNormWeights[ii] = logMuEv(m_particles[ii]);
             m_logUnNormWeights[ii] += logGEv(dat, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], dat);
 
@@ -248,7 +248,7 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
         for(size_t i = 0; i < nparts; ++i){
             sumExp += std::exp(m_logUnNormWeights[i] - max);
         }
-        m_logLastCondLike = -std::log(nparts) + (max) + std::log(sumExp);
+        m_logLastCondLike = -std::log(nparts) + max + std::log(sumExp);
    
         // calculate expectations before you resample
         // paying mind to underflow

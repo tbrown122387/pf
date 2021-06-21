@@ -1,5 +1,5 @@
-#ifndef BOOTSTRAP_FILTER_H
-#define BOOTSTRAP_FILTER_H
+#ifndef BOOTSTRAP_FILTER_WC_H
+#define BOOTSTRAP_FILTER_WC_H
 
 #include <array>
 #include <vector>
@@ -7,6 +7,10 @@
 
 #include "pf_base.h"
     
+
+namespace pf {
+
+namespace filters {
 
 //! A base class for the bootstrap particle filter with covariates.
 /**
@@ -20,10 +24,10 @@
  * @tparam dimcov the dimension of the covariates
  * @tparam resamp_t the type of resampler
  */
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t, bool debug=false>
 class BSFilterWC 
 {
-public:
+private:
     
     /** "state size vector" type alias for linear algebra stuff */
     using ssv         = Eigen::Matrix<float_t, dimx, 1>; 
@@ -37,9 +41,8 @@ public:
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of float_ts */
     using arrayfloat_t = std::array<float_t, nparts>;
-    /** type alias for function */
-    using Funcs = std::vector<std::function<const Mat(const ssv&, const cvsv&)>>;
 
+public:
     /**
      * @brief The constructor
      * @param rs the resampling schedule (e.g. every rs time point) 
@@ -67,7 +70,8 @@ public:
      * @param covData covariate data
      * @param fs a vector of functions if you want to calculate expectations.
      */
-    void filter(const osv &ydata, const cvsv &covdata, const Funcs& fs = Funcs()); 
+    void filter(const osv &ydata, const cvsv &covdata, 
+                const std::vector<std::function<const Mat(const ssv&, const cvsv&)>>& fs = std::vector<std::function<const Mat(const ssv&, const cvsv&)>>()); 
 
 
     /**
@@ -117,12 +121,12 @@ public:
     
     //!
     /**
-     * @brief Sample from the state transition distribution
+     * @brief Sample from the state transition distribution. 
      * @param xtm1 is a const Vec& describing the time t-1 state
      * @param zt is a const Vec& describing the time t covariate
      * @return the sample as a Vec
      */
-    virtual ssv fSamp (const ssv &xtm1, const cvsv &zt) = 0;
+    virtual ssv stateTransSamp (const ssv &xtm1, const cvsv &zt) = 0;
     
 protected:
     /** @brief particle samples */
@@ -153,8 +157,8 @@ protected:
 ///////////////////////////////////////// implementations ///////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::BSFilterWC(const unsigned int &rs)
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t,bool debug>
+BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t, debug>::BSFilterWC(const unsigned int &rs)
                 : m_now(0)
                 , m_logLastCondLike(0.0)
                 , m_resampSched(rs)
@@ -164,15 +168,77 @@ BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::BSFilterWC(const unsi
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::~BSFilterWC() {}
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t, bool debug>
+BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t,debug>::~BSFilterWC() {}
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv &dat, const cvsv &covData, const Funcs& fs) 
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t, bool debug>
+void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t,debug>::filter(const osv &dat, const cvsv &covData, const std::vector<std::function<const Mat(const ssv&, const cvsv&)> >& fs) 
 {
+    if( m_now > 0)
+    {
+       
+        // try to iterate over particles all at once
+        ssv newSamp;
+        float_t maxOldLogUnNormWts(-std::numeric_limits<float_t>::infinity());
+        arrayfloat_t oldLogUnNormWts = m_logUnNormWeights;
+        for(size_t ii = 0; ii < nparts; ++ii)
+        {
+            // update max of old logUnNormWts
+            if (m_logUnNormWeights[ii] > maxOldLogUnNormWts)
+                maxOldLogUnNormWts = m_logUnNormWeights[ii];
+            
+            // sample and get weight adjustments
+            newSamp = stateTransSamp(m_particles[ii], covData);
+            m_logUnNormWeights[ii] += logGEv(dat, newSamp, covData);
+ 
+            // overwrite stuff
+            m_particles[ii] = newSamp;
 
-    if (m_now == 0) //time 1
+	    if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+        }
+        
+        // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
+        float_t maxNumer = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); //because you added log adjustments
+        float_t sumExp1(0.0);
+        float_t sumExp2(0.0);
+        for(size_t i = 0; i < nparts; ++i){
+            sumExp1 += std::exp(m_logUnNormWeights[i] - maxNumer);
+            sumExp2 += std::exp(oldLogUnNormWts[i] - maxOldLogUnNormWts);  //1
+        }
+        m_logLastCondLike = maxNumer + std::log(sumExp1) - maxOldLogUnNormWts - std::log(sumExp2);
+
+        // calculate expectations before you resample
+        int fId(0);
+        for(auto & h : fs){ // iterate over all functions
+        
+            Mat testOutput = h(m_particles[0], covData);
+            unsigned int rows = testOutput.rows();
+            unsigned int cols = testOutput.cols();
+            Mat numer = Mat::Zero(rows,cols);
+            float_t weightNormConst (0.0);
+            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
+                numer += h(m_particles[prtcl],covData) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);
+                weightNormConst += std::exp(m_logUnNormWeights[prtcl] - maxNumer);
+            }
+            m_expectations[fId] = numer/weightNormConst;
+
+            if constexpr(debug)
+                std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
+
+            fId++;
+        }
+
+        // resample if you should
+        if ( (m_now+1) % m_resampSched == 0)
+            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
+
+        // advance time
+        m_now += 1;       
+    } 
+    else // m_now == 0
     {  
         // only need to iterate over particles once
         for(size_t ii = 0; ii < nparts; ++ii)
@@ -182,6 +248,10 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
             m_logUnNormWeights[ii] = logMuEv(m_particles[ii], covData);
             m_logUnNormWeights[ii] += logGEv(dat, m_particles[ii], covData);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], dat, covData);
+
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+
         }
        
         // calculate log cond likelihood with log-exp-sum trick
@@ -204,8 +274,8 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
             Mat numer = Mat::Zero(rows,cols);
             float_t weightNormConst (0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl],covData) * std::exp( m_logUnNormWeights[prtcl] - (max) );
-                weightNormConst += std::exp( m_logUnNormWeights[prtcl] - (max) );
+                numer += h(m_particles[prtcl],covData) * std::exp( m_logUnNormWeights[prtcl] - max);
+                weightNormConst += std::exp( m_logUnNormWeights[prtcl] - max );
             }
             m_expectations[fId] = numer/weightNormConst;
             fId++;
@@ -219,77 +289,23 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::filter(const osv
         // advance time step
         m_now += 1;   
     }
-    else // m_now > 0
-    {
-       
-        // try to iterate over particles all at once
-        ssv newSamp;
-        float_t maxOldLogUnNormWts(-std::numeric_limits<float_t>::infinity());
-        arrayfloat_t oldLogUnNormWts = m_logUnNormWeights;
-        for(size_t ii = 0; ii < nparts; ++ii)
-        {
-            // update max of old logUnNormWts
-            if (m_logUnNormWeights[ii] > maxOldLogUnNormWts)
-                maxOldLogUnNormWts = m_logUnNormWeights[ii];
-            
-            // sample and get weight adjustments
-            newSamp = fSamp(m_particles[ii], covData);
-            m_logUnNormWeights[ii] = logGEv(dat, newSamp, covData);
- 
-            // overwrite stuff
-            m_particles[ii] = newSamp;
-        }
-        
-        // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
-        float_t maxNumer = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); //because you added log adjustments
-        float_t sumExp1(0.0);
-        float_t sumExp2(0.0);
-        for(size_t i = 0; i < nparts; ++i){
-            sumExp1 += std::exp(m_logUnNormWeights[i] - maxNumer);
-            sumExp2 += std::exp(oldLogUnNormWts[i] - maxOldLogUnNormWts);  //1
-        }
-        m_logLastCondLike = maxNumer + std::log(sumExp1) - maxOldLogUnNormWts - std::log(sumExp2);
-
-        // calculate expectations before you resample
-        int fId(0);
-        for(auto & h : fs){ // iterate over all functions
-        
-            Mat testOutput = h(m_particles[0],covData);
-            unsigned int rows = testOutput.rows();
-            unsigned int cols = testOutput.cols();
-            Mat numer = Mat::Zero(rows,cols);
-            float_t weightNormConst (0.0);
-            for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ // iterate over all particles
-                numer += h(m_particles[prtcl],covData) * std::exp(m_logUnNormWeights[prtcl] - maxNumer);
-                weightNormConst += std::exp(m_logUnNormWeights[prtcl] - maxNumer);
-            }
-            m_expectations[fId] = numer/weightNormConst;
-            fId++;
-        }
-
-        // resample if you should
-        if ( (m_now+1) % m_resampSched == 0)
-            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
-
-        // advance time
-        m_now += 1;       
-    }
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-float_t BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t, bool debug>
+float_t BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t,debug>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t>
-auto BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t, bool debug>
+auto BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t, debug>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
 
+} // namespace filters
+} // namespace pf
 
-
-#endif // BOOTSTRAP_FILTER_H
+#endif // BOOTSTRAP_FILTER_WC_H
