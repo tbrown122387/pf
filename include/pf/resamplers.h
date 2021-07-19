@@ -702,6 +702,16 @@ void mn_resamp_fast1<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, ar
 }
 
 
+/**
+ * @brief converts an integer in a transpose form to a position on the Hilbert Curve.
+ * Code is based off of John Skilling , "Programming the Hilbert curve", 
+ * AIP Conference Proceedings 707, 381-387 (2004) https://doi.org/10.1063/1.1751381
+ * @file resamplers.h
+ * @tparam num_bits how "accurate/fine/squiggly" you want the Hilbert curve
+ * @tparam num_dims the number of dimensions the curve is in
+ * @param X an unsigned integer in a "Transpose" form.
+ * @return a position on the hilbert curve 
+ */
 template<size_t num_bits, size_t num_dims>
 std::array<std::bitset<num_bits>,num_dims> TransposeToAxes(std::array<std::bitset<num_bits>,num_dims> X)
 {
@@ -735,6 +745,16 @@ std::array<std::bitset<num_bits>,num_dims> TransposeToAxes(std::array<std::bitse
 }
 
 
+/**
+ * @brief converts a position on the Hilbert curve into an integer in a "transpose" form.
+ * Code is based off of John Skilling , "Programming the Hilbert curve", 
+ * AIP Conference Proceedings 707, 381-387 (2004) https://doi.org/10.1063/1.1751381
+ * @file resamplers.h
+ * @tparam num_bits how "accurate/fine/squiggly" you want the Hilbert curve
+ * @tparam num_dims the number of dimensions the curve is in
+ * @param X a position on the hilbert curve (each dimension coordinate is in base 2)
+ * @return a position on the real line (in a "Transpose" form)
+ */
 template<size_t num_bits, size_t num_dims>
 std::array<std::bitset<num_bits>,num_dims> AxesToTranspose(std::array<std::bitset<num_bits>, num_dims> X)
 {
@@ -774,6 +794,17 @@ std::array<std::bitset<num_bits>,num_dims> AxesToTranspose(std::array<std::bitse
 }
 
 
+/**
+ * @brief converts an integer on the positive integers into its "Transpose" representation..
+ * This code supplements the above two functions that are 
+ *  based off of John Skilling , "Programming the Hilbert curve", 
+ * AIP Conference Proceedings 707, 381-387 (2004) https://doi.org/10.1063/1.1751381
+ * @file resamplers.h
+ * @tparam num_bits how "accurate/fine/squiggly" you want the Hilbert curve
+ * @tparam num_dims the number of dimensions the curve is in
+ * @param H a position on the hilbert curve (0,1,..,2^(num_dims * num_bits) )
+ * @return a position on the real line (in a "Transpose" form)
+ */
 template<size_t num_bits, size_t num_dims>
 std::array<std::bitset<num_bits>,num_dims> makeHTranspose(unsigned int H)
 {
@@ -798,6 +829,17 @@ std::array<std::bitset<num_bits>,num_dims> makeHTranspose(unsigned int H)
 }
 
 
+/**
+ * @brief converts an integer in its "Transpose" representation into a positive integer..
+ * This code supplements two functions above that are 
+ *  based off of John Skilling , "Programming the Hilbert curve", 
+ * AIP Conference Proceedings 707, 381-387 (2004) https://doi.org/10.1063/1.1751381
+ * @file resamplers.h
+ * @tparam num_bits how "accurate/fine/squiggly" you want the Hilbert curve
+ * @tparam num_dims the number of dimensions the curve is in
+ * @param Htrans a position on the real line (in a "Transpose" form)  
+ * @return a position on the hilbert curve (0,1,..,2^(num_dims * num_bits) )
+ */
 template<size_t num_bits, size_t num_dims>
 unsigned int makeH(std::array<std::bitset<num_bits>,num_dims> Htrans)
 {
