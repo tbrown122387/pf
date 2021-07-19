@@ -701,6 +701,123 @@ void mn_resamp_fast1<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, ar
     std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0);  
 }
 
+
+template<size_t num_bits, size_t num_dims>
+std::array<std::bitset<num_bits>,num_dims> TransposeToAxes(std::array<std::bitset<num_bits>,num_dims> X)
+{
+
+    using coord_t = std::bitset<num_bits>;
+    using coords_t = std::array<coord_t, num_dims>;
+
+
+    // Gray decode by H ^ (H/2)
+    coord_t t = X[num_dims-1] >> 1;
+    for(size_t i = num_dims-1; i > 0; i-- ) // https://stackoverflow.com/a/10384110
+        X[i] ^= X[i-1];
+    X[0] ^= t;
+
+    // Undo excess work
+    coord_t N = 2 << (num_bits-1);
+    for( coord_t Q = 2; Q != N; Q <<= 1 ) {
+        coord_t P = Q.to_ulong() - 1;
+        for( int i = num_dims - 1; i >= 0; i--){
+            if( (X[i] & Q).any() ){ // invert low bits of X[0]
+                X[0] ^= P;
+            } else{ // exchange low bits of X[i] and X[0]
+                t = (X[0]^X[i]) & P;
+                X[0] ^= t;
+                X[i] ^= t;
+            }
+        }
+    }
+
+    return X;
+}
+
+
+template<size_t num_bits, size_t num_dims>
+std::array<std::bitset<num_bits>,num_dims> AxesToTranspose(std::array<std::bitset<num_bits>, num_dims> X)
+{
+    using coord_t = std::bitset<num_bits>;
+    using coords_t = std::array<coord_t, num_dims>;
+
+    coord_t M = 1 << (num_bits-1);
+
+    // Inverse undo
+    for( coord_t Q = M; Q.to_ulong() > 1; Q >>= 1 ) {
+        coord_t P = Q.to_ulong() - 1;
+        for(size_t i = 0; i < num_bits; i++ ){
+            if( (X[i] & Q).any() )
+                X[0] ^= P;
+            else{
+                coord_t t = (X[0]^X[i]) & P;
+                X[0] ^= t;
+                X[i] ^= t;
+            }
+         }
+     } // exchange
+
+    // Gray encode
+    for( size_t i = 1; i < num_bits; i++ )
+        X[i] ^= X[i-1];
+
+    coord_t t = 0;
+    for( coord_t Q = M; Q.to_ulong() > 1; Q >>= 1 ){
+        if( (X[num_dims-1] & Q).any() )
+            t ^= Q.to_ulong()-1;
+    }
+
+    for( size_t i = 0; i < num_bits; i++ )
+        X[i] ^= t;
+
+    return X;
+}
+
+
+template<size_t num_bits, size_t num_dims>
+std::array<std::bitset<num_bits>,num_dims> makeHTranspose(unsigned int H)
+{
+    using coord_t = std::bitset<num_bits>;
+    using coords_t = std::array<coord_t, num_dims>;
+    using big_coord_t = std::bitset<num_bits*num_dims>;
+
+    big_coord_t Hb = H;
+    coords_t X;
+    for(size_t dim = 0; dim < num_dims; ++dim){
+
+        coord_t dim_coord_tmp;
+        unsigned start_bit = num_bits*num_dims-1-dim;
+        unsigned int c = num_bits - 1;
+        for(int bit = start_bit; bit >= 0; bit -= num_dims){
+            dim_coord_tmp[c] = Hb[bit];
+            c--;
+        }
+        X[dim] = dim_coord_tmp;
+    }
+    return X;
+}
+
+
+template<size_t num_bits, size_t num_dims>
+unsigned int makeH(std::array<std::bitset<num_bits>,num_dims> Htrans)
+{
+    using coord_t = std::bitset<num_bits>;
+    using coords_t = std::array<coord_t, num_dims>;
+    using big_coord_t = std::bitset<num_bits*num_dims>;
+
+    big_coord_t H;
+    unsigned int which_dim = 0;
+    unsigned which_bit;
+    for(int i = num_bits*num_dims - 1; i >= 0; i--){
+        which_bit = i / num_dims;
+        H[i] = Htrans[which_dim][which_bit];
+        which_dim = (which_dim + 1) % num_dims;
+    }
+    return H.to_ulong();
+
+}
+
+
 } // namespace resamplers
 } //namespace pf
 
