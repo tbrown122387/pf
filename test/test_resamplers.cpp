@@ -308,17 +308,30 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_systematic2", "[resamplers]")
 TEST_CASE_METHOD(MRFixture, "test hilbert", "[resamplers]")
 {
 
-    constexpr unsigned nb = 4;
+    constexpr unsigned nb = 3;
     constexpr unsigned nd = 2;
     using namespace pf::resamplers;
 
     unsigned total_matches = 0;
+    unsigned recov_H;
     for(unsigned H = 0; H < pow(2,nb*nd); ++H){
 
-        if(  H ==  makeH<nb,nd>(
+        recov_H =  makeH<nb,nd>(
                        AxesToTranspose<nb,nd>(
                            TransposeToAxes<nb,nd>(
-                               makeHTranspose<nb,nd>(H))))) total_matches++;
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
+        std::cout << H << ", " << recov_H << "\n";
+
+
+        // this is just for printing if you want it        
+        //auto H_image = TransposeToAxes<nb,nd>(makeHTranspose<nb,nd>(H));
+        //std::cout << H << ", ";
+        //for(size_t dim = 0; dim < nd; ++dim)
+        //    std::cout << H_image[dim].to_ulong() << ", ";
+        //std::cout << "\n";
+
     }
     REQUIRE(total_matches == pow(2, nb*nd));
 
