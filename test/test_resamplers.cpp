@@ -32,7 +32,8 @@ public:
     stratif_resampler<NUMPARTICLES,DIMSTATE,double> m_stratifr;
     systematic_resampler<NUMPARTICLES,DIMSTATE,double> m_systematicr;
 
-    // for Test_resampLogWts
+    // for Test_resampLogWts and systematic, residual, stratified, etc.
+    double m_good_value;
     arrayVec    m_vparts;
     arrayDouble m_vw;
     arrayVec    m_vparts2;
@@ -50,20 +51,33 @@ public:
     arrayHMMMods m_hmms;
     arrayVec m_rbpf_samps;
     arrayDouble m_rbpf_logwts;
-    
+
 
     MRFixture() : m_initTransMat1(transMat::Zero()), m_initTransMat2(transMat::Zero())
     {
-        // for Test_resampLogWts
-        // make the first particle have 0 for everything (samples and weights)
-        // make all other particles have 1 for samples and -INF for weights
+        // make the first particle have good value for everything (samples and weights)
+        // make all other particles have 0 for samples and -INF for weights
+        m_good_value = 42.42;
         for(size_t i = 0; i < NUMPARTICLES; ++i){
             if ( i == 0){
-                m_vparts[i] = ssv::Constant(0.0);
+                m_vparts[i] = ssv::Constant(m_good_value);
                 m_vw[i] = 0.0;
+                m_vparts2[i] = ssv::Constant(m_good_value);
+                m_vw2[i] = 0.0;
+                m_vparts3[i] = ssv::Constant(m_good_value);
+                m_vw3[i] = 0.0;
+                m_vparts4[i] = ssv::Constant(m_good_value);
+                m_vw4[i] = 0.0;
             }else{
-                m_vparts[i] = ssv::Constant(1.0);
+                m_vparts[i] = ssv::Constant(0.0);
                 m_vw[i] = -std::numeric_limits<float_t>::infinity();
+                m_vparts2[i] = ssv::Constant(0.0);
+                m_vw2[i] = -std::numeric_limits<float_t>::infinity();
+                m_vparts3[i] = ssv::Constant(0.0);
+                m_vw3[i] = -std::numeric_limits<float_t>::infinity();
+                m_vparts4[i] = ssv::Constant(0.0);
+                m_vw4[i] = -std::numeric_limits<float_t>::infinity();;
+
             }
         }
 
@@ -106,6 +120,8 @@ public:
             }
         }
     }
+
+
     
 };
 
@@ -118,7 +134,7 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts", "[resamplers]")
         
         REQUIRE(m_vw[p] == 0.0);
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            REQUIRE(m_vparts[p](i) == 0.0);
+            REQUIRE(m_vparts[p](i) == m_good_value);
         }
     }
 }
@@ -193,9 +209,9 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_resid" "[resamplers]")
     m_residr.resampLogWts(m_vparts2, m_vw2);
     for(unsigned int p = 0; p < NUMPARTICLES; ++p){
         
-        REQUIRE(m_vw2[p] == 0.0);
+        REQUIRE(m_vw2[p] == Approx(0.0));
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            REQUIRE(m_vparts2[p](i) == 0.0);
+            REQUIRE(m_vparts2[p](i) == m_good_value);
         }
     }
 }
@@ -229,7 +245,7 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_stratif", "[resamplers]")
         
         REQUIRE(m_vw3[p] == 0.0);
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            REQUIRE(m_vparts3[p](i) == 0.0);
+            REQUIRE(m_vparts3[p](i) == m_good_value);
         }
     }
 }
@@ -263,7 +279,7 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_systematic", "[resamplers]")
         
         REQUIRE(m_vw4[p] == 0.0);
         for(unsigned int i = 0; i < DIMSTATE; ++i){
-            REQUIRE(m_vparts4[p](i) == 0.0);
+            REQUIRE(m_vparts4[p](i) == m_good_value);
         }
     }
 }
@@ -286,5 +302,25 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_systematic2", "[resamplers]")
         REQUIRE(oneGoodSamp[p](0) == Approx(3.0));
         REQUIRE(oneGoodWeight[p] == 0.0);
     }
+}
+
+
+TEST_CASE_METHOD(MRFixture, "test hilbert", "[resamplers]")
+{
+
+    constexpr unsigned nb = 4;
+    constexpr unsigned nd = 2;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        if(  H ==  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))))) total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
 }
 
