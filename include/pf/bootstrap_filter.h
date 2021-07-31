@@ -54,7 +54,7 @@ public:
     
     
     /**
-     * @brief Returns the most recent (log-) conditiona likelihood.
+     * @brief Returns the most recent (log-) conditional likelihood.
      * @return log p(y_t | y_{1:t-1})
      */
     float_t getLogCondLike() const; 
@@ -110,7 +110,6 @@ public:
     virtual float_t logGEv (const osv &yt, const ssv &xt ) = 0;
     
     
-    //!
     /**
      * @brief Sample from the state transition distribution
      * @param xtm1 is a const Vec& describing the time t-1 state
@@ -298,6 +297,7 @@ auto BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::getExpectations() c
 {
     return m_expectations;
 }
+
 
 } // namespace filters
 } // namespace pf 
