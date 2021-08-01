@@ -722,7 +722,7 @@ std::array<std::bitset<num_bits>,num_dims> TransposeToAxes(std::array<std::bitse
 
     // Gray decode by H ^ (H/2)
     coord_t t = X[num_dims-1] >> 1;
-    for(size_t i = num_dims-1; i > 0; i-- ) // https://stackoverflow.com/a/10384110
+    for(int i = num_dims-1; i > 0; i-- ) // https://stackoverflow.com/a/10384110
         X[i] ^= X[i-1];
     X[0] ^= t;
 
@@ -761,12 +761,11 @@ std::array<std::bitset<num_bits>,num_dims> AxesToTranspose(std::array<std::bitse
     using coord_t = std::bitset<num_bits>;
     using coords_t = std::array<coord_t, num_dims>;
 
-    coord_t M = 1 << (num_bits-1);
-
     // Inverse undo
+    coord_t M = 1 << (num_bits-1);
     for( coord_t Q = M; Q.to_ulong() > 1; Q >>= 1 ) {
         coord_t P = Q.to_ulong() - 1;
-        for(size_t i = 0; i < num_bits; i++ ){
+        for(size_t i = 0; i < num_dims; i++ ){
             if( (X[i] & Q).any() )
                 X[0] ^= P;
             else{
@@ -778,7 +777,7 @@ std::array<std::bitset<num_bits>,num_dims> AxesToTranspose(std::array<std::bitse
      } // exchange
 
     // Gray encode
-    for( size_t i = 1; i < num_bits; i++ )
+    for( size_t i = 1; i < num_dims; i++ )
         X[i] ^= X[i-1];
 
     coord_t t = 0;
@@ -787,7 +786,7 @@ std::array<std::bitset<num_bits>,num_dims> AxesToTranspose(std::array<std::bitse
             t ^= Q.to_ulong()-1;
     }
 
-    for( size_t i = 0; i < num_bits; i++ )
+    for( size_t i = 0; i < num_dims; i++ )
         X[i] ^= t;
 
     return X;

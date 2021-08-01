@@ -305,7 +305,166 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_systematic2", "[resamplers]")
 }
 
 
-TEST_CASE_METHOD(MRFixture, "test hilbert", "[resamplers]")
+TEST_CASE_METHOD(MRFixture, "test auxiliary hilbert functions", "[resamplers]")
+{
+    using namespace pf::resamplers;
+
+    constexpr unsigned nb = 3;
+    constexpr unsigned nd = 2;
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(makeHTranspose<nb,nd>(H));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+}
+
+TEST_CASE_METHOD(MRFixture, "test auxiliary hilbert functions 2", "[resamplers]")
+{
+    using namespace pf::resamplers;
+
+    constexpr unsigned nb = 2;
+    constexpr unsigned nd = 2;
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(makeHTranspose<nb,nd>(H));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+}
+
+TEST_CASE_METHOD(MRFixture, "test auxiliary hilbert functions 3", "[resamplers]")
+{
+    using namespace pf::resamplers;
+
+    constexpr unsigned nb = 1;
+    constexpr unsigned nd = 2;
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(makeHTranspose<nb,nd>(H));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+}
+
+TEST_CASE_METHOD(MRFixture, "test auxiliary hilbert functions 4", "[resamplers]")
+{
+    using namespace pf::resamplers;
+
+    constexpr unsigned nb = 3;
+    constexpr unsigned nd = 3;
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(makeHTranspose<nb,nd>(H));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+}
+
+TEST_CASE_METHOD(MRFixture, "test auxiliary hilbert functions 5", "[resamplers]")
+{
+    using namespace pf::resamplers;
+
+    constexpr unsigned nb = 2;
+    constexpr unsigned nd = 3;
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(makeHTranspose<nb,nd>(H));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+}
+
+TEST_CASE_METHOD(MRFixture, "test auxiliary hilbert functions 6", "[resamplers]")
+{
+    using namespace pf::resamplers;
+
+    constexpr unsigned nb = 1;
+    constexpr unsigned nd = 3;
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(makeHTranspose<nb,nd>(H));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+}
+
+
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 1", "[resamplers]")
+{
+
+    constexpr unsigned nb = 1;
+    constexpr unsigned nd = 2;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
+        //std::cout << H << ", " << recov_H << "\n";
+
+
+        // this is just for printing if you want it        
+        //auto H_image = TransposeToAxes<nb,nd>(makeHTranspose<nb,nd>(H));
+        //std::cout << H << ", ";
+        //for(size_t dim = 0; dim < nd; ++dim)
+        //    std::cout << H_image[dim].to_ulong() << ", ";
+        //std::cout << "\n";
+
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
+}
+
+
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 2", "[resamplers]")
+{
+
+    constexpr unsigned nb = 2;
+    constexpr unsigned nd = 2;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
+}
+
+
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 3", "[resamplers]")
 {
 
     constexpr unsigned nb = 3;
@@ -322,16 +481,118 @@ TEST_CASE_METHOD(MRFixture, "test hilbert", "[resamplers]")
                                makeHTranspose<nb,nd>(H))));
         if(recov_H == H)
             total_matches++;
-        std::cout << H << ", " << recov_H << "\n";
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
+}
 
 
-        // this is just for printing if you want it        
-        //auto H_image = TransposeToAxes<nb,nd>(makeHTranspose<nb,nd>(H));
-        //std::cout << H << ", ";
-        //for(size_t dim = 0; dim < nd; ++dim)
-        //    std::cout << H_image[dim].to_ulong() << ", ";
-        //std::cout << "\n";
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 4", "[resamplers]")
+{
 
+    constexpr unsigned nb = 4;
+    constexpr unsigned nd = 2;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
+}
+
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 5", "[resamplers]")
+{
+
+    constexpr unsigned nb = 1;
+    constexpr unsigned nd = 3;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
+}
+
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 6", "[resamplers]")
+{
+
+    constexpr unsigned nb = 2;
+    constexpr unsigned nd = 3;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
+}
+
+
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 7", "[resamplers]")
+{
+
+    constexpr unsigned nb = 3;
+    constexpr unsigned nd = 3;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
+    }
+    REQUIRE(total_matches == pow(2, nb*nd));
+
+}
+
+TEST_CASE_METHOD(MRFixture, "test hilbert inverses 8", "[resamplers]")
+{
+
+    constexpr unsigned nb = 4;
+    constexpr unsigned nd = 3;
+    using namespace pf::resamplers;
+
+    unsigned total_matches = 0;
+    unsigned recov_H;
+    for(unsigned H = 0; H < pow(2,nb*nd); ++H){
+
+        recov_H =  makeH<nb,nd>(
+                       AxesToTranspose<nb,nd>(
+                           TransposeToAxes<nb,nd>(
+                               makeHTranspose<nb,nd>(H))));
+        if(recov_H == H)
+            total_matches++;
     }
     REQUIRE(total_matches == pow(2, nb*nd));
 
