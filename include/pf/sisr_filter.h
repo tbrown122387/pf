@@ -366,7 +366,7 @@ private:
     /** type alias for linear algebra stuff */
     using arrayStates = std::array<ssv, nparts>;
     /** type alias for array of common random numbers */
-    using arrayUs     = std::array<ysv, nparts>;
+    using arrayUs     = std::array<usv, nparts>;
     /** type alias for array of float_ts */
     using arrayfloat_t = std::array<float_t, nparts>;
    
