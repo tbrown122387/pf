@@ -1019,7 +1019,6 @@ public:
 template<size_t nparts, size_t dimx, size_t num_hilb_bits, typename float_t>
 void sys_hilb_resampler<nparts, dimx, num_hilb_bits, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts, const usvr& ur)
 {
-
     // calculate normalized weights
     arrayFloat w; 
     float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
@@ -1037,29 +1036,39 @@ void sys_hilb_resampler<nparts, dimx, num_hilb_bits, float_t>::resampLogWts(arra
         ubar_samples[i] = ubar_samples[i-1] + 1.0/nparts;
     }
 
-    // calculate the cumulative sums of the weights
-    arrayFloat cumsums;
-    std::partial_sum(w.begin(), w.end(), cumsums.begin());
-
+    // calculate the cumulative sums of the sorted weights
+    // calculate sorted particles while you're at it
     auto sigmaPermutation = get_permutation(oldParts);
+    arrayFloat sortedWeights;
+    arrayVec sortedParts;
+    for(size_t i = 0; i < nparts; ++i){
+       sortedWeights[i] = w[sigmaPermutation[i]];
+       sortedParts = oldParts[sigmaPermutation[i]]; 
+    }
+    arrayFloat cumsums;
+    std::partial_sum(sortedWeights.begin(), sortedWeights.end(), cumsums.begin());
 
-    // resample TODO 
+    // resample 
+    // unlike stratified, take advantage of U's being sorted
     arrayVec tmpPartics;
+    unsigned idx;
+    unsigned int j = 0;
     for(size_t i = 0; i < nparts; ++i){ // tmpPartics, Uis
 
         // find which index
-        unsigned int idx;
-        for(unsigned int j = 0; j < nparts; ++j){
-            
+        while(j < nparts){
+             
             // get the first time it gets covered by a cumsum
             if(cumsums[j] >= ubar_samples[i]){ 
                 idx = j;
                 break;
-            }   
+            } 
+
+          j++;  
         }
 
         // assign
-        tmpPartics[i] = oldParts[idx];
+        tmpPartics[i] = sortedParts[idx];
     }
 
     //overwrite olds with news
