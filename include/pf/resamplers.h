@@ -8,6 +8,7 @@
 #include <cmath> //floor
 #include <Eigen/Dense>
 #include <algorithm> // sort
+#include <bitset> // bitset
 
 #include "rv_eval.h" // for pf::rveval::evalUnivStdNormCDF<float_t>()
 
@@ -452,7 +453,6 @@ void stratif_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, 
         weight = weight/norm_const;
 
     // calculate the cumulative sums of the weights
-    // TODO: possible bug
     arrayFloat cumsums;
     std::partial_sum(w.begin(), w.end(), cumsums.begin());
 
@@ -569,19 +569,23 @@ void systematic_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldPart
         u_samples[i] = u_samples[i-1] + 1.0/nparts;
     }
 
-    // resample (same code from here on as stratified)
+    // resample 
+    // unlike stratified, take advantage of U's being sorted
     arrayVec tmpPartics;
+    unsigned idx;
+    unsigned int j = 0;
     for(size_t i = 0; i < nparts; ++i){ // tmpPartics, Uis
 
         // find which index
-        unsigned int idx;
-        for(unsigned int j = 0; j < nparts; ++j){
-            
+        while(j < nparts){
+             
             // get the first time it gets covered by a cumsum
             if(cumsums[j] >= u_samples[i]){ 
                 idx = j;
                 break;
-            }   
+            } 
+
+          j++;  
         }
 
         // assign
@@ -926,13 +930,13 @@ public:
 
 
 template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
-rbase_hcs<nparts, dimx, dimur, float_t>::rbase_hcs() 
+rbase_hcs<nparts, dimx, dimur, num_hilb_bits, float_t>::rbase_hcs() 
 {
 }
 
 
 template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
-bool rbase_hcs<nparts,dimx,dimur,float_t>::hilbertComparison(const ssv& first, const ssv& second)
+bool rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::hilbertComparison(const ssv& first, const ssv& second)
 {
     // return true if first "<" second
     // squash each vector from (-infty,infty) -> [0, 2^num_hilb_bits)
@@ -944,7 +948,7 @@ bool rbase_hcs<nparts,dimx,dimur,float_t>::hilbertComparison(const ssv& first, c
 }
 
 template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
-std::array<unsigned,nparts> rbase_hcs<nparts,dimx,dimur,float_t>::get_permutation(const arrayVec &unsortedParts)
+std::array<unsigned,nparts> rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::get_permutation(const arrayVec &unsortedParts)
 {
     // create unsorted index
     std::array<unsigned,nparts> indexes;
@@ -1012,16 +1016,8 @@ public:
 };
 
 
-template<size_t nparts, size_t dimx, typename float_t> // todo change template paras
-sys_hilb_resampler<nparts, dimx, float_t>::sys_hilb_resampler()
-    : rbase_hcs<nparts, dimx, 1,float_t>()
-{
-}
-
-
-template<size_t nparts, size_t dimx, typename float_t>// todo change template paras
-
-void sys_hilb_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts, const usvr& ur)
+template<size_t nparts, size_t dimx, size_t num_hilb_bits, typename float_t>
+void sys_hilb_resampler<nparts, dimx, num_hilb_bits, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts, const usvr& ur)
 {
 
     // calculate normalized weights
@@ -1056,7 +1052,7 @@ void sys_hilb_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts,
         for(unsigned int j = 0; j < nparts; ++j){
             
             // get the first time it gets covered by a cumsum
-            if(cumsums[j] >= u_samples[i]){ 
+            if(cumsums[j] >= ubar_samples[i]){ 
                 idx = j;
                 break;
             }   
