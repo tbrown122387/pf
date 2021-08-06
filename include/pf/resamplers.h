@@ -7,11 +7,16 @@
 #include <numeric> // accumulate, partial_sum
 #include <cmath> //floor
 #include <Eigen/Dense>
+#include <algorithm> // sort
+
+#include "rv_eval.h" // for pf::rveval::evalUnivStdNormCDF<float_t>()
 
 
 namespace pf {
 
 namespace resamplers {
+
+
 
 //! Base class for all resampler types.
 /**
@@ -19,11 +24,11 @@ namespace resamplers {
  * @author taylor
  * @date 15/04/18
  * @file resamplers.h
- * @brief all resamplers must inherit from this. 
- * This will enforce certain structure that are assumed by 
- * all particle filters.
+ * @brief most resamplers must inherit from this. 
+ * This will enforce certain structure that are assumed by these pfs. 
  * @tparam nparts the number of particles.
  * @tparam dimx the dimension of each state sample.
+ * @tparam float_t the type of floating point numbers (e.g. float or double)
  */
 template<size_t nparts, size_t dimx, typename float_t >
 class rbase
@@ -858,6 +863,213 @@ unsigned int makeH(std::array<std::bitset<num_bits>,num_dims> Htrans)
 
 }
 
+
+//! Base class for resampler types that use a Hilbert curve sorting technique.
+/**
+ * @class rbase_hcs
+ * @author taylor
+ * @date 08/06/21
+ * @file resamplers.h
+ * @brief resamplers that use a Hilbert curve sorting procedure must inherit from this. 
+ * Unlike rbase, this does not hold onto a random number generator object, so no
+ * seed-setting is necessary. 
+ * @tparam nparts the number of particles.
+ * @tparam dimx the dimension of each state sample.
+ * @tparam float_t the type of floating point numbers (e.g. float or double)
+ */
+template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t >
+class rbase_hcs
+{
+public:
+
+    /** type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
+    /** type alias for array of Eigen Matrices */
+    using arrayVec = std::array<ssv, nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
+    /** type alias for common normal random variable */
+    using usvr = Eigen::Matrix<float_t,dimur,1>;
+
+    /**
+     * @brief The default constructor. There is no seed-setting. 
+     */
+    rbase_hcs();
+
+
+    /**
+     * @brief Function to resample from log unnormalized weights
+     * @param oldParts
+     * @param oldLogUnNormWts
+     * @param ur common random number used to resample.
+     */
+    virtual void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts, const usvr& ur) = 0;
+
+private:
+
+    /**
+     * @brief Function that "sorts" multidimensional vectors using an (inverse) Hilbert-curve map. 
+     * For more information see https://arxiv.org/pdf/1511.04992.pdf
+     */
+    bool hilbertComparison(const ssv& first, const ssv& second);
+
+public:
+
+    /**
+     * @brief get a permutation based on unsorted particle samples (not their weights)
+     * @param unsortedParts the particle samples 
+     * @return the permutation as a std::array
+     */
+    std::array<unsigned, nparts> get_permutation(const arrayVec& unsortedParts);
+
+};
+
+
+template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
+rbase_hcs<nparts, dimx, dimur, float_t>::rbase_hcs() 
+{
+}
+
+
+template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
+bool rbase_hcs<nparts,dimx,dimur,float_t>::hilbertComparison(const ssv& first, const ssv& second)
+{
+    // return true if first "<" second
+    // squash each vector from (-infty,infty) -> [0, 2^num_hilb_bits)
+    // with the function f(x) = 2^num_bits/(1 + e^{-x}) = 2^{num_bits - 1} + 2^{num_bits - 1}*tanh(x/2)
+    float_t c = std::pow(2, num_hilb_bits - 1);
+    first *= .5;
+    second *= .5;
+    return first.tanh()*c + c < second.tanh()*c + c;
+}
+
+template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
+std::array<unsigned,nparts> rbase_hcs<nparts,dimx,dimur,float_t>::get_permutation(const arrayVec &unsortedParts)
+{
+    // create unsorted index
+    std::array<unsigned,nparts> indexes;
+    for(unsigned i = 0; i < nparts; ++i)
+        indexes[i] = i;
+
+    // create functor to help sort indexes based on particle samples (not weights)
+    struct sort_indexes{
+	   
+        arrayVec m_unsorted_parts; 
+
+        sort_indexes(const arrayVec& prts) : m_unsorted_parts(prts) {};
+
+        bool operator()(unsigned i, unsigned j) const {
+		    return hilbertComparison(m_unsorted_parts[i], m_unsorted_parts[j]);
+	    }
+    };
+
+    // sort the indexes and return them
+    std::sort(indexes.begin(), indexes.end(), sort_indexes(unsortedParts));
+    return indexes;
+}
+
+
+/**
+ * @class sys_hilb_resampler
+ * @author taylor
+ * @date 08/06/21
+ * @file resamplers.h
+ * @brief Class that performs systematic resampling with a Hilbert curve sorting scheme.
+ * @tparam nparts the number of particles.
+ * @tparam dimx the dimension of each state sample.
+ * @tparam float_t the floating point for samples
+ */
+template<size_t nparts, size_t dimx, size_t num_hilb_bits, typename float_t>
+class sys_hilb_resampler : private rbase_hcs<nparts, dimx, 1, num_hilb_bits, float_t> 
+{
+public:
+
+    /** type alias for linear algebra stuff */
+    using ssv = Eigen::Matrix<float_t,dimx,1>;
+    /** type alias for array of Eigen Matrices */
+    using arrayVec = std::array<ssv, nparts>;
+    /** type alias for array of float_ts */
+    using arrayFloat = std::array<float_t,nparts>;
+    /** type alias for array of integers */
+    using arrayInt = std::array<unsigned int, nparts>;
+    /** type alias for resampling normal random variable */
+    using usvr     = Eigen::Matrix<float_t,1,1>;
+
+    /**
+     * @brief Default constructor. This class does not handle random numbers, so there is no seed-setting.  
+     */
+    sys_hilb_resampler() = default;
+
+
+    /**
+     * @brief resamples particles.
+     * @param oldParts the old particles that get changed in place
+     * @param oldLogUnNormWts the old log unnormalized weights that get changed in place
+     * @param ur standard normal random variable used to resample indexes
+     */
+    void resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts, const usvr& ur);
+    
+};
+
+
+template<size_t nparts, size_t dimx, typename float_t> // todo change template paras
+sys_hilb_resampler<nparts, dimx, float_t>::sys_hilb_resampler()
+    : rbase_hcs<nparts, dimx, 1,float_t>()
+{
+}
+
+
+template<size_t nparts, size_t dimx, typename float_t>// todo change template paras
+
+void sys_hilb_resampler<nparts, dimx, float_t>::resampLogWts(arrayVec &oldParts, arrayFloat &oldLogUnNormWts, const usvr& ur)
+{
+
+    // calculate normalized weights
+    arrayFloat w; 
+    float_t m = *std::max_element(oldLogUnNormWts.begin(), oldLogUnNormWts.end());
+    std::transform(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), w.begin(), 
+                    [&m](const float_t& d) -> float_t { return std::exp( d - m ); } );
+    float_t norm_const (0.0);
+    norm_const = std::accumulate(w.begin(), w.end(), norm_const);
+    for( auto& weight : w)
+        weight = weight/norm_const;
+
+    // samplethe Ubar_tis
+    arrayFloat ubar_samples;
+    ubar_samples[0] = pf::rveval::evalUnivStdNormCDF<float_t>(ur)/nparts;
+    for(size_t i = 1; i < nparts; ++i) {
+        ubar_samples[i] = ubar_samples[i-1] + 1.0/nparts;
+    }
+
+    // calculate the cumulative sums of the weights
+    arrayFloat cumsums;
+    std::partial_sum(w.begin(), w.end(), cumsums.begin());
+
+    auto sigmaPermutation = get_permutation(oldParts);
+
+    // resample TODO 
+    arrayVec tmpPartics;
+    for(size_t i = 0; i < nparts; ++i){ // tmpPartics, Uis
+
+        // find which index
+        unsigned int idx;
+        for(unsigned int j = 0; j < nparts; ++j){
+            
+            // get the first time it gets covered by a cumsum
+            if(cumsums[j] >= u_samples[i]){ 
+                idx = j;
+                break;
+            }   
+        }
+
+        // assign
+        tmpPartics[i] = oldParts[idx];
+    }
+
+    //overwrite olds with news
+    oldParts = std::move(tmpPartics);
+    std::fill(oldLogUnNormWts.begin(), oldLogUnNormWts.end(), 0.0); // change back    
+}
 
 } // namespace resamplers
 } //namespace pf
