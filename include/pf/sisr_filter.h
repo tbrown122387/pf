@@ -350,7 +350,7 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
  * @tparam debug whether to debug or not
  */
 template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
-class SISRFilterCRN : public bases::pf_base_hilb<float_t, dimy, dimx dimu, dimur, nparts>
+class SISRFilterCRN : public bases::pf_base_crn<float_t, dimy, dimx, dimu, dimur, nparts>
 {
 private:
 
@@ -501,7 +501,7 @@ protected:
 };
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug>
 SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::SISRFilterCRN(const unsigned int &rs)
                 : m_now(0)
                 , m_logLastCondLike(0.0)
@@ -511,24 +511,25 @@ SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::SISRFilterCR
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug>
 SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::~SISRFilterCRN() {}
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug>
 float_t SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
    
  
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug>
 auto SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::getExpectations() const -> std::vector<Mat> 
 {
     return m_expectations;
 }
 
-filter(const osv &data, const arrayUs& Uarr, const usvr& Uresamp, const std::vector<std::function<const Mat(const ssv&)> >& fs = std::vector<std::function<const Mat(const ssv&)> >());
+
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug>
 void SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::filter(const osv &data, const arrayUs& Uarr, const usvr& Uresamp, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
 

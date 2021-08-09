@@ -10,7 +10,7 @@
 #include <algorithm> // sort
 #include <bitset> // bitset
 
-#include "rv_eval.h" // for pf::rveval::evalUnivStdNormCDF<float_t>()
+#include "rv_eval.h" // for rveval::evalUnivStdNormCDF<float_t>()
 
 
 namespace pf {
@@ -933,12 +933,30 @@ template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typenam
 bool rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::hilbertComparison(const ssv& first, const ssv& second)
 {
     // return true if first "<" second
-    // squash each vector from (-infty,infty) -> [0, 2^num_hilb_bits)
-    // with the function f(x) = 2^num_bits/(1 + e^{-x}) = 2^{num_bits - 1} + 2^{num_bits - 1}*tanh(x/2)
+    // three intermediate steps to do that:
+    // 1. 
+    // squash each vector's elements from 
+    // (-infty,infty) -> [0, 2^num_hilb_bits)
+    // with the function 
+    // f(x) = 2^num_bits/(1 + e^{-x}) = 2^{num_bits - 1} + 2^{num_bits - 1}*tanh(x/2)
     float_t c = std::pow(2, num_hilb_bits - 1);
-    first *= .5;
-    second *= .5;
-    return first.tanh()*c + c < second.tanh()*c + c;
+    ssv squashed_first = first * .5;
+    squashed_first = squashed_first.array().tanh()*c + c ;
+    ssv squashed_second = second * .5;
+    squashed_second = squashed_second.array().tanh()*c + c;
+ 
+    // 2.
+    // convert the squashed matrix into bitset type obj"  
+    std::array<std::bitset<num_hilb_bits>, dimx> axes_first;
+    std::array<std::bitset<num_hilb_bits>, dimx> axes_second;
+    for(size_t dim = 0; dim < dimx; ++dim){
+        axes_first[dim]  = static_cast<unsigned int>(std::floor(squashed_first(dim)));
+        axes_second[dim] = static_cast<unsigned int>(std::floor(squashed_second(dim)));
+    }
+
+    // 3. 
+    // convert to one dimensional unsigned using "AxesToTranspose" and "makeH"
+    return makeH(AxesToTranspose(axes_first)) < makeH(AxesToTranspose(axes_second));
 }
 
 
@@ -1026,19 +1044,20 @@ void sys_hilb_resampler<nparts, dimx, num_hilb_bits, float_t>::resampLogWts(arra
 
     // samplethe Ubar_tis
     arrayFloat ubar_samples;
-    ubar_samples[0] = pf::rveval::evalUnivStdNormCDF<float_t>(ur)/nparts;
+    ubar_samples[0] = rveval::evalUnivStdNormCDF<float_t>(ur(0))/nparts;
     for(size_t i = 1; i < nparts; ++i) {
         ubar_samples[i] = ubar_samples[i-1] + 1.0/nparts;
     }
 
     // calculate the cumulative sums of the sorted weights
     // calculate sorted particles while you're at it
-    auto sigmaPermutation = get_permutation(oldParts);
+    auto sigmaPermutation = this->get_permutation(oldParts);
     arrayFloat sortedWeights;
     arrayVec sortedParts;
     for(size_t i = 0; i < nparts; ++i){
-       sortedWeights[i] = w[sigmaPermutation[i]];
-       sortedParts = oldParts[sigmaPermutation[i]]; 
+       unsigned sigma_i = sigmaPermutation[i];
+       sortedWeights[i] = w[sigma_i];
+       sortedParts[i] = oldParts[sigma_i]; 
     }
     arrayFloat cumsums;
     std::partial_sum(sortedWeights.begin(), sortedWeights.end(), cumsums.begin());
