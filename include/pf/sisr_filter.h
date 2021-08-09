@@ -344,12 +344,13 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
  * @tparam dimx the size of the state
  * @tparam dimy the size of the observation
  * @tparam dimu the size of the normal random vector
+ * @tparam dimur the size of the normal random variables for resampling
  * @tparam resamp_t the type of resampler
  * @tparam float_t the type of floating point numbers used (e.g. float or double)
  * @tparam debug whether to debug or not
  */
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, typename resamp_t, typename float_t, bool debug=false>
-class SISRFilterCRN : public bases::pf_base<float_t, dimy, dimx>
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+class SISRFilterCRN : public bases::pf_base_hilb<float_t, dimy, dimx dimu, dimur, nparts>
 {
 private:
 
@@ -360,7 +361,7 @@ private:
     /** "u sized vector" type alias for common random normal vector */
     using usv         = Eigen::Matrix<float_t, dimu, 1>; 
     /** "u sized vector for resampling"  type alias for common random normal vector that's used in systematic resampling */
-    using usvr         = Eigen::Matrix<float_t, 1, 1>; 
+    using usvr         = Eigen::Matrix<float_t, dimur, 1>; 
     /** type alias for linear algebra stuff */
     using Mat         = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
     /** type alias for linear algebra stuff */
@@ -403,9 +404,11 @@ public:
      * @brief updates filtering distribution on a new datapoint. 
      * Optionally stores expectations of functionals.
      * @param data the most recent data point
+     * @param Uarr the U samples that get used to sample from the state proposal
+     * @param Uresamp the U sample that is used to resample 
      * @param fs a vector of functions if you want to calculate expectations.
      */
-    void filter(const osv &data, const arrayUs& Uarr, const std::vector<std::function<const Mat(const ssv&)> >& fs = std::vector<std::function<const Mat(const ssv&)> >());
+    void filter(const osv &data, const arrayUs& Uarr, const usvr& Uresamp, const std::vector<std::function<const Mat(const ssv&)> >& fs = std::vector<std::function<const Mat(const ssv&)> >());
     
     
     /**
@@ -498,8 +501,8 @@ protected:
 };
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, typename resamp_t, typename float_t, bool debug>
-SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::SISRFilterCRN(const unsigned int &rs)
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::SISRFilterCRN(const unsigned int &rs)
                 : m_now(0)
                 , m_logLastCondLike(0.0)
                 , m_resampSched(rs) 
@@ -508,26 +511,25 @@ SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::SISRFilterCRN(cons
 }
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, typename resamp_t, typename float_t, bool debug>
-SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::~SISRFilterCRN() {}
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::~SISRFilterCRN() {}
 
 
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, typename resamp_t, typename float_t, bool debug>   
-float_t SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::getLogCondLike() const
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+float_t SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::getLogCondLike() const
 {
     return m_logLastCondLike;
 }
-    
-
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, typename resamp_t, typename float_t, bool debug>   
-auto SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::getExpectations() const -> std::vector<Mat> 
+   
+ 
+template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, size_t dimur, typename resamp_t, typename float_t, bool debug=false>
+auto SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::getExpectations() const -> std::vector<Mat> 
 {
     return m_expectations;
 }
 
-
-template<size_t nparts, size_t dimx, size_t dimy, size_t dimu, typename resamp_t, typename float_t, bool debug>   
-void SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::filter(const osv &data, const arrayUs& Uarr, const std::vector<std::function<const Mat(const ssv&)> >& fs)
+filter(const osv &data, const arrayUs& Uarr, const usvr& Uresamp, const std::vector<std::function<const Mat(const ssv&)> >& fs = std::vector<std::function<const Mat(const ssv&)> >());
+void SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::filter(const osv &data, const arrayUs& Uarr, const usvr& Uresamp, const std::vector<std::function<const Mat(const ssv&)> >& fs)
 {
 
     if(m_now > 0)
@@ -594,7 +596,7 @@ void SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::filter(const 
  
         // resample if you should
         if( (m_now + 1) % m_resampSched == 0)
-            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
+            m_resampler.resampLogWts(m_particles, m_logUnNormWeights, Uresamp);
 
         // advance time
         m_now += 1;       
@@ -652,7 +654,7 @@ void SISRFilterCRN<nparts,dimx,dimy,dimu,resamp_t,float_t, debug>::filter(const 
    
         // resample if you should
         if( (m_now + 1) % m_resampSched == 0)
-            m_resampler.resampLogWts(m_particles, m_logUnNormWeights);
+            m_resampler.resampLogWts(m_particles, m_logUnNormWeights, Uresamp);
    
         // advance time step
         m_now += 1;   

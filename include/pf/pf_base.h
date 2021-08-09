@@ -11,6 +11,7 @@ namespace pf {
 
 namespace bases {
 
+
 /**
  * @author t
  * @file pf_base.h
@@ -429,6 +430,74 @@ public:
 template<size_t dimstate, size_t dimobs, typename float_t>
 cf_filter<dimstate,dimobs,float_t>::~cf_filter() {}
 
+
+
+/**
+ * @author taylor
+ * @file pf_base_crn.h
+ * @brief All particle filters that use common random numbers must inherit from this.
+ * @tparam float_t (e.g. double, float, etc.)
+ * @tparam dimobs the dimension of each observation
+ * @tparam dimstate the dimension of each state
+ * @tparam dimu the dimension of the common random numbers used for sampling from state proposal
+ * @tparam dimur the dimension of the common random numbers used for resampling at a given time point (e.g. 1)
+ * @tparam numparts the number of particles for the state samples at each time point  
+ */
+template<typename float_t, size_t dimobs, size_t dimstate, size_t dimu, size_t dimur, size_t numparts>
+class pf_base_crn {
+public:
+
+    /* expose float type to users of this ABCTP */
+    using float_type = float_t;
+
+    /* expose observation-sized vector type to users  */
+    using obs_sized_vec = Eigen::Matrix<float_t,dimobs,1>;
+
+    /* expose state-sized vector type to users */
+    using state_sized_vec = Eigen::Matrix<float_t,dimstate,1>;
+    
+    /* expose state-sized vector to users */
+    using dynamic_matrix = Eigen::Matrix<float_t,Eigen::Dynamic,Eigen::Dynamic>;
+    
+    /* a function  */
+    using func = std::function<const dynamic_matrix(const state_sized_vec&)>;
+   
+    /* functions  */
+    using func_vec = std::vector<func>;
+
+    /* type for common random numbers used for sampling state proposals*/ 
+    using usv = Eigen::Matrix<float_t, dimu, 1>;
+
+    /* type for common random numbers used for resampling at a given time point  */
+    using usvr = Eigen::Matrix<float_t, dimur, 1>;
+
+    /* the dimension of each observation vector (allows indirect access to template parameters)*/
+    static constexpr unsigned int dim_obs = dimobs;
+
+    /* the dimension of the state vector (allows indirect access to template parameters)*/
+    static constexpr unsigned int dim_state = dimstate;
+
+
+    /**
+     * @brief the filtering function that must be defined
+     * @param data the most recent observation 
+     * @param filter functions whose expected value approx. is computed at each time step
+     */ 
+    virtual void filter(const obs_sized_vec &data, const std::array<usv,numparts>& Us, const usvr& Uresamp, const func_vec& fs = func_vec() ) = 0;
+
+
+    /**
+     * @brief the getter method that must be defined (for conditional log-likelihood)
+     * @return log p(y_t | y_{1:t-1}) approximation
+     */ 
+    virtual float_t getLogCondLike() const = 0;
+
+
+    /**
+     * @brief virtual destructor
+     */
+    virtual ~pf_base_crn(){};
+};
 
 } // namespace bases
 } // namespace pf
