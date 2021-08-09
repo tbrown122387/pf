@@ -898,7 +898,7 @@ public:
     /**
      * @brief The default constructor. There is no seed-setting. 
      */
-    rbase_hcs();
+    rbase_hcs() = default;
 
 
     /**
@@ -915,7 +915,7 @@ private:
      * @brief Function that "sorts" multidimensional vectors using an (inverse) Hilbert-curve map. 
      * For more information see https://arxiv.org/pdf/1511.04992.pdf
      */
-    bool hilbertComparison(const ssv& first, const ssv& second);
+    static bool hilbertComparison(const ssv& first, const ssv& second);
 
 public:
 
@@ -930,12 +930,6 @@ public:
 
 
 template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
-rbase_hcs<nparts, dimx, dimur, num_hilb_bits, float_t>::rbase_hcs() 
-{
-}
-
-
-template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
 bool rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::hilbertComparison(const ssv& first, const ssv& second)
 {
     // return true if first "<" second
@@ -946,6 +940,7 @@ bool rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::hilbertComparison(const
     second *= .5;
     return first.tanh()*c + c < second.tanh()*c + c;
 }
+
 
 template<size_t nparts, size_t dimx, size_t dimur, size_t num_hilb_bits, typename float_t>
 std::array<unsigned,nparts> rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::get_permutation(const arrayVec &unsortedParts)
@@ -963,7 +958,7 @@ std::array<unsigned,nparts> rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::
         sort_indexes(const arrayVec& prts) : m_unsorted_parts(prts) {};
 
         bool operator()(unsigned i, unsigned j) const {
-		    return hilbertComparison(m_unsorted_parts[i], m_unsorted_parts[j]);
+		    return rbase_hcs<nparts,dimx,dimur,num_hilb_bits,float_t>::hilbertComparison(m_unsorted_parts[i], m_unsorted_parts[j]);
 	    }
     };
 
