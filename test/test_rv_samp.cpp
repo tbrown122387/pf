@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <pf/rv_samp.h>
 
@@ -7,6 +7,8 @@
 
 
 using namespace pf;
+using Catch::Approx;
+
 
 class SampFixture
 {

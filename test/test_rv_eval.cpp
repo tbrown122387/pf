@@ -1,10 +1,12 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <pf/rv_eval.h>
 
 #define bigdim 2
 #define smalldim 1
 
 using namespace pf;
+using Catch::Approx;
+
 
 class DensFixture
 {

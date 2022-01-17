@@ -8,7 +8,7 @@ include(GNUInstallDirs)
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 find_package(Boost 1.65.1 REQUIRED)
-find_package(Catch2 2.9.2 REQUIRED)
+find_package(Catch2 3 REQUIRED)
 
 add_library(${PROJECT_NAME} INTERFACE)
 target_include_directories(
@@ -19,7 +19,7 @@ target_link_libraries(${PROJECT_NAME}
     INTERFACE 
         Eigen3::Eigen 
         ${Boost_LIBRARIES}
-        Catch2::Catch2)
+	Catch2::Catch2WithMain)
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 ## INSTALL 

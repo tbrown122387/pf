@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <pf/resamplers.h>
 #include <pf/cf_filters.h>
@@ -10,6 +10,8 @@
 
 using namespace pf::resamplers;
 using namespace pf::filters;
+using Catch::Approx;
+
 
 class MRFixture
 {
