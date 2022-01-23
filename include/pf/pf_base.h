@@ -12,6 +12,10 @@ namespace pf {
 namespace bases {
 
 
+
+/************************************************************************************************************/
+
+
 /**
  * @author t
  * @file pf_base.h
@@ -71,6 +75,9 @@ public:
 };
 
 
+/************************************************************************************************************/
+
+
 /**
  * @author t
  * @file pf_base.h
@@ -125,6 +132,9 @@ public:
      */
     virtual ~rbpf_base(){};
 };
+
+
+/************************************************************************************************************/
 
 
 /**
@@ -199,9 +209,11 @@ auto ForwardMod<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
 }
 
 
+/************************************************************************************************************/
+
 /**
  * @class FutureSimulator
- * @author t
+ * @author Taylor
  * @file pf_base.h
  * @brief inherit from this if, in addition to filtering, you want to simulate future trajectories from the current filtering distribution. 
  * This simulates two future trajectories for each particle you have--one for the state path, and one for the observation path. 
@@ -233,25 +245,28 @@ public:
     /**
      * @brief simulates future state and observations paths from p(x_{t+1:T},y_{t+1:T} | y_{1:t}, theta)
      * @param number of time steps into the future you want to simulate
+     * @param the most recent observation that you have available
      * @return one state path and one observation path for each state sample 
      */
-    manyPairs sim_future(unsigned int num_time_steps);
+    manyPairs sim_future(unsigned int num_time_steps, const obs_sized_vec &yt);
 
 
     /**
      * @brief simulates future observation paths from p(y_{t+1:T} | y_{1:t}, theta)
      * @param number of time steps into the future you want to simulate
+     * @param the most recent observation that you have available
      * @return one observation path for each state sample 
      */
-    obsPaths sim_future_obs(unsigned int num_time_steps);
+    obsPaths sim_future_obs(unsigned int num_time_steps, const obs_sized_vec &yt);
 
 
     /**
      * @brief simulates future state paths from p(x_{t+1:T} | y_{1:t}, theta)
      * @param number of time steps into the future you want to simulate
+     * @param the most recent observation that you have available
      * @return one state path for each state sample
      */
-    statePaths sim_future_states(unsigned int num_time_steps);
+    statePaths sim_future_states(unsigned int num_time_steps, const obs_sized_vec &yt);
 
 
     /**
@@ -262,21 +277,25 @@ public:
 
     /**
      * @brief returns a sample from the latent Markov transition
+     * @param the previous time's state value
+     * @param the previous time's observed value
      * @return a state-sized vector for the xt sample
      */
-    virtual state_sized_vec fSamp (const state_sized_vec &xtm1) = 0;
+    virtual state_sized_vec fSamp (const state_sized_vec &xtm1, const obs_sized_vec &ytm1) = 0;
 
 
     /**
      * @brief returns a sample for the observed series 
-     * @return 
+     * @param the current time step's state value
+     * @param the previous time's observation
+     * @return an observation sample for the current time step
      */
-    virtual obs_sized_vec gSamp (const state_sized_vec &xt)   = 0;
+    virtual obs_sized_vec gSamp (const state_sized_vec &xt, const obs_sized_vec &ytm1) = 0;
 };
 
 
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
-auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time_steps) -> manyPairs {
+auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time_steps, const obs_sized_vec &yt) -> manyPairs {
 
     // this gets returned
     manyPairs allFutures;
@@ -285,30 +304,29 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time
     std::array<state_sized_vec, nparts> states;
     std::array<obs_sized_vec, nparts> observations;
     std::array<state_sized_vec,nparts> past_states;
+    std::array<obs_sized_vec,nparts> past_obs;
     std::array<state_sized_vec, nparts> first_states = this->get_uwtd_samps();
 
     // iterate over time
-    for(unsigned int i = 0; i < num_time_steps; ++i){
+    for(unsigned int time = 0; i < num_time_steps; ++i){
 
-        // create content for a time period
-        if(i == 0){ // use xt_samps
-
-            for(size_t j = 0; j < nparts; ++j){
-                states[j] = this->fSamp(first_states[j]);
-                observations[j] = this->gSamp(states[j]);
-            }
-
-        }else{ // use past samples
-
-            for(size_t j = 0; j < nparts; ++j){
-                states[j] = this->fSamp(past_states[j]);
-                observations[j] = this->gSamp(states[j]);
-            }
+        // use particle filter's most recent information if you're going one step ahead into the future
+        // otherwise use output generated in a previous iteration of this time loop
+        if(time == 0){
+            past_states = first_states;
+            past_obs.fill(yt);
         }
 
+        // go particle by particle
+        for(size_t j = 0; j < nparts; ++j){
+            states[j] = this->fSamp(past_states[j], past_obs[j]]
+            observations[j] = this->gSamp(states[j], past_obs[j]);
+        }
+           
         // add time period content 
         allFutures.push_back(timePair(states, observations)); //TODO make sure deep copy
         past_states = states;
+        past_obs = observations; 
     }
 
     return allFutures; 
@@ -316,83 +334,34 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time
 
 
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
-auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_obs(unsigned int num_time_steps) -> obsPaths {
+auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_obs(unsigned int num_time_steps, const obs_sized_vec &yt) -> obsPaths {
 
     // this gets returned
-    obsPaths allFutures;
-
-    // stuff that gets changed every time loop
-    std::array<state_sized_vec, nparts> states;
-    std::array<obs_sized_vec, nparts> observations;
-    std::array<state_sized_vec,nparts> past_states;
-    std::array<state_sized_vec, nparts> first_states = this->get_uwtd_samps();
-
-    // iterate over time
-    for(unsigned int i = 0; i < num_time_steps; ++i){
-
-        // create content for a time period
-        if(i == 0){ // use xt_samps
-
-            for(size_t j = 0; j < nparts; ++j){
-                states[j] = this->fSamp(first_states[j]);
-                observations[j] = this->gSamp(states[j]);
-            }
-
-        }else{ // use past samples
-
-            for(size_t j = 0; j < nparts; ++j){
-                states[j] = this->fSamp(past_states[j]);
-                observations[j] = this->gSamp(states[j]);
-            }
-        }
-
-        // add time period content 
-        allFutures.push_back(observations); //TODO make sure deep copy
-        past_states = states;
+    manyPairs obs_and_state_paths = this->sim_future(num_time_steps, yt);
+    obsPaths future_obs;
+    for(size_t time = 0; time < obs_and_state_paths.size(); ++time){
+        future_obs[time] = std::get<1>(obs_and_state_paths[time]);
     }
-
-    return allFutures; 
+    
+    return future_obs;
 }
 
 
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
-auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int num_time_steps) -> statePaths {
+auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int num_time_steps, const obs_sized_vec &yt) -> statePaths {
 
     // this gets returned
-    statePaths allFutures;
-
-    // stuff that gets changed every time loop
-    std::array<state_sized_vec, nparts> states;
-    std::array<obs_sized_vec, nparts> observations;
-    std::array<state_sized_vec,nparts> past_states;
-    std::array<state_sized_vec, nparts> first_states = this->get_uwtd_samps();
-
-    // iterate over time
-    for(unsigned int i = 0; i < num_time_steps; ++i){
-
-        // create content for a time period
-        if(i == 0){ // use xt_samps
-
-            for(size_t j = 0; j < nparts; ++j){
-                states[j] = this->fSamp(first_states[j]);
-                observations[j] = this->gSamp(states[j]);
-            }
-
-        }else{ // use past samples
-
-            for(size_t j = 0; j < nparts; ++j){
-                states[j] = this->fSamp(past_states[j]);
-                observations[j] = this->gSamp(states[j]);
-            }
-        }
-
-        // add time period content 
-        allFutures.push_back(states); //TODO make sure deep copy
-        past_states = states;
+    statePaths future_states;
+    manyPairs obs_and_state_paths = sim_future(num_time_steps,yt);
+    for(size_t time = 0; time < obs_and_state_paths.size(); ++time){
+        future_states[time] = std::get<0>(obs_and_state_paths[time]);
     }
-
-    return allFutures; 
+    
+    return future_states;
 }
+
+
+/************************************************************************************************************/
 
 
 //! Abstract Base Class for all closed-form filters.
@@ -430,6 +399,8 @@ public:
 template<size_t dimstate, size_t dimobs, typename float_t>
 cf_filter<dimstate,dimobs,float_t>::~cf_filter() {}
 
+
+/************************************************************************************************************/
 
 
 /**
