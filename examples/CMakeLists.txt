@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 # "install" pf
 find_package(pf CONFIG REQUIRED)
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
-find_package(Catch2 2.9.2)
+find_package(Catch2 3)
 
 file(GLOB SOURCES ${CMAKE_SOURCE_DIR}/*.h ${CMAKE_SOURCE_DIR}/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})

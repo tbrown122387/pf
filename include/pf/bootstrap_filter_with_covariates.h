@@ -126,7 +126,7 @@ public:
      * @param zt is a const Vec& describing the time t covariate
      * @return the sample as a Vec
      */
-    virtual ssv stateTransSamp (const ssv &xtm1, const cvsv &zt) = 0;
+    virtual ssv fSamp (const ssv &xtm1, const cvsv &zt) = 0;
     
 protected:
     /** @brief particle samples */
@@ -189,7 +189,7 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t,debug>::filter(con
                 maxOldLogUnNormWts = m_logUnNormWeights[ii];
             
             // sample and get weight adjustments
-            newSamp = stateTransSamp(m_particles[ii], covData);
+            newSamp = fSamp(m_particles[ii], covData);
             m_logUnNormWeights[ii] += logGEv(dat, newSamp, covData);
  
             // overwrite stuff

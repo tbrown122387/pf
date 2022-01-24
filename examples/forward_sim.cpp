@@ -38,6 +38,7 @@ void forward_sim()
     unsigned int length(50);
 
     // visually assess ForwardMod base class capabilities
+    std::cout << "simulating the model without any real data...\n";
     auto xsAndYs = svol_mod.sim_forward(length);
     std::cout << "x, y\n";
     for(size_t i = 0; i < length; ++i){
@@ -45,8 +46,10 @@ void forward_sim()
     }
 
     // visually assess FutureSimulator base class capabilities
+    std::cout << "filter on one piece of data (1.0), and then simulate future trajectories...\n";
+    svol_mod.filter(osv(1));
     auto future_obs_paths = svol_mod.sim_future_obs(length);
-    
+   
     for(unsigned int time = 0; time < length; ++time){
         for(size_t idx = 0; idx < numparts; ++idx){
             if(idx < numparts - 1){

@@ -139,7 +139,7 @@ public:
 
 /**
  * @class ForwardMod
- * @author t
+ * @author Taylor
  * @file pf_base.h
  * @brief inherit from this if you want to simulate from a homogeneous forward/generative model.
  */
@@ -169,19 +169,23 @@ public:
      * @brief samples from the first time's state distribution
      * @return a state-sized vector for the x1 sample
      */
-    virtual state_sized_vec muSamp()                = 0;
+    virtual state_sized_vec muSamp() = 0;
 
 
     /**
      * @brief returns a sample from the latent Markov transition
+     * @param the previous time's state vector
+     * @param the previous time's observation
      * @return a state-sized vector for the xt sample
      */
     virtual state_sized_vec fSamp (const state_sized_vec &xtm1) = 0;
 
 
     /**
-     * @brief returns a sample for the observed series 
-     * @return 
+     * @brief returns a sample for the observed series
+     * @param the current time's state
+     * @param the previous time's observation
+     * @return a sample for the observation at this time step 
      */
     virtual obs_sized_vec gSamp (const state_sized_vec &xt)   = 0;
 };
@@ -211,6 +215,86 @@ auto ForwardMod<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
 
 /************************************************************************************************************/
 
+
+/**
+ * @class GenForwardMod
+ * @author Taylor
+ * @file pf_base.h
+ * @brief inherit from this if you want to simulate from a homogeneous forward/generative model.
+ * This class is more general than the above because it can simulate future states using past observations.
+ */
+template<size_t dimx, size_t dimy, typename float_t>
+class GenForwardMod {
+private:
+
+    /* expose observation-sized vector type to users (private because they clash with pf_base) */
+    using obs_sized_vec = Eigen::Matrix<float_t,dimy,1>;
+
+    /* expose state-sized vector type to users (private because they clash with pf_base) */
+    using state_sized_vec = Eigen::Matrix<float_t,dimx,1>;
+
+public:
+
+    /* a pair of paths (xts first, yts second) */
+    using aPair = std::pair<std::vector<state_sized_vec>, std::vector<obs_sized_vec> >;
+
+
+    /**
+     * @brief simulates once forward through time from p(x_{1:T}, y_{1:T} | theta)
+     */
+    aPair sim_forward(unsigned int T);
+
+
+    /**
+     * @brief samples from the first time's state distribution
+     * @return a state-sized vector for the x1 sample
+     */
+    virtual state_sized_vec muSamp() = 0;
+
+
+    /**
+     * @brief returns a sample from the latent Markov transition
+     * @param the previous time's state vector
+     * @param the previous time's observation
+     * @return a state-sized vector for the xt sample
+     */
+    virtual state_sized_vec fSamp (const state_sized_vec &xtm1, const obs_sized_vec &ytm1) = 0;
+
+
+    /**
+     * @brief returns a sample for the observed series
+     * @param the current time's state
+     * @param the previous time's observation
+     * @return a sample for the observation at this time step 
+     */
+    virtual obs_sized_vec gSamp (const state_sized_vec &xt)   = 0;
+};
+
+
+template<size_t dimx, size_t dimy, typename float_t>
+auto GenForwardMod<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
+
+    std::vector<state_sized_vec> xs;
+    std::vector<obs_sized_vec> ys;
+
+    // time 1
+    xs.push_back(this->muSamp());
+    ys.push_back(this->gSamp(xs[0]));
+
+    // time > 1
+    for(size_t i = 1; i < T; ++i) {
+        
+        auto xt = this->fSamp(xs[i-1], ys[i-1]);
+        xs.push_back(xt);
+        ys.push_back(this->gSamp(xt));
+    }
+
+    return aPair(xs, ys); 
+}
+
+
+/************************************************************************************************************/
+
 /**
  * @class FutureSimulator
  * @author Taylor
@@ -220,6 +304,155 @@ auto ForwardMod<dimx,dimy,float_t>::sim_forward(unsigned int T) -> aPair {
  */
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
 class FutureSimulator {
+private:
+
+    /* expose observation-sized vector type to users  (private because they clash with pf_base) */
+    using obs_sized_vec = Eigen::Matrix<float_t,dimy,1>;
+
+    /* expose state-sized vector type to users */
+    using state_sized_vec = Eigen::Matrix<float_t,dimx,1>;
+
+public:
+    /* one time point's pair of of nparts states and nparts observations  */
+    using timePair = std::pair<std::array<state_sized_vec, nparts>, std::array<obs_sized_vec, nparts> >;
+
+    /* many path pairs. time, (state/obs), particle */
+    using manyPairs = std::vector<timePair>;
+
+    /* observation paths (time, particle) */
+    using obsPaths = std::vector<std::array<obs_sized_vec, nparts> >;
+
+    /* many state paths (time, particle) */
+    using statePaths = std::vector<std::array<state_sized_vec, nparts> >;
+
+
+    /**
+     * @brief simulates future state and observations paths from p(x_{t+1:T},y_{t+1:T} | y_{1:t}, theta)
+     * @param number of time steps into the future you want to simulate
+     * @param the most recent observation that you have available
+     * @return one state path and one observation path for each state sample 
+     */
+    manyPairs sim_future(unsigned int num_time_steps);
+
+
+    /**
+     * @brief simulates future observation paths from p(y_{t+1:T} | y_{1:t}, theta)
+     * @param number of time steps into the future you want to simulate
+     * @param the most recent observation that you have available
+     * @return one observation path for each state sample 
+     */
+    obsPaths sim_future_obs(unsigned int num_time_steps);
+
+
+    /**
+     * @brief simulates future state paths from p(x_{t+1:T} | y_{1:t}, theta)
+     * @param number of time steps into the future you want to simulate
+     * @param the most recent observation that you have available
+     * @return one state path for each state sample
+     */
+    statePaths sim_future_states(unsigned int num_time_steps);
+
+
+    /**
+     * @brief gets the most recent unweighted samples, to be fed into sim_future()
+     */
+    virtual std::array<state_sized_vec,nparts> get_uwtd_samps() const = 0;
+
+
+    /**
+     * @brief returns a sample from the latent Markov transition
+     * @param the previous time's state value
+     * @param the previous time's observed value
+     * @return a state-sized vector for the xt sample
+     */
+    virtual state_sized_vec fSamp (const state_sized_vec &xtm1) = 0;
+
+
+    /**
+     * @brief returns a sample for the observed series 
+     * @param the current time step's state value
+     * @return an observation sample for the current time step
+     */
+    virtual obs_sized_vec gSamp (const state_sized_vec &xt) = 0;
+};
+
+
+template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
+auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time_steps) -> manyPairs {
+
+    // this gets returned
+    manyPairs allFutures;
+
+    // stuff that gets changed every time loop
+    std::array<state_sized_vec, nparts> states;
+    std::array<obs_sized_vec, nparts> observations;
+    std::array<state_sized_vec,nparts> past_states;
+    std::array<state_sized_vec,nparts> first_states = this->get_uwtd_samps();
+
+    // iterate over time
+    for(unsigned int time = 0; time < num_time_steps; ++time){
+
+        // use particle filter's most recent information if you're going one step ahead into the future
+        // otherwise use output generated in a previous iteration of this time loop
+        if(time == 0){
+            past_states = first_states;
+        }
+
+        // go particle by particle
+        for(size_t j = 0; j < nparts; ++j){
+            states[j] = this->fSamp( past_states[j] );
+            observations[j] = this->gSamp( states[j] );
+        }
+           
+        // add time period content 
+        allFutures.push_back(timePair(states, observations)); //TODO make sure deep copy
+        past_states = states;
+    }
+
+    return allFutures; 
+}
+
+
+template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
+auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_obs(unsigned int num_time_steps) -> obsPaths {
+
+    // this gets returned
+    manyPairs obs_and_state_paths = this->sim_future(num_time_steps);
+    obsPaths future_obs;
+    for(size_t time = 0; time < obs_and_state_paths.size(); ++time){
+        future_obs.push_back( std::get<1>(obs_and_state_paths[time]) );
+    }
+    
+    return future_obs;
+}
+
+
+template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
+auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int num_time_steps) -> statePaths {
+
+    // this gets returned
+    statePaths future_states;
+    manyPairs obs_and_state_paths = sim_future(num_time_steps);
+    for(size_t time = 0; time < obs_and_state_paths.size(); ++time){
+        future_states.push_back( std::get<0>(obs_and_state_paths[time]) );
+    }
+    
+    return future_states;
+}
+
+
+/************************************************************************************************************/
+
+/**
+ * @class GenFutureSimulator
+ * @author Taylor
+ * @file pf_base.h
+ * @brief inherit from this if, in addition to filtering, you want to simulate future trajectories from the current filtering distribution. 
+ * This simulates two future trajectories for each particle you have--one for the state path, and one for the observation path.
+ * Unlike the above class, this one 
+ */
+template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
+class GenFutureSimulator {
 private:
 
     /* expose observation-sized vector type to users  (private because they clash with pf_base) */
@@ -287,15 +520,14 @@ public:
     /**
      * @brief returns a sample for the observed series 
      * @param the current time step's state value
-     * @param the previous time's observation
      * @return an observation sample for the current time step
      */
-    virtual obs_sized_vec gSamp (const state_sized_vec &xt, const obs_sized_vec &ytm1) = 0;
+    virtual obs_sized_vec gSamp (const state_sized_vec &xt) = 0;
 };
 
 
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
-auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time_steps, const obs_sized_vec &yt) -> manyPairs {
+auto GenFutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time_steps, const obs_sized_vec &yt) -> manyPairs {
 
     // this gets returned
     manyPairs allFutures;
@@ -308,7 +540,7 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time
     std::array<state_sized_vec, nparts> first_states = this->get_uwtd_samps();
 
     // iterate over time
-    for(unsigned int time = 0; i < num_time_steps; ++i){
+    for(unsigned int time = 0; time < num_time_steps; ++time){
 
         // use particle filter's most recent information if you're going one step ahead into the future
         // otherwise use output generated in a previous iteration of this time loop
@@ -319,8 +551,8 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time
 
         // go particle by particle
         for(size_t j = 0; j < nparts; ++j){
-            states[j] = this->fSamp(past_states[j], past_obs[j]]
-            observations[j] = this->gSamp(states[j], past_obs[j]);
+            states[j] = this->fSamp( past_states[j], past_obs[j] );
+            observations[j] = this->gSamp( states[j] );
         }
            
         // add time period content 
@@ -334,13 +566,13 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future(unsigned int num_time
 
 
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
-auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_obs(unsigned int num_time_steps, const obs_sized_vec &yt) -> obsPaths {
+auto GenFutureSimulator<dimx,dimy,float_t,nparts>::sim_future_obs(unsigned int num_time_steps, const obs_sized_vec &yt) -> obsPaths {
 
     // this gets returned
     manyPairs obs_and_state_paths = this->sim_future(num_time_steps, yt);
     obsPaths future_obs;
     for(size_t time = 0; time < obs_and_state_paths.size(); ++time){
-        future_obs[time] = std::get<1>(obs_and_state_paths[time]);
+        future_obs.push_back( std::get<1>(obs_and_state_paths[time]) );
     }
     
     return future_obs;
@@ -348,18 +580,17 @@ auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_obs(unsigned int num_
 
 
 template<size_t dimx, size_t dimy, typename float_t, size_t nparts>
-auto FutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int num_time_steps, const obs_sized_vec &yt) -> statePaths {
+auto GenFutureSimulator<dimx,dimy,float_t,nparts>::sim_future_states(unsigned int num_time_steps, const obs_sized_vec &yt) -> statePaths {
 
     // this gets returned
     statePaths future_states;
     manyPairs obs_and_state_paths = sim_future(num_time_steps,yt);
     for(size_t time = 0; time < obs_and_state_paths.size(); ++time){
-        future_states[time] = std::get<0>(obs_and_state_paths[time]);
+        future_states.push_back( std::get<0>(obs_and_state_paths[time]) );
     }
     
     return future_states;
 }
-
 
 /************************************************************************************************************/
 

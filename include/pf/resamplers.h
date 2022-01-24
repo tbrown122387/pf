@@ -726,7 +726,6 @@ std::array<std::bitset<num_bits>,num_dims> TransposeToAxes(std::array<std::bitse
 {
 
     using coord_t = std::bitset<num_bits>;
-    using coords_t = std::array<coord_t, num_dims>;
 
 
     // Gray decode by H ^ (H/2)
@@ -768,7 +767,6 @@ template<size_t num_bits, size_t num_dims>
 std::array<std::bitset<num_bits>,num_dims> AxesToTranspose(std::array<std::bitset<num_bits>, num_dims> X)
 {
     using coord_t = std::bitset<num_bits>;
-    using coords_t = std::array<coord_t, num_dims>;
 
     // Inverse undo
     coord_t M = 1 << (num_bits-1);
@@ -851,8 +849,6 @@ std::array<std::bitset<num_bits>,num_dims> makeHTranspose(unsigned int H)
 template<size_t num_bits, size_t num_dims>
 unsigned int makeH(std::array<std::bitset<num_bits>,num_dims> Htrans)
 {
-    using coord_t = std::bitset<num_bits>;
-    using coords_t = std::array<coord_t, num_dims>;
     using big_coord_t = std::bitset<num_bits*num_dims>;
 
     big_coord_t H;
