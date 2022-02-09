@@ -56,7 +56,7 @@ If there are no error messages, you will have an executable named `pf_example` i
 
 ## Contributing
 
-Want to contribute to this project? Great! Click [here](CONTRIBUTING.md) for details on how to do that.
+Want to contribute to this project? Great! Click [here](CONTRIBUTING.md) for details on how to do that. We also have an "ideas list" you can check out [here](ideas_list.md).
 
 ## Paper
 
