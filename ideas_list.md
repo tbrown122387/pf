@@ -3,22 +3,23 @@
 ## The Big Picture
 
 Particle filters are an indispensable class of algorithms for a wide variety of time series models. Unfortunately, 
-
-they are complicated to describe and 
-they are computationally intensive. 
+  
+  - they are complicated to describe and 
+  - they are computationally intensive. 
 
 The primary purpose of this library is to provide practitioners with the ***fastest and most easy-to-use code *** for particle filtering. All of our work/ideas will address one of these two difficulties. 
 
 First, many statisticians and data scientists aren't familiar with compiled languages. That's why it's critical to provide a friendly interface for these folks, and our current examples could use some work. We need ***more examples, and these examples need to clearly demonstrate how to use compiled code from within an interpreted language.*** 
 
-Second, we're looking to increase the speed, maintainability, and flexibility of this software. As stated above, we want this to be the "go-to" software for particle filtering.
+Second, we're looking to increase the ***speed, maintainability, and flexibility of this software***. As stated above, we want this to be the "go-to" software for particle filtering.
 
 
 ## Required Skills and Getting in Touch
 
 All projects fall into one of two categories. Either you are either interested in 
-the data analysis aspect of this project, or 
-you are interested in software development. 
+  
+  - the data analysis aspect of this project, or 
+  - you are interested in software development. 
 
 ### Data Analysis Projects (The Big Picture)
 
