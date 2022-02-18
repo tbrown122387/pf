@@ -7,7 +7,7 @@ Particle filters are an indispensable class of algorithms for a wide variety of 
   - they are complicated to describe and 
   - they are computationally intensive. 
 
-The primary purpose of this library is to provide practitioners with the ***fastest and most easy-to-use code *** for particle filtering. All of our work/ideas will address one of these two difficulties. 
+The primary purpose of this library is to provide practitioners with the ***fastest and most easy-to-use code*** for particle filtering. All of our work/ideas will address one of these two difficulties. 
 
 First, many statisticians and data scientists aren't familiar with compiled languages. That's why it's critical to provide a friendly interface for these folks, and our current examples could use some work. We need ***more examples, and these examples need to clearly demonstrate how to use compiled code from within an interpreted language.*** 
 
