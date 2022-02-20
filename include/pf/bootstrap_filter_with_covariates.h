@@ -25,7 +25,7 @@ namespace filters {
  * @tparam resamp_t the type of resampler
  */
 template<size_t nparts, size_t dimx, size_t dimy, size_t dimcov, typename resamp_t, typename float_t, bool debug=false>
-class BSFilterWC : public bases::pf_base<float_t, dimy, dimx> 
+class BSFilterWC : public bases::pf_withcov_base<float_t, dimy, dimx, dimcov> 
 {
 private:
     
@@ -70,7 +70,8 @@ public:
      * @param covData covariate data
      * @param fs a vector of functions if you want to calculate expectations.
      */
-    void filter(const osv &ydata, const cvsv &covdata, 
+    void filter(const osv &ydata, 
+                const cvsv &covdata, 
                 const std::vector<std::function<const Mat(const ssv&, const cvsv&)>>& fs = std::vector<std::function<const Mat(const ssv&, const cvsv&)>>()); 
 
 
