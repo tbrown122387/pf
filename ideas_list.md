@@ -43,7 +43,7 @@ If you would like to get involved, please drop us a line and describe which of t
   * Primary skills: statistics, machine learning, time series analysis, R or Python.
   * Secondary skills: basic c++.
   * Time committment: 175 hours
-  * Mentors: Taylor <trb5me@virginia.edu>, Benjamin <bharrison@converseon.com>
+  * Mentors: Taylor <trb5me@virginia.edu>, Benjamin <bharrison@converseon.com>, Jacalyn <jmh5ad@virginia.edu>
   * Expected outcomes: more case studies, and more eyeballs on these examples
 
 --------------------------------------------
