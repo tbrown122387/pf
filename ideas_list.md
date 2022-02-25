@@ -37,43 +37,68 @@ If you would like to get involved, please drop us a line and describe which of t
 
 ## 1. Statistical Case-Studies, Examples, Demonstrations and Improvements 
 
-Primary skills involved: statistics, R/RStudio, or Python.
-Category: Data Analysis
-Secondary skills involved: basic c++.
+--------------------------------------------
 
-  - Our current examples could be displayed more nicely, perhaps with RMarkdown, Jupyter notebooks, etc. Currently, the [`examples/`](https://github.com/tbrown122387/pf/tree/master/examples) directory is quite bare-bones and uninviting. While it could be used as a template for providing different examples, ***future examples need to be much more friendly.*** 
-  - We need to provide examples in ***more subject areas.*** Currently, we are mostly focused on financial time series, and there is another example related to tracking. If you have heard that particle filters are useful in area "X", then this can probably be made into a new example.
-  - We need to provide more examples of how to ***call this C++ code from within interpreted languages such as R and Python.*** This process is complicated by the templated nature of these classes.
-  - We would also like to provide ***more particle filtering algorithms, resampling strategies, etc.*** We have a wide variety, but we can always implement new techniques from the literature. If you are a graduate student, and you're interested in writing good software for a method you're looking into, this topic could be right for you.
+  * Category: Data Analysis
+  * Primary skills: statistics, machine learning, time series analysis, R or Python.
+  * Secondary skills: basic c++.
+  * Time committment: 175 hours
+  * Mentors: Taylor <trb5me@virginia.edu>, Benjamin <bharrison@converseon.com>
+  * Expected outcomes: more case studies, and more eyeballs on these examples
+
+--------------------------------------------
+
+1. Our current examples could be displayed more nicely, perhaps with RMarkdown, Jupyter notebooks, etc. Currently, the [`examples/`](https://github.com/tbrown122387/pf/tree/master/examples) directory is quite bare-bones and uninviting. While it could be used as a template for providing different examples, ***future examples need to be much more friendly.*** 
+
+2. We need to provide examples in ***more subject areas.*** Currently, we are mostly focused on financial time series, and there is another example related to tracking. If you have heard that particle filters are useful in area "X", then this can probably be made into a new example.
+
+3. We need to provide more examples of how to ***call this C++ code from within interpreted languages such as R and Python.*** This process is complicated by the templated nature of these classes.
+
+4. We would also like to provide ***more particle filtering algorithms, resampling strategies, etc.*** We have a wide variety, but we can always implement new techniques from the literature. If you are a graduate student, and you're interested in writing good software for a method you're looking into, this topic could be right for you.
 
 ## 2. The Curiously Recurring Template Pattern
 
-Primary skills involved: template metaprogramming.
-Category: Software development
-Secondary skills involved: general knowledge of time series analysis
+--------------------------------------------
 
-Right now, this library's primary purpose is to provide abstract base classes. Each of these corresponds with a different type of particle filter. There are two issues we would like to tackle, and **we suspect CRTP might be the right tool for both jobs.***
+  * Category: Software development
+  * Primary skills: template metaprogramming.
+  * Secondary skills: general knowledge of time series analysis
+  * Time committment: 175 hours
+  * Mentors: Benjamin <bharrison@converseon.com>, Taylor <trb5me@virginia.edu>
+  * Expected outcomes: refactored base classes and more interface classes
+  
+--------------------------------------------
 
-First, as you can tell from the templated nature of this code, we are interested in performing as much work during compile time. CRTP might help us take this one step further if it can be used to convert our runtime polymorphism to compile-time polymorphism. 
+1. Right now, this library's primary purpose is to provide abstract base classes. Each of these corresponds with a different type of particle filter. There are two issues we would like to tackle, and **we suspect CRTP might be the right tool for both jobs.***
 
-Second, at the present moment, we have one base class for each particle filtering algorithm. These base classes require the user to implement pure virtual functions necessary for the algorithm to function. However, ***many different statistical models using the same particle filtering algorithm would benefit from having different signatures for these functions.*** The goal would be to create ***more succinct "base classes".*** We could derive many different versions of a given particle filter by inheriting from this more expressive class template. This would increase functionality for the end-user, and dramatically improve maintainability. 
+2. First, as you can tell from the templated nature of this code, we are interested in performing as much work during compile time. CRTP might help us take this one step further if it can be used to convert our runtime polymorphism to compile-time polymorphism. 
+
+3. Second, at the present moment, we have one base class for each particle filtering algorithm. These base classes require the user to implement pure virtual functions necessary for the algorithm to function. However, ***many different statistical models using the same particle filtering algorithm would benefit from having different signatures for these functions.*** The goal would be to create ***more succinct "base classes".*** We could derive many different versions of a given particle filter by inheriting from this more expressive class template. This would increase functionality for the end-user, and dramatically improve maintainability. 
 
 
 
 ## 3. Speed Ups, Unit Testing and Documentation 
 
-Primary skills involved: mixed
-Category: Software development
-Minimum Difficulty: low
+--------------------------------------------
 
-Everyone knows that attracting users is easier if 
-they know our code is the fastest, and 
-it is easy to get started using our code.
-This category is concerned with timing code and improving unit testing and documentation.
+  * Category: Software development
+  * Primary skills involved: mixed
+  * Minimum Difficulty: low
+  * Time committment: 175 hours
+  * Mentors: Benjamin <bharrison@converseon.com>, Taylor <trb5me@virginia.edu>
+  * Expected outcomes: speed comparisons, and more unit tests running more often
 
- - There are probably a large number of places where speedups could be made. ***Everything is on the table here.***
- - Our Doxygen documentation could use some work. Many of the header files have outdated documentation!
- - Preliminary intra-library speed comparisons have been performed. They are quite favorable, but we could use a lot more. 
- - We have plenty of tests, but writing more is great for peace of mind. 
- - We currently do not use any automated testing or building tools. This opportunity category is wide open as well! 
+--------------------------------------------
+
+1. Everyone knows that attracting users is easier if they know our code is the fastest, and it is easy to get started using our code. This category is concerned with timing code and improving unit testing and documentation.
+
+2. There are probably a large number of places where speedups could be made. ***Everything is on the table here.***
+
+3. Our Doxygen documentation could use some work. Many of the header files have outdated documentation!
+
+4. Preliminary intra-library speed comparisons have been performed. They are quite favorable, but we could use a lot more. 
+ 
+5. We have plenty of tests, but writing more is great for peace of mind. 
+
+6. We currently do not use any automated testing or building tools. This opportunity category is wide open as well! 
 
