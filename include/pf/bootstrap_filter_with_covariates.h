@@ -4,6 +4,7 @@
 #include <array>
 #include <vector>
 #include <Eigen/Dense>
+#include <iostream>
 
 #include "pf_base.h"
     

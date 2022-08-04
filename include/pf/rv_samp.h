@@ -320,7 +320,7 @@ public:
     /**
      * @brief Default-constructor ...
      */
-    UnivGammaSampler();
+    UnivGammaSampler() = delete;
 
 
      /**
@@ -349,14 +349,6 @@ private:
     float_t m_beta;
 
 };
-
-
-template<typename float_t>
-UnivGammaSampler<float_t>::UnivGammaSampler()
-    : rvsamp_base()
-    , m_gamma_gen(1.0, 1.0)
-{
-}
 
 
 template<typename float_t>
@@ -922,6 +914,109 @@ std::array<unsigned int, N> k_gen<N, float_t>::sample(const std::array<float_t, 
     return ks;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//! A class that performs sampling from a Beta distribution.
+/**
+* @class BetaSampler
+* @author taylor
+* @file rv_samp.h
+* @brief Samples from Beta distribution.
+*/
+template<typename float_t>
+class BetaSampler : public rvsamp_base
+{
+    
+public:
+
+
+    /**
+     * @brief Default-constructor sets up for Beta(1,1) random variate generation.
+     */
+    BetaSampler() = delete;
+
+
+     /**
+      * @brief The user must supply both alpha and beta
+      * @param alpha shape 1 parameter (> 0)
+      * @param beta shape 2 parameter (> 0) 
+      */
+    BetaSampler(float_t alpha, float_t beta);
+
+
+     /**
+      * @brief Draws a random number.
+      * @return a random sample of type float_t.
+      */
+    float_t sample();    
+    
+
+private:
+
+    /** @brief makes gamma random variates */
+    std::gamma_distribution<float_t> m_first_gamma_gen;
+    
+    /** @brief makes other gamma random variates */
+    std::gamma_distribution<float_t> m_second_gamma_gen;
+  
+    /** @brief the first shape parameter */
+    float_t m_alpha;
+    
+    /** @brief the second shape parameter */
+    float_t m_beta;
+
+};
+
+
+template<typename float_t>
+BetaSampler<float_t>::BetaSampler(float_t alpha, float_t beta)
+    : rvsamp_base()
+    , m_first_gamma_gen(alpha, 1.0)
+    , m_second_gamma_gen(beta, 1.0)
+{
+}
+
+
+template<typename float_t>
+float_t BetaSampler<float_t>::sample()
+{
+    float_t first = m_first_gamma_gen(m_rng);
+    float_t second = m_second_gamma_gen(m_rng);
+    return first / (first + second);
+}
 
 
 } // namespace rv_samp
