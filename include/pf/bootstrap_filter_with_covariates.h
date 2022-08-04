@@ -1,6 +1,7 @@
 #ifndef BOOTSTRAP_FILTER_WC_H
 #define BOOTSTRAP_FILTER_WC_H
 
+#include <iostream>
 #include <array>
 #include <vector>
 #include <Eigen/Dense>
