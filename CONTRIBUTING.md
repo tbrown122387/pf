@@ -22,7 +22,7 @@
 
 #### **Do you intend to add a new feature or change an existing one?**
 
-* Suggest your change by opening up an [issue](https://github.com/tbrown122387/pf/issues), and labeling it as an "enhanement."
+* Suggest your change by opening up an [issue](https://github.com/tbrown122387/pf/issues), and labeling it as an "enhancement."
 
 * Open a new GitHub pull request with the enhancement.
 
