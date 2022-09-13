@@ -28,7 +28,7 @@ namespace filters {
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the resampler type (e.g. multinomial, etc.)
  */
-template<size_t nparts, size_t dimnss,size_t dimss,size_t dimy,typename resamp_t, typename float_t >
+template<size_t nparts, size_t dimnss,size_t dimss,size_t dimy,typename resamp_t, typename float_t, bool debug=false>
 class rbpf_hmm : public bases::rbpf_base<float_t, dimss, dimnss, dimy >
 {
 public:
@@ -197,8 +197,8 @@ private:
 };
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_hmm(const unsigned int &resamp_sched)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::rbpf_hmm(const unsigned int &resamp_sched)
     : m_now(0)
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
@@ -207,12 +207,12 @@ rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_hmm(const unsigned int
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::~rbpf_hmm() {}
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t,bool debug>
+rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::~rbpf_hmm() {}
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t,bool debug>
+void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
 {
 
     if(m_now > 0)
@@ -236,7 +236,11 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
-            
+
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+
             m_p_samps[ii] = newX2Samp;
         }
         
@@ -261,6 +265,11 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
+
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
 
@@ -286,6 +295,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
             m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
             this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
+
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
 
             // maximum to be used in likelihood calc
             if(m_logUnNormWeights[ii] > m1)
@@ -314,6 +327,12 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
                 denom += std::exp(m_logUnNormWeights[prtcl] - m1);
             }
             m_expectations[fId] = numer/denom;
+
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
+
             fId++;
         }
         
@@ -328,15 +347,15 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-float_t rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+float_t rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-auto rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+auto rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
@@ -354,7 +373,7 @@ auto rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() cons
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the resampler type (e.g. multinomial, etc.)
  */
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug = false>
 class rbpf_hmm_bs : public bases::rbpf_base<float_t,dimss,dimnss,dimy>
 {
 public:
@@ -482,8 +501,8 @@ private:
 };
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_hmm_bs(const unsigned int &resamp_sched)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::rbpf_hmm_bs(const unsigned int &resamp_sched)
     : m_now(0)
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
@@ -492,12 +511,12 @@ rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_hmm_bs(const unsign
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::~rbpf_hmm_bs() {}
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::~rbpf_hmm_bs() {}
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
 {
 
     if(m_now > 0)
@@ -514,6 +533,10 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
             sumexpdenom += std::exp(m_logUnNormWeights[ii] - m2);
             
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike();
+            
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
             
             // update a max
             if(m_logUnNormWeights[ii] > m1)
@@ -543,6 +566,11 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
+                        
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
 
@@ -567,6 +595,11 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
             m_p_innerMods[ii] = hmm<dimnss,dimy,float_t>(tmpProbs, tmpTransMat);
             this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
+                     
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+            
 
             // maximum to be used in likelihood calc
             if(m_logUnNormWeights[ii] > m1)
@@ -595,6 +628,11 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
+                                    
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
         
@@ -609,15 +647,15 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-float_t rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+float_t rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-auto rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+auto rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
@@ -635,7 +673,7 @@ auto rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() c
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the resampler type
  */
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug = false>
 class rbpf_kalman : public bases::rbpf_base<float_t,dimss,dimnss,dimy>
 {
 
@@ -802,8 +840,8 @@ private:
 };
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_kalman(const unsigned int &resamp_sched)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::rbpf_kalman(const unsigned int &resamp_sched)
     : m_now(0)
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
@@ -812,12 +850,12 @@ rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_kalman(const unsign
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::~rbpf_kalman() {}
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::~rbpf_kalman() {}
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
 {
     
     if(m_now > 0)
@@ -837,6 +875,10 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
             
             // update the weights
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike() + logFEv(newX2Samp, m_p_samps[ii]) - logQEv(newX2Samp, m_p_samps[ii], data);
+                        
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
             
             // update a max
             if(m_logUnNormWeights[ii] > m1)
@@ -866,6 +908,11 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
+                                                
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
 
@@ -890,7 +937,11 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
             this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
-
+                        
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+         
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -918,6 +969,11 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
+                                                            
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
         
@@ -932,15 +988,15 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &d
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-float_t rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+float_t rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-auto rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+auto rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
@@ -959,7 +1015,7 @@ auto rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() c
  * @tparam dimy the dimension of the observations
  * @tparam resamp_t the resampler type
  */
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug = false>
 class rbpf_kalman_bs : public bases::rbpf_base<float_t,dimss,dimnss,dimy>
 {
 
@@ -1084,8 +1140,8 @@ private:
 };
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_kalman_bs(const unsigned int &resamp_sched)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::rbpf_kalman_bs(const unsigned int &resamp_sched)
     : m_now(0)
     , m_lastLogCondLike(0.0)
     , m_rs(resamp_sched)
@@ -1094,12 +1150,12 @@ rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::rbpf_kalman_bs(const 
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::~rbpf_kalman_bs() {}
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::~rbpf_kalman_bs() {}
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1t, const sssv &x2t)> >& fs)
 {
     
     if(m_now > 0)
@@ -1120,6 +1176,10 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
             
             // update the weights
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike();
+                                    
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
             
             // update a max
             if(m_logUnNormWeights[ii] > m1)
@@ -1149,6 +1209,11 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
+                                                                        
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
 
@@ -1173,7 +1238,11 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
             this->updateKalman(m_p_innerMods[ii], data, m_p_samps[ii]);
 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
-
+                                                
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+            
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -1201,6 +1270,11 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
+                                                                                                
+            // print stuff if debug mode is on
+            if constexpr(debug)
+                std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+
             fId++;
         }
         
@@ -1215,15 +1289,15 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::filter(const osv
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-float_t rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getLogCondLike() const
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+float_t rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
-template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t>
-auto rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t>::getExpectations() const -> std::vector<Mat>
+template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
+auto rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::getExpectations() const -> std::vector<Mat>
 {
     return m_expectations;
 }
