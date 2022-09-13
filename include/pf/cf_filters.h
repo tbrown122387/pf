@@ -21,7 +21,7 @@ namespace filters {
  * @file cf_filters.h
  * @brief Inherit from this for a model that admits Kalman filtering.
  */
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug = false>
 class kalman : public bases::cf_filter<dimstate, dimobs, float_t> {
 
 public:    
@@ -192,8 +192,8 @@ private:
 };
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
-kalman<dimstate,dimobs,diminput,float_t>::kalman() 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>  
+kalman<dimstate,dimobs,diminput,float_t,debug>::kalman() 
         : bases::cf_filter<dimstate,dimobs,float_t>()
         , m_predMean(ssv::Zero())
         , m_predVar(ssMat::Zero()) 
@@ -203,8 +203,8 @@ kalman<dimstate,dimobs,diminput,float_t>::kalman()
 }
     
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>  
-kalman<dimstate,dimobs,diminput,float_t>::kalman(const ssv &initStateMean, const ssMat &initStateVar) 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>  
+kalman<dimstate,dimobs,diminput,float_t,debug>::kalman(const ssv &initStateMean, const ssMat &initStateVar) 
         : bases::cf_filter<dimstate,dimobs,float_t>()
         , m_predMean(initStateMean)
         , m_predVar(initStateVar) 
@@ -214,12 +214,12 @@ kalman<dimstate,dimobs,diminput,float_t>::kalman(const ssv &initStateMean, const
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-kalman<dimstate,dimobs,diminput,float_t>::~kalman() {}
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+kalman<dimstate,dimobs,diminput,float_t,debug>::~kalman() {}
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-void kalman<dimstate,dimobs,diminput,float_t>::updatePrior(const ssMat &stateTransMat, 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+void kalman<dimstate,dimobs,diminput,float_t,debug>::updatePrior(const ssMat &stateTransMat, 
                         const ssMat &cholStateVar, 
                         const siMat &stateInptAffector, 
                         const isv &inputData)
@@ -227,11 +227,12 @@ void kalman<dimstate,dimobs,diminput,float_t>::updatePrior(const ssMat &stateTra
     ssMat Q = cholStateVar.transpose() * cholStateVar;
     m_predMean = stateTransMat * m_filtMean + stateInptAffector * inputData;
     m_predVar  = stateTransMat * m_filtVar * stateTransMat.transpose() + Q;
+    
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-void kalman<dimstate,dimobs,diminput,float_t>::updatePosterior(const osv &yt, 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+void kalman<dimstate,dimobs,diminput,float_t,debug>::updatePosterior(const osv &yt, 
                              const obsStateSizeMat &obsMat, 
                              const oiMat &obsInptAffector, 
                              const isv &inputData, 
@@ -252,32 +253,36 @@ void kalman<dimstate,dimobs,diminput,float_t>::updatePosterior(const osv &yt,
     osMat cholSig ( sigma.llt().matrixL() );
     float_t logDet = 2.0*cholSig.diagonal().array().log().sum();
     m_lastLogCondLike = -.5*innov.rows()*log(2*m_pi) - .5*logDet - .5*quadForm(0,0);
+
+    if constexpr(debug)
+        std::cout << "transposed innovation: " << innov.transpose() << ", quadratic formula: " << quadForm(0,0) << ", logDet: " << logDet << ", log cond like: " << m_lastLogCondLike << "\n"; 
+    
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-float_t kalman<dimstate,dimobs,diminput,float_t>::getLogCondLike() const
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+float_t kalman<dimstate,dimobs,diminput,float_t,debug>::getLogCondLike() const
 {
     return m_lastLogCondLike;
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-auto kalman<dimstate,dimobs,diminput,float_t>::getFiltMean() const -> ssv
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+auto kalman<dimstate,dimobs,diminput,float_t,debug>::getFiltMean() const -> ssv
 {
     return m_filtMean;
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-auto kalman<dimstate,dimobs,diminput,float_t>::getFiltVar() const -> ssMat
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+auto kalman<dimstate,dimobs,diminput,float_t,debug>::getFiltVar() const -> ssMat
 {
     return m_filtVar;
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-void kalman<dimstate,dimobs,diminput,float_t>::update(const osv &yt, 
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+void kalman<dimstate,dimobs,diminput,float_t,debug>::update(const osv &yt, 
                                               const ssMat &stateTrans, 
                                               const ssMat &cholStateVar, 
                                               const siMat &stateInptAffector, 
@@ -300,8 +305,8 @@ void kalman<dimstate,dimobs,diminput,float_t>::update(const osv &yt,
 }
     
  
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-auto kalman<dimstate,dimobs,diminput,float_t>::getPredYMean(
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+auto kalman<dimstate,dimobs,diminput,float_t,debug>::getPredYMean(
         const ssMat &stateTrans,
         const obsStateSizeMat &obsMat, 
         const siMat &stateInptAffector,
@@ -312,8 +317,8 @@ auto kalman<dimstate,dimobs,diminput,float_t>::getPredYMean(
 }
 
 
-template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t>
-auto kalman<dimstate,dimobs,diminput,float_t>::getPredYVar(
+template<size_t dimstate, size_t dimobs, size_t diminput, typename float_t, bool debug>
+auto kalman<dimstate,dimobs,diminput,float_t,debug>::getPredYVar(
         const ssMat &stateTrans,
         const ssMat &cholStateVar,
         const obsStateSizeMat &obsMat,
@@ -330,7 +335,7 @@ auto kalman<dimstate,dimobs,diminput,float_t>::getPredYVar(
  * @file cf_filters.h
  * @brief Inherit from this for a model that admits HMM filtering.
  */
-template<size_t dimstate, size_t dimobs, typename float_t>
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug = false>
 class hmm : public bases::cf_filter<dimstate,dimobs,float_t>
 {
 
@@ -408,8 +413,8 @@ private:
 };
 
 
-template<size_t dimstate, size_t dimobs, typename float_t>
-hmm<dimstate,dimobs,float_t>::hmm() 
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+hmm<dimstate,dimobs,float_t,debug>::hmm() 
     : bases::cf_filter<dimstate,dimobs,float_t>::cf_filter()
     , m_filtVec(ssv::Zero())
     , m_transMatTranspose(ssMat::Zero())
@@ -419,8 +424,8 @@ hmm<dimstate,dimobs,float_t>::hmm()
 }
     
 
-template<size_t dimstate, size_t dimobs, typename float_t>
-hmm<dimstate,dimobs,float_t>::hmm(const ssv &initStateDistr, const ssMat &transMat) 
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+hmm<dimstate,dimobs,float_t,debug>::hmm(const ssv &initStateDistr, const ssMat &transMat) 
     : bases::cf_filter<dimstate,dimobs,float_t>()
     , m_filtVec(initStateDistr)
     , m_transMatTranspose(transMat.transpose())
@@ -430,31 +435,35 @@ hmm<dimstate,dimobs,float_t>::hmm(const ssv &initStateDistr, const ssMat &transM
 }
 
 
-template<size_t dimstate, size_t dimobs, typename float_t>
-hmm<dimstate,dimobs,float_t>::~hmm() {}
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+hmm<dimstate,dimobs,float_t,debug>::~hmm() {}
 
 
-template<size_t dimstate, size_t dimobs, typename float_t>
-auto hmm<dimstate,dimobs,float_t>::getLogCondLike() const -> float_t
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+auto hmm<dimstate,dimobs,float_t,debug>::getLogCondLike() const -> float_t
 {
     return std::log(m_lastCondLike);
 }
 
 
-template<size_t dimstate, size_t dimobs, typename float_t>
-auto hmm<dimstate,dimobs,float_t>::getFilterVec() const -> ssv
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+auto hmm<dimstate,dimobs,float_t,debug>::getFilterVec() const -> ssv
 {
     return m_filtVec;
 }
 
 
-template<size_t dimstate, size_t dimobs, typename float_t>
-void hmm<dimstate,dimobs,float_t>::update(const ssv &condDensVec)
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &condDensVec)
 {
     if (m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
     {
         m_filtVec = m_filtVec.cwiseProduct( condDensVec ); // now it's p(x_1, y_1)
         m_lastCondLike = m_filtVec.sum();
+
+        if constexpr(debug) 
+            std::cout << "conDensVec " << condDensVec.tranpose() << ", p(x1,y1): " << m_filtVec.transpose() << ", lastCondlike: " << m_lastCondLike << "\n";
+
         m_filtVec /= m_lastCondLike;
         m_fresh = false;
         
@@ -462,6 +471,10 @@ void hmm<dimstate,dimobs,float_t>::update(const ssv &condDensVec)
         m_filtVec = m_transMatTranspose * m_filtVec; // now p(x_t |y_{1:t-1})
         m_filtVec = m_filtVec.cwiseProduct( condDensVec ); // now p(y_t,x_t|y_{1:t-1})
         m_lastCondLike = m_filtVec.sum();
+        
+        if constexpr(debug) 
+            std::cout << "conDensVec " << condDensVec.tranpose() << ", p(y_t,x_t|y_{1:t-1}): " << m_filtVec.transpose() << ", lastCondlike: " << m_lastCondLike << "\n";
+
         m_filtVec /= m_lastCondLike; // now p(x_t|y_{1:t})
     }
 }
