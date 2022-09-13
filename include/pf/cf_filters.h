@@ -462,7 +462,7 @@ void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &condDensVec)
         m_lastCondLike = m_filtVec.sum();
 
         if constexpr(debug) 
-            std::cout << "conDensVec " << condDensVec.tranpose() << ", p(x1,y1): " << m_filtVec.transpose() << ", lastCondlike: " << m_lastCondLike << "\n";
+            std::cout << "conDensVecSum " << condDensVec.sum() << ", p(x1,y1) sum: " << m_filtVec.sum() << ", lastCondlike: " << m_lastCondLike << "\n";
 
         m_filtVec /= m_lastCondLike;
         m_fresh = false;
@@ -473,7 +473,7 @@ void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &condDensVec)
         m_lastCondLike = m_filtVec.sum();
         
         if constexpr(debug) 
-            std::cout << "conDensVec " << condDensVec.tranpose() << ", p(y_t,x_t|y_{1:t-1}): " << m_filtVec.transpose() << ", lastCondlike: " << m_lastCondLike << "\n";
+            std::cout << "conDensVec sum " << condDensVec.sum() << ", p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVec.sum() << ", lastCondlike: " << m_lastCondLike << "\n";
 
         m_filtVec /= m_lastCondLike; // now p(x_t|y_{1:t})
     }
