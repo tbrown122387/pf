@@ -46,16 +46,16 @@ public:
     arrayDouble m_vw4;
     
     // for Test_resampLogWts_RBPF
-    innerVec m_initProbDistn1;
-    innerVec m_initProbDistn2;
-    transMat m_initTransMat1;
-    transMat m_initTransMat2;
+    innerVec m_initLogProbDistn1;
+    innerVec m_initLogProbDistn2;
+    transMat m_initLogTransMat1;
+    transMat m_initLogTransMat2;
     arrayHMMMods m_hmms;
     arrayVec m_rbpf_samps;
     arrayDouble m_rbpf_logwts;
 
 
-    MRFixture() : m_initTransMat1(transMat::Zero()), m_initTransMat2(transMat::Zero())
+    MRFixture() : m_initLogTransMat1(transMat::Zero()), m_initLogTransMat2(transMat::Zero())
     {
         // make the first particle have good value for everything (samples and weights)
         // make all other particles have 0 for samples and -INF for weights
@@ -93,30 +93,30 @@ public:
         //      and transition matrices that keep it in that last spot 
         for(size_t i = 0; i < DIMINNERMOD; ++i){
 
-            m_initTransMat1(i,0) = 1.0;
-            m_initTransMat2(i,DIMINNERMOD-1) = 1.0;
-            m_initTransMat1.block(i,1,1,DIMINNERMOD-1) = Eigen::Matrix<double,1,DIMINNERMOD-1>::Zero();
-            m_initTransMat2.block(i,0,1,DIMINNERMOD-1) = Eigen::Matrix<double,1,DIMINNERMOD-1>::Zero();
+            m_initLogTransMat1(i,0) = std::log(1.0);
+            m_initLogTransMat2(i,DIMINNERMOD-1) = std::log(1.0);
+            m_initLogTransMat1.block(i,1,1,DIMINNERMOD-1).fill(std::log(0.0));// = Eigen::Matrix<double,1,DIMINNERMOD-1>::Zero();
+            m_initLogTransMat2.block(i,0,1,DIMINNERMOD-1).fill(std::log(0.0));// = Eigen::Matrix<double,1,DIMINNERMOD-1>::Zero();
             
             if(i==0){
-                m_initProbDistn1(i) = 1.0;
-                m_initProbDistn2(i) = 0.0;
+                m_initLogProbDistn1(i) = std::log(1.0);
+                m_initLogProbDistn2(i) = std::log(0.0);
             }else if(i == DIMINNERMOD - 1){
-                m_initProbDistn1(i) = 0.0;
-                m_initProbDistn2(i) = 1.0;
+                m_initLogProbDistn1(i) = std::log(0.0);
+                m_initLogProbDistn2(i) = std::log(1.0);
             }else{
-                m_initProbDistn1(i) = 0.0;
-                m_initProbDistn2(i) = 0.0;
+                m_initLogProbDistn1(i) = std::log(0.0);
+                m_initLogProbDistn2(i) = std::log(0.0);
             }
         }
         
         for(size_t i = 0; i < NUMPARTICLES; ++i){
             if(i == 0){
-                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS,double>(m_initProbDistn1, m_initTransMat1);
+                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS,double>(m_initLogProbDistn1, m_initLogTransMat1);
                 m_rbpf_samps[i] = ssv::Constant(0.0);
                 m_rbpf_logwts[i] = 0.0;
             }else{
-                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS,double>(m_initProbDistn2, m_initTransMat2);
+                m_hmms[i] = hmm<DIMINNERMOD,DIMOBS,double>(m_initLogProbDistn2, m_initLogTransMat2);
                 m_rbpf_samps[i] = ssv::Constant(1.0);                
                 m_rbpf_logwts[i] = -std::numeric_limits<float_t>::infinity();
             }
@@ -180,21 +180,21 @@ TEST_CASE_METHOD(MRFixture, "test resampLogWts_RBPF", "[resamplers]")
         }
         
         // the model that keeps everything in the first spot should remain
-        innerVec before = m_hmms[p].getFilterVec();
+        innerVec before = m_hmms[p].getFilterVecLogProbs();
         for(unsigned int i = 0; i < DIMINNERMOD; ++i){
             if(i == 0){
-                REQUIRE(before(i) == 1.0); // all weight in the first spot 
+                REQUIRE(before(i) == std::log(1.0)); // all weight in the first spot 
             }else{
-                REQUIRE(before(i) == 0.0); // all weight in the first spot
+                REQUIRE(before(i) == std::log(0.0)); // all weight in the first spot
             }
         }
         m_hmms[p].update(innerVec::Constant(1.0));
-        innerVec after = m_hmms[p].getFilterVec();
+        innerVec after = m_hmms[p].getFilterVecLogProbs();
         for(unsigned int i = 0; i < DIMINNERMOD; ++i){
             if(i == 0){
-                REQUIRE(after(i) == 1.0); // all weight in the first spot 
+                REQUIRE(after(i) == std::log(1.0)); // all weight in the first spot 
             }else{
-                REQUIRE(after(i) == 0.0); // all weight in the first spot
+                REQUIRE(after(i) == std::log(0.0)); // all weight in the first spot
             }
         }
     }

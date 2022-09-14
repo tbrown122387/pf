@@ -361,10 +361,10 @@ public:
     //! Constructor
     /**
      * @brief allows specification of initstate distn and transition matrix.
-     * @param initStateDistr first time state prior distribution.
-     * @param transMat time homogeneous transition matrix.
+     * @param initStateDistrLogProbs first time state log prior distribution.
+     * @param transMatLogProbs time homogeneous transition matrix with log probabilities.
     */
-    hmm(const ssv &initStateDistr, const ssMat &transMat);
+    hmm(const ssv &initStateDistrLogProbs, const ssMat &transMatLogProbs);
     
     
     /**
@@ -382,30 +382,47 @@ public:
     
     //! Get the current filter vector.
     /**
-     * @brief get the current filter vector.
-     * @return a probability vector p(x_t | y_{1:t})
+     * @brief get the current filter vector log probs.
+     * @return the logs of probability vector p(x_t | y_{1:t})
      */
-    ssv getFilterVec() const;
+    ssv getFilterVecLogProbs() const;
     
         
     //! Perform a HMM filter update.
     /**
      * @brief Perform a HMM filter update.
-     * @param condDensVec the vector (in x_t) of p(y_t|x_t)
+     * @param condDensVec the vector (in x_t) of log p(y_t|x_t)
      */
-    void update(const ssv &condDensVec);
+    void update(const ssv &logCondDensVec);
 
+
+    //! log sum exp trick
+    /**
+     * @brief calculates the log of the sum of the exponentiated elements of a Vector
+     * @param
+     * @return
+     */
+    float_t log_sum_exp(const ssv& logProbVec);
+
+
+    //! 
+    /**
+     * @brief
+     * @param
+     * @return
+     */
+    ssv log_product(const ssMat& logTransMat, const ssv& logProbVec);
 
 private:
 
     /** @brief filter vector */
-    ssv m_filtVec;
+    ssv m_filtVecLogProbs;
     
     /** @brief transition matrix */
-    ssMat m_transMatTranspose;
+    ssMat m_transMatLogProbsTranspose;
     
-    /** @brief last conditional likelihood */
-    float_t m_lastCondLike; 
+    /** @brief last log conditional likelihood */
+    float_t m_lastLogCondLike; 
     
     /** @brief has data been observed? */
     bool m_fresh;
@@ -416,22 +433,33 @@ private:
 template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
 hmm<dimstate,dimobs,float_t,debug>::hmm() 
     : bases::cf_filter<dimstate,dimobs,float_t>::cf_filter()
-    , m_filtVec(ssv::Zero())
-    , m_transMatTranspose(ssMat::Zero())
-    , m_lastCondLike(0.0)
+    , m_lastLogCondLike(0.0)
     , m_fresh(true)
 {
 }
     
 
 template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
-hmm<dimstate,dimobs,float_t,debug>::hmm(const ssv &initStateDistr, const ssMat &transMat) 
+hmm<dimstate,dimobs,float_t,debug>::hmm(const ssv &initStateDistrLogProbs, const ssMat &transMatLogProbs) 
     : bases::cf_filter<dimstate,dimobs,float_t>()
-    , m_filtVec(initStateDistr)
-    , m_transMatTranspose(transMat.transpose())
-    , m_lastCondLike(0.0)
+    , m_filtVecLogProbs(initStateDistrLogProbs)
+    , m_transMatLogProbsTranspose(transMatLogProbs.transpose())
+    , m_lastLogCondLike(0.0)
     , m_fresh(true)
 {
+    // check initial probabilities
+    if( std::abs(this->log_sum_exp(m_filtVecLogProbs)) > .001)
+        throw std::invalid_argument("Initial probabilities must sum to 1.");
+    if ( m_filtVecLogProbs.maxCoeff() > 0.0 ) 
+        throw std::invalid_argument("Initial probabilities cannot be greater than 1.0."); 
+
+    // check transition matrix (with log probs)
+    if( m_transMatLogProbsTranspose.maxCoeff() > 0.0)
+        throw std::invalid_argument("Initial transition probabilities cannot be greater than 1.");
+    for(size_t icol = 0; icol < dimstate; ++icol){
+        if ( std::abs(this->log_sum_exp(m_transMatLogProbsTranspose.col(icol))) > .001)
+            throw std::invalid_argument("Initial transition probabilities must sum to 1.");
+    }
 }
 
 
@@ -442,40 +470,62 @@ hmm<dimstate,dimobs,float_t,debug>::~hmm() {}
 template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
 auto hmm<dimstate,dimobs,float_t,debug>::getLogCondLike() const -> float_t
 {
-    return std::log(m_lastCondLike);
+    return m_lastLogCondLike;
 }
 
 
 template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
-auto hmm<dimstate,dimobs,float_t,debug>::getFilterVec() const -> ssv
+auto hmm<dimstate,dimobs,float_t,debug>::getFilterVecLogProbs() const -> ssv
 {
-    return m_filtVec;
+    return m_filtVecLogProbs;
+}
+
+    
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+float_t hmm<dimstate,dimobs,float_t,debug>::log_sum_exp(const ssv& logProbVec)
+{
+
+    float_t m = logProbVec.maxCoeff();
+    return std::log( (logProbVec.array() - m).exp().sum() ) + m;
 }
 
 
 template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
-void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &condDensVec)
+auto hmm<dimstate,dimobs,float_t,debug>::log_product(const ssMat& logTransMat, const ssv& logProbVec) -> ssv
 {
-    if (m_fresh)  // hasn't seen data before and so filtVec is just time 1 state prior
+    ssv col_sum;
+    float_t m = logTransMat.maxCoeff();
+    col_sum.fill(m);
+    for(size_t ic = 0; ic < dimstate; ++ic){
+        col_sum = col_sum + (logTransMat.col(ic).array() + logProbVec(ic) - m).exp().matrix();
+    }
+    return col_sum;
+}
+
+
+template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
+void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &logCondDensVec)
+{
+    if( !m_fresh) { // has seen data before
+        m_filtVecLogProbs = this->log_product(m_transMatLogProbsTranspose, m_filtVecLogProbs); // now log p(x_t |y_{1:t-1})
+        m_filtVecLogProbs = m_filtVecLogProbs + logCondDensVec ; // now log p(y_t,x_t|y_{1:t-1})
+        m_lastLogCondLike = this->log_sum_exp(m_filtVecLogProbs);
+        
+        if constexpr(debug) 
+            std::cout << "conDensVec sum " << logCondDensVec.sum() << ", p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVecLogProbs.sum() << ", lastCondlike: " << m_lastLogCondLike << "\n";
+
+        m_filtVecLogProbs = (m_filtVecLogProbs.array() -  m_lastLogCondLike).matrix(); // now log p(x_t|y_{1:t})
+    }
+    else // hasn't seen data before and so filtVec is just time 1 state prior
     {
-        m_filtVec = m_filtVec.cwiseProduct( condDensVec ); // now it's p(x_1, y_1)
-        m_lastCondLike = m_filtVec.sum();
+        m_filtVecLogProbs = m_filtVecLogProbs + logCondDensVec; // now it's log p(x_1, y_1)
+        m_lastLogCondLike = this->log_sum_exp(m_filtVecLogProbs); // log p(y_1)
 
         if constexpr(debug) 
-            std::cout << "conDensVecSum " << condDensVec.sum() << ", p(x1,y1) sum: " << m_filtVec.sum() << ", lastCondlike: " << m_lastCondLike << "\n";
+            std::cout << "logConDensVecSum " << logCondDensVec.sum() << ", log p(x1,y1) sum: " << m_filtVecLogProbs.sum() << ", lastLogCondlike: " << m_lastLogCondLike << "\n";
 
-        m_filtVec /= m_lastCondLike;
+        m_filtVecLogProbs = (m_filtVecLogProbs.array() - m_lastLogCondLike).matrix();
         m_fresh = false;
-        
-    } else { // has seen data before
-        m_filtVec = m_transMatTranspose * m_filtVec; // now p(x_t |y_{1:t-1})
-        m_filtVec = m_filtVec.cwiseProduct( condDensVec ); // now p(y_t,x_t|y_{1:t-1})
-        m_lastCondLike = m_filtVec.sum();
-        
-        if constexpr(debug) 
-            std::cout << "conDensVec sum " << condDensVec.sum() << ", p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVec.sum() << ", lastCondlike: " << m_lastCondLike << "\n";
-
-        m_filtVec /= m_lastCondLike; // now p(x_t|y_{1:t})
     }
 }
     
