@@ -73,7 +73,7 @@ public:
      * @param fs a vector of functions computing E[h(x_1t, x_2t^i)| x_2t^i,y_1:t] to be averaged to yield E[h(x_1t, x_2t)|,y_1:t]. Will access the probability vector of x_1t
      */
     void filter(const osv &data,
-                const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs 
+                const std::vector<std::function<const Mat(const nsssv &x1tLogProbs, const sssv &x2t)> >& fs 
                     = std::vector<std::function<const Mat(const nsssv&, const sssv&)> >());//, const std::vector<std::function<const Mat(const Vec&)> >& fs);
 
 
@@ -115,7 +115,7 @@ public:
      * @param x21 the second state componenent at time 1.
      * @return a Vec representing the probability of each state element.
      */
-    virtual nsssv initHMMProbVec(const sssv &x21) = 0;
+    virtual nsssv initHMMLogProbVec(const sssv &x21) = 0;
     
     
     //! Provides the transition matrix for each HMM filter object.
@@ -124,7 +124,7 @@ public:
      * @param x21 the second state component at time 1. 
      * @return a transition matrix where element (ij) is the probability of transitioning from state i to state j.
      */
-    virtual nsssMat initHMMTransMat(const sssv &x21) = 0;
+    virtual nsssMat initHMMLogTransMat(const sssv &x21) = 0;
 
     //! Samples the time t second component. 
     /**
@@ -213,7 +213,7 @@ rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::~rbpf_hmm() {}
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t,bool debug>
-void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
+void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tLogProbs, const sssv &x2t)> >& fs)
 {
 
     if(m_now > 0)
@@ -256,13 +256,13 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv
         //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
             
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Mat testOutput = h(m_p_innerMods[0].getFilterVecLogProbs(), m_p_samps[0]);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
+                numer += h(m_p_innerMods[prtcl].getFilterVecLogProbs(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
@@ -285,15 +285,15 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv
     { // first data point coming
     
         // initialize and update the closed-form mods        
-        nsssv tmpProbs;
-        nsssMat tmpTransMat;
+        nsssv tmpLogProbs;
+        nsssMat tmpLogTransMat;
         float_t m1(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii){
             
             m_p_samps[ii] = q1Samp(data); 
-            tmpProbs = initHMMProbVec(m_p_samps[ii]);
-            tmpTransMat = initHMMTransMat(m_p_samps[ii]);
-            m_p_innerMods[ii] = cfModType(tmpProbs, tmpTransMat);
+            tmpLogProbs = initHMMLogProbVec(m_p_samps[ii]);
+            tmpLogTransMat = initHMMLogTransMat(m_p_samps[ii]);
+            m_p_innerMods[ii] = cfModType(tmpLogProbs, tmpLogTransMat);
             this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
 
@@ -318,13 +318,13 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv
         //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
 
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Mat testOutput = h(m_p_innerMods[0].getFilterVecLogProbs(), m_p_samps[0]);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
+                numer += h(m_p_innerMods[prtcl].getFilterVecLogProbs(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
                 denom += std::exp(m_logUnNormWeights[prtcl] - m1);
             }
             m_expectations[fId] = numer/denom;
@@ -420,7 +420,7 @@ public:
      * @param fs a vector of functions computing E[h(x_1t, x_2t^i)| x_2t^i,y_1:t] to be averaged to yield E[h(x_1t, x_2t)|,y_1:t]. Will access the probability vector of x_1t
      */
     void filter(const osv &data,
-                const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs 
+                const std::vector<std::function<const Mat(const nsssv &x1tLogProbs, const sssv &x2t)> >& fs 
                     = std::vector<std::function<const Mat(const nsssv&, const sssv&)> >());//, const std::vector<std::function<const Mat(const Vec&)> >& fs);
 
 
@@ -447,22 +447,22 @@ public:
     virtual sssv muSamp() = 0;
     
     
-    //! Provides the initial mean vector for each HMM filter object.
+    //! Provides the initial log probability vector for each HMM filter object.
     /**
-     * @brief provides the initial probability vector for each HMM filter object.
+     * @brief provides the initial log probability vector for each HMM filter object.
      * @param x21 the second state componenent at time 1.
-     * @return a Vec representing the probability of each state element.
+     * @return a Vec representing the log probability of each state element.
      */
-    virtual nsssv initHMMProbVec(const sssv &x21) = 0;
+    virtual nsssv initHMMLogProbVec(const sssv &x21) = 0;
     
     
-    //! Provides the transition matrix for each HMM filter object.
+    //! Provides the log transition matrix for each HMM filter object.
     /**
-     * @brief provides the transition matrix for each HMM filter object.
+     * @brief provides the log transition matrix for each HMM filter object.
      * @param x21 the second state component at time 1. 
-     * @return a transition matrix where element (ij) is the probability of transitioning from state i to state j.
+     * @return a (log) transition matrix where element (ij) is the log of the probability of transitioning from state i to state j.
      */
-    virtual nsssMat initHMMTransMat(const sssv &x21) = 0;
+    virtual nsssMat initHMMLogTransMat(const sssv &x21) = 0;
 
     //! Samples the time t second component. 
     /**
@@ -519,7 +519,7 @@ rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::~rbpf_hmm_bs() {}
 
 
 template<size_t nparts, size_t dimnss, size_t dimss, size_t dimy, typename resamp_t, typename float_t, bool debug>
-void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tProbs, const sssv &x2t)> >& fs)
+void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv &data, const std::vector<std::function<const Mat(const nsssv &x1tLogProbs, const sssv &x2t)> >& fs)
 {
 
     if(m_now > 0)
@@ -559,13 +559,13 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
         //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end());
         for(auto & h : fs){
             
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Mat testOutput = h(m_p_innerMods[0].getFilterVecLogProbs(), m_p_samps[0]);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl])*std::exp(m_logUnNormWeights[prtcl] - m1);
+                numer += h(m_p_innerMods[prtcl].getFilterVecLogProbs(), m_p_samps[prtcl])*std::exp(m_logUnNormWeights[prtcl] - m1);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;
@@ -587,15 +587,15 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
     else// ( m_now == 0) // first data point coming
     {
         // initialize and update the closed-form mods        
-        nsssv tmpProbs;
-        nsssMat tmpTransMat;
+        nsssv tmpLogProbs;
+        nsssMat tmpLogTransMat;
         float_t m1(-std::numeric_limits<float_t>::infinity());
         for(size_t ii = 0; ii < nparts; ++ii){
             
             m_p_samps[ii] = muSamp(); 
-            tmpProbs = initHMMProbVec(m_p_samps[ii]);
-            tmpTransMat = initHMMTransMat(m_p_samps[ii]);
-            m_p_innerMods[ii] = cfModType(tmpProbs, tmpTransMat);
+            tmpLogProbs = initHMMLogProbVec(m_p_samps[ii]);
+            tmpLogTransMat = initHMMLogTransMat(m_p_samps[ii]);
+            m_p_innerMods[ii] = cfModType(tmpLogProbs, tmpLogTransMat);
             this->updateHMM(m_p_innerMods[ii], data, m_p_samps[ii]);
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
                      
@@ -621,13 +621,13 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
         //float_t m = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); /// TODO: can we just use m1?
         for(auto & h : fs){
 
-            Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+            Mat testOutput = h(m_p_innerMods[0].getFilterVecLogProbs(), m_p_samps[0]);
             unsigned int rows = testOutput.rows();
             unsigned int cols = testOutput.cols();
             Mat numer = Mat::Zero(rows,cols);
             float_t denom(0.0);
             for(size_t prtcl = 0; prtcl < nparts; ++prtcl){ 
-                numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
+                numer += h(m_p_innerMods[prtcl].getFilterVecLogProbs(), m_p_samps[prtcl]) * std::exp(m_logUnNormWeights[prtcl] - m1);
                 denom += std::exp( m_logUnNormWeights[prtcl] - m1 );
             }
             m_expectations[fId] = numer/denom;

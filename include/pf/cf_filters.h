@@ -391,7 +391,7 @@ public:
     //! Perform a HMM filter update.
     /**
      * @brief Perform a HMM filter update.
-     * @param condDensVec the vector (in x_t) of log p(y_t|x_t)
+     * @param logCondDensVec the vector (in x_t) of log p(y_t|x_t)
      */
     void update(const ssv &logCondDensVec);
 
@@ -512,7 +512,7 @@ void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &logCondDensVec)
         m_lastLogCondLike = this->log_sum_exp(m_filtVecLogProbs);
         
         if constexpr(debug) 
-            std::cout << "conDensVec sum " << logCondDensVec.sum() << ", p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVecLogProbs.sum() << ", lastCondlike: " << m_lastLogCondLike << "\n";
+            std::cout << "logConDensVec sum " << logCondDensVec.sum() << ", p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVecLogProbs.sum() << ", lastCondlike: " << m_lastLogCondLike << "\n";
 
         m_filtVecLogProbs = (m_filtVecLogProbs.array() -  m_lastLogCondLike).matrix(); // now log p(x_t|y_{1:t})
     }
