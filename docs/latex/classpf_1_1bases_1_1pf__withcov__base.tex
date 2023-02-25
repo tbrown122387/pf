@@ -1,0 +1,94 @@
+\hypertarget{classpf_1_1bases_1_1pf__withcov__base}{}\doxysection{pf\+::bases\+::pf\+\_\+withcov\+\_\+base$<$ float\+\_\+t, dimobs, dimstate, dimcov $>$ Class Template Reference}
+\label{classpf_1_1bases_1_1pf__withcov__base}\index{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$@{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a4b0bb2979e1edb403fb60bee9ba15596}\label{classpf_1_1bases_1_1pf__withcov__base_a4b0bb2979e1edb403fb60bee9ba15596}} 
+using {\bfseries float\+\_\+type} = float\+\_\+t
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a7a0500c0fcef44560a6347db71e9ac2e}\label{classpf_1_1bases_1_1pf__withcov__base_a7a0500c0fcef44560a6347db71e9ac2e}} 
+using {\bfseries obs\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a3908cee1025371348fc7060c830d845b}\label{classpf_1_1bases_1_1pf__withcov__base_a3908cee1025371348fc7060c830d845b}} 
+using {\bfseries state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, 1 $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_aa7c7e65fcf4841f33509e9e89f429dfc}{cov\+\_\+sized\+\_\+vec}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimcov, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a150ef1e3e0cd94f37c15e4f2b63dcc1a}\label{classpf_1_1bases_1_1pf__withcov__base_a150ef1e3e0cd94f37c15e4f2b63dcc1a}} 
+using {\bfseries dynamic\+\_\+matrix} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a1c3140a5752a69e21eec8ff60b1bf71e}\label{classpf_1_1bases_1_1pf__withcov__base_a1c3140a5752a69e21eec8ff60b1bf71e}} 
+using {\bfseries func} = std\+::function$<$ const dynamic\+\_\+matrix(const state\+\_\+sized\+\_\+vec \&, const \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_aa7c7e65fcf4841f33509e9e89f429dfc}{cov\+\_\+sized\+\_\+vec}} \&)$>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a7f91f67937b43e20aad4f2ab1657eae4}\label{classpf_1_1bases_1_1pf__withcov__base_a7f91f67937b43e20aad4f2ab1657eae4}} 
+using {\bfseries func\+\_\+vec} = std\+::vector$<$ func $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_ab5bbbe6d19a55f7dde505070877185ba}{filter}} (const obs\+\_\+sized\+\_\+vec \&data, const \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_aa7c7e65fcf4841f33509e9e89f429dfc}{cov\+\_\+sized\+\_\+vec}} \&cov, const func\+\_\+vec \&fs=func\+\_\+vec())=0
+\begin{DoxyCompactList}\small\item\em the filtering function that must be defined \end{DoxyCompactList}\item 
+virtual float\+\_\+t \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_ac5c4c9b116e019562cc3685b127c5bd4}{get\+Log\+Cond\+Like}} () const =0
+\begin{DoxyCompactList}\small\item\em the getter method that must be defined (for conditional log-\/likelihood) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a30fce73afc31a5244af527fca58cd93e}\label{classpf_1_1bases_1_1pf__withcov__base_a30fce73afc31a5244af527fca58cd93e}} 
+virtual \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_a30fce73afc31a5244af527fca58cd93e}{$\sim$pf\+\_\+withcov\+\_\+base}} ()
+\begin{DoxyCompactList}\small\item\em virtual destructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a23129689a3e451d5870d97ffd28c50f5}\label{classpf_1_1bases_1_1pf__withcov__base_a23129689a3e451d5870d97ffd28c50f5}} 
+static constexpr unsigned int {\bfseries dim\+\_\+obs} = dimobs
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_a43794f443d69781eea980cb3fa6002e2}\label{classpf_1_1bases_1_1pf__withcov__base_a43794f443d69781eea980cb3fa6002e2}} 
+static constexpr unsigned int {\bfseries dim\+\_\+state} = dimstate
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_aa7c7e65fcf4841f33509e9e89f429dfc}\label{classpf_1_1bases_1_1pf__withcov__base_aa7c7e65fcf4841f33509e9e89f429dfc}} 
+\index{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$@{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$}!cov\_sized\_vec@{cov\_sized\_vec}}
+\index{cov\_sized\_vec@{cov\_sized\_vec}!pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$@{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$}}
+\doxysubsubsection{\texorpdfstring{cov\_sized\_vec}{cov\_sized\_vec}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , size\+\_\+t dimobs, size\+\_\+t dimstate, size\+\_\+t dimcov$>$ \\
+using \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base}{pf\+::bases\+::pf\+\_\+withcov\+\_\+base}}$<$ float\+\_\+t, dimobs, dimstate, dimcov $>$\+::\mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_aa7c7e65fcf4841f33509e9e89f429dfc}{cov\+\_\+sized\+\_\+vec}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimcov,1$>$}
+
+expose covariate-\/sized vector type to users 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_ab5bbbe6d19a55f7dde505070877185ba}\label{classpf_1_1bases_1_1pf__withcov__base_ab5bbbe6d19a55f7dde505070877185ba}} 
+\index{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$@{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$}!filter@{filter}}
+\index{filter@{filter}!pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$@{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$}}
+\doxysubsubsection{\texorpdfstring{filter()}{filter()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , size\+\_\+t dimobs, size\+\_\+t dimstate, size\+\_\+t dimcov$>$ \\
+virtual void \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base}{pf\+::bases\+::pf\+\_\+withcov\+\_\+base}}$<$ float\+\_\+t, dimobs, dimstate, dimcov $>$\+::filter (\begin{DoxyParamCaption}\item[{const obs\+\_\+sized\+\_\+vec \&}]{data,  }\item[{const \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base_aa7c7e65fcf4841f33509e9e89f429dfc}{cov\+\_\+sized\+\_\+vec}} \&}]{cov,  }\item[{const func\+\_\+vec \&}]{fs = {\ttfamily func\+\_\+vec()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+the filtering function that must be defined 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & the most recent observation \\
+\hline
+{\em filter} & functions whose expected value approx. is computed at each time step \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__withcov__base_ac5c4c9b116e019562cc3685b127c5bd4}\label{classpf_1_1bases_1_1pf__withcov__base_ac5c4c9b116e019562cc3685b127c5bd4}} 
+\index{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$@{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$}!getLogCondLike@{getLogCondLike}}
+\index{getLogCondLike@{getLogCondLike}!pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$@{pf::bases::pf\_withcov\_base$<$ float\_t, dimobs, dimstate, dimcov $>$}}
+\doxysubsubsection{\texorpdfstring{getLogCondLike()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , size\+\_\+t dimobs, size\+\_\+t dimstate, size\+\_\+t dimcov$>$ \\
+virtual float\+\_\+t \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base}{pf\+::bases\+::pf\+\_\+withcov\+\_\+base}}$<$ float\+\_\+t, dimobs, dimstate, dimcov $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+the getter method that must be defined (for conditional log-\/likelihood) 
+
+\begin{DoxyReturn}{Returns}
+log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) approximation 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}}\end{DoxyCompactItemize}

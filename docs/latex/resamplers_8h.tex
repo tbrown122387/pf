@@ -1,8 +1,8 @@
-\hypertarget{resamplers_8h}{}\section{include/pf/resamplers.h File Reference}
-\label{resamplers_8h}\index{include/pf/resamplers.\+h@{include/pf/resamplers.\+h}}
+\hypertarget{resamplers_8h}{}\doxysection{include/pf/resamplers.h File Reference}
+\label{resamplers_8h}\index{include/pf/resamplers.h@{include/pf/resamplers.h}}
 
 
-all resamplers must inherit from this. This will enforce certain structure that are assumed by all particle filters.  
+most resamplers must inherit from this. This will enforce certain structure that are assumed by these pfs.  
 
 
 {\ttfamily \#include $<$chrono$>$}\newline
@@ -11,6 +11,9 @@ all resamplers must inherit from this. This will enforce certain structure that 
 {\ttfamily \#include $<$numeric$>$}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$bitset$>$}\newline
+{\ttfamily \#include \char`\"{}rv\+\_\+eval.\+h\char`\"{}}\newline
 Include dependency graph for resamplers.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -18,27 +21,58 @@ Include dependency graph for resamplers.\+h\+:\nopagebreak
 \includegraphics[width=350pt]{resamplers_8h__incl}
 \end{center}
 \end{figure}
-\subsection*{Classes}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classrbase}{rbase$<$ nparts, dimx, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase}{pf\+::resamplers\+::rbase$<$ nparts, dimx, float\+\_\+t $>$}}
 \begin{DoxyCompactList}\small\item\em Base class for all resampler types. \end{DoxyCompactList}\item 
-class \hyperlink{classmn__resampler}{mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1mn__resampler}{pf\+::resamplers\+::mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}
 \item 
-class \hyperlink{classmn__resampler__rbpf}{mn\+\_\+resampler\+\_\+rbpf$<$ nparts, dimsampledx, cf\+Mod\+T, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1mn__resampler__rbpf}{pf\+::resamplers\+::mn\+\_\+resampler\+\_\+rbpf$<$ nparts, dimsampledx, cf\+Mod\+T, float\+\_\+t $>$}}
 \item 
-class \hyperlink{classresid__resampler}{resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1resid__resampler}{pf\+::resamplers\+::resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}
 \item 
-class \hyperlink{classstratif__resampler}{stratif\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1stratif__resampler}{pf\+::resamplers\+::stratif\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}
 \item 
-class \hyperlink{classsystematic__resampler}{systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1systematic__resampler}{pf\+::resamplers\+::systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}
 \item 
-class \hyperlink{classmn__resamp__fast1}{mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1mn__resamp__fast1}{pf\+::resamplers\+::mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}}
+\item 
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs}{pf\+::resamplers\+::rbase\+\_\+hcs$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$}}
+\begin{DoxyCompactList}\small\item\em Base class for resampler types that use a Hilbert curve sorting technique. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{resamplers_8h_adf96188602ecb698bcf7960909b0e846}\label{resamplers_8h_adf96188602ecb698bcf7960909b0e846}} 
+{\footnotesize template$<$size\+\_\+t num\+\_\+bits, size\+\_\+t num\+\_\+dims$>$ }\\std\+::array$<$ std\+::bitset$<$ num\+\_\+bits $>$, num\+\_\+dims $>$ {\bfseries pf\+::resamplers\+::\+Transpose\+To\+Axes} (std\+::array$<$ std\+::bitset$<$ num\+\_\+bits $>$, num\+\_\+dims $>$ X)
+\item 
+\mbox{\Hypertarget{resamplers_8h_a9465a8f6deb146112d84a5a958fbc789}\label{resamplers_8h_a9465a8f6deb146112d84a5a958fbc789}} 
+{\footnotesize template$<$size\+\_\+t num\+\_\+bits, size\+\_\+t num\+\_\+dims$>$ }\\std\+::array$<$ std\+::bitset$<$ num\+\_\+bits $>$, num\+\_\+dims $>$ {\bfseries pf\+::resamplers\+::\+Axes\+To\+Transpose} (std\+::array$<$ std\+::bitset$<$ num\+\_\+bits $>$, num\+\_\+dims $>$ X)
+\item 
+\mbox{\Hypertarget{resamplers_8h_adea0bfdf21f743dfc5d393c9673fa4b7}\label{resamplers_8h_adea0bfdf21f743dfc5d393c9673fa4b7}} 
+{\footnotesize template$<$size\+\_\+t num\+\_\+bits, size\+\_\+t num\+\_\+dims$>$ }\\std\+::array$<$ std\+::bitset$<$ num\+\_\+bits $>$, num\+\_\+dims $>$ {\bfseries pf\+::resamplers\+::make\+H\+Transpose} (unsigned int H)
+\item 
+\mbox{\Hypertarget{resamplers_8h_a7378ac38c554f7f161fbb6ac89bcfdbd}\label{resamplers_8h_a7378ac38c554f7f161fbb6ac89bcfdbd}} 
+{\footnotesize template$<$size\+\_\+t num\+\_\+bits, size\+\_\+t num\+\_\+dims$>$ }\\unsigned int {\bfseries pf\+::resamplers\+::makeH} (std\+::array$<$ std\+::bitset$<$ num\+\_\+bits $>$, num\+\_\+dims $>$ Htrans)
 \end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-all resamplers must inherit from this. This will enforce certain structure that are assumed by all particle filters. 
+\doxysubsection{Detailed Description}
+most resamplers must inherit from this. This will enforce certain structure that are assumed by these pfs. 
+
+Class that performs systematic resampling with a Hilbert curve sorting scheme.
+
+resamplers that use a Hilbert curve sorting procedure must inherit from this. Unlike rbase, this does not hold onto a random number generator object, so no seed-\/setting is necessary.
+
+converts an integer in its \char`\"{}\+Transpose\char`\"{} representation into a positive integer.. This code supplements two functions above that are based off of John Skilling , \char`\"{}\+Programming the Hilbert curve\char`\"{}, A\+IP Conference Proceedings 707, 381-\/387 (2004) \href{https://doi.org/10.1063/1.1751381}{\texttt{ https\+://doi.\+org/10.\+1063/1.\+1751381}}
+
+converts an integer on the positive integers into its \char`\"{}\+Transpose\char`\"{} representation.. This code supplements the above two functions that are based off of John Skilling , \char`\"{}\+Programming the Hilbert curve\char`\"{}, A\+IP Conference Proceedings 707, 381-\/387 (2004) \href{https://doi.org/10.1063/1.1751381}{\texttt{ https\+://doi.\+org/10.\+1063/1.\+1751381}}
+
+converts a position on the Hilbert curve into an integer in a \char`\"{}transpose\char`\"{} form. Code is based off of John Skilling , \char`\"{}\+Programming the Hilbert curve\char`\"{}, A\+IP Conference Proceedings 707, 381-\/387 (2004) \href{https://doi.org/10.1063/1.1751381}{\texttt{ https\+://doi.\+org/10.\+1063/1.\+1751381}}
+
+converts an integer in a transpose form to a position on the Hilbert Curve. Code is based off of John Skilling , \char`\"{}\+Programming the Hilbert curve\char`\"{}, A\+IP Conference Proceedings 707, 381-\/387 (2004) \href{https://doi.org/10.1063/1.1751381}{\texttt{ https\+://doi.\+org/10.\+1063/1.\+1751381}}
 
 Class that performs multinomial resampling for \char`\"{}standard\char`\"{} models. For justification, see page 244 of \char`\"{}\+Inference in Hidden Markov Models\char`\"{}.
 
@@ -56,6 +90,12 @@ Class that performs multinomial resampling for \char`\"{}standard\char`\"{} mode
 \begin{DoxyTemplParams}{Template Parameters}
 {\em nparts} & the number of particles. \\
 \hline
+{\em dimx} & the dimension of each state sample. \\
+\hline
+{\em float\+\_\+t} & the type of floating point numbers (e.\+g. float or double)\\
+\hline
+{\em nparts} & the number of particles. \\
+\hline
 {\em dimx} & the dimension of each state sample.\\
 \hline
 {\em nparts} & the number of particles. \\
@@ -70,6 +110,64 @@ Class that performs multinomial resampling for \char`\"{}standard\char`\"{} mode
 \hline
 {\em dimx} & the dimension of each state sample. \\
 \hline
-{\em float\+\_\+t} & the floating point for samples \\
+{\em float\+\_\+t} & the floating point for samples\\
+\hline
+{\em num\+\_\+bits} & how \char`\"{}accurate/fine/squiggly\char`\"{} you want the Hilbert curve \\
+\hline
+{\em num\+\_\+dims} & the number of dimensions the curve is in \\
 \hline
 \end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em X} & an unsigned integer in a \char`\"{}\+Transpose\char`\"{} form. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a position on the hilbert curve
+\end{DoxyReturn}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em num\+\_\+bits} & how \char`\"{}accurate/fine/squiggly\char`\"{} you want the Hilbert curve \\
+\hline
+{\em num\+\_\+dims} & the number of dimensions the curve is in \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em X} & a position on the hilbert curve (each dimension coordinate is in base 2) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a position on the real line (in a \char`\"{}\+Transpose\char`\"{} form)
+\end{DoxyReturn}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em num\+\_\+bits} & how \char`\"{}accurate/fine/squiggly\char`\"{} you want the Hilbert curve \\
+\hline
+{\em num\+\_\+dims} & the number of dimensions the curve is in \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em H} & a position on the hilbert curve (0,1,..,2$^\wedge$(num\+\_\+dims $\ast$ num\+\_\+bits) ) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a position on the real line (in a \char`\"{}\+Transpose\char`\"{} form)
+\end{DoxyReturn}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em num\+\_\+bits} & how \char`\"{}accurate/fine/squiggly\char`\"{} you want the Hilbert curve \\
+\hline
+{\em num\+\_\+dims} & the number of dimensions the curve is in \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em Htrans} & a position on the real line (in a \char`\"{}\+Transpose\char`\"{} form) ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a position on the hilbert curve (0,1,..,2$^\wedge$(num\+\_\+dims $\ast$ num\+\_\+bits) ) 
+\end{DoxyReturn}

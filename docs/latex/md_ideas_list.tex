@@ -1,0 +1,99 @@
+\hypertarget{md_ideas_list_autotoc_md8}{}\doxysection{The Big Picture}\label{md_ideas_list_autotoc_md8}
+Particle filters are an indispensable class of algorithms for a wide variety of time series models. Unfortunately,
+
+
+\begin{DoxyItemize}
+\item they are complicated to describe and
+\item they are computationally intensive.
+\end{DoxyItemize}
+
+The primary purpose of this library is to provide practitioners with the {\itshape {\bfseries{fastest and most easy-\/to-\/use code}}} for particle filtering. All of our work/ideas will address one of these two difficulties.
+
+First, many statisticians and data scientists aren\textquotesingle{}t familiar with compiled languages. That\textquotesingle{}s why it\textquotesingle{}s critical to provide a friendly interface for these folks, and our current examples could use some work. We need {\itshape {\bfseries{more examples, and these examples need to clearly demonstrate how to use compiled code from within an interpreted language.}}}
+
+Second, we\textquotesingle{}re looking to increase the {\itshape {\bfseries{speed, maintainability, and flexibility of this software}}}. As stated above, we want this to be the \char`\"{}go-\/to\char`\"{} software for particle filtering.\hypertarget{md_ideas_list_autotoc_md9}{}\doxysection{Required Skills and Getting in Touch}\label{md_ideas_list_autotoc_md9}
+All projects fall into one of two categories. Either you are either interested in
+
+
+\begin{DoxyItemize}
+\item the data analysis aspect of this project, or
+\item you are interested in software development.
+\end{DoxyItemize}\hypertarget{md_ideas_list_autotoc_md10}{}\doxysubsection{Data Analysis Projects (\+The Big Picture)}\label{md_ideas_list_autotoc_md10}
+If you are interested in doing data analysis projects with this software, you will need a strong background in statistics and data science. Experience with time series modeling would be helpful. So would experience with R or Python.
+
+If you\textquotesingle{}re concerned about your lack of familiarity with a particular aspect of this project, please tell us. For instance, if you prefer interpreted languages such as R or Python, and are unsure about your ability to run c++ code, we can provide templates and examples, and/or pair you up with someone with complementary skills.\hypertarget{md_ideas_list_autotoc_md11}{}\doxysubsection{Software Development Projects (\+The Big Picture)}\label{md_ideas_list_autotoc_md11}
+If you are interested in software development, we\textquotesingle{}d love to talk to you about how you can help make us the \char`\"{}go-\/to\char`\"{} particle filtering library.
+
+This library is written in c++, so ideally that\textquotesingle{}s your strongest language. Ideally, you will have at least some familiarity with {\ttfamily git}--that\textquotesingle{}s what we use for version control. Experience with time series modeling and/or particle filtering is helpful but definitely not required.
+
+If you would like to get involved, please drop us a line and describe which of the project ideas below sound most interesting to you. Be upfront about your strengths and weaknesses so that we can pair you up with the right people! If you have skills that span both categories, even better! Do let us know about that as well.\hypertarget{md_ideas_list_autotoc_md12}{}\doxysection{1. Statistical Case-\/\+Studies, Examples, Demonstrations and Improvements}\label{md_ideas_list_autotoc_md12}
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyItemize}
+\item Category\+: Data Analysis
+\item Primary skills\+: statistics, machine learning, time series analysis, R or Python.
+\item Secondary skills\+: basic c++.
+\item Time committment\+: 175 hours
+\item Mentors\+: Taylor \href{mailto:trb5me@virginia.edu}{\texttt{ trb5me@virginia.\+edu}}, Benjamin \href{mailto:bharrison@converseon.com}{\texttt{ bharrison@converseon.\+com}}, Jacalyn \href{mailto:jmh5ad@virginia.edu}{\texttt{ jmh5ad@virginia.\+edu}}
+\item Expected outcomes\+: more case studies, and more eyeballs on these examples
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyEnumerate}
+\item Our current examples could be displayed more nicely, perhaps with R\+Markdown, Jupyter notebooks, etc. Currently, the \href{https://github.com/tbrown122387/pf/tree/master/examples}{\texttt{ {\ttfamily examples/}}} directory is quite bare-\/bones and uninviting. While it could be used as a template for providing different examples, {\itshape {\bfseries{future examples need to be much more friendly.}}}
+\item We need to provide examples in {\itshape {\bfseries{more subject areas.}}} Currently, we are mostly focused on financial time series, and there is another example related to tracking. If you have heard that particle filters are useful in area \char`\"{}\+X\char`\"{}, then this can probably be made into a new example.
+\item We need to provide more examples of how to {\itshape {\bfseries{call this C++ code from within interpreted languages such as R and Python.}}} This process is complicated by the templated nature of these classes.
+\item We would also like to provide {\itshape {\bfseries{more particle filtering algorithms, resampling strategies, etc.}}} We have a wide variety, but we can always implement new techniques from the literature. If you are a graduate student, and you\textquotesingle{}re interested in writing good software for a method you\textquotesingle{}re looking into, this topic could be right for you.
+\end{DoxyEnumerate}\hypertarget{md_ideas_list_autotoc_md15}{}\doxysection{2. The Curiously Recurring Template Pattern}\label{md_ideas_list_autotoc_md15}
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyItemize}
+\item Category\+: Software development
+\item Primary skills\+: template metaprogramming.
+\item Secondary skills\+: general knowledge of time series analysis
+\item Time committment\+: 175 hours
+\item Mentors\+: Benjamin \href{mailto:bharrison@converseon.com}{\texttt{ bharrison@converseon.\+com}}, Taylor \href{mailto:trb5me@virginia.edu}{\texttt{ trb5me@virginia.\+edu}}
+\item Expected outcomes\+: refactored base classes and more interface classes
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyEnumerate}
+\item Right now, this library\textquotesingle{}s primary purpose is to provide abstract base classes. Each of these corresponds with a different type of particle filter. There are two issues we would like to tackle, and $\ast$$\ast$we suspect C\+R\+TP might be the right tool for both jobs.$\ast$$\ast$$\ast$
+\item First, as you can tell from the templated nature of this code, we are interested in performing as much work during compile time. C\+R\+TP might help us take this one step further if it can be used to convert our runtime polymorphism to compile-\/time polymorphism.
+\item Second, at the present moment, we have one base class for each particle filtering algorithm. These base classes require the user to implement pure virtual functions necessary for the algorithm to function. However, {\itshape {\bfseries{many different statistical models using the same particle filtering algorithm would benefit from having different signatures for these functions.}}} The goal would be to create {\itshape {\bfseries{more succinct \char`\"{}base classes\char`\"{}.}}} We could derive many different versions of a given particle filter by inheriting from this more expressive class template. This would increase functionality for the end-\/user, and dramatically improve maintainability.
+\end{DoxyEnumerate}\hypertarget{md_ideas_list_autotoc_md18}{}\doxysection{3. Speed Ups, Unit Testing and Documentation}\label{md_ideas_list_autotoc_md18}
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyItemize}
+\item Category\+: Software development
+\item Primary skills involved\+: mixed
+\item Minimum Difficulty\+: low
+\item Time committment\+: 175 hours
+\item Mentors\+: Benjamin \href{mailto:bharrison@converseon.com}{\texttt{ bharrison@converseon.\+com}}, Taylor \href{mailto:trb5me@virginia.edu}{\texttt{ trb5me@virginia.\+edu}}
+\item Expected outcomes\+: speed comparisons, and more unit tests running more often
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyEnumerate}
+\item Everyone knows that attracting users is easier if they know our code is the fastest, and it is easy to get started using our code. This category is concerned with timing code and improving unit testing and documentation.
+\item There are probably a large number of places where speedups could be made. {\itshape {\bfseries{Everything is on the table here.}}}
+\item Our Doxygen documentation could use some work. Many of the header files have outdated documentation!
+\item Preliminary intra-\/library speed comparisons have been performed. They are quite favorable, but we could use a lot more.
+\item We have plenty of tests, but writing more is great for peace of mind.
+\item We currently do not use any automated testing or building tools. This opportunity category is wide open as well! 
+\end{DoxyEnumerate}

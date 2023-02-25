@@ -1,2 +1,6 @@
 <map id="include/pf/rv_samp.h" name="include/pf/rv_samp.h">
+<area shape="rect" id="node1" title="all rv samplers must inherit from this." alt="" coords="69,5,227,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="97,80,199,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="224,80,296,107"/>
 </map>

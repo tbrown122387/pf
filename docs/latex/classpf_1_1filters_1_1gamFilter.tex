@@ -1,0 +1,158 @@
+\hypertarget{classpf_1_1filters_1_1gamFilter}{}\doxysection{pf\+::filters\+::gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1filters_1_1gamFilter}\index{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}}
+
+
+A class template for Gamma filtering.  
+
+
+
+
+{\ttfamily \#include $<$cf\+\_\+filters.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::filters\+::gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classpf_1_1filters_1_1gamFilter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::filters\+::gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classpf_1_1filters_1_1gamFilter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_af423fe45b0612e804c995cde114fb52b}\label{classpf_1_1filters_1_1gamFilter_af423fe45b0612e804c995cde114fb52b}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_af423fe45b0612e804c995cde114fb52b}{psv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+pred, 1 $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}predictor size vector\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_a4022713112edcfc6b40729439d98ce2d}\label{classpf_1_1filters_1_1gamFilter_a4022713112edcfc6b40729439d98ce2d}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a4022713112edcfc6b40729439d98ce2d}{tsv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, 2, 1 $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}two by 1 vector\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_aaffd7ba19159c3dc94faa546bb6146bf}{gam\+Filter}} (const float\+\_\+t \&n\+One\+Tilde, const float\+\_\+t \&d\+One\+Tilde)
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_a20507f022d58b9ee71582632318501e8}\label{classpf_1_1filters_1_1gamFilter_a20507f022d58b9ee71582632318501e8}} 
+virtual \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a20507f022d58b9ee71582632318501e8}{$\sim$gam\+Filter}} ()
+\begin{DoxyCompactList}\small\item\em The (virtual) desuctor. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a8e65fddfcbb2164883378e5b831a796c}{get\+Log\+Cond\+Like}} () const
+\begin{DoxyCompactList}\small\item\em Get the latest conditional likelihood. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a4022713112edcfc6b40729439d98ce2d}{tsv}} \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_acfae0df25bc56d9060a90dc57f39ae3f}{get\+Filter\+Vec}} () const
+\begin{DoxyCompactList}\small\item\em Get the current filter vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a82fff723dab04315b1315ec24f3fc765}{update}} (const float\+\_\+t \&yt, const \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_af423fe45b0612e804c995cde114fb52b}{psv}} \&xt, const \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_af423fe45b0612e804c995cde114fb52b}{psv}} \&beta, const float\+\_\+t \&sigma\+Squared, const float\+\_\+t \&delta)
+\begin{DoxyCompactList}\small\item\em Perform a filtering update. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_a3e5fd6aec50e2830ca5487a0ae0edbfa}\label{classpf_1_1filters_1_1gamFilter_a3e5fd6aec50e2830ca5487a0ae0edbfa}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a4022713112edcfc6b40729439d98ce2d}{tsv}} \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a3e5fd6aec50e2830ca5487a0ae0edbfa}{m\+\_\+filt\+Vec}}
+\begin{DoxyCompactList}\small\item\em filter vector (shape and rate) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_aa6ce2a797171533b1ee5442b6dab93b8}\label{classpf_1_1filters_1_1gamFilter_aa6ce2a797171533b1ee5442b6dab93b8}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_aa6ce2a797171533b1ee5442b6dab93b8}{m\+\_\+last\+Log\+Cond\+Like}}
+\begin{DoxyCompactList}\small\item\em last log of the conditional likelihood \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_a961faf51bdf1070058e759a3323dc69b}\label{classpf_1_1filters_1_1gamFilter_a961faf51bdf1070058e759a3323dc69b}} 
+bool \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_a961faf51bdf1070058e759a3323dc69b}{m\+\_\+fresh}}
+\begin{DoxyCompactList}\small\item\em has data been observed? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dim\+\_\+pred, typename float\+\_\+t$>$\newline
+class pf\+::filters\+::gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$}
+
+A class template for Gamma filtering. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_aaffd7ba19159c3dc94faa546bb6146bf}\label{classpf_1_1filters_1_1gamFilter_aaffd7ba19159c3dc94faa546bb6146bf}} 
+\index{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}!gamFilter@{gamFilter}}
+\index{gamFilter@{gamFilter}!pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{gamFilter()}{gamFilter()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1filters_1_1gamFilter}{pf\+::filters\+::gam\+Filter}}$<$ dim\+\_\+pred, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1gamFilter}{gam\+Filter}} (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{n\+One\+Tilde,  }\item[{const float\+\_\+t \&}]{d\+One\+Tilde }\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+Need ths fir constructing default std\+::array$<$$>$s. Fills all vectors and matrices with zeros. Constructor
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+One\+Tilde} & degrees of freedom for time 1 prior. \\
+\hline
+{\em d\+One\+Tilde} & rate parameter for time 1 prior. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_acfae0df25bc56d9060a90dc57f39ae3f}\label{classpf_1_1filters_1_1gamFilter_acfae0df25bc56d9060a90dc57f39ae3f}} 
+\index{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}!getFilterVec@{getFilterVec}}
+\index{getFilterVec@{getFilterVec}!pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{getFilterVec()}{getFilterVec()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter}{pf\+::filters\+::gam\+Filter}}$<$ dim\+\_\+pred, float\+\_\+t $>$\+::get\+Filter\+Vec}
+
+
+
+Get the current filter vector. 
+
+get the current filtering distribution. First element is the shape, second is the rate. \begin{DoxyReturn}{Returns}
+a vector of the shape and rate parameters of f(p\+\_\+t $\vert$ y\+\_\+\{1\+:t\}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_a8e65fddfcbb2164883378e5b831a796c}\label{classpf_1_1filters_1_1gamFilter_a8e65fddfcbb2164883378e5b831a796c}} 
+\index{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}!getLogCondLike@{getLogCondLike}}
+\index{getLogCondLike@{getLogCondLike}!pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{getLogCondLike()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter}{pf\+::filters\+::gam\+Filter}}$<$ dim\+\_\+pred, float\+\_\+t $>$\+::get\+Log\+Cond\+Like}
+
+
+
+Get the latest conditional likelihood. 
+
+\begin{DoxyReturn}{Returns}
+the latest conditional likelihood. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1gamFilter_a82fff723dab04315b1315ec24f3fc765}\label{classpf_1_1filters_1_1gamFilter_a82fff723dab04315b1315ec24f3fc765}} 
+\index{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}!update@{update}}
+\index{update@{update}!pf::filters::gamFilter$<$ dim\_pred, float\_t $>$@{pf::filters::gamFilter$<$ dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+void \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter}{pf\+::filters\+::gam\+Filter}}$<$ dim\+\_\+pred, float\+\_\+t $>$\+::update (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{yt,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_af423fe45b0612e804c995cde114fb52b}{psv}} \&}]{xt,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter_af423fe45b0612e804c995cde114fb52b}{psv}} \&}]{beta,  }\item[{const float\+\_\+t \&}]{sigma\+Squared,  }\item[{const float\+\_\+t \&}]{delta }\end{DoxyParamCaption})}
+
+
+
+Perform a filtering update. 
+
+Perform a Gamma filter update. 
+\begin{DoxyParams}{Parameters}
+{\em yt} & the most recent dependent random variable \\
+\hline
+{\em xt} & the most recent predictor vector \\
+\hline
+{\em beta} & the beta vector \\
+\hline
+{\em sigma\+Squared} & the observation variance scale parameter. \\
+\hline
+{\em delta} & between 0 and 1 the discount parameter \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{cf__filters_8h}{cf\+\_\+filters.\+h}}\end{DoxyCompactItemize}

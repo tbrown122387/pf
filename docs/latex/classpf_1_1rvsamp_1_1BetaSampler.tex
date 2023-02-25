@@ -1,0 +1,109 @@
+\hypertarget{classpf_1_1rvsamp_1_1BetaSampler}{}\doxysection{pf\+::rvsamp\+::Beta\+Sampler$<$ float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1rvsamp_1_1BetaSampler}\index{pf::rvsamp::BetaSampler$<$ float\_t $>$@{pf::rvsamp::BetaSampler$<$ float\_t $>$}}
+
+
+A class that performs sampling from a Beta distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::rvsamp\+::Beta\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classpf_1_1rvsamp_1_1BetaSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::rvsamp\+::Beta\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classpf_1_1rvsamp_1_1BetaSampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1BetaSampler_a821650c2d4ce89b9c067c093e0d4c2b9}\label{classpf_1_1rvsamp_1_1BetaSampler_a821650c2d4ce89b9c067c093e0d4c2b9}} 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler_a821650c2d4ce89b9c067c093e0d4c2b9}{Beta\+Sampler}} ()=delete
+\begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for Beta(1,1) random variate generation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler_a3163a79c3c62a037d2ebe2071aeca57d}{Beta\+Sampler}} (float\+\_\+t alpha, float\+\_\+t beta)
+\begin{DoxyCompactList}\small\item\em The user must supply both alpha and beta. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler_a52c1dd9573c5d90083af318791e96ec6}{sample}} ()
+\begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1BetaSampler_a645e86443bbf5a5133ab0304ac55c08f}\label{classpf_1_1rvsamp_1_1BetaSampler_a645e86443bbf5a5133ab0304ac55c08f}} 
+std\+::gamma\+\_\+distribution$<$ float\+\_\+t $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler_a645e86443bbf5a5133ab0304ac55c08f}{m\+\_\+first\+\_\+gamma\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em makes gamma random variates \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1BetaSampler_a6b99d69e8d4618d70dd14b3577a65799}\label{classpf_1_1rvsamp_1_1BetaSampler_a6b99d69e8d4618d70dd14b3577a65799}} 
+std\+::gamma\+\_\+distribution$<$ float\+\_\+t $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler_a6b99d69e8d4618d70dd14b3577a65799}{m\+\_\+second\+\_\+gamma\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em makes other gamma random variates \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1BetaSampler_abbffd384082e2859d3f2841ac074acb9}\label{classpf_1_1rvsamp_1_1BetaSampler_abbffd384082e2859d3f2841ac074acb9}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler_abbffd384082e2859d3f2841ac074acb9}{m\+\_\+alpha}}
+\begin{DoxyCompactList}\small\item\em the first shape parameter \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1BetaSampler_abd8d72cb2b44ddc4bbea4579e31bc70f}\label{classpf_1_1rvsamp_1_1BetaSampler_abd8d72cb2b44ddc4bbea4579e31bc70f}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler_abd8d72cb2b44ddc4bbea4579e31bc70f}{m\+\_\+beta}}
+\begin{DoxyCompactList}\small\item\em the second shape parameter \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t$>$\newline
+class pf\+::rvsamp\+::\+Beta\+Sampler$<$ float\+\_\+t $>$}
+
+A class that performs sampling from a Beta distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1BetaSampler_a3163a79c3c62a037d2ebe2071aeca57d}\label{classpf_1_1rvsamp_1_1BetaSampler_a3163a79c3c62a037d2ebe2071aeca57d}} 
+\index{pf::rvsamp::BetaSampler$<$ float\_t $>$@{pf::rvsamp::BetaSampler$<$ float\_t $>$}!BetaSampler@{BetaSampler}}
+\index{BetaSampler@{BetaSampler}!pf::rvsamp::BetaSampler$<$ float\_t $>$@{pf::rvsamp::BetaSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{BetaSampler()}{BetaSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler}{pf\+::rvsamp\+::\+Beta\+Sampler}}$<$ float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler}{Beta\+Sampler}} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{alpha,  }\item[{float\+\_\+t}]{beta }\end{DoxyParamCaption})}
+
+
+
+The user must supply both alpha and beta. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em alpha} & shape 1 parameter ($>$ 0) \\
+\hline
+{\em beta} & shape 2 parameter ($>$ 0) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1BetaSampler_a52c1dd9573c5d90083af318791e96ec6}\label{classpf_1_1rvsamp_1_1BetaSampler_a52c1dd9573c5d90083af318791e96ec6}} 
+\index{pf::rvsamp::BetaSampler$<$ float\_t $>$@{pf::rvsamp::BetaSampler$<$ float\_t $>$}!sample@{sample}}
+\index{sample@{sample}!pf::rvsamp::BetaSampler$<$ float\_t $>$@{pf::rvsamp::BetaSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1BetaSampler}{pf\+::rvsamp\+::\+Beta\+Sampler}}$<$ float\+\_\+t $>$\+::sample}
+
+
+
+Draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}}\end{DoxyCompactItemize}

@@ -3,7 +3,15 @@
 
 #include <array>
 #include <vector>
-#include <Eigen/Dense>
+
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 
 #include "pf_base.h"
 
@@ -181,8 +189,10 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
             m_particles[ii] = newSamp;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE 
             if constexpr(debug) 
                 std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+            #endif
         }
         
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
@@ -211,9 +221,11 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
             m_expectations[fId] = numer/weightNormConst;
             
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
-            
+            #endif
+
             fId++;
         }
 
@@ -236,9 +248,10 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], dat);
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug) 
                 std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-
+            #endif
         }
        
         // calculate log cond likelihood with log-exp-sum trick
@@ -267,8 +280,10 @@ void BSFilter<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &d
             m_expectations[fId] = numer/weightNormConst;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }

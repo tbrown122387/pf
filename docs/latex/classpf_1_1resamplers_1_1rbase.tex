@@ -1,0 +1,132 @@
+\hypertarget{classpf_1_1resamplers_1_1rbase}{}\doxysection{pf\+::resamplers\+::rbase$<$ nparts, dimx, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1resamplers_1_1rbase}\index{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}}
+
+
+Base class for all resampler types.  
+
+
+
+
+{\ttfamily \#include $<$resamplers.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::resamplers\+::rbase$<$ nparts, dimx, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classpf_1_1resamplers_1_1rbase__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9e62e2a3f4a84bd4381185ae9f328f03}{ssv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a6646df2d4f64a10125fbdb8ba077bdd1}{array\+Vec}} = std\+::array$<$ \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9e62e2a3f4a84bd4381185ae9f328f03}{ssv}}, nparts $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9412b29b10dfb8b11cc2c8e1eec2e655}{array\+Float}} = std\+::array$<$ float\+\_\+t, nparts $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase_a42448feab552ba1284afeac9705eaca7}\label{classpf_1_1resamplers_1_1rbase_a42448feab552ba1284afeac9705eaca7}} 
+\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a42448feab552ba1284afeac9705eaca7}{rbase}} ()
+\begin{DoxyCompactList}\small\item\em The default constructor gets called by default, and it sets the seed with the clock. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a0b35cd152cfe6d05911eed795fa6094d}{rbase}} (unsigned long seed)
+\begin{DoxyCompactList}\small\item\em The constructor that sets the seed deterministically. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a2b3d559370af41ba5457e502db29e0b4}{resamp\+Log\+Wts}} (\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a6646df2d4f64a10125fbdb8ba077bdd1}{array\+Vec}} \&old\+Parts, \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9412b29b10dfb8b11cc2c8e1eec2e655}{array\+Float}} \&old\+Log\+Un\+Norm\+Wts)=0
+\begin{DoxyCompactList}\small\item\em Function to resample from log unnormalized weights. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase_a639d114811d6551108b4151ed0561cab}\label{classpf_1_1resamplers_1_1rbase_a639d114811d6551108b4151ed0561cab}} 
+std\+::mt19937 \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a639d114811d6551108b4151ed0561cab}{m\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em prng \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t$>$\newline
+class pf\+::resamplers\+::rbase$<$ nparts, dimx, float\+\_\+t $>$}
+
+Base class for all resampler types. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/04/18 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase_a9412b29b10dfb8b11cc2c8e1eec2e655}\label{classpf_1_1resamplers_1_1rbase_a9412b29b10dfb8b11cc2c8e1eec2e655}} 
+\index{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}!arrayFloat@{arrayFloat}}
+\index{arrayFloat@{arrayFloat}!pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{arrayFloat}{arrayFloat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase}{pf\+::resamplers\+::rbase}}$<$ nparts, dimx, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9412b29b10dfb8b11cc2c8e1eec2e655}{array\+Float}} =  std\+::array$<$float\+\_\+t,nparts$>$}
+
+type alias for array of float\+\_\+ts \mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase_a6646df2d4f64a10125fbdb8ba077bdd1}\label{classpf_1_1resamplers_1_1rbase_a6646df2d4f64a10125fbdb8ba077bdd1}} 
+\index{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}!arrayVec@{arrayVec}}
+\index{arrayVec@{arrayVec}!pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{arrayVec}{arrayVec}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase}{pf\+::resamplers\+::rbase}}$<$ nparts, dimx, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a6646df2d4f64a10125fbdb8ba077bdd1}{array\+Vec}} =  std\+::array$<$\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9e62e2a3f4a84bd4381185ae9f328f03}{ssv}}, nparts$>$}
+
+type alias for array of Eigen Matrices \mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase_a9e62e2a3f4a84bd4381185ae9f328f03}\label{classpf_1_1resamplers_1_1rbase_a9e62e2a3f4a84bd4381185ae9f328f03}} 
+\index{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}!ssv@{ssv}}
+\index{ssv@{ssv}!pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase}{pf\+::resamplers\+::rbase}}$<$ nparts, dimx, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9e62e2a3f4a84bd4381185ae9f328f03}{ssv}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
+
+type alias for linear algebra stuff 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase_a0b35cd152cfe6d05911eed795fa6094d}\label{classpf_1_1resamplers_1_1rbase_a0b35cd152cfe6d05911eed795fa6094d}} 
+\index{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}!rbase@{rbase}}
+\index{rbase@{rbase}!pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{rbase()}{rbase()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase}{pf\+::resamplers\+::rbase}}$<$ nparts, dimx, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase}{rbase}} (\begin{DoxyParamCaption}\item[{unsigned long}]{seed }\end{DoxyParamCaption})}
+
+
+
+The constructor that sets the seed deterministically. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em seed} & the seed \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase_a2b3d559370af41ba5457e502db29e0b4}\label{classpf_1_1resamplers_1_1rbase_a2b3d559370af41ba5457e502db29e0b4}} 
+\index{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}!resampLogWts@{resampLogWts}}
+\index{resampLogWts@{resampLogWts}!pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$@{pf::resamplers::rbase$<$ nparts, dimx, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{resampLogWts()}{resampLogWts()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, typename float\+\_\+t $>$ \\
+virtual void \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase}{pf\+::resamplers\+::rbase}}$<$ nparts, dimx, float\+\_\+t $>$\+::resamp\+Log\+Wts (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a6646df2d4f64a10125fbdb8ba077bdd1}{array\+Vec}} \&}]{old\+Parts,  }\item[{\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase_a9412b29b10dfb8b11cc2c8e1eec2e655}{array\+Float}} \&}]{old\+Log\+Un\+Norm\+Wts }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Function to resample from log unnormalized weights. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\+Parts} & \\
+\hline
+{\em old\+Log\+Un\+Norm\+Wts} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classpf_1_1resamplers_1_1mn__resamp__fast1_ae15ac976a0ecfff16353f89b70b7df42}{pf\+::resamplers\+::mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}}, \mbox{\hyperlink{classpf_1_1resamplers_1_1systematic__resampler_afef116725329378096eea946aae88cca}{pf\+::resamplers\+::systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}, \mbox{\hyperlink{classpf_1_1resamplers_1_1stratif__resampler_a6b844a3de7ac213c148493fdeab0b11f}{pf\+::resamplers\+::stratif\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}, \mbox{\hyperlink{classpf_1_1resamplers_1_1resid__resampler_aabfe7bbe8728f5ee7e2bb26d686701be}{pf\+::resamplers\+::resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}, and \mbox{\hyperlink{classpf_1_1resamplers_1_1mn__resampler_a7d4706d89b04b484d368f31cdf1ea408}{pf\+::resamplers\+::mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{resamplers_8h}{resamplers.\+h}}\end{DoxyCompactItemize}

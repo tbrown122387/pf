@@ -1,0 +1,5 @@
+<map id="pf::bases::cf_filter&lt; dimstate, dimobs, float_t &gt;" name="pf::bases::cf_filter&lt; dimstate, dimobs, float_t &gt;">
+<area shape="rect" id="node1" title="Abstract Base Class for all closed&#45;form filters." alt="" coords="5,43,220,84"/>
+<area shape="rect" id="node2" href="$classpf_1_1filters_1_1hmm.html" title="A class template for HMM filtering." alt="" coords="268,5,467,47"/>
+<area shape="rect" id="node3" href="$classpf_1_1filters_1_1kalman.html" title="A class template for Kalman filtering." alt="" coords="290,71,445,127"/>
+</map>

@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classrbpf__base.html" title="rbpf_base\&lt; float_t,\l dim_s_state, dim_ns\l_state, dimobs \&gt;" alt="" coords="5,5,152,61"/>
+<area shape="rect" id="node1" href="$classpf_1_1bases_1_1pf__base.html" title=" " alt="" coords="5,93,180,134"/>
+<area shape="rect" id="node2" href="$classpf_1_1filters_1_1APF.html" title="A base&#45;class for Auxiliary Particle Filtering. Filtering only, no smoothing." alt="" coords="241,5,414,61"/>
+<area shape="rect" id="node3" href="$classpf_1_1filters_1_1BSFilter.html" title="A base class for the bootstrap particle filter." alt="" coords="228,85,427,141"/>
+<area shape="rect" id="node4" href="$classpf_1_1filters_1_1SISRFilter.html" title="A base class for the Sequential Important Sampling with Resampling (SISR)." alt="" coords="228,165,427,221"/>
 </map>

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['bernsampler',['BernSampler',['../classrvsamp_1_1BernSampler.html#a85b39f1940da6d56a0d7923f684bdb5f',1,'rvsamp::BernSampler::BernSampler()'],['../classrvsamp_1_1BernSampler.html#a2cc92da7edf3b4348e01e7a1cab59fe2',1,'rvsamp::BernSampler::BernSampler(float_t p)']]],
-  ['bsfilter',['BSFilter',['../classBSFilter.html#ab4cab4322cfd2f3f2ed1d4d9b8d058f7',1,'BSFilter']]],
-  ['bsfilterwc',['BSFilterWC',['../classBSFilterWC.html#a8b9399d0b7008aa6bca19a87834dfd6a',1,'BSFilterWC']]]
+  ['bernsampler_268',['BernSampler',['../classpf_1_1rvsamp_1_1BernSampler.html#a31cac317d0dea07380b20a07b1909ffa',1,'pf::rvsamp::BernSampler::BernSampler()'],['../classpf_1_1rvsamp_1_1BernSampler.html#aed379354d58ba59b94971e5c3e415547',1,'pf::rvsamp::BernSampler::BernSampler(float_t p)']]],
+  ['betasampler_269',['BetaSampler',['../classpf_1_1rvsamp_1_1BetaSampler.html#a821650c2d4ce89b9c067c093e0d4c2b9',1,'pf::rvsamp::BetaSampler::BetaSampler()=delete'],['../classpf_1_1rvsamp_1_1BetaSampler.html#a3163a79c3c62a037d2ebe2071aeca57d',1,'pf::rvsamp::BetaSampler::BetaSampler(float_t alpha, float_t beta)']]],
+  ['bsfilter_270',['BSFilter',['../classpf_1_1filters_1_1BSFilter.html#ac3a47ca5b403eed25b4fd01d10131cac',1,'pf::filters::BSFilter']]],
+  ['bsfilterwc_271',['BSFilterWC',['../classpf_1_1filters_1_1BSFilterWC.html#a8dead02250230423e3d07fdefb386930',1,'pf::filters::BSFilterWC']]]
 ];

@@ -1,0 +1,4 @@
+<map id="pf::rvsamp::MVNSampler&lt; dim, float_t &gt;" name="pf::rvsamp::MVNSampler&lt; dim, float_t &gt;">
+<area shape="rect" id="node1" title="A class that performs sampling from a multivariate normal distribution." alt="" coords="7,80,191,121"/>
+<area shape="rect" id="node2" href="$classpf_1_1rvsamp_1_1rvsamp__base.html" title="Base class for all random variable sampler types. Primary benefit is that it sets the seed for you." alt="" coords="5,5,192,32"/>
+</map>

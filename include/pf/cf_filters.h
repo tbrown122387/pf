@@ -1,7 +1,14 @@
 #ifndef CF_FILTERS_H
 #define CF_FILTERS_H
 
-#include <Eigen/Dense> //linear algebra stuff
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 #include <math.h>       /* log */
 
 #include "rv_eval.h"
@@ -254,8 +261,10 @@ void kalman<dimstate,dimobs,diminput,float_t,debug>::updatePosterior(const osv &
     float_t logDet = 2.0*cholSig.diagonal().array().log().sum();
     m_lastLogCondLike = -.5*innov.rows()*log(2*m_pi) - .5*logDet - .5*quadForm(0,0);
 
+    #ifndef DROPPINGTHISINRPACKAGE
     if constexpr(debug)
-        std::cout << "transposed innovation: " << innov.transpose() << ", quadratic formula: " << quadForm(0,0) << ", logDet: " << logDet << ", log cond like: " << m_lastLogCondLike << "\n"; 
+        std::cout << "transposed innovation: " << innov.transpose() << ", quadratic formula: " << quadForm(0,0) << ", logDet: " << logDet << ", log cond like: " << m_lastLogCondLike << "\n";
+    #endif
     
 }
 
@@ -510,9 +519,11 @@ void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &logCondDensVec)
         m_filtVecLogProbs = this->log_product(m_transMatLogProbsTranspose, m_filtVecLogProbs); // now log p(x_t |y_{1:t-1})
         m_filtVecLogProbs = m_filtVecLogProbs + logCondDensVec ; // now log p(y_t,x_t|y_{1:t-1})
         m_lastLogCondLike = this->log_sum_exp(m_filtVecLogProbs);
-        
+
+        #ifndef DROPPINGTHISINRPACKAGE 
         if constexpr(debug) 
             std::cout << "logConDensVec sum " << logCondDensVec.sum() << ", p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVecLogProbs.sum() << ", lastCondlike: " << m_lastLogCondLike << "\n";
+        #endif
 
         m_filtVecLogProbs = (m_filtVecLogProbs.array() -  m_lastLogCondLike).matrix(); // now log p(x_t|y_{1:t})
     }
@@ -521,8 +532,11 @@ void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &logCondDensVec)
         m_filtVecLogProbs = m_filtVecLogProbs + logCondDensVec; // now it's log p(x_1, y_1)
         m_lastLogCondLike = this->log_sum_exp(m_filtVecLogProbs); // log p(y_1)
 
+
+        #ifndef DROPPINGTHISINRPACKAGE
         if constexpr(debug) 
             std::cout << "logConDensVecSum " << logCondDensVec.sum() << ", log p(x1,y1) sum: " << m_filtVecLogProbs.sum() << ", lastLogCondlike: " << m_lastLogCondLike << "\n";
+        #endif
 
         m_filtVecLogProbs = (m_filtVecLogProbs.array() - m_lastLogCondLike).matrix();
         m_fresh = false;

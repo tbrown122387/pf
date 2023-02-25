@@ -1,0 +1,4 @@
+<map id="pf::filters::kalman&lt; dimstate, dimobs, diminput, float_t, debug &gt;" name="pf::filters::kalman&lt; dimstate, dimobs, diminput, float_t, debug &gt;">
+<area shape="rect" id="node1" title="A class template for Kalman filtering." alt="" coords="15,95,211,151"/>
+<area shape="rect" id="node2" href="$classpf_1_1bases_1_1cf__filter.html" title="Abstract Base Class for all closed&#45;form filters." alt="" coords="5,5,220,47"/>
+</map>

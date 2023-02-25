@@ -1,26 +1,19 @@
-\href{https://zenodo.org/badge/latestdoi/130237492}{\tt }
+\href{https://zenodo.org/badge/latestdoi/130237492}{\texttt{ }} \href{https://doi.org/10.21105/joss.02599}{\texttt{ }}
 
-This is a template library for \href{https://en.wikipedia.org/wiki/Particle_filter}{\tt particle filtering}. Templated abstract base classes for different particle filters are provided (e.\+g. the Bootstrap Filter, the S\+I\+SR filter, the Auxiliary Particle Filter, the Rao-\/\+Blackwellized particle filter), as well as non-\/abstract (but indeed templated) base classes for closed-\/form filtering algorithms (e.\+g. Kalman Filter, Hidden Markov Model filter, etc.).
+This is a template library for \href{https://en.wikipedia.org/wiki/Particle_filter}{\texttt{ particle filtering}}. Templated abstract base classes for different particle filters are provided (e.\+g. the Bootstrap Filter, the S\+I\+SR filter, the Auxiliary Particle Filter, the Rao-\/\+Blackwellized particle filter), as well as non-\/abstract (but indeed templated) base classes for closed-\/form filtering algorithms (e.\+g. Kalman Filter, Hidden Markov Model filter, etc.).
 
-Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use.
-
-\subsection*{Dependencies}
-
+Once you have a certain model in mind, all you have to do is make it into a class that inherits from the filter you want to use.\hypertarget{index_autotoc_md28}{}\doxysection{Dependencies}\label{index_autotoc_md28}
 This code makes use of the following libraries\+:
 
 
 \begin{DoxyItemize}
-\item \href{http://eigen.tuxfamily.org/}{\tt Eigen v3.\+3}
-\item \href{https://www.boost.org/}{\tt Boost v1.\+65.\+1}
-\item \href{https://github.com/catchorg/Catch2}{\tt Catch2 v2.\+9.\+2}
+\item \href{http://eigen.tuxfamily.org/}{\texttt{ Eigen v3.\+3}}
+\item \href{https://www.boost.org/}{\texttt{ Boost v1.\+65.\+1}}
+\item \href{https://github.com/catchorg/Catch2}{\texttt{ Catch2}}
 \end{DoxyItemize}
 
-Also, your compiler must enable C++17.
-
-\subsection*{Installation}
-
-\subsubsection*{Option 1\+: Install from Github}
-
+Also, your compiler must enable C++17.\hypertarget{index_autotoc_md29}{}\doxysection{Installation}\label{index_autotoc_md29}
+\hypertarget{index_autotoc_md30}{}\doxysubsection{Option 1\+: Install with $<$tt$>$\+C\+Make$<$/tt$>$}\label{index_autotoc_md30}
 {\ttfamily git clone} this Github repostory, {\ttfamily cd} into the directory where everything is saved, then run the following commands\+: \begin{DoxyVerb}mkdir build && cd build/
 cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr/local
 sudo cmake --build . --config Release --target install --parallel
@@ -31,13 +24,9 @@ You may subsitute another directory for {\ttfamily /usr/local}, if you wish. Thi
 \end{DoxyVerb}
 
 
-\subsubsection*{Option 2\+: Drag-\/and-\/drop {\ttfamily .h} files}
-
-This is a header-\/only library, so there will be no extra building necessary. If you just want to copy the desired header files from {\ttfamily include/pf} into your own project, and build that project by itself, that\textquotesingle{}s totally fine. There is no linking necessary, either. If you go this route, though, make sure to compile with C++17 enabled. Note, also, that this code all makes use of \href{http://eigen.tuxfamily.org/}{\tt Eigen v3.\+3} and \href{https://www.boost.org/}{\tt Boost v1.\+65.\+1}. Unit tests use the \href{https://github.com/catchorg/Catch2}{\tt Catch2 v2.\+9.\+2} library.
-
-\subsection*{Examples}
-
-Don\textquotesingle{}t know how to use this? No problem. Check out the \href{https://github.com/tbrown122387/pf/tree/master/examples}{\tt {\ttfamily examples}} sub-\/directory. This is a stand-\/alone cmake project, so you can just copy this sub-\/directory anywhere you like, and start editing.
+Note\+: for this to method work, you will need to install Catch2 \char`\"{}system wide\char`\"{} so that its {\ttfamily $\ast$.cmake} files are installed as well. To do this, \href{https://github.com/catchorg/Catch2/blob/master/docs/cmake-integration.md\#installing-catch2-from-git-repository}{\texttt{ click here}}.\hypertarget{index_autotoc_md31}{}\doxysubsection{Option 2\+: Drag-\/and-\/drop $<$tt$>$.\+h$<$/tt$>$ files}\label{index_autotoc_md31}
+This is a header-\/only library, so there will be no extra building necessary. If you just want to copy the desired header files from {\ttfamily include/pf} into your own project, and build that project by itself, that\textquotesingle{}s totally fine. There is no linking necessary, either. If you go this route, though, make sure to compile with C++17 enabled. Note, also, that this code all makes use of \href{http://eigen.tuxfamily.org/}{\texttt{ Eigen v3.\+3}} and \href{https://www.boost.org/}{\texttt{ Boost v1.\+65.\+1}}. Unit tests use the \href{https://github.com/catchorg/Catch2}{\texttt{ Catch2}} library.\hypertarget{index_autotoc_md32}{}\doxysection{Examples}\label{index_autotoc_md32}
+Don\textquotesingle{}t know how to use this? No problem. Check out the \href{https://github.com/tbrown122387/pf/tree/master/examples}{\texttt{ {\ttfamily examples}}} sub-\/directory. This is a stand-\/alone cmake project, so you can just copy this sub-\/directory anywhere you like, and start editing.
 
 For example, copy to {\ttfamily Desktop} and have at it\+: \begin{DoxyVerb}cp -r ~/pf/examples/ ~/Desktop/
 cd Desktop/examples/
@@ -47,10 +36,7 @@ make
 \end{DoxyVerb}
 
 
-\subsection*{Paper}
-
-A full-\/length tutorial paper is available \href{https://arxiv.org/abs/2001.10451}{\tt here.}
-
-\subsection*{Citation}
-
-Click the \char`\"{}\+D\+O\+I\char`\"{} link above. Or, if you\textquotesingle{}re impatient, click \href{https://zenodo.org/record/2633289/export/hx}{\tt \textquotesingle{}here\textquotesingle{}} for a Bibtex citation. 
+If there are no error messages, you will have an executable named {\ttfamily pf\+\_\+example} in that same directory. Running it without command line arguments will prompt you for arguments and tell you how it can be used.\hypertarget{index_autotoc_md33}{}\doxysection{Contributing}\label{index_autotoc_md33}
+Want to contribute to this project? Great! Click \mbox{\hyperlink{md_CONTRIBUTING}{here}} for details on how to do that. We also have an \char`\"{}ideas list\char`\"{} you can check out \mbox{\hyperlink{md_ideas_list}{here}}.\hypertarget{index_autotoc_md34}{}\doxysection{Paper}\label{index_autotoc_md34}
+A full-\/length tutorial paper is available \href{https://arxiv.org/abs/2001.10451}{\texttt{ here,}} and a shorter introduction paper is available \href{https://joss.theoj.org/papers/10.21105/joss.02599}{\texttt{ here.}}\hypertarget{index_autotoc_md35}{}\doxysection{Citation}\label{index_autotoc_md35}
+Click the \char`\"{}\+D\+O\+I\char`\"{} link above. Or, if you\textquotesingle{}re impatient, click \href{https://zenodo.org/record/2633289/export/hx}{\texttt{ \textquotesingle{}here\textquotesingle{}}} for a Bibtex citation. 

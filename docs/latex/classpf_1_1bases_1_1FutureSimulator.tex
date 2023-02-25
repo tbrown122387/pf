@@ -1,0 +1,166 @@
+\hypertarget{classpf_1_1bases_1_1FutureSimulator}{}\doxysection{pf\+::bases\+::Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$ Class Template Reference}
+\label{classpf_1_1bases_1_1FutureSimulator}\index{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+
+
+{\ttfamily \#include $<$pf\+\_\+base.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_afacac4b17bd2aa5212e488aeec8ebc69}\label{classpf_1_1bases_1_1FutureSimulator_afacac4b17bd2aa5212e488aeec8ebc69}} 
+using {\bfseries time\+Pair} = std\+::pair$<$ std\+::array$<$ state\+\_\+sized\+\_\+vec, nparts $>$, std\+::array$<$ obs\+\_\+sized\+\_\+vec, nparts $>$ $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_a45df7c6d1e8a35e646ad8223f289f41e}\label{classpf_1_1bases_1_1FutureSimulator_a45df7c6d1e8a35e646ad8223f289f41e}} 
+using {\bfseries many\+Pairs} = std\+::vector$<$ time\+Pair $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_add28ea57516903fdb88c1bd9e4bfdb3b}\label{classpf_1_1bases_1_1FutureSimulator_add28ea57516903fdb88c1bd9e4bfdb3b}} 
+using {\bfseries obs\+Paths} = std\+::vector$<$ std\+::array$<$ obs\+\_\+sized\+\_\+vec, nparts $>$ $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_a8a5d2b66d06d107bb2946b461df0a929}\label{classpf_1_1bases_1_1FutureSimulator_a8a5d2b66d06d107bb2946b461df0a929}} 
+using {\bfseries state\+Paths} = std\+::vector$<$ std\+::array$<$ state\+\_\+sized\+\_\+vec, nparts $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+many\+Pairs \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator_a5ba69d507bc9dd33250f534ddafe3e6d}{sim\+\_\+future}} (unsigned int num\+\_\+time\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em simulates future state and observations paths from p(x\+\_\+\{t+1\+:T\},y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) \end{DoxyCompactList}\item 
+obs\+Paths \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator_a0ec6f8c6a340db57a8d26ce53625c9ba}{sim\+\_\+future\+\_\+obs}} (unsigned int num\+\_\+time\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em simulates future observation paths from p(y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) \end{DoxyCompactList}\item 
+state\+Paths \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator_a5ee873369efc4bc80186f274b6489247}{sim\+\_\+future\+\_\+states}} (unsigned int num\+\_\+time\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em simulates future state paths from p(x\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_ae72e27f1aaf1ac4afdd76c8c02e3e9e8}\label{classpf_1_1bases_1_1FutureSimulator_ae72e27f1aaf1ac4afdd76c8c02e3e9e8}} 
+virtual std\+::array$<$ state\+\_\+sized\+\_\+vec, nparts $>$ \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator_ae72e27f1aaf1ac4afdd76c8c02e3e9e8}{get\+\_\+uwtd\+\_\+samps}} () const =0
+\begin{DoxyCompactList}\small\item\em gets the most recent unweighted samples, to be fed into \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator_a5ba69d507bc9dd33250f534ddafe3e6d}{sim\+\_\+future()}} \end{DoxyCompactList}\item 
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator_a7b0fc15f1e9f9b2b2edcc813630939c3}{f\+Samp}} (const state\+\_\+sized\+\_\+vec \&xtm1)=0
+\begin{DoxyCompactList}\small\item\em returns a sample from the latent Markov transition \end{DoxyCompactList}\item 
+virtual obs\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator_aad0fe884596d0ac42a40d5d9f3e074dc}{g\+Samp}} (const state\+\_\+sized\+\_\+vec \&xt)=0
+\begin{DoxyCompactList}\small\item\em returns a sample for the observed series \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_ab5798e1e4ece59ab99054207265ba831}\label{classpf_1_1bases_1_1FutureSimulator_ab5798e1e4ece59ab99054207265ba831}} 
+using {\bfseries obs\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_a9b7abb9cae802299ac2e2d2c4291649b}\label{classpf_1_1bases_1_1FutureSimulator_a9b7abb9cae802299ac2e2d2c4291649b}} 
+using {\bfseries state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t, size\+\_\+t nparts$>$\newline
+class pf\+::bases\+::\+Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$}
+
+\begin{DoxyAuthor}{Author}
+Taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_a7b0fc15f1e9f9b2b2edcc813630939c3}\label{classpf_1_1bases_1_1FutureSimulator_a7b0fc15f1e9f9b2b2edcc813630939c3}} 
+\index{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!fSamp@{fSamp}}
+\index{fSamp@{fSamp}!pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{fSamp()}{fSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator}{pf\+::bases\+::\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::f\+Samp (\begin{DoxyParamCaption}\item[{const state\+\_\+sized\+\_\+vec \&}]{xtm1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample from the latent Markov transition 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & previous time\textquotesingle{}s state value \\
+\hline
+{\em the} & previous time\textquotesingle{}s observed value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a state-\/sized vector for the xt sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_aad0fe884596d0ac42a40d5d9f3e074dc}\label{classpf_1_1bases_1_1FutureSimulator_aad0fe884596d0ac42a40d5d9f3e074dc}} 
+\index{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!gSamp@{gSamp}}
+\index{gSamp@{gSamp}!pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{gSamp()}{gSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+virtual obs\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator}{pf\+::bases\+::\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::g\+Samp (\begin{DoxyParamCaption}\item[{const state\+\_\+sized\+\_\+vec \&}]{xt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample for the observed series 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & current time step\textquotesingle{}s state value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an observation sample for the current time step 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_a5ba69d507bc9dd33250f534ddafe3e6d}\label{classpf_1_1bases_1_1FutureSimulator_a5ba69d507bc9dd33250f534ddafe3e6d}} 
+\index{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!sim\_future@{sim\_future}}
+\index{sim\_future@{sim\_future}!pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{sim\_future()}{sim\_future()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+auto \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator}{pf\+::bases\+::\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::sim\+\_\+future (\begin{DoxyParamCaption}\item[{unsigned int}]{num\+\_\+time\+\_\+steps }\end{DoxyParamCaption})}
+
+
+
+simulates future state and observations paths from p(x\+\_\+\{t+1\+:T\},y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number} & of time steps into the future you want to simulate \\
+\hline
+{\em the} & most recent observation that you have available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one state path and one observation path for each state sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_a0ec6f8c6a340db57a8d26ce53625c9ba}\label{classpf_1_1bases_1_1FutureSimulator_a0ec6f8c6a340db57a8d26ce53625c9ba}} 
+\index{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!sim\_future\_obs@{sim\_future\_obs}}
+\index{sim\_future\_obs@{sim\_future\_obs}!pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{sim\_future\_obs()}{sim\_future\_obs()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+auto \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator}{pf\+::bases\+::\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::sim\+\_\+future\+\_\+obs (\begin{DoxyParamCaption}\item[{unsigned int}]{num\+\_\+time\+\_\+steps }\end{DoxyParamCaption})}
+
+
+
+simulates future observation paths from p(y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number} & of time steps into the future you want to simulate \\
+\hline
+{\em the} & most recent observation that you have available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one observation path for each state sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1FutureSimulator_a5ee873369efc4bc80186f274b6489247}\label{classpf_1_1bases_1_1FutureSimulator_a5ee873369efc4bc80186f274b6489247}} 
+\index{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!sim\_future\_states@{sim\_future\_states}}
+\index{sim\_future\_states@{sim\_future\_states}!pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::FutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{sim\_future\_states()}{sim\_future\_states()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+auto \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator}{pf\+::bases\+::\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::sim\+\_\+future\+\_\+states (\begin{DoxyParamCaption}\item[{unsigned int}]{num\+\_\+time\+\_\+steps }\end{DoxyParamCaption})}
+
+
+
+simulates future state paths from p(x\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number} & of time steps into the future you want to simulate \\
+\hline
+{\em the} & most recent observation that you have available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one state path for each state sample 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}}\end{DoxyCompactItemize}

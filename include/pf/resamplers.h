@@ -6,7 +6,14 @@
 #include <random>
 #include <numeric> // accumulate, partial_sum
 #include <cmath> //floor
-#include <Eigen/Dense>
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 #include <algorithm> // sort
 #include <bitset> // bitset
 

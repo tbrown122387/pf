@@ -1,0 +1,6 @@
+<map id="pf::filters::APF&lt; nparts, dimx, dimy, resamp_t, float_t, debug &gt;" name="pf::filters::APF&lt; nparts, dimx, dimy, resamp_t, float_t, debug &gt;">
+<area shape="rect" id="node1" title="A base&#45;class for Auxiliary Particle Filtering. Filtering only, no smoothing." alt="" coords="27,185,201,241"/>
+<area shape="rect" id="node2" href="$classpf_1_1bases_1_1pf__base.html" title=" " alt="" coords="5,81,180,123"/>
+<area shape="rect" id="node3" href="$classpf_1_1rvsamp_1_1k__gen.html" title=" " alt="" coords="205,81,354,123"/>
+<area shape="rect" id="node4" href="$classpf_1_1rvsamp_1_1rvsamp__base.html" title="Base class for all random variable sampler types. Primary benefit is that it sets the seed for you." alt="" coords="186,5,373,32"/>
+</map>

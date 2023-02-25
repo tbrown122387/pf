@@ -4,7 +4,14 @@
 #include <functional>
 #include <vector>
 #include <array>
-#include <Eigen/Dense>
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 #include <algorithm> // std::fill
 
 #include "pf_base.h"
@@ -239,8 +246,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv
                 m1 = m_logUnNormWeights[ii];
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+            #endif
 
             m_p_samps[ii] = newX2Samp;
         }
@@ -268,8 +277,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv
             m_expectations[fId] = numer/denom;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -298,8 +309,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+            #endif
 
             // maximum to be used in likelihood calc
             if(m_logUnNormWeights[ii] > m1)
@@ -330,9 +343,10 @@ void rbpf_hmm<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const osv
             m_expectations[fId] = numer/denom;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
-
+            #endif
 
             fId++;
         }
@@ -538,9 +552,11 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike();
             
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-            
+            #endif
+
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -571,8 +587,10 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_expectations[fId] = numer/denom;
                         
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -600,9 +618,11 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
                      
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-            
+            #endif
+
 
             // maximum to be used in likelihood calc
             if(m_logUnNormWeights[ii] > m1)
@@ -633,8 +653,10 @@ void rbpf_hmm_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_expectations[fId] = numer/denom;
                                     
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -882,9 +904,11 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike() + logFEv(newX2Samp, m_p_samps[ii]) - logQEv(newX2Samp, m_p_samps[ii], data);
                         
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-            
+            #endif
+
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -915,8 +939,10 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_expectations[fId] = numer/denom;
                                                 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -944,9 +970,11 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike() + logMuEv(m_p_samps[ii]) - logQ1Ev(m_p_samps[ii], data);
                         
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-         
+            #endif 
+
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -976,8 +1004,10 @@ void rbpf_kalman<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(const 
             m_expectations[fId] = numer/denom;
                                                             
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -1185,9 +1215,11 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(con
             m_logUnNormWeights[ii] += m_p_innerMods[ii].getLogCondLike();
                                     
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << newX2Samp.transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-            
+            #endif 
+
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -1218,8 +1250,10 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(con
             m_expectations[fId] = numer/denom;
                                                                         
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -1247,9 +1281,11 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(con
             m_logUnNormWeights[ii] = m_p_innerMods[ii].getLogCondLike();
                                                 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed x2 sample: " << m_p_samps[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-            
+            #endif 
+
             // update a max
             if(m_logUnNormWeights[ii] > m1)
                 m1 = m_logUnNormWeights[ii];
@@ -1279,8 +1315,10 @@ void rbpf_kalman_bs<nparts,dimnss,dimss,dimy,resamp_t,float_t,debug>::filter(con
             m_expectations[fId] = numer/denom;
                                                                                                 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expec " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }

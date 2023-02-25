@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['truncunivnormsampler',['TruncUnivNormSampler',['../classrvsamp_1_1TruncUnivNormSampler.html#af014c58aa1ed6bcd955f2b6c4a1a236c',1,'rvsamp::TruncUnivNormSampler']]]
+  ['truncunivnormsampler_339',['TruncUnivNormSampler',['../classpf_1_1rvsamp_1_1TruncUnivNormSampler.html#a0867bbbccdefe1be8a001717b4a49574',1,'pf::rvsamp::TruncUnivNormSampler']]]
 ];

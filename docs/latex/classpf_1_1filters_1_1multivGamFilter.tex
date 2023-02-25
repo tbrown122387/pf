@@ -1,0 +1,220 @@
+\hypertarget{classpf_1_1filters_1_1multivGamFilter}{}\doxysection{pf\+::filters\+::multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1filters_1_1multivGamFilter}\index{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}}
+
+
+Another class template for Gamma filtering, but this time.  
+
+
+
+
+{\ttfamily \#include $<$cf\+\_\+filters.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::filters\+::multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{classpf_1_1filters_1_1multivGamFilter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::filters\+::multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{classpf_1_1filters_1_1multivGamFilter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}\label{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}{psv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+pred, 1 $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}predictor size vector\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}\label{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}{bsm}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+obs, dim\+\_\+pred $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}beta size matrix\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_aae0f1348cfd44a05167da3846b3dc44e}\label{classpf_1_1filters_1_1multivGamFilter_aae0f1348cfd44a05167da3846b3dc44e}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_aae0f1348cfd44a05167da3846b3dc44e}{tsv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, 2, 1 $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}two by 1 vector\char`\"{} to store size and shapes of gamma distributions \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_af243e487e2ec1a161cc8f22726dd681a}\label{classpf_1_1filters_1_1multivGamFilter_af243e487e2ec1a161cc8f22726dd681a}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_af243e487e2ec1a161cc8f22726dd681a}{osv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+obs, 1 $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}observation size vector\char`\"{} ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}\label{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+obs, dim\+\_\+obs $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}observation size matrix\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_ae1320ba0c056b6577b6c640cde98d47e}{multiv\+Gam\+Filter}} (const float\+\_\+t \&n\+One\+Tilde, const float\+\_\+t \&d\+One\+Tilde)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_ac4ebfee5b9be62aeee1881d7b0bbfa15}\label{classpf_1_1filters_1_1multivGamFilter_ac4ebfee5b9be62aeee1881d7b0bbfa15}} 
+virtual \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_ac4ebfee5b9be62aeee1881d7b0bbfa15}{$\sim$multiv\+Gam\+Filter}} ()
+\begin{DoxyCompactList}\small\item\em The (virtual) desuctor. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a5e8f83c84e1926e37c5830c1dc884ec6}{get\+Log\+Cond\+Like}} () const
+\begin{DoxyCompactList}\small\item\em Get the latest conditional likelihood. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_aae0f1348cfd44a05167da3846b3dc44e}{tsv}} \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a9fdd87528d37858697fd405dcc5d76a1}{get\+Filter\+Vec}} () const
+\begin{DoxyCompactList}\small\item\em Get the current filter vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a05ac90539084fa625ae01454eb870ffb}{update}} (const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_af243e487e2ec1a161cc8f22726dd681a}{osv}} \&yt, const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}{psv}} \&xt, const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}{bsm}} \&B, const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} \&Sigma, const float\+\_\+t \&delta)
+\begin{DoxyCompactList}\small\item\em Perform a filtering update. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_af243e487e2ec1a161cc8f22726dd681a}{osv}} \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a96da6fcf5962885d2f948f3b3f3445f9}{get\+Fcast\+Mean}} (const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}{psv}} \&xtp1, const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}{bsm}} \&B, const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} \&Sigma, const float\+\_\+t \&delta)
+\begin{DoxyCompactList}\small\item\em Get the forecast mean (assuming filtering has been performed already) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a53b1a7e34e90b7256ce4ef3b913cc87e}{get\+Fcast\+Cov}} (const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}{psv}} \&xtp1, const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}{bsm}} \&B, const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} \&Sigma, const float\+\_\+t \&delta)
+\begin{DoxyCompactList}\small\item\em Get the forecast covariance matrix (assuming filtering has been performed already) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_af7cab03d7cd7521fbae302e4662134da}\label{classpf_1_1filters_1_1multivGamFilter_af7cab03d7cd7521fbae302e4662134da}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_aae0f1348cfd44a05167da3846b3dc44e}{tsv}} \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_af7cab03d7cd7521fbae302e4662134da}{m\+\_\+filt\+Vec}}
+\begin{DoxyCompactList}\small\item\em filter vector (shape and rate) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_aecca25f176df4782ef00a3b8904403be}\label{classpf_1_1filters_1_1multivGamFilter_aecca25f176df4782ef00a3b8904403be}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_aecca25f176df4782ef00a3b8904403be}{m\+\_\+last\+Log\+Cond\+Like}}
+\begin{DoxyCompactList}\small\item\em last log of the conditional likelihood \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_aa7fac110fd675883f8bb13931553b8b3}\label{classpf_1_1filters_1_1multivGamFilter_aa7fac110fd675883f8bb13931553b8b3}} 
+bool \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_aa7fac110fd675883f8bb13931553b8b3}{m\+\_\+fresh}}
+\begin{DoxyCompactList}\small\item\em has data been observed? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dim\+\_\+obs, size\+\_\+t dim\+\_\+pred, typename float\+\_\+t$>$\newline
+class pf\+::filters\+::multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$}
+
+Another class template for Gamma filtering, but this time. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_ae1320ba0c056b6577b6c640cde98d47e}\label{classpf_1_1filters_1_1multivGamFilter_ae1320ba0c056b6577b6c640cde98d47e}} 
+\index{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}!multivGamFilter@{multivGamFilter}}
+\index{multivGamFilter@{multivGamFilter}!pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{multivGamFilter()}{multivGamFilter()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+obs, size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{pf\+::filters\+::multiv\+Gam\+Filter}}$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{multiv\+Gam\+Filter}} (\begin{DoxyParamCaption}\item[{const float\+\_\+t \&}]{n\+One\+Tilde,  }\item[{const float\+\_\+t \&}]{d\+One\+Tilde }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+One\+Tilde} & degrees of freedom for time 1 prior. \\
+\hline
+{\em d\+One\+Tilde} & rate parameter for time 1 prior. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_a53b1a7e34e90b7256ce4ef3b913cc87e}\label{classpf_1_1filters_1_1multivGamFilter_a53b1a7e34e90b7256ce4ef3b913cc87e}} 
+\index{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}!getFcastCov@{getFcastCov}}
+\index{getFcastCov@{getFcastCov}!pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{getFcastCov()}{getFcastCov()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+obs, size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{pf\+::filters\+::multiv\+Gam\+Filter}}$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+::get\+Fcast\+Cov (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}{psv}} \&}]{xtp1,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}{bsm}} \&}]{B,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} \&}]{Sigma,  }\item[{const float\+\_\+t \&}]{delta }\end{DoxyParamCaption})}
+
+
+
+Get the forecast covariance matrix (assuming filtering has been performed already) 
+
+gets the forecast covariance matrix! 
+\begin{DoxyParams}{Parameters}
+{\em xtp1} & the next time period\textquotesingle{}s predictor vector \\
+\hline
+{\em B} & the loadings matrix \\
+\hline
+{\em Sigma} & the observation \char`\"{}shape\char`\"{} matrix \\
+\hline
+{\em delta} & between 0 and 1 the discount parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a forecast covariance matrix 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_a96da6fcf5962885d2f948f3b3f3445f9}\label{classpf_1_1filters_1_1multivGamFilter_a96da6fcf5962885d2f948f3b3f3445f9}} 
+\index{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}!getFcastMean@{getFcastMean}}
+\index{getFcastMean@{getFcastMean}!pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{getFcastMean()}{getFcastMean()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+obs, size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{pf\+::filters\+::multiv\+Gam\+Filter}}$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+::get\+Fcast\+Mean (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}{psv}} \&}]{xtp1,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}{bsm}} \&}]{B,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} \&}]{Sigma,  }\item[{const float\+\_\+t \&}]{delta }\end{DoxyParamCaption})}
+
+
+
+Get the forecast mean (assuming filtering has been performed already) 
+
+gets the forecast mean! 
+\begin{DoxyParams}{Parameters}
+{\em xtp1} & the next time period\textquotesingle{}s predictor vector \\
+\hline
+{\em B} & the loadings matrix \\
+\hline
+{\em Sigma} & the observation \char`\"{}shape\char`\"{} matrix \\
+\hline
+{\em delta} & between 0 and 1 the discount parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a mean vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_a9fdd87528d37858697fd405dcc5d76a1}\label{classpf_1_1filters_1_1multivGamFilter_a9fdd87528d37858697fd405dcc5d76a1}} 
+\index{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}!getFilterVec@{getFilterVec}}
+\index{getFilterVec@{getFilterVec}!pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{getFilterVec()}{getFilterVec()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+obs, size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{pf\+::filters\+::multiv\+Gam\+Filter}}$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+::get\+Filter\+Vec}
+
+
+
+Get the current filter vector. 
+
+get the current filtering distribution. First element is the shape, second is the rate. \begin{DoxyReturn}{Returns}
+a vector of the shape and rate parameters of f(p\+\_\+t $\vert$ y\+\_\+\{1\+:t\}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_a5e8f83c84e1926e37c5830c1dc884ec6}\label{classpf_1_1filters_1_1multivGamFilter_a5e8f83c84e1926e37c5830c1dc884ec6}} 
+\index{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}!getLogCondLike@{getLogCondLike}}
+\index{getLogCondLike@{getLogCondLike}!pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{getLogCondLike()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+obs, size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{pf\+::filters\+::multiv\+Gam\+Filter}}$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+::get\+Log\+Cond\+Like}
+
+
+
+Get the latest conditional likelihood. 
+
+\begin{DoxyReturn}{Returns}
+the latest conditional likelihood. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1multivGamFilter_a05ac90539084fa625ae01454eb870ffb}\label{classpf_1_1filters_1_1multivGamFilter_a05ac90539084fa625ae01454eb870ffb}} 
+\index{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}!update@{update}}
+\index{update@{update}!pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$@{pf::filters::multivGamFilter$<$ dim\_obs, dim\_pred, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dim\+\_\+obs, size\+\_\+t dim\+\_\+pred, typename float\+\_\+t $>$ \\
+void \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{pf\+::filters\+::multiv\+Gam\+Filter}}$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$\+::update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_af243e487e2ec1a161cc8f22726dd681a}{osv}} \&}]{yt,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_afb14121af6f4e694561592e328ef75a7}{psv}} \&}]{xt,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a15bd995028cd802108762ae3f82826a9}{bsm}} \&}]{B,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter_a378e9f0f02e65cca4d7a74db72656410}{osm}} \&}]{Sigma,  }\item[{const float\+\_\+t \&}]{delta }\end{DoxyParamCaption})}
+
+
+
+Perform a filtering update. 
+
+Perform a Gamma filter update. 
+\begin{DoxyParams}{Parameters}
+{\em yt} & the most recent dependent random variable \\
+\hline
+{\em xt} & the most recent predictor vector \\
+\hline
+{\em B} & the loadings matrix \\
+\hline
+{\em Sigma} & the observation \char`\"{}shape\char`\"{} matrix. \\
+\hline
+{\em delta} & between 0 and 1 the discount parameter \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{cf__filters_8h}{cf\+\_\+filters.\+h}}\end{DoxyCompactItemize}

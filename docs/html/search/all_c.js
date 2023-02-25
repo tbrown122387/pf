@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['pf_3a_20a_20library_20for_20fast_20particle_20filtering_21',['PF: a library for fast particle filtering!',['../index.html',1,'']]],
-  ['paper',['paper',['../md_paper_paper.html',1,'']]],
-  ['pf_5fbase',['pf_base',['../classpf__base.html',1,'']]],
-  ['pf_5fbase_2eh',['pf_base.h',['../pf__base_8h.html',1,'']]],
-  ['pf_5fbase_3c_20float_5ft_2c_20dimy_2c_20dimx_20_3e',['pf_base&lt; float_t, dimy, dimx &gt;',['../classpf__base.html',1,'']]],
-  ['poissonsampler',['PoissonSampler',['../classrvsamp_1_1PoissonSampler.html',1,'rvsamp::PoissonSampler&lt; float_t, int_t &gt;'],['../classrvsamp_1_1PoissonSampler.html#a211f4f682217e095f64f825b6ff372e4',1,'rvsamp::PoissonSampler::PoissonSampler()'],['../classrvsamp_1_1PoissonSampler.html#ac0a7d1c44968588326518e73b6ce11e3',1,'rvsamp::PoissonSampler::PoissonSampler(float_t lambda)']]],
-  ['propmu',['propMu',['../classAPF.html#aac5dbff4d903db9952dbf01e7aa25d44',1,'APF']]],
-  ['psv',['psv',['../classgamFilter.html#ae43550158ad06de3a1829d5cb491b3fc',1,'gamFilter::psv()'],['../classmultivGamFilter.html#a396935d27512187b9109a70ba04c6abf',1,'multivGamFilter::psv()']]]
+  ['obsstatesizemat_113',['obsStateSizeMat',['../classpf_1_1filters_1_1kalman.html#a69a8a0ebaa566200cc58d167b3b50ec3',1,'pf::filters::kalman']]],
+  ['oimat_114',['oiMat',['../classpf_1_1filters_1_1kalman.html#a7c64ea5866cdbbeaaebfc35d85b24402',1,'pf::filters::kalman']]],
+  ['osm_115',['osm',['../classpf_1_1filters_1_1multivGamFilter.html#a378e9f0f02e65cca4d7a74db72656410',1,'pf::filters::multivGamFilter']]],
+  ['osmat_116',['osMat',['../classpf_1_1filters_1_1kalman.html#af2f9740f3c2304c3a2c44084febeff28',1,'pf::filters::kalman']]],
+  ['osv_117',['osv',['../classpf_1_1filters_1_1APF.html#a47064532fd73f8081bf4a18c07eba244',1,'pf::filters::APF::osv()'],['../classpf_1_1filters_1_1BSFilter.html#a53e5b3cbf4fd51e2faa0511820698634',1,'pf::filters::BSFilter::osv()'],['../classpf_1_1filters_1_1BSFilterWC.html#aa968e1b1016f85311cf223cb0b4cae67',1,'pf::filters::BSFilterWC::osv()'],['../classpf_1_1filters_1_1kalman.html#aa6c23b3c1480914ffed97a6bec6dead2',1,'pf::filters::kalman::osv()'],['../classpf_1_1filters_1_1hmm.html#a0734691dd68822730bfbd5391148a76e',1,'pf::filters::hmm::osv()'],['../classpf_1_1filters_1_1multivGamFilter.html#af243e487e2ec1a161cc8f22726dd681a',1,'pf::filters::multivGamFilter::osv()'],['../classpf_1_1filters_1_1rbpf__hmm.html#a71af7e51d5c8d147fcdf12bfb47ac94e',1,'pf::filters::rbpf_hmm::osv()'],['../classpf_1_1filters_1_1rbpf__hmm__bs.html#accdc33e7d49f8b1ac6c4f40142576b46',1,'pf::filters::rbpf_hmm_bs::osv()'],['../classpf_1_1filters_1_1rbpf__kalman.html#a7923a61650fffe69c5e135eb9226b58e',1,'pf::filters::rbpf_kalman::osv()'],['../classpf_1_1filters_1_1rbpf__kalman__bs.html#ab2aaadcc8c2aad4a274e172c6ad3f0e0',1,'pf::filters::rbpf_kalman_bs::osv()'],['../classpf_1_1filters_1_1SISRFilter.html#ad776bb897bb09332b2354fcac9a31f9c',1,'pf::filters::SISRFilter::osv()'],['../classpf_1_1filters_1_1SISRFilterCRN.html#ac2d2a6de7b275526b60547d023297fd8',1,'pf::filters::SISRFilterCRN::osv()']]]
 ];

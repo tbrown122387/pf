@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['inithmmprobvec',['initHMMProbVec',['../classrbpf__hmm.html#a3944acc8066774eaa0ff4330301447a1',1,'rbpf_hmm::initHMMProbVec()'],['../classrbpf__hmm__bs.html#a0a8e40cbc6b4c8fefae66f03f28fafe1',1,'rbpf_hmm_bs::initHMMProbVec()']]],
-  ['inithmmtransmat',['initHMMTransMat',['../classrbpf__hmm.html#a997a21d39e1f692c28968000e809309a',1,'rbpf_hmm::initHMMTransMat()'],['../classrbpf__hmm__bs.html#a61a6679ada264fe9e4e0409dc93434f5',1,'rbpf_hmm_bs::initHMMTransMat()']]],
-  ['initkalmanmean',['initKalmanMean',['../classrbpf__kalman.html#a799862d3fb775aed84ce58e00dbce458',1,'rbpf_kalman::initKalmanMean()'],['../classrbpf__kalman__bs.html#a8bb7a29b1bcc66cfb4ebf86c0d091ec1',1,'rbpf_kalman_bs::initKalmanMean()']]],
-  ['initkalmanvar',['initKalmanVar',['../classrbpf__kalman.html#ac74007e577ea168e89da9e04cefc8c65',1,'rbpf_kalman::initKalmanVar()'],['../classrbpf__kalman__bs.html#add33853e65897cc359965d3715e4e20f',1,'rbpf_kalman_bs::initKalmanVar()']]]
+  ['inithmmlogprobvec_290',['initHMMLogProbVec',['../classpf_1_1filters_1_1rbpf__hmm.html#ab8dd3ce85baaa57c819181ea69d173c4',1,'pf::filters::rbpf_hmm::initHMMLogProbVec()'],['../classpf_1_1filters_1_1rbpf__hmm__bs.html#a9f7afb09e577b909b53e3fe9d60a240a',1,'pf::filters::rbpf_hmm_bs::initHMMLogProbVec()']]],
+  ['inithmmlogtransmat_291',['initHMMLogTransMat',['../classpf_1_1filters_1_1rbpf__hmm.html#a643f932aff7a371cebbc7906b5fd9ca2',1,'pf::filters::rbpf_hmm::initHMMLogTransMat()'],['../classpf_1_1filters_1_1rbpf__hmm__bs.html#a1b4f2a4f4a594f88ccb5445abfd4dfc9',1,'pf::filters::rbpf_hmm_bs::initHMMLogTransMat()']]],
+  ['initkalmanmean_292',['initKalmanMean',['../classpf_1_1filters_1_1rbpf__kalman.html#a9783aa67d683c68f87af5b345b1ddb47',1,'pf::filters::rbpf_kalman::initKalmanMean()'],['../classpf_1_1filters_1_1rbpf__kalman__bs.html#a692bddc4fb0618b564e7da8648c2f587',1,'pf::filters::rbpf_kalman_bs::initKalmanMean()']]],
+  ['initkalmanvar_293',['initKalmanVar',['../classpf_1_1filters_1_1rbpf__kalman.html#aa3428faf1e3bbd9c3dfb06a5a89a730b',1,'pf::filters::rbpf_kalman::initKalmanVar()'],['../classpf_1_1filters_1_1rbpf__kalman__bs.html#a64a782d1cce79ec9af62f6de43073100',1,'pf::filters::rbpf_kalman_bs::initKalmanVar()']]]
 ];

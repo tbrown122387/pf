@@ -1,8 +1,8 @@
-\hypertarget{pf__base_8h}{}\section{include/pf/pf\+\_\+base.h File Reference}
-\label{pf__base_8h}\index{include/pf/pf\+\_\+base.\+h@{include/pf/pf\+\_\+base.\+h}}
+\hypertarget{pf__base_8h}{}\doxysection{include/pf/pf\+\_\+base.h File Reference}
+\label{pf__base_8h}\index{include/pf/pf\_base.h@{include/pf/pf\_base.h}}
 
 
-All non Rao-\/\+Blackwellized particle filters inherit from this.  
+All non Rao-\/\+Blackwellized particle filters without covariates inherit from this.  
 
 
 {\ttfamily \#include $<$map$>$}\newline
@@ -13,7 +13,7 @@ Include dependency graph for pf\+\_\+base.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=328pt]{pf__base_8h__incl}
+\includegraphics[width=341pt]{pf__base_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:\nopagebreak
@@ -23,23 +23,43 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \includegraphics[width=350pt]{pf__base_8h__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Classes}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classpf__base}{pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$}
+class \mbox{\hyperlink{classpf_1_1bases_1_1pf__base}{pf\+::bases\+::pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$}}
 \item 
-class \hyperlink{classrbpf__base}{rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$}
+class \mbox{\hyperlink{classpf_1_1bases_1_1pf__withcov__base}{pf\+::bases\+::pf\+\_\+withcov\+\_\+base$<$ float\+\_\+t, dimobs, dimstate, dimcov $>$}}
 \item 
-class \hyperlink{classForwardMod}{Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1bases_1_1rbpf__base}{pf\+::bases\+::rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$}}
+\item 
+class \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod}{pf\+::bases\+::\+Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}}
+\item 
+class \mbox{\hyperlink{classpf_1_1bases_1_1GenForwardMod}{pf\+::bases\+::\+Gen\+Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}}
+\item 
+class \mbox{\hyperlink{classpf_1_1bases_1_1FutureSimulator}{pf\+::bases\+::\+Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$}}
+\item 
+class \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator}{pf\+::bases\+::\+Gen\+Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$}}
+\item 
+class \mbox{\hyperlink{classpf_1_1bases_1_1cf__filter}{pf\+::bases\+::cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}}
+\begin{DoxyCompactList}\small\item\em Abstract Base Class for all closed-\/form filters. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpf_1_1bases_1_1pf__base__crn}{pf\+::bases\+::pf\+\_\+base\+\_\+crn$<$ float\+\_\+t, dimobs, dimstate, dimu, dimur, numparts $>$}}
 \end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-All non Rao-\/\+Blackwellized particle filters inherit from this. 
+\doxysubsection{Detailed Description}
+All non Rao-\/\+Blackwellized particle filters without covariates inherit from this. 
+
+inherit from this if, in addition to filtering, you want to simulate future trajectories from the current filtering distribution. This simulates two future trajectories for each particle you have--one for the state path, and one for the observation path. Unlike the above class, this one
+
+inherit from this if, in addition to filtering, you want to simulate future trajectories from the current filtering distribution. This simulates two future trajectories for each particle you have--one for the state path, and one for the observation path.
+
+inherit from this if you want to simulate from a homogeneous forward/generative model. This class is more general than the above because it can simulate future states using past observations.
 
 inherit from this if you want to simulate from a homogeneous forward/generative model.
 
 All Rao-\/\+Blackwellized particle filters inherit from this.
+
+All non Rao-\/\+Blackwellized particle filters with covariates inherit from this.
 
 \begin{DoxyAuthor}{Author}
 t
@@ -51,6 +71,20 @@ t
 {\em dimobs} & the dimension of each observation \\
 \hline
 {\em dimstate} & the dimension of each state\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{Author}
+t
+\end{DoxyAuthor}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em float\+\_\+t} & (e.\+g. double, float, etc.) \\
+\hline
+{\em dimobs} & the dimension of each observation \\
+\hline
+{\em dimstate} & the dimension of each state \\
+\hline
+{\em dimcov} & \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyAuthor}{Author}

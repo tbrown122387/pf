@@ -1,0 +1,100 @@
+\hypertarget{classpf_1_1rvsamp_1_1UniformSampler}{}\doxysection{pf\+::rvsamp\+::Uniform\+Sampler$<$ float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1rvsamp_1_1UniformSampler}\index{pf::rvsamp::UniformSampler$<$ float\_t $>$@{pf::rvsamp::UniformSampler$<$ float\_t $>$}}
+
+
+A class that performs sampling from a continuous uniform distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::rvsamp\+::Uniform\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classpf_1_1rvsamp_1_1UniformSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::rvsamp\+::Uniform\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classpf_1_1rvsamp_1_1UniformSampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UniformSampler_a73c6f6e18018c5f41c47fd83aedd3120}\label{classpf_1_1rvsamp_1_1UniformSampler_a73c6f6e18018c5f41c47fd83aedd3120}} 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UniformSampler_a73c6f6e18018c5f41c47fd83aedd3120}{Uniform\+Sampler}} ()
+\begin{DoxyCompactList}\small\item\em The default constructor. Gives a lower bound of 0 and upper bound of 1. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UniformSampler_ae0469a8f068f09292ce4e2d1ce188ab9}{Uniform\+Sampler}} (float\+\_\+t lower, float\+\_\+t upper)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UniformSampler_a08fd69c4148954ca5b429fcfc9e5291f}{sample}} ()
+\begin{DoxyCompactList}\small\item\em Draws a sample. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UniformSampler_ab09fea96e8b320092f96c3e912421cb8}\label{classpf_1_1rvsamp_1_1UniformSampler_ab09fea96e8b320092f96c3e912421cb8}} 
+std\+::uniform\+\_\+real\+\_\+distribution$<$ float\+\_\+t $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1UniformSampler_ab09fea96e8b320092f96c3e912421cb8}{m\+\_\+unif\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em makes uniform random variates \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t$>$\newline
+class pf\+::rvsamp\+::\+Uniform\+Sampler$<$ float\+\_\+t $>$}
+
+A class that performs sampling from a continuous uniform distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UniformSampler_ae0469a8f068f09292ce4e2d1ce188ab9}\label{classpf_1_1rvsamp_1_1UniformSampler_ae0469a8f068f09292ce4e2d1ce188ab9}} 
+\index{pf::rvsamp::UniformSampler$<$ float\_t $>$@{pf::rvsamp::UniformSampler$<$ float\_t $>$}!UniformSampler@{UniformSampler}}
+\index{UniformSampler@{UniformSampler}!pf::rvsamp::UniformSampler$<$ float\_t $>$@{pf::rvsamp::UniformSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{UniformSampler()}{UniformSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UniformSampler}{pf\+::rvsamp\+::\+Uniform\+Sampler}}$<$ float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1rvsamp_1_1UniformSampler}{Uniform\+Sampler}} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{lower,  }\item[{float\+\_\+t}]{upper }\end{DoxyParamCaption})}
+
+
+
+The constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & the lower bound of the P\+R\+NG. \\
+\hline
+{\em upper} & the upper bound of the P\+R\+NG. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UniformSampler_a08fd69c4148954ca5b429fcfc9e5291f}\label{classpf_1_1rvsamp_1_1UniformSampler_a08fd69c4148954ca5b429fcfc9e5291f}} 
+\index{pf::rvsamp::UniformSampler$<$ float\_t $>$@{pf::rvsamp::UniformSampler$<$ float\_t $>$}!sample@{sample}}
+\index{sample@{sample}!pf::rvsamp::UniformSampler$<$ float\_t $>$@{pf::rvsamp::UniformSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UniformSampler}{pf\+::rvsamp\+::\+Uniform\+Sampler}}$<$ float\+\_\+t $>$\+::sample}
+
+
+
+Draws a sample. 
+
+\begin{DoxyReturn}{Returns}
+a sample of type float\+\_\+t. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}}\end{DoxyCompactItemize}

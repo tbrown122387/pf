@@ -1,0 +1,142 @@
+\hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler}{}\doxysection{pf\+::rvsamp\+::Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1rvsamp_1_1UnivLogNormSampler}\index{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}}
+
+
+A class that performs sampling from a univariate Log-\/\+Normal distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::rvsamp\+::Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{classpf_1_1rvsamp_1_1UnivLogNormSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::rvsamp\+::Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{classpf_1_1rvsamp_1_1UnivLogNormSampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_aa1df9c8c65f2dee9cc038fcc5c51018e}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_aa1df9c8c65f2dee9cc038fcc5c51018e}} 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_aa1df9c8c65f2dee9cc038fcc5c51018e}{Univ\+Log\+Norm\+Sampler}} ()
+\begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for standard Normal random variate generation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_ae4c846125a5ae44cc945adf4ec4b1e86}{Univ\+Log\+Norm\+Sampler}} (float\+\_\+t mu, float\+\_\+t sigma)
+\begin{DoxyCompactList}\small\item\em The user must supply both mu and sigma. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_a3e2f750190e4a449649b33ec1c10354d}{set\+Sigma}} (float\+\_\+t sigma)
+\begin{DoxyCompactList}\small\item\em sets the scale parameter of the logged random variable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_ab911fff8e34844e29182909ed9efce73}{set\+Mu}} (float\+\_\+t mu)
+\begin{DoxyCompactList}\small\item\em sets the location parameter of the logged random variable. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_addb83b8d4e7fcf7782e3fdba9a7ab476}{sample}} ()
+\begin{DoxyCompactList}\small\item\em draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_a252d7b8453ac5d5a8d72afcb99b911d3}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_a252d7b8453ac5d5a8d72afcb99b911d3}} 
+std\+::normal\+\_\+distribution$<$ float\+\_\+t $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_a252d7b8453ac5d5a8d72afcb99b911d3}{m\+\_\+z\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em makes normal random variates \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_a9f23e96a36e2f49e9378ad2f3a2e8885}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_a9f23e96a36e2f49e9378ad2f3a2e8885}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_a9f23e96a36e2f49e9378ad2f3a2e8885}{m\+\_\+mu}}
+\begin{DoxyCompactList}\small\item\em mu \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_a05d4700da647440d3600d1ec4373b43d}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_a05d4700da647440d3600d1ec4373b43d}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler_a05d4700da647440d3600d1ec4373b43d}{m\+\_\+sigma}}
+\begin{DoxyCompactList}\small\item\em sigma \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t$>$\newline
+class pf\+::rvsamp\+::\+Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$}
+
+A class that performs sampling from a univariate Log-\/\+Normal distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_ae4c846125a5ae44cc945adf4ec4b1e86}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_ae4c846125a5ae44cc945adf4ec4b1e86}} 
+\index{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}!UnivLogNormSampler@{UnivLogNormSampler}}
+\index{UnivLogNormSampler@{UnivLogNormSampler}!pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{UnivLogNormSampler()}{UnivLogNormSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler}{pf\+::rvsamp\+::\+Univ\+Log\+Norm\+Sampler}}$<$ float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler}{Univ\+Log\+Norm\+Sampler}} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu,  }\item[{float\+\_\+t}]{sigma }\end{DoxyParamCaption})}
+
+
+
+The user must supply both mu and sigma. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & a location parameter for the logarithm of the sample. \\
+\hline
+{\em sigma} & a positive scale parameter for the logarithm of the sample. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_addb83b8d4e7fcf7782e3fdba9a7ab476}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_addb83b8d4e7fcf7782e3fdba9a7ab476}} 
+\index{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}!sample@{sample}}
+\index{sample@{sample}!pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler}{pf\+::rvsamp\+::\+Univ\+Log\+Norm\+Sampler}}$<$ float\+\_\+t $>$\+::sample}
+
+
+
+draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_ab911fff8e34844e29182909ed9efce73}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_ab911fff8e34844e29182909ed9efce73}} 
+\index{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}!setMu@{setMu}}
+\index{setMu@{setMu}!pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{setMu()}{setMu()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+void \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler}{pf\+::rvsamp\+::\+Univ\+Log\+Norm\+Sampler}}$<$ float\+\_\+t $>$\+::set\+Mu (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu }\end{DoxyParamCaption})}
+
+
+
+sets the location parameter of the logged random variable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & the desired parameter. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivLogNormSampler_a3e2f750190e4a449649b33ec1c10354d}\label{classpf_1_1rvsamp_1_1UnivLogNormSampler_a3e2f750190e4a449649b33ec1c10354d}} 
+\index{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}!setSigma@{setSigma}}
+\index{setSigma@{setSigma}!pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$@{pf::rvsamp::UnivLogNormSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{setSigma()}{setSigma()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+void \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivLogNormSampler}{pf\+::rvsamp\+::\+Univ\+Log\+Norm\+Sampler}}$<$ float\+\_\+t $>$\+::set\+Sigma (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{sigma }\end{DoxyParamCaption})}
+
+
+
+sets the scale parameter of the logged random variable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sigma} & the desired parameter. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}}\end{DoxyCompactItemize}

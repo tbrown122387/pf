@@ -1,14 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classrvsamp_1_1rvsamp__base.html" title="Base class for all random variable sampler types. Primary benefit is that it sets the seed for you..." alt="" coords="5,326,156,353"/>
-<area shape="rect" id="node2" href="$classrvsamp_1_1k__gen.html" title="rvsamp::k_gen\&lt; nparts,\l float_t \&gt;" alt="" coords="231,5,391,47"/>
-<area shape="rect" id="node3" href="$classrvsamp_1_1BernSampler.html" title="A class that performs sampling from a univariate Bernoulli distribution. " alt="" coords="237,71,385,112"/>
-<area shape="rect" id="node4" href="$classrvsamp_1_1k__gen.html" title="A class that performs sampling with replacement (useful for the index sampler in an APF) ..." alt="" coords="217,137,404,163"/>
-<area shape="rect" id="node5" href="$classrvsamp_1_1MVNSampler.html" title="A class that performs sampling from a multivariate normal distribution. " alt="" coords="235,188,386,229"/>
-<area shape="rect" id="node6" href="$classrvsamp_1_1PoissonSampler.html" title="A class that performs sampling from a Poisson distribution. " alt="" coords="227,253,395,295"/>
-<area shape="rect" id="node7" href="$classrvsamp_1_1TruncUnivNormSampler.html" title="A class that performs sampling from a truncated univariate Normal distribution. " alt="" coords="204,319,417,360"/>
-<area shape="rect" id="node8" href="$classrvsamp_1_1UniformSampler.html" title="A class that performs sampling from a continuous uniform distribution. " alt="" coords="227,384,394,425"/>
-<area shape="rect" id="node9" href="$classrvsamp_1_1UnivGammaSampler.html" title="A class that performs sampling from a univariate Gamma distribution. " alt="" coords="213,449,408,491"/>
-<area shape="rect" id="node10" href="$classrvsamp_1_1UnivInvGammaSampler.html" title="A class that performs sampling from a univariate Inverse Gamma distribution. " alt="" coords="205,515,417,556"/>
-<area shape="rect" id="node11" href="$classrvsamp_1_1UnivLogNormSampler.html" title="A class that performs sampling from a univariate Log&#45;Normal distribution. " alt="" coords="210,580,411,621"/>
-<area shape="rect" id="node12" href="$classrvsamp_1_1UnivNormSampler.html" title="A class that performs sampling from a univariate Normal distribution. " alt="" coords="221,645,401,687"/>
+<area shape="rect" id="node1" href="$classpf_1_1bases_1_1pf__base__crn.html" title=" " alt="" coords="5,13,216,69"/>
+<area shape="rect" id="node2" href="$classpf_1_1filters_1_1SISRFilterCRN.html" title="A base class for the Sequential Important Sampling with Resampling (SISR). Uses normal common random ..." alt="" coords="264,5,469,76"/>
 </map>

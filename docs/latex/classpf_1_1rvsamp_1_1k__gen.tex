@@ -1,0 +1,76 @@
+\hypertarget{classpf_1_1rvsamp_1_1k__gen}{}\doxysection{pf\+::rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1rvsamp_1_1k__gen}\index{pf::rvsamp::k\_gen$<$ N, float\_t $>$@{pf::rvsamp::k\_gen$<$ N, float\_t $>$}}
+
+
+A class that performs sampling with replacement (useful for the index sampler in an A\+PF)  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classpf_1_1rvsamp_1_1k__gen__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classpf_1_1rvsamp_1_1k__gen__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1k__gen_a8d29710985ede6cff2aca47a2c5fa586}\label{classpf_1_1rvsamp_1_1k__gen_a8d29710985ede6cff2aca47a2c5fa586}} 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1k__gen_a8d29710985ede6cff2aca47a2c5fa586}{k\+\_\+gen}} ()
+\begin{DoxyCompactList}\small\item\em default constructor. only one available. \end{DoxyCompactList}\item 
+std\+::array$<$ unsigned int, N $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1k__gen_abe450db41009f6714dcfb12b0b934f3d}{sample}} (const std\+::array$<$ float\+\_\+t, N $>$ \&log\+Wts)
+\begin{DoxyCompactList}\small\item\em sample N times from (0,1,...N-\/1) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t N, typename float\+\_\+t$>$\newline
+class pf\+::rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$}
+
+A class that performs sampling with replacement (useful for the index sampler in an A\+PF) 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1k__gen_abe450db41009f6714dcfb12b0b934f3d}\label{classpf_1_1rvsamp_1_1k__gen_abe450db41009f6714dcfb12b0b934f3d}} 
+\index{pf::rvsamp::k\_gen$<$ N, float\_t $>$@{pf::rvsamp::k\_gen$<$ N, float\_t $>$}!sample@{sample}}
+\index{sample@{sample}!pf::rvsamp::k\_gen$<$ N, float\_t $>$@{pf::rvsamp::k\_gen$<$ N, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t N, typename float\+\_\+t $>$ \\
+std\+::array$<$ unsigned int, N $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1k__gen}{pf\+::rvsamp\+::k\+\_\+gen}}$<$ N, float\+\_\+t $>$\+::sample (\begin{DoxyParamCaption}\item[{const std\+::array$<$ float\+\_\+t, N $>$ \&}]{log\+Wts }\end{DoxyParamCaption})}
+
+
+
+sample N times from (0,1,...N-\/1) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em log\+Wts} & possibly unnormalized type std\+::array$<$float\+\_\+t, N$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the integers in a std\+::array$<$unsigned int, N$>$ 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}}\end{DoxyCompactItemize}

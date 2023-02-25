@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['k_5fgen',['k_gen',['../classrvsamp_1_1k__gen.html',1,'rvsamp::k_gen&lt; N, float_t &gt;'],['../classrvsamp_1_1k__gen.html#accfb09ee03db9550cda24d4f81ac37e7',1,'rvsamp::k_gen::k_gen()']]],
-  ['k_5fgen_3c_20nparts_2c_20float_5ft_20_3e',['k_gen&lt; nparts, float_t &gt;',['../classrvsamp_1_1k__gen.html',1,'rvsamp']]],
-  ['kalman',['kalman',['../classkalman.html',1,'kalman&lt; dimstate, dimobs, diminput, float_t &gt;'],['../classkalman.html#a8b05d79f154bf5669457a3e95f7323d5',1,'kalman::kalman()'],['../classkalman.html#a91ec8bcb52e26df651001d8f8e574373',1,'kalman::kalman(const ssv &amp;initStateMean, const ssMat &amp;initStateVar)']]]
+  ['inithmmlogprobvec_49',['initHMMLogProbVec',['../classpf_1_1filters_1_1rbpf__hmm.html#ab8dd3ce85baaa57c819181ea69d173c4',1,'pf::filters::rbpf_hmm::initHMMLogProbVec()'],['../classpf_1_1filters_1_1rbpf__hmm__bs.html#a9f7afb09e577b909b53e3fe9d60a240a',1,'pf::filters::rbpf_hmm_bs::initHMMLogProbVec()']]],
+  ['inithmmlogtransmat_50',['initHMMLogTransMat',['../classpf_1_1filters_1_1rbpf__hmm.html#a643f932aff7a371cebbc7906b5fd9ca2',1,'pf::filters::rbpf_hmm::initHMMLogTransMat()'],['../classpf_1_1filters_1_1rbpf__hmm__bs.html#a1b4f2a4f4a594f88ccb5445abfd4dfc9',1,'pf::filters::rbpf_hmm_bs::initHMMLogTransMat()']]],
+  ['initkalmanmean_51',['initKalmanMean',['../classpf_1_1filters_1_1rbpf__kalman.html#a9783aa67d683c68f87af5b345b1ddb47',1,'pf::filters::rbpf_kalman::initKalmanMean()'],['../classpf_1_1filters_1_1rbpf__kalman__bs.html#a692bddc4fb0618b564e7da8648c2f587',1,'pf::filters::rbpf_kalman_bs::initKalmanMean()']]],
+  ['initkalmanvar_52',['initKalmanVar',['../classpf_1_1filters_1_1rbpf__kalman.html#aa3428faf1e3bbd9c3dfb06a5a89a730b',1,'pf::filters::rbpf_kalman::initKalmanVar()'],['../classpf_1_1filters_1_1rbpf__kalman__bs.html#a64a782d1cce79ec9af62f6de43073100',1,'pf::filters::rbpf_kalman_bs::initKalmanVar()']]],
+  ['isv_53',['isv',['../classpf_1_1filters_1_1kalman.html#adcaa7486041b33d2516ac4d35a78adce',1,'pf::filters::kalman']]]
 ];

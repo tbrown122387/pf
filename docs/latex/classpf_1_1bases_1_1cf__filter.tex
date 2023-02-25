@@ -1,0 +1,74 @@
+\hypertarget{classpf_1_1bases_1_1cf__filter}{}\doxysection{pf\+::bases\+::cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1bases_1_1cf__filter}\index{pf::bases::cf\_filter$<$ dimstate, dimobs, float\_t $>$@{pf::bases::cf\_filter$<$ dimstate, dimobs, float\_t $>$}}
+
+
+Abstract Base Class for all closed-\/form filters.  
+
+
+
+
+{\ttfamily \#include $<$pf\+\_\+base.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::bases\+::cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classpf_1_1bases_1_1cf__filter__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1cf__filter_a3b7008e1a0ab66fc72f243d3ad832a0b}\label{classpf_1_1bases_1_1cf__filter_a3b7008e1a0ab66fc72f243d3ad832a0b}} 
+using {\bfseries obs\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1cf__filter_a6c7be6a6a5ab25948db8537425f23393}\label{classpf_1_1bases_1_1cf__filter_a6c7be6a6a5ab25948db8537425f23393}} 
+using {\bfseries state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, 1 $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1cf__filter_a2d4f8dd6da5068bd99034c5a022be357}\label{classpf_1_1bases_1_1cf__filter_a2d4f8dd6da5068bd99034c5a022be357}} 
+virtual \mbox{\hyperlink{classpf_1_1bases_1_1cf__filter_a2d4f8dd6da5068bd99034c5a022be357}{$\sim$cf\+\_\+filter}} ()
+\begin{DoxyCompactList}\small\item\em The (virtual) destructor. \end{DoxyCompactList}\item 
+virtual float\+\_\+t \mbox{\hyperlink{classpf_1_1bases_1_1cf__filter_a10ec3ae01d830d2eac171b81ea543032}{get\+Log\+Cond\+Like}} () const =0
+\begin{DoxyCompactList}\small\item\em returns the log of the most recent conditional likelihood \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t$>$\newline
+class pf\+::bases\+::cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}
+
+Abstract Base Class for all closed-\/form filters. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1cf__filter_a10ec3ae01d830d2eac171b81ea543032}\label{classpf_1_1bases_1_1cf__filter_a10ec3ae01d830d2eac171b81ea543032}} 
+\index{pf::bases::cf\_filter$<$ dimstate, dimobs, float\_t $>$@{pf::bases::cf\_filter$<$ dimstate, dimobs, float\_t $>$}!getLogCondLike@{getLogCondLike}}
+\index{getLogCondLike@{getLogCondLike}!pf::bases::cf\_filter$<$ dimstate, dimobs, float\_t $>$@{pf::bases::cf\_filter$<$ dimstate, dimobs, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{getLogCondLike()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t $>$ \\
+virtual float\+\_\+t \mbox{\hyperlink{classpf_1_1bases_1_1cf__filter}{pf\+::bases\+::cf\+\_\+filter}}$<$ dimstate, dimobs, float\+\_\+t $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns the log of the most recent conditional likelihood 
+
+\begin{DoxyReturn}{Returns}
+log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) or log p(y\+\_\+1) 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classpf_1_1filters_1_1hmm_a102944c0caede66103bda5df46d870c8}{pf\+::filters\+::hmm$<$ dimstate, dimobs, float\+\_\+t, debug $>$}}, and \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a4701f19a04f27e2cd927793d13630e21}{pf\+::filters\+::kalman$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}}\end{DoxyCompactItemize}

@@ -2,7 +2,14 @@
 #define RV_EVAL_H
 
 #include <cstddef> // std::size_t
-#include <Eigen/Dense>
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 #include <iostream> // cerr
 #include "boost/math/special_functions.hpp"
 

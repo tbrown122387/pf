@@ -1,56 +1,78 @@
-\section{Class Hierarchy}
+\doxysection{Class Hierarchy}
 This inheritance list is sorted roughly, but not completely, alphabetically\+:\begin{DoxyCompactList}
-\item \contentsline{section}{B\+S\+Filter\+WC$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t $>$}{\pageref{classBSFilterWC}}{}
-\item \contentsline{section}{cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}{\pageref{classcf__filter}}{}
-\begin{DoxyCompactList}
-\item \contentsline{section}{hmm$<$ dimstate, dimobs, float\+\_\+t $>$}{\pageref{classhmm}}{}
-\item \contentsline{section}{kalman$<$ dimstate, dimobs, diminput, float\+\_\+t $>$}{\pageref{classkalman}}{}
+\item B\+S\+Filter\begin{DoxyCompactList}
+\item \contentsline{section}{acv\+\_\+bs$<$ nparts, dimx, dimy, resampT, float\+\_\+t $>$}{\pageref{classacv__bs}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{cf\+\_\+filter$<$ 1, 1, float\+\_\+t $>$}{\pageref{classcf__filter}}{}
+\item \contentsline{section}{pf\+::bases\+::cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}{\pageref{classpf_1_1bases_1_1cf__filter}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$}{\pageref{classgamFilter}}{}
+\item \contentsline{section}{pf\+::filters\+::hmm$<$ dimstate, dimobs, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1hmm}}{}
+\item \contentsline{section}{pf\+::filters\+::kalman$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1kalman}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{cf\+\_\+filter$<$ 1, dim\+\_\+obs, float\+\_\+t $>$}{\pageref{classcf__filter}}{}
+\item \contentsline{section}{pf\+::bases\+::cf\+\_\+filter$<$ 1, 1, float\+\_\+t $>$}{\pageref{classpf_1_1bases_1_1cf__filter}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$}{\pageref{classmultivGamFilter}}{}
+\item \contentsline{section}{pf\+::filters\+::gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$}{\pageref{classpf_1_1filters_1_1gamFilter}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}{\pageref{classForwardMod}}{}
-\item \contentsline{section}{mn\+\_\+resampler\+\_\+rbpf$<$ nparts, dimsampledx, cf\+ModT, float\+\_\+t $>$}{\pageref{classmn__resampler__rbpf}}{}
-\item \contentsline{section}{pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$}{\pageref{classpf__base}}{}
-\item \contentsline{section}{pf\+\_\+base$<$ float\+\_\+t, dimy, dimx $>$}{\pageref{classpf__base}}{}
+\item \contentsline{section}{pf\+::bases\+::cf\+\_\+filter$<$ 1, dim\+\_\+obs, float\+\_\+t $>$}{\pageref{classpf_1_1bases_1_1cf__filter}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{A\+PF$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classAPF}}{}
-\item \contentsline{section}{B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classBSFilter}}{}
-\item \contentsline{section}{S\+I\+S\+R\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classSISRFilter}}{}
+\item \contentsline{section}{pf\+::filters\+::multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$}{\pageref{classpf_1_1filters_1_1multivGamFilter}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{rbase$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classrbase}}{}
+\item \contentsline{section}{pf\+::bases\+::Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}{\pageref{classpf_1_1bases_1_1ForwardMod}}{}
+\item \contentsline{section}{pf\+::bases\+::Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$}{\pageref{classpf_1_1bases_1_1FutureSimulator}}{}
+\item \contentsline{section}{pf\+::bases\+::Gen\+Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}{\pageref{classpf_1_1bases_1_1GenForwardMod}}{}
+\item \contentsline{section}{pf\+::bases\+::Gen\+Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$}{\pageref{classpf_1_1bases_1_1GenFutureSimulator}}{}
+\item \contentsline{section}{pf\+::resamplers\+::mn\+\_\+resampler\+\_\+rbpf$<$ nparts, dimsampledx, cf\+ModT, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1mn__resampler__rbpf}}{}
+\item \contentsline{section}{pf\+::bases\+::pf\+\_\+base$<$ float\+\_\+t, dimobs, dimstate $>$}{\pageref{classpf_1_1bases_1_1pf__base}}{}
+\item \contentsline{section}{pf\+::bases\+::pf\+\_\+base$<$ float\+\_\+t, dimy, dimx $>$}{\pageref{classpf_1_1bases_1_1pf__base}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classmn__resamp__fast1}}{}
-\item \contentsline{section}{mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classmn__resampler}}{}
-\item \contentsline{section}{resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classresid__resampler}}{}
-\item \contentsline{section}{stratif\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classstratif__resampler}}{}
-\item \contentsline{section}{systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classsystematic__resampler}}{}
+\item \contentsline{section}{pf\+::filters\+::A\+PF$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1APF}}{}
+\item \contentsline{section}{pf\+::filters\+::B\+S\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1BSFilter}}{}
+\item \contentsline{section}{pf\+::filters\+::S\+I\+S\+R\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1SISRFilter}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$}{\pageref{classrbpf__base}}{}
-\item \contentsline{section}{rbpf\+\_\+base$<$ float\+\_\+t, dimss, dimnss, dimy $>$}{\pageref{classrbpf__base}}{}
+\item \contentsline{section}{pf\+::bases\+::pf\+\_\+base\+\_\+crn$<$ float\+\_\+t, dimobs, dimstate, dimu, dimur, numparts $>$}{\pageref{classpf_1_1bases_1_1pf__base__crn}}{}
+\item \contentsline{section}{pf\+::bases\+::pf\+\_\+base\+\_\+crn$<$ float\+\_\+t, dimy, dimx, dimu, dimur, nparts $>$}{\pageref{classpf_1_1bases_1_1pf__base__crn}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{rbpf\+\_\+hmm$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}{\pageref{classrbpf__hmm}}{}
-\item \contentsline{section}{rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}{\pageref{classrbpf__hmm__bs}}{}
-\item \contentsline{section}{rbpf\+\_\+kalman$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}{\pageref{classrbpf__kalman}}{}
-\item \contentsline{section}{rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t $>$}{\pageref{classrbpf__kalman__bs}}{}
+\item \contentsline{section}{pf\+::filters\+::S\+I\+S\+R\+Filter\+C\+RN$<$ nparts, dimx, dimy, dimu, dimur, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1SISRFilterCRN}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{rvsamp\+:\+:rvsamp\+\_\+base}{\pageref{classrvsamp_1_1rvsamp__base}}{}
+\item \contentsline{section}{pf\+::bases\+::pf\+\_\+withcov\+\_\+base$<$ float\+\_\+t, dimobs, dimstate, dimcov $>$}{\pageref{classpf_1_1bases_1_1pf__withcov__base}}{}
+\item \contentsline{section}{pf\+::bases\+::pf\+\_\+withcov\+\_\+base$<$ float\+\_\+t, dimy, dimx, dimcov $>$}{\pageref{classpf_1_1bases_1_1pf__withcov__base}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{rvsamp\+:\+:k\+\_\+gen$<$ nparts, float\+\_\+t $>$}{\pageref{classrvsamp_1_1k__gen}}{}
-\item \contentsline{section}{rvsamp\+:\+:Bern\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}{\pageref{classrvsamp_1_1BernSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:k\+\_\+gen$<$ N, float\+\_\+t $>$}{\pageref{classrvsamp_1_1k__gen}}{}
-\item \contentsline{section}{rvsamp\+:\+:M\+V\+N\+Sampler$<$ dim, float\+\_\+t $>$}{\pageref{classrvsamp_1_1MVNSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:Poisson\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}{\pageref{classrvsamp_1_1PoissonSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}{\pageref{classrvsamp_1_1TruncUnivNormSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:Uniform\+Sampler$<$ float\+\_\+t $>$}{\pageref{classrvsamp_1_1UniformSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:Univ\+Gamma\+Sampler$<$ float\+\_\+t $>$}{\pageref{classrvsamp_1_1UnivGammaSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$}{\pageref{classrvsamp_1_1UnivInvGammaSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$}{\pageref{classrvsamp_1_1UnivLogNormSampler}}{}
-\item \contentsline{section}{rvsamp\+:\+:Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}{\pageref{classrvsamp_1_1UnivNormSampler}}{}
+\item \contentsline{section}{pf\+::filters\+::B\+S\+Filter\+WC$<$ nparts, dimx, dimy, dimcov, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1BSFilterWC}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{pf\+::resamplers\+::rbase$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1rbase}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{pf\+::resamplers\+::mn\+\_\+resamp\+\_\+fast1$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1mn__resamp__fast1}}{}
+\item \contentsline{section}{pf\+::resamplers\+::mn\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1mn__resampler}}{}
+\item \contentsline{section}{pf\+::resamplers\+::resid\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1resid__resampler}}{}
+\item \contentsline{section}{pf\+::resamplers\+::stratif\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1stratif__resampler}}{}
+\item \contentsline{section}{pf\+::resamplers\+::systematic\+\_\+resampler$<$ nparts, dimx, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1systematic__resampler}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{pf\+::resamplers\+::rbase\+\_\+hcs$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1rbase__hcs}}{}
+\item \contentsline{section}{pf\+::resamplers\+::rbase\+\_\+hcs$<$ nparts, dimx, 1, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1rbase__hcs}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$}{\pageref{classpf_1_1resamplers_1_1sys__hilb__resampler}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{pf\+::bases\+::rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$}{\pageref{classpf_1_1bases_1_1rbpf__base}}{}
+\item \contentsline{section}{pf\+::bases\+::rbpf\+\_\+base$<$ float\+\_\+t, dimss, dimnss, dimy $>$}{\pageref{classpf_1_1bases_1_1rbpf__base}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{pf\+::filters\+::rbpf\+\_\+hmm$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1rbpf__hmm}}{}
+\item \contentsline{section}{pf\+::filters\+::rbpf\+\_\+hmm\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1rbpf__hmm__bs}}{}
+\item \contentsline{section}{pf\+::filters\+::rbpf\+\_\+kalman$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1rbpf__kalman}}{}
+\item \contentsline{section}{pf\+::filters\+::rbpf\+\_\+kalman\+\_\+bs$<$ nparts, dimnss, dimss, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}{\pageref{classpf_1_1filters_1_1rbpf__kalman__bs}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{pf\+::rvsamp\+::rvsamp\+\_\+base}{\pageref{classpf_1_1rvsamp_1_1rvsamp__base}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{pf\+::rvsamp\+::k\+\_\+gen$<$ nparts, float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1k__gen}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Bern\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1BernSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Beta\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1BetaSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::k\+\_\+gen$<$ N, float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1k__gen}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::M\+V\+N\+Sampler$<$ dim, float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1MVNSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Poisson\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1PoissonSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1TruncUnivNormSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Uniform\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1UniformSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Univ\+Gamma\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1UnivGammaSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Univ\+Inv\+Gamma\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1UnivInvGammaSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Univ\+Log\+Norm\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1UnivLogNormSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1UnivNormSampler}}{}
+\item \contentsline{section}{pf\+::rvsamp\+::Univ\+Stud\+T\+Sampler$<$ float\+\_\+t $>$}{\pageref{classpf_1_1rvsamp_1_1UnivStudTSampler}}{}
 \end{DoxyCompactList}
 \end{DoxyCompactList}

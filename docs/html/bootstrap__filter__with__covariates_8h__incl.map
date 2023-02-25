@@ -1,3 +1,10 @@
 <map id="include/pf/bootstrap_filter_with_covariates.h" name="include/pf/bootstrap_filter_with_covariates.h">
-<area shape="rect" id="node5" href="$pf__base_8h.html" title="All non Rao&#45;Blackwellized particle filters inherit from this. " alt="" coords="182,95,261,121"/>
+<area shape="rect" id="node1" title="bootstrap particle filter with covariates" alt="" coords="112,5,293,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,85,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="109,95,165,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="143,169,206,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="230,169,333,196"/>
+<area shape="rect" id="node6" href="$pf__base_8h.html" title="All non Rao&#45;Blackwellized particle filters without covariates inherit from this." alt="" coords="291,95,376,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="357,169,408,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="432,169,491,196"/>
 </map>

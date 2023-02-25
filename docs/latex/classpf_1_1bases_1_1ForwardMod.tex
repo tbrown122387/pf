@@ -1,0 +1,106 @@
+\hypertarget{classpf_1_1bases_1_1ForwardMod}{}\doxysection{pf\+::bases\+::Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1bases_1_1ForwardMod}\index{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$@{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$}}
+
+
+{\ttfamily \#include $<$pf\+\_\+base.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1ForwardMod_a51c95240d8d82999fd2ddcef5de04f3e}\label{classpf_1_1bases_1_1ForwardMod_a51c95240d8d82999fd2ddcef5de04f3e}} 
+using {\bfseries a\+Pair} = std\+::pair$<$ std\+::vector$<$ state\+\_\+sized\+\_\+vec $>$, std\+::vector$<$ obs\+\_\+sized\+\_\+vec $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1ForwardMod_ae2a6ba3349365a5f001da88de4bbcf2e}\label{classpf_1_1bases_1_1ForwardMod_ae2a6ba3349365a5f001da88de4bbcf2e}} 
+a\+Pair \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod_ae2a6ba3349365a5f001da88de4bbcf2e}{sim\+\_\+forward}} (unsigned int T)
+\begin{DoxyCompactList}\small\item\em simulates once forward through time from p(x\+\_\+\{1\+:T\}, y\+\_\+\{1\+:T\} $\vert$ theta) \end{DoxyCompactList}\item 
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod_aa7a3fb368ffbe0fd4eca85a3a8fa498b}{mu\+Samp}} ()=0
+\begin{DoxyCompactList}\small\item\em samples from the first time\textquotesingle{}s state distribution \end{DoxyCompactList}\item 
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod_ac56f2dbc9a5620eef32b1d79d3edc075}{f\+Samp}} (const state\+\_\+sized\+\_\+vec \&xtm1)=0
+\begin{DoxyCompactList}\small\item\em returns a sample from the latent Markov transition \end{DoxyCompactList}\item 
+virtual obs\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod_ae08bf5dacdc2f305630a568fba31903d}{g\+Samp}} (const state\+\_\+sized\+\_\+vec \&xt)=0
+\begin{DoxyCompactList}\small\item\em returns a sample for the observed series \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1ForwardMod_aabb6878c530d5040e672f3301324d087}\label{classpf_1_1bases_1_1ForwardMod_aabb6878c530d5040e672f3301324d087}} 
+using {\bfseries obs\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1ForwardMod_ae66f78141872e21a36e4c523d8e0efd2}\label{classpf_1_1bases_1_1ForwardMod_ae66f78141872e21a36e4c523d8e0efd2}} 
+using {\bfseries state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t$>$\newline
+class pf\+::bases\+::\+Forward\+Mod$<$ dimx, dimy, float\+\_\+t $>$}
+
+\begin{DoxyAuthor}{Author}
+Taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1ForwardMod_ac56f2dbc9a5620eef32b1d79d3edc075}\label{classpf_1_1bases_1_1ForwardMod_ac56f2dbc9a5620eef32b1d79d3edc075}} 
+\index{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$@{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$}!fSamp@{fSamp}}
+\index{fSamp@{fSamp}!pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$@{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{fSamp()}{fSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t $>$ \\
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod}{pf\+::bases\+::\+Forward\+Mod}}$<$ dimx, dimy, float\+\_\+t $>$\+::f\+Samp (\begin{DoxyParamCaption}\item[{const state\+\_\+sized\+\_\+vec \&}]{xtm1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample from the latent Markov transition 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & previous time\textquotesingle{}s state vector \\
+\hline
+{\em the} & previous time\textquotesingle{}s observation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a state-\/sized vector for the xt sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1ForwardMod_ae08bf5dacdc2f305630a568fba31903d}\label{classpf_1_1bases_1_1ForwardMod_ae08bf5dacdc2f305630a568fba31903d}} 
+\index{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$@{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$}!gSamp@{gSamp}}
+\index{gSamp@{gSamp}!pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$@{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{gSamp()}{gSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t $>$ \\
+virtual obs\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod}{pf\+::bases\+::\+Forward\+Mod}}$<$ dimx, dimy, float\+\_\+t $>$\+::g\+Samp (\begin{DoxyParamCaption}\item[{const state\+\_\+sized\+\_\+vec \&}]{xt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample for the observed series 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & current time\textquotesingle{}s state \\
+\hline
+{\em the} & previous time\textquotesingle{}s observation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a sample for the observation at this time step 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1ForwardMod_aa7a3fb368ffbe0fd4eca85a3a8fa498b}\label{classpf_1_1bases_1_1ForwardMod_aa7a3fb368ffbe0fd4eca85a3a8fa498b}} 
+\index{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$@{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$}!muSamp@{muSamp}}
+\index{muSamp@{muSamp}!pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$@{pf::bases::ForwardMod$<$ dimx, dimy, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{muSamp()}{muSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t $>$ \\
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1ForwardMod}{pf\+::bases\+::\+Forward\+Mod}}$<$ dimx, dimy, float\+\_\+t $>$\+::mu\+Samp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+samples from the first time\textquotesingle{}s state distribution 
+
+\begin{DoxyReturn}{Returns}
+a state-\/sized vector for the x1 sample 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}}\end{DoxyCompactItemize}

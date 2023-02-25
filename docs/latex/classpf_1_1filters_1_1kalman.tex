@@ -1,0 +1,365 @@
+\hypertarget{classpf_1_1filters_1_1kalman}{}\doxysection{pf\+::filters\+::kalman$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$ Class Template Reference}
+\label{classpf_1_1filters_1_1kalman}\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+
+
+A class template for Kalman filtering.  
+
+
+
+
+{\ttfamily \#include $<$cf\+\_\+filters.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::filters\+::kalman$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{classpf_1_1filters_1_1kalman__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::filters\+::kalman$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{classpf_1_1filters_1_1kalman__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}{ssv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, 1 $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}{osv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, diminput, 1 $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, dimstate $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, dimobs $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, diminput $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, diminput $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, dimstate $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a3385fc84e293dcbc876a5f2840d8b716}{state\+Obs\+Size\+Mat}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, dimobs $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a6b4ee7016bd2dba0b8cd25a36855c307}{kalman}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_afe2c7feac3d82bd9bba2dd958dad65b4}{kalman}} (const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}{ssv}} \&init\+State\+Mean, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&init\+State\+Var)
+\begin{DoxyCompactList}\small\item\em Non-\/default constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a5369cffa38f6cb06fe66172c1e141615}\label{classpf_1_1filters_1_1kalman_a5369cffa38f6cb06fe66172c1e141615}} 
+virtual \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a5369cffa38f6cb06fe66172c1e141615}{$\sim$kalman}} ()
+\begin{DoxyCompactList}\small\item\em The (virtual) destructor. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a4701f19a04f27e2cd927793d13630e21}{get\+Log\+Cond\+Like}} () const
+\begin{DoxyCompactList}\small\item\em returns the log of the latest conditional likelihood. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}{ssv}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a042f2accb4b0091a57729b1d938cc3c8}{get\+Filt\+Mean}} () const
+\begin{DoxyCompactList}\small\item\em Get the current filter mean. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a422734f9eaa7162429e1f25e60f0de78}{get\+Filt\+Var}} () const
+\begin{DoxyCompactList}\small\item\em Get the current filter variance-\/covariance matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}{osv}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a03a16555b815b7767bcbb0877fa7ce37}{get\+Pred\+Y\+Mean}} (const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&state\+Trans, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&obs\+Mat, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} \&state\+Inpt\+Affector, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} \&obs\+Inpt\+Affector, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&input\+Data) const
+\begin{DoxyCompactList}\small\item\em get the one-\/step-\/ahead point forecast for y \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a66a485e49c45c3a2af5b9c584e708ced}{get\+Pred\+Y\+Var}} (const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&state\+Trans, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&chol\+State\+Var, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&obs\+Mat, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} \&chol\+Obs\+Var) const
+\begin{DoxyCompactList}\small\item\em get the one-\/step-\/ahead forecast variance \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a55e0c67e2da14aff34f32e1e26e6018a}{update}} (const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}{osv}} \&yt, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&state\+Trans, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&chol\+State\+Var, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} \&state\+Inpt\+Affector, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&input\+Data, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&obs\+Mat, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} \&obs\+Inpt\+Affector, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} \&chol\+Obs\+Var)
+\begin{DoxyCompactList}\small\item\em Perform a Kalman filter predict-\/and-\/update. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a3440242624e13781203911e9a27047ab}{update\+Prior}} (const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&state\+Trans\+Mat, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&chol\+State\+Var, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} \&state\+Inpt\+Affector, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&input\+Data)
+\begin{DoxyCompactList}\small\item\em Predicts the next state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a2496e92f8292b4cb9c1660c4b4f29bd9}{update\+Posterior}} (const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}{osv}} \&yt, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&obs\+Mat, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} \&obs\+Inpt\+Affector, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&input\+Data, const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} \&chol\+Obs\+Var)
+\begin{DoxyCompactList}\small\item\em Turns prediction into new filtering distribution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a7b9b08416aa1ed26a6145e8b09bf60af}\label{classpf_1_1filters_1_1kalman_a7b9b08416aa1ed26a6145e8b09bf60af}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}{ssv}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7b9b08416aa1ed26a6145e8b09bf60af}{m\+\_\+pred\+Mean}}
+\begin{DoxyCompactList}\small\item\em predictive state mean \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a9d569eeb098cbef3984da167f386b938}\label{classpf_1_1filters_1_1kalman_a9d569eeb098cbef3984da167f386b938}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}{ssv}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a9d569eeb098cbef3984da167f386b938}{m\+\_\+filt\+Mean}}
+\begin{DoxyCompactList}\small\item\em filter mean \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a29a60a1ec1041ffaca7fb015ee035e1c}\label{classpf_1_1filters_1_1kalman_a29a60a1ec1041ffaca7fb015ee035e1c}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a29a60a1ec1041ffaca7fb015ee035e1c}{m\+\_\+pred\+Var}}
+\begin{DoxyCompactList}\small\item\em predictive var matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_aaac52716c925d1b681e309746c8dfc8a}\label{classpf_1_1filters_1_1kalman_aaac52716c925d1b681e309746c8dfc8a}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \mbox{\hyperlink{classpf_1_1filters_1_1kalman_aaac52716c925d1b681e309746c8dfc8a}{m\+\_\+filt\+Var}}
+\begin{DoxyCompactList}\small\item\em filter var matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a43d239b4d2d507c1aa4b88c82349bb36}\label{classpf_1_1filters_1_1kalman_a43d239b4d2d507c1aa4b88c82349bb36}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a43d239b4d2d507c1aa4b88c82349bb36}{m\+\_\+last\+Log\+Cond\+Like}}
+\begin{DoxyCompactList}\small\item\em latest log conditional likelihood \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_acc720737638c3c975f183a1186adc56f}\label{classpf_1_1filters_1_1kalman_acc720737638c3c975f183a1186adc56f}} 
+bool \mbox{\hyperlink{classpf_1_1filters_1_1kalman_acc720737638c3c975f183a1186adc56f}{m\+\_\+fresh}}
+\begin{DoxyCompactList}\small\item\em has data been observed? \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a85bdfb3d65229a6d0ebb8e1b92c4b86e}\label{classpf_1_1filters_1_1kalman_a85bdfb3d65229a6d0ebb8e1b92c4b86e}} 
+const float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a85bdfb3d65229a6d0ebb8e1b92c4b86e}{m\+\_\+pi}}
+\begin{DoxyCompactList}\small\item\em pi \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t, bool debug = false$>$\newline
+class pf\+::filters\+::kalman$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$}
+
+A class template for Kalman filtering. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}\label{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!isv@{isv}}
+\index{isv@{isv}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{isv}{isv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} =  Eigen\+::\+Matrix$<$float\+\_\+t,diminput,1$>$}
+
+\char`\"{}input size vector\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}\label{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!obsStateSizeMat@{obsStateSizeMat}}
+\index{obsStateSizeMat@{obsStateSizeMat}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{obsStateSizeMat}{obsStateSizeMat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimobs,dimstate$>$}
+
+\char`\"{}observation dimension by state dimension -\/sized matrix\char`\"{} \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}\label{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!oiMat@{oiMat}}
+\index{oiMat@{oiMat}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{oiMat}{oiMat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimobs,diminput$>$}
+
+\char`\"{}observation dimension by input dim matrix\char`\"{} \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}\label{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!osMat@{osMat}}
+\index{osMat@{osMat}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{osMat}{osMat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimobs,dimobs$>$}
+
+\char`\"{}observation size matrix\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}\label{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!osv@{osv}}
+\index{osv@{osv}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{osv}{osv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}{osv}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimobs,1$>$}
+
+\char`\"{}observation size vector\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}\label{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!siMat@{siMat}}
+\index{siMat@{siMat}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{siMat}{siMat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimstate,diminput$>$}
+
+\char`\"{}state dim by input dimension matrix\char`\"{} \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}\label{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!ssMat@{ssMat}}
+\index{ssMat@{ssMat}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{ssMat}{ssMat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimstate,dimstate$>$}
+
+\char`\"{}state size matrix\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}\label{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!ssv@{ssv}}
+\index{ssv@{ssv}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}{ssv}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimstate,1$>$}
+
+\char`\"{}state size vector\char`\"{} type alias for linear algebra stuff \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a3385fc84e293dcbc876a5f2840d8b716}\label{classpf_1_1filters_1_1kalman_a3385fc84e293dcbc876a5f2840d8b716}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!stateObsSizeMat@{stateObsSizeMat}}
+\index{stateObsSizeMat@{stateObsSizeMat}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{stateObsSizeMat}{stateObsSizeMat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug = false$>$ \\
+using \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman_a3385fc84e293dcbc876a5f2840d8b716}{state\+Obs\+Size\+Mat}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimstate,dimobs$>$}
+
+"state dimension by observation dimension matrix 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a6b4ee7016bd2dba0b8cd25a36855c307}\label{classpf_1_1filters_1_1kalman_a6b4ee7016bd2dba0b8cd25a36855c307}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!kalman@{kalman}}
+\index{kalman@{kalman}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{kalman()}{kalman()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman}{kalman}}}
+
+
+
+Default constructor. 
+
+Need ths fir constructing default std\+::array$<$$>$s. Fills all vectors and matrices with zeros. \mbox{\Hypertarget{classpf_1_1filters_1_1kalman_afe2c7feac3d82bd9bba2dd958dad65b4}\label{classpf_1_1filters_1_1kalman_afe2c7feac3d82bd9bba2dd958dad65b4}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!kalman@{kalman}}
+\index{kalman@{kalman}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{kalman()}{kalman()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+\mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1kalman}{kalman}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_afdc0a6c3eef20a240e3e418dc110c980}{ssv}} \&}]{init\+State\+Mean,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{init\+State\+Var }\end{DoxyParamCaption})}
+
+
+
+Non-\/default constructor. 
+
+Non-\/default constructor. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a042f2accb4b0091a57729b1d938cc3c8}\label{classpf_1_1filters_1_1kalman_a042f2accb4b0091a57729b1d938cc3c8}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!getFiltMean@{getFiltMean}}
+\index{getFiltMean@{getFiltMean}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{getFiltMean()}{getFiltMean()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::get\+Filt\+Mean}
+
+
+
+Get the current filter mean. 
+
+\begin{DoxyReturn}{Returns}
+E\mbox{[}x\+\_\+t $\vert$ y\+\_\+\{1\+:t\}\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a422734f9eaa7162429e1f25e60f0de78}\label{classpf_1_1filters_1_1kalman_a422734f9eaa7162429e1f25e60f0de78}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!getFiltVar@{getFiltVar}}
+\index{getFiltVar@{getFiltVar}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{getFiltVar()}{getFiltVar()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::get\+Filt\+Var}
+
+
+
+Get the current filter variance-\/covariance matrix. 
+
+\begin{DoxyReturn}{Returns}
+V\mbox{[}x\+\_\+t $\vert$ y\+\_\+\{1\+:t\}\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a4701f19a04f27e2cd927793d13630e21}\label{classpf_1_1filters_1_1kalman_a4701f19a04f27e2cd927793d13630e21}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!getLogCondLike@{getLogCondLike}}
+\index{getLogCondLike@{getLogCondLike}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{getLogCondLike()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::get\+Log\+Cond\+Like\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+returns the log of the latest conditional likelihood. 
+
+\begin{DoxyReturn}{Returns}
+log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) or log p(y\+\_\+1) 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classpf_1_1bases_1_1cf__filter_a10ec3ae01d830d2eac171b81ea543032}{pf\+::bases\+::cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}}.
+
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a03a16555b815b7767bcbb0877fa7ce37}\label{classpf_1_1filters_1_1kalman_a03a16555b815b7767bcbb0877fa7ce37}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!getPredYMean@{getPredYMean}}
+\index{getPredYMean@{getPredYMean}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{getPredYMean()}{getPredYMean()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::get\+Pred\+Y\+Mean (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{state\+Trans,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&}]{obs\+Mat,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} \&}]{state\+Inpt\+Affector,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} \&}]{obs\+Inpt\+Affector,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&}]{input\+Data }\end{DoxyParamCaption}) const}
+
+
+
+get the one-\/step-\/ahead point forecast for y 
+
+\begin{DoxyReturn}{Returns}
+E\mbox{[}y\+\_\+\{t+1\} $\vert$ y\+\_\+\{1\+:t\}, params\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a66a485e49c45c3a2af5b9c584e708ced}\label{classpf_1_1filters_1_1kalman_a66a485e49c45c3a2af5b9c584e708ced}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!getPredYVar@{getPredYVar}}
+\index{getPredYVar@{getPredYVar}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{getPredYVar()}{getPredYVar()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::get\+Pred\+Y\+Var (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{state\+Trans,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{chol\+State\+Var,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&}]{obs\+Mat,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} \&}]{chol\+Obs\+Var }\end{DoxyParamCaption}) const}
+
+
+
+get the one-\/step-\/ahead forecast variance 
+
+\begin{DoxyReturn}{Returns}
+V\mbox{[}y\+\_\+\{t+1\} $\vert$ y\+\_\+\{1\+:t\}, params\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a55e0c67e2da14aff34f32e1e26e6018a}\label{classpf_1_1filters_1_1kalman_a55e0c67e2da14aff34f32e1e26e6018a}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!update@{update}}
+\index{update@{update}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+void \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}{osv}} \&}]{yt,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{state\+Trans,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{chol\+State\+Var,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} \&}]{state\+Inpt\+Affector,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&}]{input\+Data,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&}]{obs\+Mat,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} \&}]{obs\+Inpt\+Affector,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} \&}]{chol\+Obs\+Var }\end{DoxyParamCaption})}
+
+
+
+Perform a Kalman filter predict-\/and-\/update. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yt} & the new data point. \\
+\hline
+{\em state\+Trans} & the transition matrix of the state \\
+\hline
+{\em chol\+State\+Var} & the Cholesky Decomposition of the state noise covariance matrix. \\
+\hline
+{\em state\+Inpt\+Affector} & the matrix affecting how input data affects state transition. \\
+\hline
+{\em input\+Data} & exogenous input data \\
+\hline
+{\em obs\+Mat} & the observation/emission matrix of the observation\textquotesingle{}s conditional (on the state) distn. \\
+\hline
+{\em obs\+Inpt\+Affector} & the matrix affecting how input data affects the observational distribution. \\
+\hline
+{\em chol\+Obs\+Var} & the Cholesky Decomposition of the observatio noise covariance matrix. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a2496e92f8292b4cb9c1660c4b4f29bd9}\label{classpf_1_1filters_1_1kalman_a2496e92f8292b4cb9c1660c4b4f29bd9}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!updatePosterior@{updatePosterior}}
+\index{updatePosterior@{updatePosterior}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{updatePosterior()}{updatePosterior()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+void \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::update\+Posterior (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_aa6c23b3c1480914ffed97a6bec6dead2}{osv}} \&}]{yt,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a69a8a0ebaa566200cc58d167b3b50ec3}{obs\+State\+Size\+Mat}} \&}]{obs\+Mat,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a7c64ea5866cdbbeaaebfc35d85b24402}{oi\+Mat}} \&}]{obs\+Inpt\+Affector,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&}]{input\+Data,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_af2f9740f3c2304c3a2c44084febeff28}{os\+Mat}} \&}]{chol\+Obs\+Var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Turns prediction into new filtering distribution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yt} & \\
+\hline
+{\em obs\+Mat} & \\
+\hline
+{\em obs\+Inpt\+Affector} & \\
+\hline
+{\em input\+Data} & \\
+\hline
+{\em chol\+Obs\+Var} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpf_1_1filters_1_1kalman_a3440242624e13781203911e9a27047ab}\label{classpf_1_1filters_1_1kalman_a3440242624e13781203911e9a27047ab}} 
+\index{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}!updatePrior@{updatePrior}}
+\index{updatePrior@{updatePrior}!pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$@{pf::filters::kalman$<$ dimstate, dimobs, diminput, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{updatePrior()}{updatePrior()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, size\+\_\+t diminput, typename float\+\_\+t , bool debug$>$ \\
+void \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman}}$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$\+::update\+Prior (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{state\+Trans\+Mat,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_a81cf345869a3a55a8a7b0eabee392319}{ss\+Mat}} \&}]{chol\+State\+Var,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_ab7878eb55ba3615d1d8c3309cfb1ffb4}{si\+Mat}} \&}]{state\+Inpt\+Affector,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1kalman_adcaa7486041b33d2516ac4d35a78adce}{isv}} \&}]{input\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Predicts the next state. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]handle diagonal variance matrices, and ensure symmetricness in other ways \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em state\+Trans\+Mat} & \\
+\hline
+{\em chol\+State\+Var} & \\
+\hline
+{\em state\+Inpt\+Affector} & \\
+\hline
+{\em input\+Data} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{cf__filters_8h}{cf\+\_\+filters.\+h}}\end{DoxyCompactItemize}

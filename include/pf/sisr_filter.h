@@ -2,7 +2,13 @@
 #define SISR_FILTER_H
 
 #include <array>
-#include <Eigen/Dense>
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
 
 #include "pf_base.h"
 
@@ -226,9 +232,11 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
             // overwrite stuff
             m_particles[ii] = newSamp;
 
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug) 
                 std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-        
+            #endif
+
         }
        
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
@@ -259,8 +267,10 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
             m_expectations[fId] = numer/denom;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -285,8 +295,10 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
             m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
 
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug) 
                 std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
+            #endif
 
 
         }
@@ -317,8 +329,10 @@ void SISRFilter<nparts,dimx,dimy,resamp_t,float_t, debug>::filter(const osv &dat
             m_expectations[fId] = numer/denom;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -556,9 +570,10 @@ void SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::filter(
             // overwrite stuff
             m_particles[ii] = newSamp;
 
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug) 
                 std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-        
+            #endif
         }
        
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
@@ -589,8 +604,10 @@ void SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::filter(
             m_expectations[fId] = numer/denom;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }
@@ -615,9 +632,10 @@ void SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::filter(
             m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]);
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
 
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug) 
                 std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-
+            #endif
 
         }
        
@@ -647,8 +665,10 @@ void SISRFilterCRN<nparts,dimx,dimy,dimu,dimur,resamp_t,float_t, debug>::filter(
             m_expectations[fId] = numer/denom;
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << ": " << m_expectations[fId].transpose() << "\n";
+            #endif
 
             fId++;
         }

@@ -1,5 +1,5 @@
-\hypertarget{sisr__filter_8h}{}\section{include/pf/sisr\+\_\+filter.h File Reference}
-\label{sisr__filter_8h}\index{include/pf/sisr\+\_\+filter.\+h@{include/pf/sisr\+\_\+filter.\+h}}
+\hypertarget{sisr__filter_8h}{}\doxysection{include/pf/sisr\+\_\+filter.h File Reference}
+\label{sisr__filter_8h}\index{include/pf/sisr\_filter.h@{include/pf/sisr\_filter.h}}
 
 
 S\+I\+SR filter.  
@@ -15,15 +15,19 @@ Include dependency graph for sisr\+\_\+filter.\+h\+:\nopagebreak
 \includegraphics[width=350pt]{sisr__filter_8h__incl}
 \end{center}
 \end{figure}
-\subsection*{Classes}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classSISRFilter}{S\+I\+S\+R\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}
-\begin{DoxyCompactList}\small\item\em A base class for the Sequential Important Sampling with Resampling (S\+I\+SR). \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \mbox{\hyperlink{classpf_1_1filters_1_1SISRFilter}{pf\+::filters\+::\+S\+I\+S\+R\+Filter$<$ nparts, dimx, dimy, resamp\+\_\+t, float\+\_\+t, debug $>$}}
+\begin{DoxyCompactList}\small\item\em A base class for the Sequential Important Sampling with Resampling (S\+I\+SR). \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpf_1_1filters_1_1SISRFilterCRN}{pf\+::filters\+::\+S\+I\+S\+R\+Filter\+C\+R\+N$<$ nparts, dimx, dimy, dimu, dimur, resamp\+\_\+t, float\+\_\+t, debug $>$}}
+\begin{DoxyCompactList}\small\item\em A base class for the Sequential Important Sampling with Resampling (S\+I\+SR). Uses normal common random numbers. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 S\+I\+SR filter. 
+
+S\+I\+SR filter but with common random numbers this time.
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -34,5 +38,25 @@ S\+I\+SR filter.
 {\em the} & size of the observation \\
 \hline
 {\em resamp\+\_\+t} & the type of resampler \\
+\hline
+{\em float\+\_\+t} & the type of floating point numbers used (e.\+g. float or double) \\
+\hline
+{\em debug} & whether to debug or not\\
+\hline
+{\em nparts} & the number of particles \\
+\hline
+{\em dimx} & the size of the state \\
+\hline
+{\em dimy} & the size of the observation \\
+\hline
+{\em dimu} & the size of the normal random vector \\
+\hline
+{\em dimur} & the size of the normal random variables for resampling \\
+\hline
+{\em resamp\+\_\+t} & the type of resampler \\
+\hline
+{\em float\+\_\+t} & the type of floating point numbers used (e.\+g. float or double) \\
+\hline
+{\em debug} & whether to debug or not \\
 \hline
 \end{DoxyTemplParams}

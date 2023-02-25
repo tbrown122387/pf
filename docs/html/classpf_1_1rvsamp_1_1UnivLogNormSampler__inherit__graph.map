@@ -1,0 +1,4 @@
+<map id="pf::rvsamp::UnivLogNormSampler&lt; float_t &gt;" name="pf::rvsamp::UnivLogNormSampler&lt; float_t &gt;">
+<area shape="rect" id="node1" title="A class that performs sampling from a univariate Log&#45;Normal distribution." alt="" coords="5,80,248,121"/>
+<area shape="rect" id="node2" href="$classpf_1_1rvsamp_1_1rvsamp__base.html" title="Base class for all random variable sampler types. Primary benefit is that it sets the seed for you." alt="" coords="33,5,220,32"/>
+</map>

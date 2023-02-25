@@ -1,0 +1,166 @@
+\hypertarget{classpf_1_1bases_1_1GenFutureSimulator}{}\doxysection{pf\+::bases\+::Gen\+Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$ Class Template Reference}
+\label{classpf_1_1bases_1_1GenFutureSimulator}\index{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+
+
+{\ttfamily \#include $<$pf\+\_\+base.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a5e402ae042893374055e2dc05e7987b8}\label{classpf_1_1bases_1_1GenFutureSimulator_a5e402ae042893374055e2dc05e7987b8}} 
+using {\bfseries time\+Pair} = std\+::pair$<$ std\+::array$<$ state\+\_\+sized\+\_\+vec, nparts $>$, std\+::array$<$ obs\+\_\+sized\+\_\+vec, nparts $>$ $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a2eb952ebb931d2f0dc99e4c72e7a9a91}\label{classpf_1_1bases_1_1GenFutureSimulator_a2eb952ebb931d2f0dc99e4c72e7a9a91}} 
+using {\bfseries many\+Pairs} = std\+::vector$<$ time\+Pair $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a404e871e1886be6c6a1dd321d86107c9}\label{classpf_1_1bases_1_1GenFutureSimulator_a404e871e1886be6c6a1dd321d86107c9}} 
+using {\bfseries obs\+Paths} = std\+::vector$<$ std\+::array$<$ obs\+\_\+sized\+\_\+vec, nparts $>$ $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a63edc78dff529fedf4e0a0cab4d0bc1a}\label{classpf_1_1bases_1_1GenFutureSimulator_a63edc78dff529fedf4e0a0cab4d0bc1a}} 
+using {\bfseries state\+Paths} = std\+::vector$<$ std\+::array$<$ state\+\_\+sized\+\_\+vec, nparts $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+many\+Pairs \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator_abd363acbaa11dd7ed6255f72c01ba6bb}{sim\+\_\+future}} (unsigned int num\+\_\+time\+\_\+steps, const obs\+\_\+sized\+\_\+vec \&yt)
+\begin{DoxyCompactList}\small\item\em simulates future state and observations paths from p(x\+\_\+\{t+1\+:T\},y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) \end{DoxyCompactList}\item 
+obs\+Paths \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator_af7efa4c9eaa777cc1c2ee158a056ded4}{sim\+\_\+future\+\_\+obs}} (unsigned int num\+\_\+time\+\_\+steps, const obs\+\_\+sized\+\_\+vec \&yt)
+\begin{DoxyCompactList}\small\item\em simulates future observation paths from p(y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) \end{DoxyCompactList}\item 
+state\+Paths \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator_a68122a3e2bf450eded8c1fefc8305049}{sim\+\_\+future\+\_\+states}} (unsigned int num\+\_\+time\+\_\+steps, const obs\+\_\+sized\+\_\+vec \&yt)
+\begin{DoxyCompactList}\small\item\em simulates future state paths from p(x\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a78c52e0e19ebb57954e6a663595c4345}\label{classpf_1_1bases_1_1GenFutureSimulator_a78c52e0e19ebb57954e6a663595c4345}} 
+virtual std\+::array$<$ state\+\_\+sized\+\_\+vec, nparts $>$ \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator_a78c52e0e19ebb57954e6a663595c4345}{get\+\_\+uwtd\+\_\+samps}} () const =0
+\begin{DoxyCompactList}\small\item\em gets the most recent unweighted samples, to be fed into \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator_abd363acbaa11dd7ed6255f72c01ba6bb}{sim\+\_\+future()}} \end{DoxyCompactList}\item 
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator_ae1ab90f91fb1fd5ed417786d29883504}{f\+Samp}} (const state\+\_\+sized\+\_\+vec \&xtm1, const obs\+\_\+sized\+\_\+vec \&ytm1)=0
+\begin{DoxyCompactList}\small\item\em returns a sample from the latent Markov transition \end{DoxyCompactList}\item 
+virtual obs\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator_a510f76dd33627aac71cb18f5822a3056}{g\+Samp}} (const state\+\_\+sized\+\_\+vec \&xt)=0
+\begin{DoxyCompactList}\small\item\em returns a sample for the observed series \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a17cede6002b2edffd3240848c0584701}\label{classpf_1_1bases_1_1GenFutureSimulator_a17cede6002b2edffd3240848c0584701}} 
+using {\bfseries obs\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_adc6ab1a87e8b687f858e10ef27ff154b}\label{classpf_1_1bases_1_1GenFutureSimulator_adc6ab1a87e8b687f858e10ef27ff154b}} 
+using {\bfseries state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t, size\+\_\+t nparts$>$\newline
+class pf\+::bases\+::\+Gen\+Future\+Simulator$<$ dimx, dimy, float\+\_\+t, nparts $>$}
+
+\begin{DoxyAuthor}{Author}
+Taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_ae1ab90f91fb1fd5ed417786d29883504}\label{classpf_1_1bases_1_1GenFutureSimulator_ae1ab90f91fb1fd5ed417786d29883504}} 
+\index{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!fSamp@{fSamp}}
+\index{fSamp@{fSamp}!pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{fSamp()}{fSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+virtual state\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator}{pf\+::bases\+::\+Gen\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::f\+Samp (\begin{DoxyParamCaption}\item[{const state\+\_\+sized\+\_\+vec \&}]{xtm1,  }\item[{const obs\+\_\+sized\+\_\+vec \&}]{ytm1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample from the latent Markov transition 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & previous time\textquotesingle{}s state value \\
+\hline
+{\em the} & previous time\textquotesingle{}s observed value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a state-\/sized vector for the xt sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a510f76dd33627aac71cb18f5822a3056}\label{classpf_1_1bases_1_1GenFutureSimulator_a510f76dd33627aac71cb18f5822a3056}} 
+\index{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!gSamp@{gSamp}}
+\index{gSamp@{gSamp}!pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{gSamp()}{gSamp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+virtual obs\+\_\+sized\+\_\+vec \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator}{pf\+::bases\+::\+Gen\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::g\+Samp (\begin{DoxyParamCaption}\item[{const state\+\_\+sized\+\_\+vec \&}]{xt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+returns a sample for the observed series 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & current time step\textquotesingle{}s state value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an observation sample for the current time step 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_abd363acbaa11dd7ed6255f72c01ba6bb}\label{classpf_1_1bases_1_1GenFutureSimulator_abd363acbaa11dd7ed6255f72c01ba6bb}} 
+\index{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!sim\_future@{sim\_future}}
+\index{sim\_future@{sim\_future}!pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{sim\_future()}{sim\_future()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+auto \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator}{pf\+::bases\+::\+Gen\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::sim\+\_\+future (\begin{DoxyParamCaption}\item[{unsigned int}]{num\+\_\+time\+\_\+steps,  }\item[{const obs\+\_\+sized\+\_\+vec \&}]{yt }\end{DoxyParamCaption})}
+
+
+
+simulates future state and observations paths from p(x\+\_\+\{t+1\+:T\},y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number} & of time steps into the future you want to simulate \\
+\hline
+{\em the} & most recent observation that you have available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one state path and one observation path for each state sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_af7efa4c9eaa777cc1c2ee158a056ded4}\label{classpf_1_1bases_1_1GenFutureSimulator_af7efa4c9eaa777cc1c2ee158a056ded4}} 
+\index{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!sim\_future\_obs@{sim\_future\_obs}}
+\index{sim\_future\_obs@{sim\_future\_obs}!pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{sim\_future\_obs()}{sim\_future\_obs()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+auto \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator}{pf\+::bases\+::\+Gen\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::sim\+\_\+future\+\_\+obs (\begin{DoxyParamCaption}\item[{unsigned int}]{num\+\_\+time\+\_\+steps,  }\item[{const obs\+\_\+sized\+\_\+vec \&}]{yt }\end{DoxyParamCaption})}
+
+
+
+simulates future observation paths from p(y\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number} & of time steps into the future you want to simulate \\
+\hline
+{\em the} & most recent observation that you have available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one observation path for each state sample 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1bases_1_1GenFutureSimulator_a68122a3e2bf450eded8c1fefc8305049}\label{classpf_1_1bases_1_1GenFutureSimulator_a68122a3e2bf450eded8c1fefc8305049}} 
+\index{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}!sim\_future\_states@{sim\_future\_states}}
+\index{sim\_future\_states@{sim\_future\_states}!pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$@{pf::bases::GenFutureSimulator$<$ dimx, dimy, float\_t, nparts $>$}}
+\doxysubsubsection{\texorpdfstring{sim\_future\_states()}{sim\_future\_states()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimx, size\+\_\+t dimy, typename float\+\_\+t , size\+\_\+t nparts$>$ \\
+auto \mbox{\hyperlink{classpf_1_1bases_1_1GenFutureSimulator}{pf\+::bases\+::\+Gen\+Future\+Simulator}}$<$ dimx, dimy, float\+\_\+t, nparts $>$\+::sim\+\_\+future\+\_\+states (\begin{DoxyParamCaption}\item[{unsigned int}]{num\+\_\+time\+\_\+steps,  }\item[{const obs\+\_\+sized\+\_\+vec \&}]{yt }\end{DoxyParamCaption})}
+
+
+
+simulates future state paths from p(x\+\_\+\{t+1\+:T\} $\vert$ y\+\_\+\{1\+:t\}, theta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number} & of time steps into the future you want to simulate \\
+\hline
+{\em the} & most recent observation that you have available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one state path for each state sample 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}}\end{DoxyCompactItemize}

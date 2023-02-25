@@ -1,13 +1,14 @@
-\hypertarget{cf__filters_8h}{}\section{include/pf/cf\+\_\+filters.h File Reference}
-\label{cf__filters_8h}\index{include/pf/cf\+\_\+filters.\+h@{include/pf/cf\+\_\+filters.\+h}}
+\hypertarget{cf__filters_8h}{}\doxysection{include/pf/cf\+\_\+filters.h File Reference}
+\label{cf__filters_8h}\index{include/pf/cf\_filters.h@{include/pf/cf\_filters.h}}
 
 
-forces structure on the closed-\/form filters.  
+Inherit from this for a model that admits Kalman filtering.  
 
 
 {\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
 {\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}rv\+\_\+eval.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pf\+\_\+base.\+h\char`\"{}}\newline
 Include dependency graph for cf\+\_\+filters.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -19,29 +20,27 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=187pt]{cf__filters_8h__dep__incl}
+\includegraphics[width=199pt]{cf__filters_8h__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Classes}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classcf__filter}{cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}
-\begin{DoxyCompactList}\small\item\em Abstract Base Class for all closed-\/form filters. \end{DoxyCompactList}\item 
-class \hyperlink{classkalman}{kalman$<$ dimstate, dimobs, diminput, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1filters_1_1kalman}{pf\+::filters\+::kalman$<$ dimstate, dimobs, diminput, float\+\_\+t, debug $>$}}
 \begin{DoxyCompactList}\small\item\em A class template for Kalman filtering. \end{DoxyCompactList}\item 
-class \hyperlink{classhmm}{hmm$<$ dimstate, dimobs, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm$<$ dimstate, dimobs, float\+\_\+t, debug $>$}}
 \begin{DoxyCompactList}\small\item\em A class template for H\+MM filtering. \end{DoxyCompactList}\item 
-class \hyperlink{classgamFilter}{gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1filters_1_1gamFilter}{pf\+::filters\+::gam\+Filter$<$ dim\+\_\+pred, float\+\_\+t $>$}}
 \begin{DoxyCompactList}\small\item\em A class template for Gamma filtering. \end{DoxyCompactList}\item 
-class \hyperlink{classmultivGamFilter}{multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$}
+class \mbox{\hyperlink{classpf_1_1filters_1_1multivGamFilter}{pf\+::filters\+::multiv\+Gam\+Filter$<$ dim\+\_\+obs, dim\+\_\+pred, float\+\_\+t $>$}}
 \begin{DoxyCompactList}\small\item\em Another class template for Gamma filtering, but this time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-forces structure on the closed-\/form filters. 
+\doxysubsection{Detailed Description}
+Inherit from this for a model that admits Kalman filtering. 
+
+forces structure on the closed-\/form filters.
 
 Inherit from this for a model that admits Gamma filtering.
 
 Inherit from this for a model that admits H\+MM filtering.
-
-Inherit from this for a model that admits Kalman filtering.

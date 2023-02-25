@@ -1,0 +1,69 @@
+\hypertarget{classpf_1_1bases_1_1rbpf__base}{}\doxysection{pf\+::bases\+::rbpf\+\_\+base$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$ Class Template Reference}
+\label{classpf_1_1bases_1_1rbpf__base}\index{pf::bases::rbpf\_base$<$ float\_t, dim\_s\_state, dim\_ns\_state, dimobs $>$@{pf::bases::rbpf\_base$<$ float\_t, dim\_s\_state, dim\_ns\_state, dimobs $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_a8505444c340c676659e0880dab0c87e6}\label{classpf_1_1bases_1_1rbpf__base_a8505444c340c676659e0880dab0c87e6}} 
+using {\bfseries obs\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_aee3c8f9d14b9597c370f2ae5c84c7f5a}\label{classpf_1_1bases_1_1rbpf__base_aee3c8f9d14b9597c370f2ae5c84c7f5a}} 
+using {\bfseries sampled\+\_\+state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_a0991576cf5bf8a9de635225c17273f81}\label{classpf_1_1bases_1_1rbpf__base_a0991576cf5bf8a9de635225c17273f81}} 
+using {\bfseries not\+\_\+sampled\+\_\+state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dim\+\_\+ns\+\_\+state, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_ac19a95419067ae18e5616a89c0a5c650}\label{classpf_1_1bases_1_1rbpf__base_ac19a95419067ae18e5616a89c0a5c650}} 
+using {\bfseries dynamic\+\_\+matrix} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_aa76b9d6219cf2a19b0ffd5ce60ee67fa}\label{classpf_1_1bases_1_1rbpf__base_aa76b9d6219cf2a19b0ffd5ce60ee67fa}} 
+using {\bfseries func} = std\+::function$<$ const dynamic\+\_\+matrix(const not\+\_\+sampled\+\_\+state\+\_\+sized\+\_\+vec \&, const sampled\+\_\+state\+\_\+sized\+\_\+vec \&)$>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_a5ec9a5aaadc3e46c0c595be4f02bf981}\label{classpf_1_1bases_1_1rbpf__base_a5ec9a5aaadc3e46c0c595be4f02bf981}} 
+using {\bfseries func\+\_\+vec} = std\+::vector$<$ func $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classpf_1_1bases_1_1rbpf__base_a3a4f329a2955a9f9a73ca6c132730428}{filter}} (const obs\+\_\+sized\+\_\+vec \&data, const func\+\_\+vec \&fs=func\+\_\+vec())=0
+\begin{DoxyCompactList}\small\item\em the filtering function that must be defined \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_af43e3abb3e3fa16bd112b57bbee6d4f6}\label{classpf_1_1bases_1_1rbpf__base_af43e3abb3e3fa16bd112b57bbee6d4f6}} 
+virtual \mbox{\hyperlink{classpf_1_1bases_1_1rbpf__base_af43e3abb3e3fa16bd112b57bbee6d4f6}{$\sim$rbpf\+\_\+base}} ()
+\begin{DoxyCompactList}\small\item\em virtual destructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_a85065a4a5d73ca8066336dc6d536e868}\label{classpf_1_1bases_1_1rbpf__base_a85065a4a5d73ca8066336dc6d536e868}} 
+static constexpr unsigned int {\bfseries dim\+\_\+sampled\+\_\+state} = dim\+\_\+s\+\_\+state
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_a609a4df06a9298b21ce3a9bcce5eafa2}\label{classpf_1_1bases_1_1rbpf__base_a609a4df06a9298b21ce3a9bcce5eafa2}} 
+static constexpr unsigned int {\bfseries dim\+\_\+not\+\_\+sampled\+\_\+state} = dim\+\_\+ns\+\_\+state
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_a6df905f5d5dceed1cbe25c12e8635107}\label{classpf_1_1bases_1_1rbpf__base_a6df905f5d5dceed1cbe25c12e8635107}} 
+static constexpr unsigned int {\bfseries dim\+\_\+obs} = dimobs
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1rbpf__base_a3a4f329a2955a9f9a73ca6c132730428}\label{classpf_1_1bases_1_1rbpf__base_a3a4f329a2955a9f9a73ca6c132730428}} 
+\index{pf::bases::rbpf\_base$<$ float\_t, dim\_s\_state, dim\_ns\_state, dimobs $>$@{pf::bases::rbpf\_base$<$ float\_t, dim\_s\_state, dim\_ns\_state, dimobs $>$}!filter@{filter}}
+\index{filter@{filter}!pf::bases::rbpf\_base$<$ float\_t, dim\_s\_state, dim\_ns\_state, dimobs $>$@{pf::bases::rbpf\_base$<$ float\_t, dim\_s\_state, dim\_ns\_state, dimobs $>$}}
+\doxysubsubsection{\texorpdfstring{filter()}{filter()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , size\+\_\+t dim\+\_\+s\+\_\+state, size\+\_\+t dim\+\_\+ns\+\_\+state, size\+\_\+t dimobs$>$ \\
+virtual void \mbox{\hyperlink{classpf_1_1bases_1_1rbpf__base}{pf\+::bases\+::rbpf\+\_\+base}}$<$ float\+\_\+t, dim\+\_\+s\+\_\+state, dim\+\_\+ns\+\_\+state, dimobs $>$\+::filter (\begin{DoxyParamCaption}\item[{const obs\+\_\+sized\+\_\+vec \&}]{data,  }\item[{const func\+\_\+vec \&}]{fs = {\ttfamily func\+\_\+vec()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+the filtering function that must be defined 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & the most recent observation \\
+\hline
+{\em filter} & functions whose expected value approx. is computed at each time step \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}}\end{DoxyCompactItemize}

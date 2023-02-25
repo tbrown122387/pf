@@ -4,7 +4,14 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <Eigen/Dense>
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 
 
 namespace pf {

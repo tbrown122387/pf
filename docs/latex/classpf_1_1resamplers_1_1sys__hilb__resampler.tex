@@ -1,0 +1,125 @@
+\hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler}{}\doxysection{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1resamplers_1_1sys__hilb__resampler}\index{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}}
+
+
+{\ttfamily \#include $<$resamplers.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{classpf_1_1resamplers_1_1sys__hilb__resampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{classpf_1_1resamplers_1_1sys__hilb__resampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_aa22d34c47717a305e0b486a0a1b49beb}{ssv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a30ba0b97d922b8c418733bfef91e158d}{array\+Vec}} = std\+::array$<$ \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_aa22d34c47717a305e0b486a0a1b49beb}{ssv}}, nparts $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a0a7ae2067acdb68e9d3c0bbeb25d35ea}{array\+Float}} = std\+::array$<$ float\+\_\+t, nparts $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a66c52566da1169ac4bc1bb00099a65f0}{array\+Int}} = std\+::array$<$ unsigned int, nparts $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_afbdeaa5b0c26d7cda805eac339e26d6c}{usvr}} = Eigen\+::\+Matrix$<$ float\+\_\+t, 1, 1 $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler_a02fab84a372e7cd6b5050732461f122e}\label{classpf_1_1resamplers_1_1sys__hilb__resampler_a02fab84a372e7cd6b5050732461f122e}} 
+\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a02fab84a372e7cd6b5050732461f122e}{sys\+\_\+hilb\+\_\+resampler}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. This class does not handle random numbers, so there is no seed-\/setting. ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a2b06164cf9757d496c07def98ac2101c}{resamp\+Log\+Wts}} (\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a30ba0b97d922b8c418733bfef91e158d}{array\+Vec}} \&old\+Parts, \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a0a7ae2067acdb68e9d3c0bbeb25d35ea}{array\+Float}} \&old\+Log\+Un\+Norm\+Wts, const \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_afbdeaa5b0c26d7cda805eac339e26d6c}{usvr}} \&ur)
+\begin{DoxyCompactList}\small\item\em resamples particles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t$>$\newline
+class pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$}
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+08/06/21 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler_a0a7ae2067acdb68e9d3c0bbeb25d35ea}\label{classpf_1_1resamplers_1_1sys__hilb__resampler_a0a7ae2067acdb68e9d3c0bbeb25d35ea}} 
+\index{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}!arrayFloat@{arrayFloat}}
+\index{arrayFloat@{arrayFloat}!pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{arrayFloat}{arrayFloat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler}}$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a0a7ae2067acdb68e9d3c0bbeb25d35ea}{array\+Float}} =  std\+::array$<$float\+\_\+t,nparts$>$}
+
+type alias for array of float\+\_\+ts \mbox{\Hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler_a66c52566da1169ac4bc1bb00099a65f0}\label{classpf_1_1resamplers_1_1sys__hilb__resampler_a66c52566da1169ac4bc1bb00099a65f0}} 
+\index{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}!arrayInt@{arrayInt}}
+\index{arrayInt@{arrayInt}!pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{arrayInt}{arrayInt}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler}}$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a66c52566da1169ac4bc1bb00099a65f0}{array\+Int}} =  std\+::array$<$unsigned int, nparts$>$}
+
+type alias for array of integers \mbox{\Hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler_a30ba0b97d922b8c418733bfef91e158d}\label{classpf_1_1resamplers_1_1sys__hilb__resampler_a30ba0b97d922b8c418733bfef91e158d}} 
+\index{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}!arrayVec@{arrayVec}}
+\index{arrayVec@{arrayVec}!pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{arrayVec}{arrayVec}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler}}$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a30ba0b97d922b8c418733bfef91e158d}{array\+Vec}} =  std\+::array$<$\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_aa22d34c47717a305e0b486a0a1b49beb}{ssv}}, nparts$>$}
+
+type alias for array of Eigen Matrices \mbox{\Hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler_aa22d34c47717a305e0b486a0a1b49beb}\label{classpf_1_1resamplers_1_1sys__hilb__resampler_aa22d34c47717a305e0b486a0a1b49beb}} 
+\index{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}!ssv@{ssv}}
+\index{ssv@{ssv}!pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler}}$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_aa22d34c47717a305e0b486a0a1b49beb}{ssv}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
+
+type alias for linear algebra stuff \mbox{\Hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler_afbdeaa5b0c26d7cda805eac339e26d6c}\label{classpf_1_1resamplers_1_1sys__hilb__resampler_afbdeaa5b0c26d7cda805eac339e26d6c}} 
+\index{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}!usvr@{usvr}}
+\index{usvr@{usvr}!pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{usvr}{usvr}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler}}$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_afbdeaa5b0c26d7cda805eac339e26d6c}{usvr}} =  Eigen\+::\+Matrix$<$float\+\_\+t,1,1$>$}
+
+type alias for resampling normal random variable 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1sys__hilb__resampler_a2b06164cf9757d496c07def98ac2101c}\label{classpf_1_1resamplers_1_1sys__hilb__resampler_a2b06164cf9757d496c07def98ac2101c}} 
+\index{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}!resampLogWts@{resampLogWts}}
+\index{resampLogWts@{resampLogWts}!pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$@{pf::resamplers::sys\_hilb\_resampler$<$ nparts, dimx, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{resampLogWts()}{resampLogWts()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+void \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler}{pf\+::resamplers\+::sys\+\_\+hilb\+\_\+resampler}}$<$ nparts, dimx, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::resamp\+Log\+Wts (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a30ba0b97d922b8c418733bfef91e158d}{array\+Vec}} \&}]{old\+Parts,  }\item[{\mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_a0a7ae2067acdb68e9d3c0bbeb25d35ea}{array\+Float}} \&}]{old\+Log\+Un\+Norm\+Wts,  }\item[{const \mbox{\hyperlink{classpf_1_1resamplers_1_1sys__hilb__resampler_afbdeaa5b0c26d7cda805eac339e26d6c}{usvr}} \&}]{ur }\end{DoxyParamCaption})}
+
+
+
+resamples particles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\+Parts} & the old particles that get changed in place \\
+\hline
+{\em old\+Log\+Un\+Norm\+Wts} & the old log unnormalized weights that get changed in place \\
+\hline
+{\em ur} & standard normal random variable used to resample indexes \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{resamplers_8h}{resamplers.\+h}}\end{DoxyCompactItemize}

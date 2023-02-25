@@ -1,0 +1,94 @@
+\hypertarget{classacv__bs}{}\doxysection{acv\+\_\+bs$<$ nparts, dimx, dimy, resampT, float\+\_\+t $>$ Class Template Reference}
+\label{classacv__bs}\index{acv\_bs$<$ nparts, dimx, dimy, resampT, float\_t $>$@{acv\_bs$<$ nparts, dimx, dimy, resampT, float\_t $>$}}
+
+
+Inheritance diagram for acv\+\_\+bs$<$ nparts, dimx, dimy, resampT, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{classacv__bs__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for acv\+\_\+bs$<$ nparts, dimx, dimy, resampT, float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{classacv__bs__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classacv__bs_a28df7548429ecd399e26d6036d874723}\label{classacv__bs_a28df7548429ecd399e26d6036d874723}} 
+using {\bfseries ssv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+\mbox{\Hypertarget{classacv__bs_aa2471fcd8cc380903d0c896b7a295d12}\label{classacv__bs_aa2471fcd8cc380903d0c896b7a295d12}} 
+using {\bfseries osv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, 1 $>$
+\item 
+\mbox{\Hypertarget{classacv__bs_ada07cd53f5fa1e5e814aa369a4d52b0e}\label{classacv__bs_ada07cd53f5fa1e5e814aa369a4d52b0e}} 
+using {\bfseries ssm} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, dimx $>$
+\item 
+\mbox{\Hypertarget{classacv__bs_a130c57254f418027f74c9f7caa568c78}\label{classacv__bs_a130c57254f418027f74c9f7caa568c78}} 
+using {\bfseries osm} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, dimy $>$
+\item 
+\mbox{\Hypertarget{classacv__bs_a13a7d24214d67a3165e8175f30135248}\label{classacv__bs_a13a7d24214d67a3165e8175f30135248}} 
+using {\bfseries esm} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimy, dimx $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classacv__bs_adc679aacbb11b4add1f853f7bb0e28a5}\label{classacv__bs_adc679aacbb11b4add1f853f7bb0e28a5}} 
+{\bfseries acv\+\_\+bs} (float\+\_\+t var\+\_\+s0, float\+\_\+t var\+\_\+u0, float\+\_\+t var\+\_\+s, float\+\_\+t var\+\_\+u, float\+\_\+t scale\+\_\+y, float\+\_\+t nu\+\_\+y, float\+\_\+t Delta)
+\item 
+\mbox{\Hypertarget{classacv__bs_a79af09310c6a9fc200f95365f79603b1}\label{classacv__bs_a79af09310c6a9fc200f95365f79603b1}} 
+float\+\_\+t {\bfseries log\+Q1\+Ev} (const ssv \&x1, const osv \&y1)
+\item 
+\mbox{\Hypertarget{classacv__bs_a3ea23d829461563d486fe18c6a7308ab}\label{classacv__bs_a3ea23d829461563d486fe18c6a7308ab}} 
+float\+\_\+t {\bfseries log\+Mu\+Ev} (const ssv \&x1)
+\item 
+\mbox{\Hypertarget{classacv__bs_a4d660b26f18d7f788e11e12da1db6a5d}\label{classacv__bs_a4d660b26f18d7f788e11e12da1db6a5d}} 
+float\+\_\+t {\bfseries log\+G\+Ev} (const osv \&yt, const ssv \&xt)
+\item 
+\mbox{\Hypertarget{classacv__bs_af9f890a083cca657cfb4a97456df1c43}\label{classacv__bs_af9f890a083cca657cfb4a97456df1c43}} 
+auto {\bfseries f\+Samp} (const ssv \&xtm1) -\/$>$ ssv
+\item 
+\mbox{\Hypertarget{classacv__bs_a44a7c9c206ae2d618ff52a68bb1b16d0}\label{classacv__bs_a44a7c9c206ae2d618ff52a68bb1b16d0}} 
+auto {\bfseries q1\+Samp} (const osv \&y1) -\/$>$ ssv
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classacv__bs_a8d788a40b63ba09c55aaa9a6aa0d6585}\label{classacv__bs_a8d788a40b63ba09c55aaa9a6aa0d6585}} 
+float\+\_\+t {\bfseries m\+\_\+var\+\_\+s0}
+\item 
+\mbox{\Hypertarget{classacv__bs_a375832f79d17a01074e2896232d51347}\label{classacv__bs_a375832f79d17a01074e2896232d51347}} 
+float\+\_\+t {\bfseries m\+\_\+var\+\_\+u0}
+\item 
+\mbox{\Hypertarget{classacv__bs_af74b32250a8f651ef6569ddb4c267e44}\label{classacv__bs_af74b32250a8f651ef6569ddb4c267e44}} 
+float\+\_\+t {\bfseries m\+\_\+nu\+\_\+y}
+\item 
+\mbox{\Hypertarget{classacv__bs_a9cf40c6ba19ff7cd998af0ffe206719a}\label{classacv__bs_a9cf40c6ba19ff7cd998af0ffe206719a}} 
+ssm {\bfseries m\+\_\+A}
+\item 
+\mbox{\Hypertarget{classacv__bs_ac9715c7281bdda361626d136d5f02e43}\label{classacv__bs_ac9715c7281bdda361626d136d5f02e43}} 
+esm {\bfseries m\+\_\+B}
+\item 
+\mbox{\Hypertarget{classacv__bs_a8d78668d121b89f1472a6821055a0d20}\label{classacv__bs_a8d78668d121b89f1472a6821055a0d20}} 
+osm {\bfseries m\+\_\+obs\+\_\+shape\+\_\+mat}
+\item 
+\mbox{\Hypertarget{classacv__bs_a8f94fad86592bf69a83a9c69fb407297}\label{classacv__bs_a8f94fad86592bf69a83a9c69fb407297}} 
+rvsamp\+::\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$ {\bfseries m\+\_\+std\+Norm\+Sampler}
+\item 
+\mbox{\Hypertarget{classacv__bs_aad419865ddbe322ebe88c7d3947dc787}\label{classacv__bs_aad419865ddbe322ebe88c7d3947dc787}} 
+rvsamp\+::\+Univ\+Stud\+T\+Sampler$<$ float\+\_\+t $>$ {\bfseries m\+\_\+t\+\_\+sampler}
+\item 
+\mbox{\Hypertarget{classacv__bs_abd5bf7b7251884361fa4d41b99bb2a6a}\label{classacv__bs_abd5bf7b7251884361fa4d41b99bb2a6a}} 
+rvsamp\+::\+M\+V\+N\+Sampler$<$ dimx, float\+\_\+t $>$ {\bfseries m\+\_\+state\+\_\+error\+\_\+sampler}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+smctc\+\_\+comparison\+\_\+example/acv\+\_\+bs.\+h\end{DoxyCompactItemize}

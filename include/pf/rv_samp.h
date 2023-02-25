@@ -2,7 +2,14 @@
 #define RV_SAMP_H
 
 #include <chrono>
-#include <Eigen/Dense> //linear algebra stuff
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 #include <random>
 
 

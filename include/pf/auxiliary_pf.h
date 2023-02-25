@@ -4,7 +4,14 @@
 #include <array> //array
 #include <vector> // vector
 #include <functional> // function
-#include <Eigen/Dense>
+
+#ifdef DROPPINGTHISINRPACKAGE
+    #include <RcppEigen.h>
+    // [[Rcpp::depends(RcppEigen)]]
+#else
+    #include <Eigen/Dense>
+#endif
+
 #include <cmath>
 
 #include "pf_base.h"
@@ -202,11 +209,14 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
                 m2 = logFirstStageUnNormWeights[ii];
             
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug) {
                 std::cout << "time: " << m_now 
                           << ", first stage log unnorm weight: " << logFirstStageUnNormWeights[ii] 
                           << "\n";
             }
+            #endif
+
 
         }
                
@@ -232,11 +242,14 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
             muT                     = propMu(xtm1k); 
             m_logUnNormWeights[ii] += logGEv(data, m_particles[ii]) - logGEv(data, muT);
             
+            
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug){ 
                 std::cout << "time: " << m_now 
                           << ", transposed sample: " << m_particles[ii].transpose() 
                           << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
             }
+            #endif
 
             // update m1
             if(m_logUnNormWeights[ii] > m1)
@@ -248,8 +261,10 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
              first_cll_sum += std::exp( m_logUnNormWeights[p] - m1 );
         m_logLastCondLike = m1 + std::log(first_cll_sum) + m2 + std::log(second_cll_sum) - 2*m3 - 2*std::log(third_cll_sum);
 
+        #ifndef DROPPINGTHISINRPACKAGE
         if constexpr(debug) 
             std::cout << "time: " << m_now << ", log cond like: " << m_logLastCondLike << "\n";
+	    #endif
 
         // calculate expectations before you resample
         unsigned int fId(0);
@@ -267,8 +282,10 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
             }
             m_expectations[fId] = numer/denom;
 
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << "; " << m_expectations[fId] << "\n";
+            #endif
 
             fId++;
         }
@@ -292,12 +309,14 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
             m_logUnNormWeights[ii] -= logQ1Ev(m_particles[ii], data);
 
             // print stuff if debug mode is on
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug) {
                 std::cout << "time: " << m_now 
                           << ", log unnorm weight: " << m_logUnNormWeights[ii] 
                           << ", transposed sample: " << m_particles[ii].transpose()
                           << "\n";
             }
+            #endif
 
             // update maximum
             if( m_logUnNormWeights[ii] > max)
@@ -327,8 +346,10 @@ void APF<nparts, dimx, dimy, resamp_t, float_t, debug>::filter(const osv &data, 
             }
             m_expectations[fId] = numer/denom;
 
+            #ifndef DROPPINGTHISINRPACKAGE
             if constexpr(debug)
                 std::cout << "transposed expectation " << fId << "; " << m_expectations[fId] << "\n";
+            #endif
 
             fId++;
         }

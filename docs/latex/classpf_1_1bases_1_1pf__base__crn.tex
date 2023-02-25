@@ -1,0 +1,88 @@
+\hypertarget{classpf_1_1bases_1_1pf__base__crn}{}\doxysection{pf\+::bases\+::pf\+\_\+base\+\_\+crn$<$ float\+\_\+t, dimobs, dimstate, dimu, dimur, numparts $>$ Class Template Reference}
+\label{classpf_1_1bases_1_1pf__base__crn}\index{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$@{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_abd5cf21a03504f616627e2cbab4194dd}\label{classpf_1_1bases_1_1pf__base__crn_abd5cf21a03504f616627e2cbab4194dd}} 
+using {\bfseries float\+\_\+type} = float\+\_\+t
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_a0e8e469554a127587ea3c20e21b6796e}\label{classpf_1_1bases_1_1pf__base__crn_a0e8e469554a127587ea3c20e21b6796e}} 
+using {\bfseries obs\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_a66a9ad0e7065b621832d9201a89fa0a9}\label{classpf_1_1bases_1_1pf__base__crn_a66a9ad0e7065b621832d9201a89fa0a9}} 
+using {\bfseries state\+\_\+sized\+\_\+vec} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_a403190bd33f4d4e82147d610d76a342b}\label{classpf_1_1bases_1_1pf__base__crn_a403190bd33f4d4e82147d610d76a342b}} 
+using {\bfseries dynamic\+\_\+matrix} = Eigen\+::\+Matrix$<$ float\+\_\+t, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_a7a56ce884a5f8a3ca6e51ddb969c8055}\label{classpf_1_1bases_1_1pf__base__crn_a7a56ce884a5f8a3ca6e51ddb969c8055}} 
+using {\bfseries func} = std\+::function$<$ const dynamic\+\_\+matrix(const state\+\_\+sized\+\_\+vec \&)$>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_ae60da740c65ca2c52b03452674edc815}\label{classpf_1_1bases_1_1pf__base__crn_ae60da740c65ca2c52b03452674edc815}} 
+using {\bfseries func\+\_\+vec} = std\+::vector$<$ func $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_ad9500f05bb3476eee342d75296c9c28f}\label{classpf_1_1bases_1_1pf__base__crn_ad9500f05bb3476eee342d75296c9c28f}} 
+using {\bfseries usv} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimu, 1 $>$
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_acf2ee64d8f027172a9afc8385c83aee2}\label{classpf_1_1bases_1_1pf__base__crn_acf2ee64d8f027172a9afc8385c83aee2}} 
+using {\bfseries usvr} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimur, 1 $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classpf_1_1bases_1_1pf__base__crn_afb21cef992679836926acc0e66fb4025}{filter}} (const obs\+\_\+sized\+\_\+vec \&data, const std\+::array$<$ usv, numparts $>$ \&Us, const usvr \&Uresamp, const func\+\_\+vec \&fs=func\+\_\+vec())=0
+\begin{DoxyCompactList}\small\item\em the filtering function that must be defined \end{DoxyCompactList}\item 
+virtual float\+\_\+t \mbox{\hyperlink{classpf_1_1bases_1_1pf__base__crn_af8f7ddd10075c7f06ba5dd01a17c0409}{get\+Log\+Cond\+Like}} () const =0
+\begin{DoxyCompactList}\small\item\em the getter method that must be defined (for conditional log-\/likelihood) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_a3285b2e39689104d35cb33e74626767c}\label{classpf_1_1bases_1_1pf__base__crn_a3285b2e39689104d35cb33e74626767c}} 
+virtual \mbox{\hyperlink{classpf_1_1bases_1_1pf__base__crn_a3285b2e39689104d35cb33e74626767c}{$\sim$pf\+\_\+base\+\_\+crn}} ()
+\begin{DoxyCompactList}\small\item\em virtual destructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_aa22ebbc84a1e20c647c4f49699d239ad}\label{classpf_1_1bases_1_1pf__base__crn_aa22ebbc84a1e20c647c4f49699d239ad}} 
+static constexpr unsigned int {\bfseries dim\+\_\+obs} = dimobs
+\item 
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_a760c3698288604a00a7b92d31eaf6982}\label{classpf_1_1bases_1_1pf__base__crn_a760c3698288604a00a7b92d31eaf6982}} 
+static constexpr unsigned int {\bfseries dim\+\_\+state} = dimstate
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_afb21cef992679836926acc0e66fb4025}\label{classpf_1_1bases_1_1pf__base__crn_afb21cef992679836926acc0e66fb4025}} 
+\index{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$@{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$}!filter@{filter}}
+\index{filter@{filter}!pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$@{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$}}
+\doxysubsubsection{\texorpdfstring{filter()}{filter()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , size\+\_\+t dimobs, size\+\_\+t dimstate, size\+\_\+t dimu, size\+\_\+t dimur, size\+\_\+t numparts$>$ \\
+virtual void \mbox{\hyperlink{classpf_1_1bases_1_1pf__base__crn}{pf\+::bases\+::pf\+\_\+base\+\_\+crn}}$<$ float\+\_\+t, dimobs, dimstate, dimu, dimur, numparts $>$\+::filter (\begin{DoxyParamCaption}\item[{const obs\+\_\+sized\+\_\+vec \&}]{data,  }\item[{const std\+::array$<$ usv, numparts $>$ \&}]{Us,  }\item[{const usvr \&}]{Uresamp,  }\item[{const func\+\_\+vec \&}]{fs = {\ttfamily func\+\_\+vec()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+the filtering function that must be defined 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & the most recent observation \\
+\hline
+{\em filter} & functions whose expected value approx. is computed at each time step \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpf_1_1bases_1_1pf__base__crn_af8f7ddd10075c7f06ba5dd01a17c0409}\label{classpf_1_1bases_1_1pf__base__crn_af8f7ddd10075c7f06ba5dd01a17c0409}} 
+\index{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$@{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$}!getLogCondLike@{getLogCondLike}}
+\index{getLogCondLike@{getLogCondLike}!pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$@{pf::bases::pf\_base\_crn$<$ float\_t, dimobs, dimstate, dimu, dimur, numparts $>$}}
+\doxysubsubsection{\texorpdfstring{getLogCondLike()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , size\+\_\+t dimobs, size\+\_\+t dimstate, size\+\_\+t dimu, size\+\_\+t dimur, size\+\_\+t numparts$>$ \\
+virtual float\+\_\+t \mbox{\hyperlink{classpf_1_1bases_1_1pf__base__crn}{pf\+::bases\+::pf\+\_\+base\+\_\+crn}}$<$ float\+\_\+t, dimobs, dimstate, dimu, dimur, numparts $>$\+::get\+Log\+Cond\+Like (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+the getter method that must be defined (for conditional log-\/likelihood) 
+
+\begin{DoxyReturn}{Returns}
+log p(y\+\_\+t $\vert$ y\+\_\+\{1\+:t-\/1\}) approximation 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{pf__base_8h}{pf\+\_\+base.\+h}}\end{DoxyCompactItemize}

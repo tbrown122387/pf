@@ -1,7 +1,10 @@
 <map id="include/pf/pf_base.h" name="include/pf/pf_base.h">
-<area shape="rect" id="node2" href="$auxiliary__pf_8h.html" title="A base class for Auxiliary Particle Filtering. Inherit from this if you want to use an APF for your s..." alt="" coords="5,87,164,114"/>
-<area shape="rect" id="node3" href="$bootstrap__filter_8h.html" title="bootstrap particle filter " alt="" coords="189,80,325,121"/>
-<area shape="rect" id="node4" href="$bootstrap__filter__with__covariates_8h.html" title="bootstrap particle filter with covariates " alt="" coords="349,80,511,121"/>
-<area shape="rect" id="node5" href="$rbpf_8h.html" title="Rao&#45;Blackwellized/Marginal Particle Filter with inner HMMs. " alt="" coords="535,87,650,114"/>
-<area shape="rect" id="node6" href="$sisr__filter_8h.html" title="SISR filter. " alt="" coords="674,87,821,114"/>
+<area shape="rect" id="node1" title="All non Rao&#45;Blackwellized particle filters without covariates inherit from this." alt="" coords="495,5,649,32"/>
+<area shape="rect" id="node2" href="$auxiliary__pf_8h.html" title="A base class for Auxiliary Particle Filtering. Inherit from this if you want to use an APF for your s..." alt="" coords="5,87,184,114"/>
+<area shape="rect" id="node3" href="$bootstrap__filter_8h.html" title="bootstrap particle filter" alt="" coords="208,80,360,121"/>
+<area shape="rect" id="node5" href="$bootstrap__filter__with__covariates_8h.html" title="bootstrap particle filter with covariates" alt="" coords="384,80,565,121"/>
+<area shape="rect" id="node6" href="$cf__filters_8h.html" title="Inherit from this for a model that admits Kalman filtering." alt="" coords="590,87,749,114"/>
+<area shape="rect" id="node7" href="$rbpf_8h.html" title="Rao&#45;Blackwellized/Marginal Particle Filter with inner HMMs." alt="" coords="665,177,791,203"/>
+<area shape="rect" id="node8" href="$sisr__filter_8h.html" title="SISR filter." alt="" coords="825,87,986,114"/>
+<area shape="rect" id="node4" href="$acv__bs_8h_source.html" title=" " alt="" coords="180,169,388,211"/>
 </map>

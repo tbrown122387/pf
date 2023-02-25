@@ -1,0 +1,203 @@
+\hypertarget{classpf_1_1filters_1_1hmm}{}\doxysection{pf\+::filters\+::hmm$<$ dimstate, dimobs, float\+\_\+t, debug $>$ Class Template Reference}
+\label{classpf_1_1filters_1_1hmm}\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+
+
+A class template for H\+MM filtering.  
+
+
+
+
+{\ttfamily \#include $<$cf\+\_\+filters.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::filters\+::hmm$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{classpf_1_1filters_1_1hmm__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::filters\+::hmm$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{classpf_1_1filters_1_1hmm__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}\label{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, 1 $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}state size vector\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_a0734691dd68822730bfbd5391148a76e}\label{classpf_1_1filters_1_1hmm_a0734691dd68822730bfbd5391148a76e}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1hmm_a0734691dd68822730bfbd5391148a76e}{osv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimobs, 1 $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}observation size vector\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}\label{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}} 
+using \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}{ss\+Mat}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimstate, dimstate $>$
+\begin{DoxyCompactList}\small\item\em \char`\"{}state size matrix\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm_a2816978d09de990690eddc4a562f99a7}{hmm}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm_aaa3589b587ad59b574a6f1bced186522}{hmm}} (const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&init\+State\+Distr\+Log\+Probs, const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}{ss\+Mat}} \&trans\+Mat\+Log\+Probs)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_a2953730f4730f752ca3f061264f6a4f1}\label{classpf_1_1filters_1_1hmm_a2953730f4730f752ca3f061264f6a4f1}} 
+virtual \mbox{\hyperlink{classpf_1_1filters_1_1hmm_a2953730f4730f752ca3f061264f6a4f1}{$\sim$hmm}} ()
+\begin{DoxyCompactList}\small\item\em The (virtual) desuctor. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1hmm_a102944c0caede66103bda5df46d870c8}{get\+Log\+Cond\+Like}} () const
+\begin{DoxyCompactList}\small\item\em Get the latest conditional likelihood. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad01834fd38ef75517695bdf8a6b377f2}{get\+Filter\+Vec\+Log\+Probs}} () const
+\begin{DoxyCompactList}\small\item\em Get the current filter vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ab77d9f48909648c5eea18b831be5d472}{update}} (const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&log\+Cond\+Dens\+Vec)
+\begin{DoxyCompactList}\small\item\em Perform a H\+MM filter update. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1hmm_a72e6e2921251ee13b5345d4be1f0480b}{log\+\_\+sum\+\_\+exp}} (const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&log\+Prob\+Vec)
+\begin{DoxyCompactList}\small\item\em log sum exp trick \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \mbox{\hyperlink{classpf_1_1filters_1_1hmm_a52b35b99cfb240b2b520b221e801c857}{log\+\_\+product}} (const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}{ss\+Mat}} \&log\+Trans\+Mat, const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&log\+Prob\+Vec)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_ae64d8d9b42552da13258707bb2e564e1}\label{classpf_1_1filters_1_1hmm_ae64d8d9b42552da13258707bb2e564e1}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ae64d8d9b42552da13258707bb2e564e1}{m\+\_\+filt\+Vec\+Log\+Probs}}
+\begin{DoxyCompactList}\small\item\em filter vector \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_a1c5bc1865117237e6956b895dd0a544e}\label{classpf_1_1filters_1_1hmm_a1c5bc1865117237e6956b895dd0a544e}} 
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}{ss\+Mat}} \mbox{\hyperlink{classpf_1_1filters_1_1hmm_a1c5bc1865117237e6956b895dd0a544e}{m\+\_\+trans\+Mat\+Log\+Probs\+Transpose}}
+\begin{DoxyCompactList}\small\item\em transition matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_acd9cc204334b2db7f29b9449d1004599}\label{classpf_1_1filters_1_1hmm_acd9cc204334b2db7f29b9449d1004599}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1hmm_acd9cc204334b2db7f29b9449d1004599}{m\+\_\+last\+Log\+Cond\+Like}}
+\begin{DoxyCompactList}\small\item\em last log conditional likelihood \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_aeb2373e7b39ab938b2fbcdcf9da0b7ce}\label{classpf_1_1filters_1_1hmm_aeb2373e7b39ab938b2fbcdcf9da0b7ce}} 
+bool \mbox{\hyperlink{classpf_1_1filters_1_1hmm_aeb2373e7b39ab938b2fbcdcf9da0b7ce}{m\+\_\+fresh}}
+\begin{DoxyCompactList}\small\item\em has data been observed? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t, bool debug = false$>$\newline
+class pf\+::filters\+::hmm$<$ dimstate, dimobs, float\+\_\+t, debug $>$}
+
+A class template for H\+MM filtering. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_a2816978d09de990690eddc4a562f99a7}\label{classpf_1_1filters_1_1hmm_a2816978d09de990690eddc4a562f99a7}} 
+\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}!hmm@{hmm}}
+\index{hmm@{hmm}!pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{hmm()}{hmm()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t , bool debug$>$ \\
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm}}$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1hmm}{hmm}}}
+
+
+
+Default constructor. 
+
+Need ths fir constructing default std\+::array$<$$>$s. Fills all vectors and matrices with zeros. \mbox{\Hypertarget{classpf_1_1filters_1_1hmm_aaa3589b587ad59b574a6f1bced186522}\label{classpf_1_1filters_1_1hmm_aaa3589b587ad59b574a6f1bced186522}} 
+\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}!hmm@{hmm}}
+\index{hmm@{hmm}!pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{hmm()}{hmm()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t , bool debug$>$ \\
+\mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm}}$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+::\mbox{\hyperlink{classpf_1_1filters_1_1hmm}{hmm}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&}]{init\+State\+Distr\+Log\+Probs,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}{ss\+Mat}} \&}]{trans\+Mat\+Log\+Probs }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+allows specification of initstate distn and transition matrix. 
+\begin{DoxyParams}{Parameters}
+{\em init\+State\+Distr\+Log\+Probs} & first time state log prior distribution. \\
+\hline
+{\em trans\+Mat\+Log\+Probs} & time homogeneous transition matrix with log probabilities. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_ad01834fd38ef75517695bdf8a6b377f2}\label{classpf_1_1filters_1_1hmm_ad01834fd38ef75517695bdf8a6b377f2}} 
+\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}!getFilterVecLogProbs@{getFilterVecLogProbs}}
+\index{getFilterVecLogProbs@{getFilterVecLogProbs}!pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{getFilterVecLogProbs()}{getFilterVecLogProbs()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t , bool debug$>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm}}$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+::get\+Filter\+Vec\+Log\+Probs}
+
+
+
+Get the current filter vector. 
+
+get the current filter vector log probs. \begin{DoxyReturn}{Returns}
+the logs of probability vector p(x\+\_\+t $\vert$ y\+\_\+\{1\+:t\}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_a102944c0caede66103bda5df46d870c8}\label{classpf_1_1filters_1_1hmm_a102944c0caede66103bda5df46d870c8}} 
+\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}!getLogCondLike@{getLogCondLike}}
+\index{getLogCondLike@{getLogCondLike}!pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{getLogCondLike()}{getLogCondLike()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t , bool debug$>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm}}$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+::get\+Log\+Cond\+Like\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the latest conditional likelihood. 
+
+\begin{DoxyReturn}{Returns}
+the latest conditional likelihood. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classpf_1_1bases_1_1cf__filter_a10ec3ae01d830d2eac171b81ea543032}{pf\+::bases\+::cf\+\_\+filter$<$ dimstate, dimobs, float\+\_\+t $>$}}.
+
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_a52b35b99cfb240b2b520b221e801c857}\label{classpf_1_1filters_1_1hmm_a52b35b99cfb240b2b520b221e801c857}} 
+\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}!log\_product@{log\_product}}
+\index{log\_product@{log\_product}!pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{log\_product()}{log\_product()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t , bool debug$>$ \\
+auto \mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm}}$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+::log\+\_\+product (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ac99b9b8c0e299bde40ac9a3ce0129370}{ss\+Mat}} \&}]{log\+Trans\+Mat,  }\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&}]{log\+Prob\+Vec }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_a72e6e2921251ee13b5345d4be1f0480b}\label{classpf_1_1filters_1_1hmm_a72e6e2921251ee13b5345d4be1f0480b}} 
+\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}!log\_sum\_exp@{log\_sum\_exp}}
+\index{log\_sum\_exp@{log\_sum\_exp}!pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{log\_sum\_exp()}{log\_sum\_exp()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t , bool debug$>$ \\
+float\+\_\+t \mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm}}$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+::log\+\_\+sum\+\_\+exp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&}]{log\+Prob\+Vec }\end{DoxyParamCaption})}
+
+
+
+log sum exp trick 
+
+calculates the log of the sum of the exponentiated elements of a Vector 
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpf_1_1filters_1_1hmm_ab77d9f48909648c5eea18b831be5d472}\label{classpf_1_1filters_1_1hmm_ab77d9f48909648c5eea18b831be5d472}} 
+\index{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}!update@{update}}
+\index{update@{update}!pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$@{pf::filters::hmm$<$ dimstate, dimobs, float\_t, debug $>$}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t dimstate, size\+\_\+t dimobs, typename float\+\_\+t , bool debug$>$ \\
+void \mbox{\hyperlink{classpf_1_1filters_1_1hmm}{pf\+::filters\+::hmm}}$<$ dimstate, dimobs, float\+\_\+t, debug $>$\+::update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1filters_1_1hmm_ad97ddb7500dcac0ac39441d8604ba9ee}{ssv}} \&}]{log\+Cond\+Dens\+Vec }\end{DoxyParamCaption})}
+
+
+
+Perform a H\+MM filter update. 
+
+Perform a H\+MM filter update. 
+\begin{DoxyParams}{Parameters}
+{\em log\+Cond\+Dens\+Vec} & the vector (in x\+\_\+t) of log p(y\+\_\+t$\vert$x\+\_\+t) \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{cf__filters_8h}{cf\+\_\+filters.\+h}}\end{DoxyCompactItemize}

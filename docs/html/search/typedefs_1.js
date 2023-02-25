@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bsm',['bsm',['../classmultivGamFilter.html#a48015c1ef68e2d0a704306b56378417d',1,'multivGamFilter']]]
+  ['bsm_418',['bsm',['../classpf_1_1filters_1_1multivGamFilter.html#a15bd995028cd802108762ae3f82826a9',1,'pf::filters::multivGamFilter']]]
 ];

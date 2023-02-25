@@ -1,4 +1,14 @@
 <map id="include/pf/auxiliary_pf.h" name="include/pf/auxiliary_pf.h">
-<area shape="rect" id="node7" href="$pf__base_8h.html" title="All non Rao&#45;Blackwellized particle filters inherit from this. " alt="" coords="234,80,313,107"/>
-<area shape="rect" id="node10" href="$rv__samp_8h.html" title="all rv samplers must inherit from this. " alt="" coords="471,80,553,107"/>
+<area shape="rect" id="node1" title="A base class for Auxiliary Particle Filtering. Inherit from this if you want to use an APF for your s..." alt="" coords="201,5,380,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,61,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,155,163,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="137,80,223,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="381,155,483,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="358,80,421,107"/>
+<area shape="rect" id="node7" href="$pf__base_8h.html" title="All non Rao&#45;Blackwellized particle filters without covariates inherit from this." alt="" coords="248,80,333,107"/>
+<area shape="rect" id="node10" href="$rv__samp_8h.html" title="all rv samplers must inherit from this." alt="" coords="496,80,587,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="204,155,255,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="279,155,337,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="508,155,575,181"/>
+<area shape="rect" id="node12" title=" " alt="" coords="599,155,671,181"/>
 </map>

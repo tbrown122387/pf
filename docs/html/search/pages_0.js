@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pf_3a_20a_20library_20for_20fast_20particle_20filtering_21',['PF: a library for fast particle filtering!',['../index.html',1,'']]],
-  ['paper',['paper',['../md_paper_paper.html',1,'']]]
+  ['2022_20gsoc_20_22ideas_20list_22_441',['2022 GSOC &quot;Ideas List&quot;',['../md_ideas_list.html',1,'']]]
 ];

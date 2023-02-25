@@ -1,0 +1,116 @@
+\hypertarget{classpf_1_1rvsamp_1_1PoissonSampler}{}\doxysection{pf\+::rvsamp\+::Poisson\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1rvsamp_1_1PoissonSampler}\index{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$@{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$}}
+
+
+A class that performs sampling from a Poisson distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::rvsamp\+::Poisson\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{classpf_1_1rvsamp_1_1PoissonSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::rvsamp\+::Poisson\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{classpf_1_1rvsamp_1_1PoissonSampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1PoissonSampler_aed4be8fed2f689608b44051b39ea7de7}\label{classpf_1_1rvsamp_1_1PoissonSampler_aed4be8fed2f689608b44051b39ea7de7}} 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler_aed4be8fed2f689608b44051b39ea7de7}{Poisson\+Sampler}} ()
+\begin{DoxyCompactList}\small\item\em Default-\/constructor sets up for Poisson random variate generation with lambda = 1. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler_a69681de6aa7ec4dd30280a197339bb88}{Poisson\+Sampler}} (float\+\_\+t lambda)
+\begin{DoxyCompactList}\small\item\em Constructs Poisson sampler with user-\/specified lambda. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler_a02485286eba98857aedf433e47221ca9}{set\+Lambda}} (float\+\_\+t lambda)
+\begin{DoxyCompactList}\small\item\em sets the parameter lambda. \end{DoxyCompactList}\item 
+int\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler_a9b80cfb1a68ee3022d3e560661ef3abf}{sample}} ()
+\begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1PoissonSampler_a46e2987e1b8b86c61660373b1df77e9c}\label{classpf_1_1rvsamp_1_1PoissonSampler_a46e2987e1b8b86c61660373b1df77e9c}} 
+std\+::poisson\+\_\+distribution$<$ int\+\_\+t $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler_a46e2987e1b8b86c61660373b1df77e9c}{m\+\_\+p\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em makes normal random variates \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t, typename int\+\_\+t$>$\newline
+class pf\+::rvsamp\+::\+Poisson\+Sampler$<$ float\+\_\+t, int\+\_\+t $>$}
+
+A class that performs sampling from a Poisson distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1PoissonSampler_a69681de6aa7ec4dd30280a197339bb88}\label{classpf_1_1rvsamp_1_1PoissonSampler_a69681de6aa7ec4dd30280a197339bb88}} 
+\index{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$@{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$}!PoissonSampler@{PoissonSampler}}
+\index{PoissonSampler@{PoissonSampler}!pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$@{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$}}
+\doxysubsubsection{\texorpdfstring{PoissonSampler()}{PoissonSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , typename int\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler}{pf\+::rvsamp\+::\+Poisson\+Sampler}}$<$ float\+\_\+t, int\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler}{Poisson\+Sampler}} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{lambda }\end{DoxyParamCaption})}
+
+
+
+Constructs Poisson sampler with user-\/specified lambda. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & a float\+\_\+t for the average/variance. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1PoissonSampler_a9b80cfb1a68ee3022d3e560661ef3abf}\label{classpf_1_1rvsamp_1_1PoissonSampler_a9b80cfb1a68ee3022d3e560661ef3abf}} 
+\index{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$@{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$}!sample@{sample}}
+\index{sample@{sample}!pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$@{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , typename int\+\_\+t $>$ \\
+int\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler}{pf\+::rvsamp\+::\+Poisson\+Sampler}}$<$ float\+\_\+t, int\+\_\+t $>$\+::sample}
+
+
+
+Draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type int\+\_\+t. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1PoissonSampler_a02485286eba98857aedf433e47221ca9}\label{classpf_1_1rvsamp_1_1PoissonSampler_a02485286eba98857aedf433e47221ca9}} 
+\index{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$@{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$}!setLambda@{setLambda}}
+\index{setLambda@{setLambda}!pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$@{pf::rvsamp::PoissonSampler$<$ float\_t, int\_t $>$}}
+\doxysubsubsection{\texorpdfstring{setLambda()}{setLambda()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t , typename int\+\_\+t $>$ \\
+void \mbox{\hyperlink{classpf_1_1rvsamp_1_1PoissonSampler}{pf\+::rvsamp\+::\+Poisson\+Sampler}}$<$ float\+\_\+t, int\+\_\+t $>$\+::set\+Lambda (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{lambda }\end{DoxyParamCaption})}
+
+
+
+sets the parameter lambda. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & (the average and the variance). \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}}\end{DoxyCompactItemize}

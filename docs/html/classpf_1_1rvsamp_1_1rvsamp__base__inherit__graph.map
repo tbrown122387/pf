@@ -1,0 +1,16 @@
+<map id="pf::rvsamp::rvsamp_base" name="pf::rvsamp::rvsamp_base">
+<area shape="rect" id="node1" title="Base class for all random variable sampler types. Primary benefit is that it sets the seed for you." alt="" coords="5,405,192,431"/>
+<area shape="rect" id="node2" href="$classpf_1_1rvsamp_1_1k__gen.html" title=" " alt="" coords="287,5,436,47"/>
+<area shape="rect" id="node3" href="$classpf_1_1rvsamp_1_1BernSampler.html" title="A class that performs sampling from a univariate Bernoulli distribution." alt="" coords="270,71,453,112"/>
+<area shape="rect" id="node4" href="$classpf_1_1rvsamp_1_1BetaSampler.html" title="A class that performs sampling from a Beta distribution." alt="" coords="270,136,453,177"/>
+<area shape="rect" id="node5" href="$classpf_1_1rvsamp_1_1k__gen.html" title="A class that performs sampling with replacement (useful for the index sampler in an APF)" alt="" coords="287,201,436,243"/>
+<area shape="rect" id="node6" href="$classpf_1_1rvsamp_1_1MVNSampler.html" title="A class that performs sampling from a multivariate normal distribution." alt="" coords="269,267,453,308"/>
+<area shape="rect" id="node7" href="$classpf_1_1rvsamp_1_1PoissonSampler.html" title="A class that performs sampling from a Poisson distribution." alt="" coords="260,332,463,373"/>
+<area shape="rect" id="node8" href="$classpf_1_1rvsamp_1_1TruncUnivNormSampler.html" title="A class that performs sampling from a truncated univariate Normal distribution." alt="" coords="262,397,461,439"/>
+<area shape="rect" id="node9" href="$classpf_1_1rvsamp_1_1UniformSampler.html" title="A class that performs sampling from a continuous uniform distribution." alt="" coords="258,463,465,504"/>
+<area shape="rect" id="node10" href="$classpf_1_1rvsamp_1_1UnivGammaSampler.html" title="A class that performs sampling from a univariate Gamma distribution." alt="" coords="244,528,479,569"/>
+<area shape="rect" id="node11" href="$classpf_1_1rvsamp_1_1UnivInvGammaSampler.html" title="A class that performs sampling from a univariate Inverse Gamma distribution." alt="" coords="261,593,462,635"/>
+<area shape="rect" id="node12" href="$classpf_1_1rvsamp_1_1UnivLogNormSampler.html" title="A class that performs sampling from a univariate Log&#45;Normal distribution." alt="" coords="240,659,483,700"/>
+<area shape="rect" id="node13" href="$classpf_1_1rvsamp_1_1UnivNormSampler.html" title="A class that performs sampling from a univariate Normal distribution." alt="" coords="252,724,471,765"/>
+<area shape="rect" id="node14" href="$classpf_1_1rvsamp_1_1UnivStudTSampler.html" title="A class that performs sampling from Student&#39;s T distribution." alt="" coords="251,789,471,831"/>
+</map>

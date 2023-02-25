@@ -1,0 +1,8 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classpf_1_1resamplers_1_1rbase.html" title="Base class for all resampler types." alt="" coords="5,173,188,214"/>
+<area shape="rect" id="node2" href="$classpf_1_1resamplers_1_1mn__resamp__fast1.html" title=" " alt="" coords="245,5,423,61"/>
+<area shape="rect" id="node3" href="$classpf_1_1resamplers_1_1mn__resampler.html" title=" " alt="" coords="257,85,411,141"/>
+<area shape="rect" id="node4" href="$classpf_1_1resamplers_1_1resid__resampler.html" title=" " alt="" coords="236,165,432,221"/>
+<area shape="rect" id="node5" href="$classpf_1_1resamplers_1_1stratif__resampler.html" title=" " alt="" coords="236,245,432,301"/>
+<area shape="rect" id="node6" href="$classpf_1_1resamplers_1_1systematic__resampler.html" title=" " alt="" coords="236,325,432,381"/>
+</map>

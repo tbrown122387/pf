@@ -1,3 +1,9 @@
 <map id="include/pf/sisr_filter.h" name="include/pf/sisr_filter.h">
-<area shape="rect" id="node4" href="$pf__base_8h.html" title="All non Rao&#45;Blackwellized particle filters inherit from this. " alt="" coords="141,80,219,107"/>
+<area shape="rect" id="node1" title="SISR filter." alt="" coords="18,5,179,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,61,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="37,155,139,181"/>
+<area shape="rect" id="node4" href="$pf__base_8h.html" title="All non Rao&#45;Blackwellized particle filters without covariates inherit from this." alt="" coords="147,80,232,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="164,155,215,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="239,155,297,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="322,155,385,181"/>
 </map>

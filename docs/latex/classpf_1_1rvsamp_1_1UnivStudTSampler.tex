@@ -1,0 +1,98 @@
+\hypertarget{classpf_1_1rvsamp_1_1UnivStudTSampler}{}\doxysection{pf\+::rvsamp\+::Univ\+Stud\+T\+Sampler$<$ float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1rvsamp_1_1UnivStudTSampler}\index{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$@{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$}}
+
+
+A class that performs sampling from Student\textquotesingle{}s T distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::rvsamp\+::Univ\+Stud\+T\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{classpf_1_1rvsamp_1_1UnivStudTSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::rvsamp\+::Univ\+Stud\+T\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{classpf_1_1rvsamp_1_1UnivStudTSampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivStudTSampler_ab4d48ef29e4bb18e08b17b528ef12e31}\label{classpf_1_1rvsamp_1_1UnivStudTSampler_ab4d48ef29e4bb18e08b17b528ef12e31}} 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivStudTSampler_ab4d48ef29e4bb18e08b17b528ef12e31}{Univ\+Stud\+T\+Sampler}} ()=delete
+\begin{DoxyCompactList}\small\item\em Default-\/construction is deleted. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivStudTSampler_aca3e60e2cd7e5c5f52690491089b4741}{Univ\+Stud\+T\+Sampler}} (float\+\_\+t dof)
+\begin{DoxyCompactList}\small\item\em The user must supply the degrees of freedom parameter. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivStudTSampler_a0a3f1cf27cfbcd9efaf969d4686dfc39}{sample}} ()
+\begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivStudTSampler_a1835a08b9a12e6f50d93cc10c99fd34d}\label{classpf_1_1rvsamp_1_1UnivStudTSampler_a1835a08b9a12e6f50d93cc10c99fd34d}} 
+std\+::student\+\_\+t\+\_\+distribution$<$ float\+\_\+t $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivStudTSampler_a1835a08b9a12e6f50d93cc10c99fd34d}{m\+\_\+t\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em makes t random variates \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t$>$\newline
+class pf\+::rvsamp\+::\+Univ\+Stud\+T\+Sampler$<$ float\+\_\+t $>$}
+
+A class that performs sampling from Student\textquotesingle{}s T distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivStudTSampler_aca3e60e2cd7e5c5f52690491089b4741}\label{classpf_1_1rvsamp_1_1UnivStudTSampler_aca3e60e2cd7e5c5f52690491089b4741}} 
+\index{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$@{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$}!UnivStudTSampler@{UnivStudTSampler}}
+\index{UnivStudTSampler@{UnivStudTSampler}!pf::rvsamp::UnivStudTSampler$<$ float\_t $>$@{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{UnivStudTSampler()}{UnivStudTSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivStudTSampler}{pf\+::rvsamp\+::\+Univ\+Stud\+T\+Sampler}}$<$ float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivStudTSampler}{Univ\+Stud\+T\+Sampler}} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{dof }\end{DoxyParamCaption})}
+
+
+
+The user must supply the degrees of freedom parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dof} & the degrees of freedom that are desired. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1UnivStudTSampler_a0a3f1cf27cfbcd9efaf969d4686dfc39}\label{classpf_1_1rvsamp_1_1UnivStudTSampler_a0a3f1cf27cfbcd9efaf969d4686dfc39}} 
+\index{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$@{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$}!sample@{sample}}
+\index{sample@{sample}!pf::rvsamp::UnivStudTSampler$<$ float\_t $>$@{pf::rvsamp::UnivStudTSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1UnivStudTSampler}{pf\+::rvsamp\+::\+Univ\+Stud\+T\+Sampler}}$<$ float\+\_\+t $>$\+::sample}
+
+
+
+Draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}}\end{DoxyCompactItemize}

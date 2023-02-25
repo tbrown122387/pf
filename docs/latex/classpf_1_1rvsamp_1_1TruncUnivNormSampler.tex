@@ -1,0 +1,113 @@
+\hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler}{}\doxysection{pf\+::rvsamp\+::Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler}\index{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$@{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$}}
+
+
+A class that performs sampling from a truncated univariate Normal distribution.  
+
+
+
+
+{\ttfamily \#include $<$rv\+\_\+samp.\+h$>$}
+
+
+
+Inheritance diagram for pf\+::rvsamp\+::Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classpf_1_1rvsamp_1_1TruncUnivNormSampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pf\+::rvsamp\+::Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classpf_1_1rvsamp_1_1TruncUnivNormSampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a0867bbbccdefe1be8a001717b4a49574}{Trunc\+Univ\+Norm\+Sampler}} (float\+\_\+t mu, float\+\_\+t sigma, float\+\_\+t lower, float\+\_\+t upper)
+\begin{DoxyCompactList}\small\item\em The user must supply both mean and std. dev. \end{DoxyCompactList}\item 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler_ac6f7de806ab74cd5c1d3da860d50b5dc}{sample}} ()
+\begin{DoxyCompactList}\small\item\em Draws a random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler_afde35c351100a2926101b1f598594554}\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler_afde35c351100a2926101b1f598594554}} 
+std\+::normal\+\_\+distribution$<$ float\+\_\+t $>$ \mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler_afde35c351100a2926101b1f598594554}{m\+\_\+z\+\_\+gen}}
+\begin{DoxyCompactList}\small\item\em makes normal random variates \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler_acc6c4e442a9221ac641e02f80949ffcf}\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler_acc6c4e442a9221ac641e02f80949ffcf}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler_acc6c4e442a9221ac641e02f80949ffcf}{m\+\_\+mu}}
+\begin{DoxyCompactList}\small\item\em the mean \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler_aa7d029adff77a8808cd18a5d396c6e1e}\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler_aa7d029adff77a8808cd18a5d396c6e1e}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler_aa7d029adff77a8808cd18a5d396c6e1e}{m\+\_\+sigma}}
+\begin{DoxyCompactList}\small\item\em the standard deviation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a5805f1beaf149db384d8b2a0e2974302}\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a5805f1beaf149db384d8b2a0e2974302}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a5805f1beaf149db384d8b2a0e2974302}{m\+\_\+lower}}
+\begin{DoxyCompactList}\small\item\em the lower bound \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a3ec4442f22559a5646030dfa3116b5e5}\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a3ec4442f22559a5646030dfa3116b5e5}} 
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a3ec4442f22559a5646030dfa3116b5e5}{m\+\_\+upper}}
+\begin{DoxyCompactList}\small\item\em the upper bound \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename float\+\_\+t$>$\newline
+class pf\+::rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler$<$ float\+\_\+t $>$}
+
+A class that performs sampling from a truncated univariate Normal distribution. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a0867bbbccdefe1be8a001717b4a49574}\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler_a0867bbbccdefe1be8a001717b4a49574}} 
+\index{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$@{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$}!TruncUnivNormSampler@{TruncUnivNormSampler}}
+\index{TruncUnivNormSampler@{TruncUnivNormSampler}!pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$@{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{TruncUnivNormSampler()}{TruncUnivNormSampler()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+\mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler}{pf\+::rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}}$<$ float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler}{Trunc\+Univ\+Norm\+Sampler}} (\begin{DoxyParamCaption}\item[{float\+\_\+t}]{mu,  }\item[{float\+\_\+t}]{sigma,  }\item[{float\+\_\+t}]{lower,  }\item[{float\+\_\+t}]{upper }\end{DoxyParamCaption})}
+
+
+
+The user must supply both mean and std. dev. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & a float\+\_\+t for the location parameter. \\
+\hline
+{\em sigma} & a float\+\_\+t ($>$ 0) representing the scale of the samples. \\
+\hline
+{\em lower} & the lower bound of the support \\
+\hline
+{\em upper} & the upper bound of the support \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1rvsamp_1_1TruncUnivNormSampler_ac6f7de806ab74cd5c1d3da860d50b5dc}\label{classpf_1_1rvsamp_1_1TruncUnivNormSampler_ac6f7de806ab74cd5c1d3da860d50b5dc}} 
+\index{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$@{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$}!sample@{sample}}
+\index{sample@{sample}!pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$@{pf::rvsamp::TruncUnivNormSampler$<$ float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily template$<$typename float\+\_\+t $>$ \\
+float\+\_\+t \mbox{\hyperlink{classpf_1_1rvsamp_1_1TruncUnivNormSampler}{pf\+::rvsamp\+::\+Trunc\+Univ\+Norm\+Sampler}}$<$ float\+\_\+t $>$\+::sample}
+
+
+
+Draws a random number. 
+
+\begin{DoxyReturn}{Returns}
+a random sample of type float\+\_\+t. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{rv__samp_8h}{rv\+\_\+samp.\+h}}\end{DoxyCompactItemize}

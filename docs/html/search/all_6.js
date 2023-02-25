@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['inithmmprobvec',['initHMMProbVec',['../classrbpf__hmm.html#a3944acc8066774eaa0ff4330301447a1',1,'rbpf_hmm::initHMMProbVec()'],['../classrbpf__hmm__bs.html#a0a8e40cbc6b4c8fefae66f03f28fafe1',1,'rbpf_hmm_bs::initHMMProbVec()']]],
-  ['inithmmtransmat',['initHMMTransMat',['../classrbpf__hmm.html#a997a21d39e1f692c28968000e809309a',1,'rbpf_hmm::initHMMTransMat()'],['../classrbpf__hmm__bs.html#a61a6679ada264fe9e4e0409dc93434f5',1,'rbpf_hmm_bs::initHMMTransMat()']]],
-  ['initkalmanmean',['initKalmanMean',['../classrbpf__kalman.html#a799862d3fb775aed84ce58e00dbce458',1,'rbpf_kalman::initKalmanMean()'],['../classrbpf__kalman__bs.html#a8bb7a29b1bcc66cfb4ebf86c0d091ec1',1,'rbpf_kalman_bs::initKalmanMean()']]],
-  ['initkalmanvar',['initKalmanVar',['../classrbpf__kalman.html#ac74007e577ea168e89da9e04cefc8c65',1,'rbpf_kalman::initKalmanVar()'],['../classrbpf__kalman__bs.html#add33853e65897cc359965d3715e4e20f',1,'rbpf_kalman_bs::initKalmanVar()']]],
-  ['isv',['isv',['../classkalman.html#abc570ce1b06e8a96a334f9226dfbce77',1,'kalman']]]
+  ['hilbertcomparison_46',['hilbertComparison',['../classpf_1_1resamplers_1_1rbase__hcs.html#a12e518c9d396f92fd75d33b2aaac14ee',1,'pf::resamplers::rbase_hcs']]],
+  ['hmm_47',['hmm',['../classpf_1_1filters_1_1hmm.html',1,'pf::filters::hmm&lt; dimstate, dimobs, float_t, debug &gt;'],['../classpf_1_1filters_1_1hmm.html#a2816978d09de990690eddc4a562f99a7',1,'pf::filters::hmm::hmm()'],['../classpf_1_1filters_1_1hmm.html#aaa3589b587ad59b574a6f1bced186522',1,'pf::filters::hmm::hmm(const ssv &amp;initStateDistrLogProbs, const ssMat &amp;transMatLogProbs)']]],
+  ['how_20to_20contribute_20to_20_3ctt_3epf_3c_2ftt_3e_48',['How to contribute to &lt;tt&gt;pf&lt;/tt&gt;',['../md_CONTRIBUTING.html',1,'']]]
 ];

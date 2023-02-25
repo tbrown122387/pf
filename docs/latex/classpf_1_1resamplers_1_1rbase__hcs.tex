@@ -1,0 +1,130 @@
+\hypertarget{classpf_1_1resamplers_1_1rbase__hcs}{}\doxysection{pf\+::resamplers\+::rbase\+\_\+hcs$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$ Class Template Reference}
+\label{classpf_1_1resamplers_1_1rbase__hcs}\index{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}}
+
+
+Base class for resampler types that use a Hilbert curve sorting technique.  
+
+
+
+
+{\ttfamily \#include $<$resamplers.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}{ssv}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimx, 1 $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}{array\+Vec}} = std\+::array$<$ \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}{ssv}}, nparts $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a28a075fde1da1f9452a887778a1e55fc}{array\+Float}} = std\+::array$<$ float\+\_\+t, nparts $>$
+\item 
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a9bdaabee09c6a112ae4ce9965475cb66}{usvr}} = Eigen\+::\+Matrix$<$ float\+\_\+t, dimur, 1 $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_abeb80364dbba67c2db0ad42d25c311f9}\label{classpf_1_1resamplers_1_1rbase__hcs_abeb80364dbba67c2db0ad42d25c311f9}} 
+\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_abeb80364dbba67c2db0ad42d25c311f9}{rbase\+\_\+hcs}} ()=default
+\begin{DoxyCompactList}\small\item\em The default constructor. There is no seed-\/setting. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_abc313182ebd277d6cb9756405147f714}{resamp\+Log\+Wts}} (\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}{array\+Vec}} \&old\+Parts, \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a28a075fde1da1f9452a887778a1e55fc}{array\+Float}} \&old\+Log\+Un\+Norm\+Wts, const \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a9bdaabee09c6a112ae4ce9965475cb66}{usvr}} \&ur)=0
+\begin{DoxyCompactList}\small\item\em Function to resample from log unnormalized weights. \end{DoxyCompactList}\item 
+std\+::array$<$ unsigned, nparts $>$ \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a352601f56d031a5bcc6c1e628e03c0b8}{get\+\_\+permutation}} (const \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}{array\+Vec}} \&unsorted\+Parts)
+\begin{DoxyCompactList}\small\item\em get a permutation based on unsorted particle samples (not their weights) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_a12e518c9d396f92fd75d33b2aaac14ee}\label{classpf_1_1resamplers_1_1rbase__hcs_a12e518c9d396f92fd75d33b2aaac14ee}} 
+static bool \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a12e518c9d396f92fd75d33b2aaac14ee}{hilbert\+Comparison}} (const \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}{ssv}} \&first, const \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}{ssv}} \&second)
+\begin{DoxyCompactList}\small\item\em Function that \char`\"{}sorts\char`\"{} multidimensional vectors using an (inverse) Hilbert-\/curve map. For more information see \href{https://arxiv.org/pdf/1511.04992.pdf}{\texttt{ https\+://arxiv.\+org/pdf/1511.\+04992.\+pdf}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimur, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t$>$\newline
+class pf\+::resamplers\+::rbase\+\_\+hcs$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$}
+
+Base class for resampler types that use a Hilbert curve sorting technique. 
+
+\begin{DoxyAuthor}{Author}
+taylor 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+08/06/21 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_a28a075fde1da1f9452a887778a1e55fc}\label{classpf_1_1resamplers_1_1rbase__hcs_a28a075fde1da1f9452a887778a1e55fc}} 
+\index{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}!arrayFloat@{arrayFloat}}
+\index{arrayFloat@{arrayFloat}!pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{arrayFloat}{arrayFloat}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimur, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs}{pf\+::resamplers\+::rbase\+\_\+hcs}}$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a28a075fde1da1f9452a887778a1e55fc}{array\+Float}} =  std\+::array$<$float\+\_\+t,nparts$>$}
+
+type alias for array of float\+\_\+ts \mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}\label{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}} 
+\index{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}!arrayVec@{arrayVec}}
+\index{arrayVec@{arrayVec}!pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{arrayVec}{arrayVec}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimur, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs}{pf\+::resamplers\+::rbase\+\_\+hcs}}$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}{array\+Vec}} =  std\+::array$<$\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}{ssv}}, nparts$>$}
+
+type alias for array of Eigen Matrices \mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}\label{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}} 
+\index{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}!ssv@{ssv}}
+\index{ssv@{ssv}!pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{ssv}{ssv}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimur, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs}{pf\+::resamplers\+::rbase\+\_\+hcs}}$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_af68e90aa7cd48983053f16b89b90f1ae}{ssv}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimx,1$>$}
+
+type alias for linear algebra stuff \mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_a9bdaabee09c6a112ae4ce9965475cb66}\label{classpf_1_1resamplers_1_1rbase__hcs_a9bdaabee09c6a112ae4ce9965475cb66}} 
+\index{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}!usvr@{usvr}}
+\index{usvr@{usvr}!pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{usvr}{usvr}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimur, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+using \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs}{pf\+::resamplers\+::rbase\+\_\+hcs}}$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a9bdaabee09c6a112ae4ce9965475cb66}{usvr}} =  Eigen\+::\+Matrix$<$float\+\_\+t,dimur,1$>$}
+
+type alias for common normal random variable 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_a352601f56d031a5bcc6c1e628e03c0b8}\label{classpf_1_1resamplers_1_1rbase__hcs_a352601f56d031a5bcc6c1e628e03c0b8}} 
+\index{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}!get\_permutation@{get\_permutation}}
+\index{get\_permutation@{get\_permutation}!pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{get\_permutation()}{get\_permutation()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimur, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+std\+::array$<$ unsigned, nparts $>$ \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs}{pf\+::resamplers\+::rbase\+\_\+hcs}}$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::get\+\_\+permutation (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}{array\+Vec}} \&}]{unsorted\+Parts }\end{DoxyParamCaption})}
+
+
+
+get a permutation based on unsorted particle samples (not their weights) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unsorted\+Parts} & the particle samples \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the permutation as a std\+::array 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpf_1_1resamplers_1_1rbase__hcs_abc313182ebd277d6cb9756405147f714}\label{classpf_1_1resamplers_1_1rbase__hcs_abc313182ebd277d6cb9756405147f714}} 
+\index{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}!resampLogWts@{resampLogWts}}
+\index{resampLogWts@{resampLogWts}!pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$@{pf::resamplers::rbase\_hcs$<$ nparts, dimx, dimur, num\_hilb\_bits, float\_t $>$}}
+\doxysubsubsection{\texorpdfstring{resampLogWts()}{resampLogWts()}}
+{\footnotesize\ttfamily template$<$size\+\_\+t nparts, size\+\_\+t dimx, size\+\_\+t dimur, size\+\_\+t num\+\_\+hilb\+\_\+bits, typename float\+\_\+t $>$ \\
+virtual void \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs}{pf\+::resamplers\+::rbase\+\_\+hcs}}$<$ nparts, dimx, dimur, num\+\_\+hilb\+\_\+bits, float\+\_\+t $>$\+::resamp\+Log\+Wts (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_acb4e0a30658cf2c2b9ca2b9e16228c77}{array\+Vec}} \&}]{old\+Parts,  }\item[{\mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a28a075fde1da1f9452a887778a1e55fc}{array\+Float}} \&}]{old\+Log\+Un\+Norm\+Wts,  }\item[{const \mbox{\hyperlink{classpf_1_1resamplers_1_1rbase__hcs_a9bdaabee09c6a112ae4ce9965475cb66}{usvr}} \&}]{ur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Function to resample from log unnormalized weights. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\+Parts} & \\
+\hline
+{\em old\+Log\+Un\+Norm\+Wts} & \\
+\hline
+{\em ur} & common random number used to resample. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/pf/\mbox{\hyperlink{resamplers_8h}{resamplers.\+h}}\end{DoxyCompactItemize}
