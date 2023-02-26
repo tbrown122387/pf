@@ -209,7 +209,8 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t,debug>::filter(con
 	        if constexpr(debug)
                 std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
             #endif
-        
+        }
+
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
         float_t maxNumer = *std::max_element(m_logUnNormWeights.begin(), m_logUnNormWeights.end()); //because you added log adjustments
         float_t sumExp1(0.0);
