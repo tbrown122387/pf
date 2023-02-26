@@ -207,8 +207,7 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t,debug>::filter(con
 
             #ifndef DROPPINGTHISINRPACKAGE
 	        if constexpr(debug)
-                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
-            }
+                std::cout << "time: " << m_now << ", transposed sample: " << m_particles[ii].transpose() << ", log unnorm weight: " << m_logUnNormWeights[ii] << "\n";
             #endif
         
         // compute estimate of log p(y_t|y_{1:t-1}) with log-exp-sum trick
