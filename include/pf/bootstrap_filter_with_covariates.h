@@ -250,9 +250,8 @@ void BSFilterWC<nparts, dimx, dimy, dimcov, resamp_t, float_t,debug>::filter(con
 
         // advance time
         m_now += 1;       
-    } 
-    else // m_now == 0
-    {  
+    } else {  // m_now == 0
+        
         // only need to iterate over particles once
         for(size_t ii = 0; ii < nparts; ++ii)
         {
