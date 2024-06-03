@@ -502,13 +502,15 @@ float_t hmm<dimstate,dimobs,float_t,debug>::log_sum_exp(const ssv& logProbVec)
 template<size_t dimstate, size_t dimobs, typename float_t, bool debug>
 auto hmm<dimstate,dimobs,float_t,debug>::log_product(const ssMat& logTransMat, const ssv& logProbVec) -> ssv
 {
-    ssv col_sum;
-    float_t m = logTransMat.maxCoeff();
-    col_sum.fill(m);
+	float_t m = logTransMat.maxCoeff();
+	Eigen::Array<float_t,dimstate,1> not_logged = Eigen::Array<float_t,dimstate,1>::Zero();
     for(size_t ic = 0; ic < dimstate; ++ic){
-        col_sum = col_sum + (logTransMat.col(ic).array() + logProbVec(ic) - m).exp().matrix();
+        not_logged = not_logged + (logTransMat.col(ic).array() + logProbVec(ic) - m).exp();
     }
-    return col_sum;
+
+    ssv shift;
+    shift.fill(m);
+    return not_logged.log().matrix() + shift;
 }
 
 
@@ -522,7 +524,7 @@ void hmm<dimstate,dimobs,float_t,debug>::update(const ssv &logCondDensVec)
 
         #ifndef DROPPINGTHISINRPACKAGE 
         if constexpr(debug) 
-            std::cout << "logConDensVec sum " << logCondDensVec.sum() << ", p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVecLogProbs.sum() << ", lastCondlike: " << m_lastLogCondLike << "\n";
+            std::cout << "logConDensVec sum " << logCondDensVec.sum() << ", log p(y_t,x_t|y_{1:t-1}) sum: " << m_filtVecLogProbs.sum() << ", lastCondlike: " << m_lastLogCondLike << "\n";
         #endif
 
         m_filtVecLogProbs = (m_filtVecLogProbs.array() -  m_lastLogCondLike).matrix(); // now log p(x_t|y_{1:t})
