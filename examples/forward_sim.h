@@ -5,5 +5,4 @@
 
 void forward_sim();
 
-
-#endif //FORWARD_SIM_H
+#endif // FORWARD_SIM_H

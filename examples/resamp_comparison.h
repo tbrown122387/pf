@@ -5,5 +5,4 @@
 
 void run_resamp_comparison(const std::string &csv);
 
-
-#endif //RESAMP_COMPARISON_H
+#endif // RESAMP_COMPARISON_H

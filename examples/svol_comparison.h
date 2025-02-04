@@ -5,5 +5,4 @@
 
 void run_svol_comparison(const std::string &csv);
 
-
-#endif //SVOL_COMPARISON_H
+#endif // SVOL_COMPARISON_H
