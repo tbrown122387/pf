@@ -306,17 +306,24 @@ void resid_resampler<nparts, dimx, float_t>::resampLogWts(
     numRandomSamples += unNormWBar[i];
   }
 
-  // make multinomial distribution for residuals
-  std::discrete_distribution<> idxSampler(unNormWBar.begin(), unNormWBar.end());
-
   // start resampling by producing a count vector
   arrayInt sampleCounts;
   for (i = 0; i < nparts; ++i) {
     sampleCounts[i] =
         static_cast<unsigned int>(std::floor(nparts * w[i])); // initial
   }
-  for (i = 0; i < static_cast<unsigned int>(numRandomSamples); ++i) {
-    sampleCounts[idxSampler(this->m_gen)]++;
+
+  // make multinomial distribution for residuals, but only if there are any
+  // residuals to sample: unNormWBar may be all zeros (e.g. when all weight
+  // is concentrated on particles whose w[i]*nparts is already an integer),
+  // and std::discrete_distribution requires a positive weight sum.
+  unsigned int nRandomSamples = static_cast<unsigned int>(numRandomSamples);
+  if (nRandomSamples > 0) {
+    std::discrete_distribution<> idxSampler(unNormWBar.begin(),
+                                             unNormWBar.end());
+    for (i = 0; i < nRandomSamples; ++i) {
+      sampleCounts[idxSampler(this->m_gen)]++;
+    }
   }
 
   // now resample the particles using the counts
@@ -412,8 +419,9 @@ void stratif_resampler<nparts, dimx, float_t>::resampLogWts(
   arrayVec tmpPartics;
   for (size_t i = 0; i < nparts; ++i) { // tmpPartics, Uis
 
-    // find which index
-    unsigned int idx;
+    // find which index. default to the last one in case none of the
+    // cumsums satisfy the condition below due to floating point error
+    unsigned int idx = nparts - 1;
     for (unsigned int j = 0; j < nparts; ++j) {
 
       // get the first time it gets covered by a cumsum
@@ -507,7 +515,9 @@ void systematic_resampler<nparts, dimx, float_t>::resampLogWts(
   // resample
   // unlike stratified, take advantage of U's being sorted
   arrayVec tmpPartics;
-  unsigned idx;
+  // default to the last index in case none of the cumsums satisfy the
+  // condition below due to floating point error
+  unsigned idx = nparts - 1;
   unsigned int j = 0;
   for (size_t i = 0; i < nparts; ++i) { // tmpPartics, Uis
 
@@ -990,7 +1000,9 @@ void sys_hilb_resampler<nparts, dimx, num_hilb_bits, float_t>::resampLogWts(
   // resample
   // unlike stratified, take advantage of U's being sorted
   arrayVec tmpPartics;
-  unsigned idx;
+  // default to the last index in case none of the cumsums satisfy the
+  // condition below due to floating point error
+  unsigned idx = nparts - 1;
   unsigned int j = 0;
   for (size_t i = 0; i < nparts; ++i) { // tmpPartics, Uis
 

@@ -9,7 +9,7 @@ target_include_directories(${PROJECT_NAME}_test
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>)
 target_compile_features(${PROJECT_NAME}_test PUBLIC cxx_std_17)
-target_compile_options(${PROJECT_NAME}_test PRIVATE -Wall -Wextra)
+target_compile_options(${PROJECT_NAME}_test PRIVATE -Wall -Wextra -Werror)
 target_link_libraries(${PROJECT_NAME}_test Eigen3::Eigen Catch2::Catch2WithMain ${Boost_LIBRARIES})
 
 
