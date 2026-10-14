@@ -10,6 +10,13 @@ endif()
 
 include(GNUInstallDirs)
 
+# use Boost's own exported CMake config instead of CMake's bundled (and, as
+# of CMake 3.30, removed) FindBoost module, on CMake versions that know
+# about this policy
+if(POLICY CMP0167)
+  cmake_policy(SET CMP0167 NEW)
+endif()
+
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 find_package(Boost 1.65.1 REQUIRED)
 find_package(Catch2 3 REQUIRED)

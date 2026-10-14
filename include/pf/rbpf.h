@@ -890,7 +890,7 @@ template <size_t nparts, size_t dimnss, size_t dimss, size_t dimy,
           typename resamp_t, typename float_t, bool debug>
 rbpf_kalman<nparts, dimnss, dimss, dimy, resamp_t, float_t, debug>::rbpf_kalman(
     const unsigned int &resamp_sched)
-    : m_now(0), m_lastLogCondLike(0.0), m_rs(resamp_sched) {
+    : m_rs(resamp_sched), m_now(0), m_lastLogCondLike(0.0) {
   std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
@@ -954,13 +954,13 @@ void rbpf_kalman<nparts, dimnss, dimss, dimy, resamp_t, float_t, debug>::filter(
     // m_logUnNormWeights.end());
     for (auto &h : fs) {
 
-      Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+      Mat testOutput = h(m_p_innerMods[0].getFiltMean(), m_p_samps[0]);
       unsigned int rows = testOutput.rows();
       unsigned int cols = testOutput.cols();
       Mat numer = Mat::Zero(rows, cols);
       float_t denom(0.0);
       for (size_t prtcl = 0; prtcl < nparts; ++prtcl) {
-        numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) *
+        numer += h(m_p_innerMods[prtcl].getFiltMean(), m_p_samps[prtcl]) *
                  std::exp(m_logUnNormWeights[prtcl] - m1);
         denom += std::exp(m_logUnNormWeights[prtcl] - m1);
       }
@@ -1028,13 +1028,13 @@ void rbpf_kalman<nparts, dimnss, dimss, dimy, resamp_t, float_t, debug>::filter(
     // m_logUnNormWeights.end());
     for (auto &h : fs) {
 
-      Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+      Mat testOutput = h(m_p_innerMods[0].getFiltMean(), m_p_samps[0]);
       unsigned int rows = testOutput.rows();
       unsigned int cols = testOutput.cols();
       Mat numer = Mat::Zero(rows, cols);
       float_t denom(0.0);
       for (size_t prtcl = 0; prtcl < nparts; ++prtcl) {
-        numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) *
+        numer += h(m_p_innerMods[prtcl].getFiltMean(), m_p_samps[prtcl]) *
                  std::exp(m_logUnNormWeights[prtcl] - m1);
         denom += std::exp(m_logUnNormWeights[prtcl] - m1);
       }
@@ -1216,7 +1216,7 @@ template <size_t nparts, size_t dimnss, size_t dimss, size_t dimy,
           typename resamp_t, typename float_t, bool debug>
 rbpf_kalman_bs<nparts, dimnss, dimss, dimy, resamp_t, float_t,
                debug>::rbpf_kalman_bs(const unsigned int &resamp_sched)
-    : m_now(0), m_lastLogCondLike(0.0), m_rs(resamp_sched) {
+    : m_rs(resamp_sched), m_now(0), m_lastLogCondLike(0.0) {
   std::fill(m_logUnNormWeights.begin(), m_logUnNormWeights.end(), 0.0);
 }
 
@@ -1280,13 +1280,13 @@ void rbpf_kalman_bs<nparts, dimnss, dimss, dimy, resamp_t, float_t, debug>::
     // m_logUnNormWeights.end());
     for (auto &h : fs) {
 
-      Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+      Mat testOutput = h(m_p_innerMods[0].getFiltMean(), m_p_samps[0]);
       unsigned int rows = testOutput.rows();
       unsigned int cols = testOutput.cols();
       Mat numer = Mat::Zero(rows, cols);
       float_t denom(0.0);
       for (size_t prtcl = 0; prtcl < nparts; ++prtcl) {
-        numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) *
+        numer += h(m_p_innerMods[prtcl].getFiltMean(), m_p_samps[prtcl]) *
                  std::exp(m_logUnNormWeights[prtcl] - m1);
         denom += std::exp(m_logUnNormWeights[prtcl] - m1);
       }
@@ -1352,13 +1352,13 @@ void rbpf_kalman_bs<nparts, dimnss, dimss, dimy, resamp_t, float_t, debug>::
     // m_logUnNormWeights.end());
     for (auto &h : fs) {
 
-      Mat testOutput = h(m_p_innerMods[0].getFilterVec(), m_p_samps[0]);
+      Mat testOutput = h(m_p_innerMods[0].getFiltMean(), m_p_samps[0]);
       unsigned int rows = testOutput.rows();
       unsigned int cols = testOutput.cols();
       Mat numer = Mat::Zero(rows, cols);
       float_t denom(0.0);
       for (size_t prtcl = 0; prtcl < nparts; ++prtcl) {
-        numer += h(m_p_innerMods[prtcl].getFilterVec(), m_p_samps[prtcl]) *
+        numer += h(m_p_innerMods[prtcl].getFiltMean(), m_p_samps[prtcl]) *
                  std::exp(m_logUnNormWeights[prtcl] - m1);
         denom += std::exp(m_logUnNormWeights[prtcl] - m1);
       }

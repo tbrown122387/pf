@@ -149,7 +149,7 @@ private:
   bool m_fresh;
 
   /** @brief pi */
-  const float_t m_pi;
+  static constexpr float_t m_pi = 3.14159265358979;
 
   /**
    * @todo handle diagonal variance matrices, and ensure symmetricness in other
@@ -185,14 +185,14 @@ template <size_t dimstate, size_t dimobs, size_t diminput, typename float_t,
           bool debug>
 kalman<dimstate, dimobs, diminput, float_t, debug>::kalman()
     : bases::cf_filter<dimstate, dimobs, float_t>(), m_predMean(ssv::Zero()),
-      m_predVar(ssMat::Zero()), m_fresh(true), m_pi(3.14159265358979) {}
+      m_predVar(ssMat::Zero()), m_fresh(true) {}
 
 template <size_t dimstate, size_t dimobs, size_t diminput, typename float_t,
           bool debug>
 kalman<dimstate, dimobs, diminput, float_t, debug>::kalman(
     const ssv &initStateMean, const ssMat &initStateVar)
     : bases::cf_filter<dimstate, dimobs, float_t>(), m_predMean(initStateMean),
-      m_predVar(initStateVar), m_fresh(true), m_pi(3.14159265358979) {}
+      m_predVar(initStateVar), m_fresh(true) {}
 
 template <size_t dimstate, size_t dimobs, size_t diminput, typename float_t,
           bool debug>
