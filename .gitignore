@@ -45,3 +45,4 @@ examples/Debug
 examples/build
 smctc_comparison_example/build
 build
+CMakeFiles/
