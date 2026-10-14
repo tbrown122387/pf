@@ -4,6 +4,10 @@ project("pf" VERSION 1.0.1
              DESCRIPTION "A header-only c++ template library for fast particle filtering."
              HOMEPAGE_URL "https://github.com/tbrown122387/pf")
 
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
+endif()
+
 include(GNUInstallDirs)
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
