@@ -17,7 +17,18 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake libeigen3-dev libboost-dev libcatch2-dev
+          sudo apt-get install -y cmake libeigen3-dev libboost-dev
+
+      # Catch2 v3 isn't packaged for every Ubuntu release ubuntu-latest might
+      # resolve to (e.g. not on 24.04 "noble", unlike some other releases),
+      # so build and install it from source instead - this is also what the
+      # README itself documents as the supported path for a "system wide"
+      # Catch2 install.
+      - name: Install Catch2
+        run: |
+          git clone --depth 1 --branch v3.7.1 https://github.com/catchorg/Catch2.git /tmp/catch2
+          cmake -S /tmp/catch2 -B /tmp/catch2/build -DBUILD_TESTING=OFF
+          sudo cmake --build /tmp/catch2/build --target install --parallel
 
       - name: Configure
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
