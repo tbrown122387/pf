@@ -13,15 +13,5 @@ target_compile_options(${PROJECT_NAME}_test PRIVATE -Wall -Wextra -Werror)
 target_link_libraries(${PROJECT_NAME}_test Eigen3::Eigen Catch2::Catch2WithMain ${Boost_LIBRARIES})
 
 
-#add_test(NAME PF_resampler_tests COMMAND SI_detail_tests)
-#add_test(NAME SI_base_unit_tests COMMAND SI_base_unit_tests)
-#add_test(NAME SI_derived_unit_tests COMMAND SI_derived_unit_tests)
-
-
-#target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}/../include/pf)
-#target_link_libraries(${PROJECT_NAME} pf::pf Eigen3::Eigen ${Boost_LIBRARIES} Catch2::Catch2)
-
-#include(CTest) # not sure if this is 100% necessary
-#include(Catch)
-#catch_discover_tests(tests)
-#enable_testing()
+include(Catch)
+catch_discover_tests(${PROJECT_NAME}_test)
