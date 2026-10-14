@@ -672,11 +672,21 @@ public:
 
   //! Constructor
   /**
-   * @brief
-   * @param nOneTilde degrees of freedom for time 1 prior.
+   * @brief Constructs the filter, and fixes the discount factor for its
+   * entire lifetime so that the forecast mean/covariance are
+   * mathematically guaranteed to exist at every future time step (see
+   * getFcastMean()/getFcastCov()).
+   * @param nOneTilde degrees of freedom for time 1 prior. Must be strictly
+   * greater than 2/delta, or this throws.
    * @param dOneTilde rate parameter for time 1 prior.
+   * @param delta between 0 and 1 the discount parameter. Must be strictly
+   * greater than 2/3, or this throws: for delta <= 2/3, the degrees of
+   * freedom of the filtering distribution converges to a fixed point at
+   * or below 2/delta regardless of nOneTilde, so the forecast covariance
+   * would eventually become undefined no matter how this is initialized.
    */
-  multivGamFilter(const float_t &nOneTilde, const float_t &dOneTilde);
+  multivGamFilter(const float_t &nOneTilde, const float_t &dOneTilde,
+                  const float_t &delta);
 
   /**
    * @brief The (virtual) desuctor.
@@ -704,10 +714,8 @@ public:
    * @param xt the most recent predictor vector
    * @param B the loadings matrix
    * @param Sigma the observation "shape" matrix.
-   * @param delta between 0 and 1 the discount parameter
    */
-  void update(const osv &yt, const psv &xt, const bsm &B, const osm &Sigma,
-              const float_t &delta);
+  void update(const osv &yt, const psv &xt, const bsm &B, const osm &Sigma);
 
   //! Get the forecast mean (assuming filtering has been performed already)
   /**
@@ -715,11 +723,9 @@ public:
    * @param xtp1 the next time period's predictor vector
    * @param B the loadings matrix
    * @param Sigma the observation "shape" matrix
-   * @param delta between 0 and 1 the discount parameter
    * @return a mean vector
    */
-  osv getFcastMean(const psv &xtp1, const bsm &B, const osm &Sigma,
-                   const float_t &delta);
+  osv getFcastMean(const psv &xtp1, const bsm &B, const osm &Sigma);
 
   //! Get the forecast covariance matrix (assuming filtering has been performed
   //! already)
@@ -728,15 +734,16 @@ public:
    * @param xtp1 the next time period's predictor vector
    * @param B the loadings matrix
    * @param Sigma the observation "shape" matrix
-   * @param delta between 0 and 1 the discount parameter
    * @return a forecast covariance matrix
    */
-  osm getFcastCov(const psv &xtp1, const bsm &B, const osm &Sigma,
-                  const float_t &delta);
+  osm getFcastCov(const psv &xtp1, const bsm &B, const osm &Sigma);
 
 private:
   /** @brief filter vector (shape and rate) */
   tsv m_filtVec;
+
+  /** @brief the fixed discount factor for this filter's lifetime */
+  float_t m_delta;
 
   /** @brief last log of the conditional likelihood */
   float_t m_lastLogCondLike;
@@ -747,9 +754,23 @@ private:
 
 template <size_t dim_obs, size_t dim_pred, typename float_t>
 multivGamFilter<dim_obs, dim_pred, float_t>::multivGamFilter(
-    const float_t &nOneTilde, const float_t &dOneTilde)
-    : bases::cf_filter<1, dim_obs, float_t>(), m_lastLogCondLike(0.0),
-      m_fresh(true) {
+    const float_t &nOneTilde, const float_t &dOneTilde, const float_t &delta)
+    : bases::cf_filter<1, dim_obs, float_t>(), m_delta(delta),
+      m_lastLogCondLike(0.0), m_fresh(true) {
+  // see getFcastMean()/getFcastCov(): these two conditions are what
+  // guarantee degrees-of-freedom-at-time-t * delta stays above 2 forever,
+  // which is exactly what's needed for the forecast covariance to always
+  // be defined.
+  if (!(delta > 2.0 / 3.0))
+    throw std::invalid_argument(
+        "ME: delta must be > 2/3, otherwise the degrees of freedom of the "
+        "filtering distribution converge to a fixed point too small for "
+        "the forecast covariance to stay defined, regardless of "
+        "nOneTilde.\n");
+  if (!(nOneTilde > 2.0 / delta))
+    throw std::invalid_argument(
+        "ME: nOneTilde must be > 2/delta, otherwise the forecast "
+        "covariance is undefined for the first several updates.\n");
   m_filtVec(0) = nOneTilde;
   m_filtVec(1) = dOneTilde;
 }
@@ -772,8 +793,7 @@ template <size_t dim_obs, size_t dim_pred, typename float_t>
 void multivGamFilter<dim_obs, dim_pred, float_t>::update(const osv &yt,
                                                          const psv &xt,
                                                          const bsm &B,
-                                                         const osm &Sigma,
-                                                         const float_t &delta) {
+                                                         const osm &Sigma) {
 
   // Eigen's LLT/LDLT (used below, and inside evalMultivT()) only read one
   // triangular half of Sigma, so a non-symmetric Sigma would be silently
@@ -783,9 +803,6 @@ void multivGamFilter<dim_obs, dim_pred, float_t>::update(const osv &yt,
   // gracefully returns 0 density instead of garbage.
   if (!Sigma.isApprox(Sigma.transpose()))
     throw std::invalid_argument("ME: Sigma must be symmetric.\n");
-  if (delta <= 0)
-    throw std::invalid_argument(
-        "ME: delta has to be positive (you're not even checking Sigma).\n");
 
   if (m_fresh) // hasn't seen data before and so filtVec is just time 1 state
                // prior
@@ -800,8 +817,8 @@ void multivGamFilter<dim_obs, dim_pred, float_t>::update(const osv &yt,
 
   } else { // has seen data before
 
-    m_filtVec(0) *= delta;
-    m_filtVec(1) *= delta;
+    m_filtVec(0) *= m_delta;
+    m_filtVec(1) *= m_delta;
 
     osm scaleMat = Sigma * m_filtVec(1) / m_filtVec(0);
     osv modeVec = B * xt;
@@ -815,18 +832,20 @@ void multivGamFilter<dim_obs, dim_pred, float_t>::update(const osv &yt,
 
 template <size_t dim_obs, size_t dim_pred, typename float_t>
 auto multivGamFilter<dim_obs, dim_pred, float_t>::getFcastMean(
-    const psv &xtp1, const bsm &B, const osm &Sigma,
-    const float_t &delta) -> osv {
-  if (delta * m_filtVec(0) > 1.0)
-    return B * xtp1;
+    const psv &xtp1, const bsm &B, const osm & /*Sigma*/) -> osv {
+  // m_delta * m_filtVec(0) > 2 > 1 is a permanent invariant established by
+  // the constructor (see its validation of nOneTilde and delta), so the
+  // forecast mean always exists.
+  return B * xtp1;
 }
 
 template <size_t dim_obs, size_t dim_pred, typename float_t>
 auto multivGamFilter<dim_obs, dim_pred, float_t>::getFcastCov(
-    const psv &xtp1, const bsm &B, const osm &Sigma,
-    const float_t &delta) -> osm {
-  if (delta * m_filtVec(0) > 2.0)
-    return Sigma * delta * m_filtVec(1) / (delta * m_filtVec(0) - 2.0);
+    const psv & /*xtp1*/, const bsm & /*B*/, const osm &Sigma) -> osm {
+  // m_delta * m_filtVec(0) > 2 is a permanent invariant established by the
+  // constructor (see its validation of nOneTilde and delta), so the
+  // forecast covariance always exists.
+  return Sigma * m_delta * m_filtVec(1) / (m_delta * m_filtVec(0) - 2.0);
 }
 
 } // namespace filters
