@@ -461,7 +461,7 @@ public:
 
   /**
    * @brief Constructor that sets the seed.
-   * @param seed.
+   * @param seed the seed for the random number generator
    */
   systematic_resampler(unsigned long seed);
 

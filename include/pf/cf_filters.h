@@ -158,21 +158,23 @@ private:
 
   /**
    * @brief Predicts the next state.
-   * @param stateTransMat
-   * @param cholStateVar
-   * @param stateInptAffector
-   * @param inputData
+   * @param stateTransMat the state transition matrix
+   * @param cholStateVar the Cholesky decomposition of the state noise
+   * covariance matrix
+   * @param stateInptAffector maps the input data onto the state
+   * @param inputData the (possibly time-varying) input/covariate data
    */
   void updatePrior(const ssMat &stateTransMat, const ssMat &cholStateVar,
                    const siMat &stateInptAffector, const isv &inputData);
 
   /**
    * @brief Turns prediction into new filtering distribution.
-   * @param yt
-   * @param obsMat
-   * @param obsInptAffector
-   * @param inputData
-   * @param cholObsVar
+   * @param yt the most recent observation
+   * @param obsMat the observation matrix
+   * @param obsInptAffector maps the input data onto the observation
+   * @param inputData the (possibly time-varying) input/covariate data
+   * @param cholObsVar the Cholesky decomposition of the observation noise
+   * covariance matrix
    */
   void updatePosterior(const osv &yt, const obsStateSizeMat &obsMat,
                        const oiMat &obsInptAffector, const isv &inputData,
@@ -365,16 +367,21 @@ public:
   /**
    * @brief calculates the log of the sum of the exponentiated elements of a
    * Vector
-   * @param
-   * @return
+   * @param logProbVec a vector of log-probabilities
+   * @return the log of the sum of the exponentiated elements of logProbVec
    */
   float_t log_sum_exp(const ssv &logProbVec);
 
-  //!
+  //! multiplies a transition matrix by a probability vector, all in log space
   /**
-   * @brief
-   * @param
-   * @return
+   * @brief computes, in log space, the matrix-vector product of a
+   * (log-space) transition matrix and a (log-space) probability vector
+   * @param logTransMat the transition matrix, with each element stored as a
+   * log-probability
+   * @param logProbVec the probability vector, with each element stored as a
+   * log-probability
+   * @return the resulting vector, with each element stored as a
+   * log-probability
    */
   ssv log_product(const ssMat &logTransMat, const ssv &logProbVec);
 

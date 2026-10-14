@@ -58,7 +58,7 @@ public:
   /**
    * @brief the filtering function that must be defined
    * @param data the most recent observation
-   * @param filter functions whose expected value approx. is computed at each
+   * @param fs functions whose expected value approx. is computed at each
    * time step
    */
   virtual void filter(const obs_sized_vec &data,
@@ -125,7 +125,8 @@ public:
   /**
    * @brief the filtering function that must be defined
    * @param data the most recent observation
-   * @param filter functions whose expected value approx. is computed at each
+   * @param cov the most recent covariate vector
+   * @param fs functions whose expected value approx. is computed at each
    * time step
    */
   virtual void filter(const obs_sized_vec &data, const cov_sized_vec &cov,
@@ -190,7 +191,7 @@ public:
   /**
    * @brief the filtering function that must be defined
    * @param data the most recent observation
-   * @param filter functions whose expected value approx. is computed at each
+   * @param fs functions whose expected value approx. is computed at each
    * time step
    */
   virtual void filter(const obs_sized_vec &data,
@@ -239,16 +240,14 @@ public:
 
   /**
    * @brief returns a sample from the latent Markov transition
-   * @param the previous time's state vector
-   * @param the previous time's observation
+   * @param xtm1 the previous time's state vector
    * @return a state-sized vector for the xt sample
    */
   virtual state_sized_vec fSamp(const state_sized_vec &xtm1) = 0;
 
   /**
    * @brief returns a sample for the observed series
-   * @param the current time's state
-   * @param the previous time's observation
+   * @param xt the current time's state
    * @return a sample for the observation at this time step
    */
   virtual obs_sized_vec gSamp(const state_sized_vec &xt) = 0;
@@ -313,8 +312,8 @@ public:
 
   /**
    * @brief returns a sample from the latent Markov transition
-   * @param the previous time's state vector
-   * @param the previous time's observation
+   * @param xtm1 the previous time's state vector
+   * @param ytm1 the previous time's observation
    * @return a state-sized vector for the xt sample
    */
   virtual state_sized_vec fSamp(const state_sized_vec &xtm1,
@@ -322,8 +321,7 @@ public:
 
   /**
    * @brief returns a sample for the observed series
-   * @param the current time's state
-   * @param the previous time's observation
+   * @param xt the current time's state
    * @return a sample for the observation at this time step
    */
   virtual obs_sized_vec gSamp(const state_sized_vec &xt) = 0;
@@ -388,8 +386,8 @@ public:
   /**
    * @brief simulates future state and observations paths from
    * p(x_{t+1:T},y_{t+1:T} | y_{1:t}, theta)
-   * @param number of time steps into the future you want to simulate
-   * @param the most recent observation that you have available
+   * @param num_time_steps number of time steps into the future you want to
+   * simulate
    * @return one state path and one observation path for each state sample
    */
   manyPairs sim_future(unsigned int num_time_steps);
@@ -397,16 +395,16 @@ public:
   /**
    * @brief simulates future observation paths from p(y_{t+1:T} | y_{1:t},
    * theta)
-   * @param number of time steps into the future you want to simulate
-   * @param the most recent observation that you have available
+   * @param num_time_steps number of time steps into the future you want to
+   * simulate
    * @return one observation path for each state sample
    */
   obsPaths sim_future_obs(unsigned int num_time_steps);
 
   /**
    * @brief simulates future state paths from p(x_{t+1:T} | y_{1:t}, theta)
-   * @param number of time steps into the future you want to simulate
-   * @param the most recent observation that you have available
+   * @param num_time_steps number of time steps into the future you want to
+   * simulate
    * @return one state path for each state sample
    */
   statePaths sim_future_states(unsigned int num_time_steps);
@@ -418,15 +416,14 @@ public:
 
   /**
    * @brief returns a sample from the latent Markov transition
-   * @param the previous time's state value
-   * @param the previous time's observed value
+   * @param xtm1 the previous time's state value
    * @return a state-sized vector for the xt sample
    */
   virtual state_sized_vec fSamp(const state_sized_vec &xtm1) = 0;
 
   /**
    * @brief returns a sample for the observed series
-   * @param the current time step's state value
+   * @param xt the current time step's state value
    * @return an observation sample for the current time step
    */
   virtual obs_sized_vec gSamp(const state_sized_vec &xt) = 0;
@@ -536,8 +533,9 @@ public:
   /**
    * @brief simulates future state and observations paths from
    * p(x_{t+1:T},y_{t+1:T} | y_{1:t}, theta)
-   * @param number of time steps into the future you want to simulate
-   * @param the most recent observation that you have available
+   * @param num_time_steps number of time steps into the future you want to
+   * simulate
+   * @param yt the most recent observation that you have available
    * @return one state path and one observation path for each state sample
    */
   manyPairs sim_future(unsigned int num_time_steps, const obs_sized_vec &yt);
@@ -545,16 +543,18 @@ public:
   /**
    * @brief simulates future observation paths from p(y_{t+1:T} | y_{1:t},
    * theta)
-   * @param number of time steps into the future you want to simulate
-   * @param the most recent observation that you have available
+   * @param num_time_steps number of time steps into the future you want to
+   * simulate
+   * @param yt the most recent observation that you have available
    * @return one observation path for each state sample
    */
   obsPaths sim_future_obs(unsigned int num_time_steps, const obs_sized_vec &yt);
 
   /**
    * @brief simulates future state paths from p(x_{t+1:T} | y_{1:t}, theta)
-   * @param number of time steps into the future you want to simulate
-   * @param the most recent observation that you have available
+   * @param num_time_steps number of time steps into the future you want to
+   * simulate
+   * @param yt the most recent observation that you have available
    * @return one state path for each state sample
    */
   statePaths sim_future_states(unsigned int num_time_steps,
@@ -567,8 +567,8 @@ public:
 
   /**
    * @brief returns a sample from the latent Markov transition
-   * @param the previous time's state value
-   * @param the previous time's observed value
+   * @param xtm1 the previous time's state value
+   * @param ytm1 the previous time's observed value
    * @return a state-sized vector for the xt sample
    */
   virtual state_sized_vec fSamp(const state_sized_vec &xtm1,
@@ -576,7 +576,7 @@ public:
 
   /**
    * @brief returns a sample for the observed series
-   * @param the current time step's state value
+   * @param xt the current time step's state value
    * @return an observation sample for the current time step
    */
   virtual obs_sized_vec gSamp(const state_sized_vec &xt) = 0;
@@ -657,7 +657,7 @@ auto GenFutureSimulator<dimx, dimy, float_t, nparts>::sim_future_states(
 /**
  * @class cf_filter
  * @author taylor
- * @file cf_filters.h
+ * @file pf_base.h
  * @brief forces structure on the closed-form filters.
  */
 template <size_t dimstate, size_t dimobs, typename float_t> class cf_filter {
@@ -688,7 +688,7 @@ cf_filter<dimstate, dimobs, float_t>::~cf_filter() {}
 
 /**
  * @author taylor
- * @file pf_base_crn.h
+ * @file pf_base.h
  * @brief All particle filters that use common random numbers must inherit from
  * this.
  * @tparam float_t (e.g. double, float, etc.)
@@ -740,7 +740,9 @@ public:
   /**
    * @brief the filtering function that must be defined
    * @param data the most recent observation
-   * @param filter functions whose expected value approx. is computed at each
+   * @param Us the common random numbers used to sample each particle's state
+   * @param Uresamp the common random numbers used to resample
+   * @param fs functions whose expected value approx. is computed at each
    * time step
    */
   virtual void filter(const obs_sized_vec &data,

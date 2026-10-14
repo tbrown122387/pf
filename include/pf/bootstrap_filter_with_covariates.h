@@ -70,8 +70,8 @@ public:
   /**
    * @brief updates filtering distribution on a new datapoint.
    * Optionally stores expectations of functionals.
-   * @param data the most recent data point
-   * @param covData covariate data
+   * @param ydata the most recent data point
+   * @param covdata covariate data
    * @param fs a vector of functions if you want to calculate expectations.
    */
   void filter(
