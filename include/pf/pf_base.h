@@ -460,7 +460,9 @@ auto FutureSimulator<dimx, dimy, float_t, nparts>::sim_future(
 
     // add time period content
     allFutures.push_back(
-        timePair(states, observations)); // TODO make sure deep copy
+        timePair(states, observations)); // std::array/Eigen::Matrix copy
+                                          // construction is always a deep
+                                          // copy, so this is safe
     past_states = states;
   }
 
@@ -615,7 +617,9 @@ auto GenFutureSimulator<dimx, dimy, float_t, nparts>::sim_future(
 
     // add time period content
     allFutures.push_back(
-        timePair(states, observations)); // TODO make sure deep copy
+        timePair(states, observations)); // std::array/Eigen::Matrix copy
+                                          // construction is always a deep
+                                          // copy, so this is safe
     past_states = states;
     past_obs = observations;
   }

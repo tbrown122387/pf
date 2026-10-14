@@ -775,7 +775,14 @@ void multivGamFilter<dim_obs, dim_pred, float_t>::update(const osv &yt,
                                                          const osm &Sigma,
                                                          const float_t &delta) {
 
-  // TODO: doesn't check that Sigma is positive definite or symmetric!
+  // Eigen's LLT/LDLT (used below, and inside evalMultivT()) only read one
+  // triangular half of Sigma, so a non-symmetric Sigma would be silently
+  // and incorrectly treated as symmetric instead of causing an error.
+  // Non-positive-definiteness doesn't need a separate check here:
+  // evalMultivT() already detects it (via Eigen::LLT::info()) and
+  // gracefully returns 0 density instead of garbage.
+  if (!Sigma.isApprox(Sigma.transpose()))
+    throw std::invalid_argument("ME: Sigma must be symmetric.\n");
   if (delta <= 0)
     throw std::invalid_argument(
         "ME: delta has to be positive (you're not even checking Sigma).\n");
