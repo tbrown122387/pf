@@ -3,6 +3,7 @@
 
 #include <array>
 #include <functional>
+#include <iostream>
 #include <vector>
 
 #ifdef DROPPINGTHISINRPACKAGE

@@ -2,6 +2,7 @@
 #define SISR_FILTER_H
 
 #include <array>
+#include <iostream>
 
 #ifdef DROPPINGTHISINRPACKAGE
 #include <RcppEigen.h>

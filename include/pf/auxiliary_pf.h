@@ -3,6 +3,7 @@
 
 #include <array>      //array
 #include <functional> // function
+#include <iostream>   // cout
 #include <vector>     // vector
 
 #ifdef DROPPINGTHISINRPACKAGE

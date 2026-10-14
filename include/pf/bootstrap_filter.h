@@ -2,6 +2,7 @@
 #define BOOTSTRAP_FILTER_H
 
 #include <array>
+#include <iostream>
 #include <vector>
 
 #ifdef DROPPINGTHISINRPACKAGE

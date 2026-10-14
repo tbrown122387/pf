@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-file(GLOB SOURCES ${CMAKE_SOURCE_DIR}/test/*.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/test/*.cpp)
 add_executable(${PROJECT_NAME}_test ${SOURCES})
 
 
